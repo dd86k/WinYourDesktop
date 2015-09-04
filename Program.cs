@@ -49,7 +49,7 @@ namespace WinYourDesktop
                         break;
 
                     case "--version":
-
+                        ShowVersion();
                         return 0;
 
                     case "--help":

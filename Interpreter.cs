@@ -44,9 +44,13 @@ namespace WinYourDesktop
             string[] line = new string[0];
             dType Type = dType.Unknown;
             string exec = string.Empty;
+            string url = string.Empty;
+            string path = string.Empty;
             for (int i = 1; i < lines.Length; i++)
             {
-                if (lines[i][0] != '#') // Avoid comments
+                //TODO: lines[i][0] == '[' // Group header
+
+                if (lines[i][0] != '#' || lines[i][0] == '[') // Avoid comments and group headers for now
                 {
                     line = lines[i].Split(new char[] { '=' }, StringSplitOptions.RemoveEmptyEntries);
 
@@ -56,7 +60,7 @@ namespace WinYourDesktop
                     switch (line[0].Trim())
                     {
                         case "Type":
-                            switch (line[1])
+                            switch (line[1].Trim())
                             {
                                 case "Application": Type = dType.Application; break;
                                 case "Link": Type = dType.Link; break;
@@ -64,24 +68,37 @@ namespace WinYourDesktop
                             }
                             break;
 
+                        case "TryExec":
                         case "Exec":
                             exec = line[1];
+                            break;
+
+                        case "URL":
+                            url = line[1];
+                            break;
+
+                        case "Path":
+                            path = line[1];
                             break;
                     }
                 }
             }
 
             if (Type == dType.Unknown)
-                throw new Exception("Unknown Type value!");
+                throw new Exception("Unknown or missing Type value!");
 
             switch (Type)
             {
                 case dType.Application:
                     System.Diagnostics.Process.Start(exec);
                     break;
+
                 case dType.Link:
+                    System.Diagnostics.Process.Start(url);
                     break;
+
                 case dType.Directory:
+                    System.Diagnostics.Process.Start($"explorer {path}");
                     break;
             }
         }

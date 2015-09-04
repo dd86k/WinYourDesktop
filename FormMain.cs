@@ -3,11 +3,18 @@ using System.Windows.Forms;
 
 namespace WinYourDesktop
 {
-    public partial class FormMain : Form
+    internal partial class FormMain : Form
     {
-        public FormMain()
+        internal FormMain() : this(string.Empty)
+        {
+
+        }
+
+        internal FormMain(string pDesktopFilePath)
         {
             InitializeComponent();
+
+
         }
     }
 }
