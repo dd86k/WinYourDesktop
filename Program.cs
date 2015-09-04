@@ -64,6 +64,8 @@ namespace WinYourDesktop
                 }
             }
 
+            //TODO: --showui + path => Edit file
+
             if (filepath != string.Empty)
             {
                 try
@@ -74,7 +76,7 @@ namespace WinYourDesktop
                 {
                     string nl = Environment.NewLine;
                     MessageBox.Show($"There was an error interpreting the desktop file. {nl + nl}" +
-                        $"Exception: {ex.GetType()} ({ex.HResult.ToString("x8")}) {nl}" +
+                        $"Exception: {ex.GetType()} {nl}" +
                         $"Message: {ex.Message}",
                         "Oops!",
                         MessageBoxButtons.OK);
