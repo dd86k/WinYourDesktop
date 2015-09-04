@@ -34,6 +34,10 @@ namespace WinYourDesktop
                     case "--touch":
 
                         break;
+                    case "-D":
+                    case "--debug":
+
+                        break;
                     default:
                         filepath = arg;
                         break;
