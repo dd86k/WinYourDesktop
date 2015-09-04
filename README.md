@@ -11,6 +11,22 @@ Desktop (.desktop) files.
 
 And I'm bringing, or will try to bring, an implementation for Windows.
 
+# How do I use it?
+
+## Via CLI
+
+C:\\>WinYourDesktop test.desktop
+
+## Via GUI
+
+Comming at some point!
+
+## Open automatically
+
+To make WinYourDesktop open desktop file, go in the properties of a desktop file (via right click), then make WinYourDesktop open desktop files by default.
+
+tl;dr: Right click desktop file, Properties, Make default.
+
 # Notes
 
 - Straightforward and simple thing for now.
