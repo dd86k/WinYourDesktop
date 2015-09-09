@@ -68,17 +68,33 @@ namespace WinYourDesktop
 
             if (filepath != string.Empty)
             {
+                string nl = Environment.NewLine;
                 try
                 {
                     Interpreter.Run(filepath);
                 }
+                catch (System.IO.FileNotFoundException ex)
+                {
+                    MessageBox.Show($"The file could not be found. {nl + nl}" +
+                        $"Exception: {ex.GetType()} {nl}" +
+                        $"Message: {ex.Message}",
+                        $"Oops! - {ex.GetType()}",
+                        MessageBoxButtons.OK);
+                }
+                catch (System.IO.DirectoryNotFoundException ex)
+                {
+                    MessageBox.Show($"The directory could not be found. {nl + nl}" +
+                        $"Exception: {ex.GetType()} {nl}" +
+                        $"Message: {ex.Message}",
+                        $"Oops! - {ex.GetType()}",
+                        MessageBoxButtons.OK);
+                }
                 catch (Exception ex)
                 {
-                    string nl = Environment.NewLine;
                     MessageBox.Show($"There was an error interpreting the desktop file. {nl + nl}" +
                         $"Exception: {ex.GetType()} {nl}" +
                         $"Message: {ex.Message}",
-                        "Oops!",
+                        $"Oops! - {ex.GetType()}",
                         MessageBoxButtons.OK);
                 }
             }

@@ -46,6 +46,7 @@ namespace WinYourDesktop
             string exec = string.Empty;
             string url = string.Empty;
             string path = string.Empty;
+            bool terminal = false;
             for (int i = 1; i < lines.Length; i++)
             {
                 //TODO: lines[i][0] == '[' // Group header
@@ -55,7 +56,7 @@ namespace WinYourDesktop
                     line = lines[i].Split(new char[] { '=' }, StringSplitOptions.RemoveEmptyEntries);
 
                     if (line.Length < 2)
-                        throw new Exception($"Failed to split key and value at line {i}.{Environment.NewLine}Missing operator? ('=')");
+                        throw new Exception($"Failed to split key and value at line {i}.{Environment.NewLine}Missing '=' operator?");
 
                     switch (line[0].Trim())
                     {
@@ -80,6 +81,11 @@ namespace WinYourDesktop
                         case "Path":
                             path = line[1];
                             break;
+
+                        case "Terminal":
+                            if (line[1] == "true")
+                                terminal = true;
+                            break;
                     }
                 }
             }
@@ -90,7 +96,33 @@ namespace WinYourDesktop
             switch (Type)
             {
                 case dType.Application:
-                    System.Diagnostics.Process.Start(exec);
+                    try
+                    {
+                        if (terminal)
+                        { //TODO: Fix when using Terminal=true
+                            System.Diagnostics.Process.Start("CMD.exe", exec);
+                        }
+                        else
+                        {
+                            string[] execs = new string[0];
+                            if (exec.Contains(" "))
+                                execs = exec.Split(new char[] { ' ' }, 2);
+
+                            if (execs.Length > 0)
+                                System.Diagnostics.Process.Start(execs[0], execs[1]);
+                            else
+                                System.Diagnostics.Process.Start(exec);
+
+                        }
+                    }
+                    catch (System.IO.FileNotFoundException)
+                    {
+                        /*
+                        if (execs.Length > 0)
+                            System.Diagnostics.Process.Start($"{Environment.SystemDirectory + System.IO.Path.DirectorySeparatorChar + execs[0]}", execs[1]);
+                        else*/
+                            System.Diagnostics.Process.Start($"{Environment.SystemDirectory + System.IO.Path.DirectorySeparatorChar + exec}");
+                    }
                     break;
 
                 case dType.Link:
