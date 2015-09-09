@@ -8,7 +8,7 @@ namespace WinYourDesktop
     /// Most useful page:
     /// http://standards.freedesktop.org/desktop-entry-spec/latest/ar01s05.html
     /// </summary>
-    class Interpreter
+    static class Interpreter
     {
         enum dType
         {
@@ -51,12 +51,12 @@ namespace WinYourDesktop
             {
                 //TODO: lines[i][0] == '[' // Group header
 
-                if (lines[i][0] != '#' || lines[i][0] == '[') // Avoid comments and group headers for now
+                if (lines[i][0] != '#' || lines[i][0] != '[') // Avoid comments. And group headers, for now.
                 {
                     line = lines[i].Split(new char[] { '=' }, StringSplitOptions.RemoveEmptyEntries);
 
-                    if (line.Length < 2)
-                        throw new Exception($"Failed to split key and value at line {i}.{Environment.NewLine}Missing '=' operator?");
+                    if (line.Length < 2) // i + 1 is because we start at 1, due to [Desktop Entry]
+                        throw new Exception($"Failed to split key and value at line {i + 1}.{Environment.NewLine}Missing '=' operator?");
 
                     switch (line[0].Trim())
                     {
@@ -83,7 +83,7 @@ namespace WinYourDesktop
                             break;
 
                         case "Terminal":
-                            if (line[1] == "true")
+                            if (line[1].Trim() == "true")
                                 terminal = true;
                             break;
                     }
@@ -96,40 +96,52 @@ namespace WinYourDesktop
             switch (Type)
             {
                 case dType.Application:
+                    // Launch an application.
+                    string[] execs = new string[0];
+                    if (exec.Contains(" "))
+                        execs = exec.Split(new char[] { ' ' }, 2);
+
+                    //TODO: Check if splitting the Value with a first space is really worth it.
+                    //TODO: Fix Terminal key usage.
+
                     try
                     {
                         if (terminal)
-                        { //TODO: Fix when using Terminal=true
-                            System.Diagnostics.Process.Start("CMD.exe", exec);
+                        {
+                            System.Diagnostics.Process.Start($"start cmd {exec}");
                         }
                         else
                         {
-                            string[] execs = new string[0];
-                            if (exec.Contains(" "))
-                                execs = exec.Split(new char[] { ' ' }, 2);
-
                             if (execs.Length > 0)
                                 System.Diagnostics.Process.Start(execs[0], execs[1]);
                             else
                                 System.Diagnostics.Process.Start(exec);
-
                         }
                     }
-                    catch (System.IO.FileNotFoundException)
+                    catch (Exception ex)
                     {
-                        /*
-                        if (execs.Length > 0)
-                            System.Diagnostics.Process.Start($"{Environment.SystemDirectory + System.IO.Path.DirectorySeparatorChar + execs[0]}", execs[1]);
-                        else*/
-                            System.Diagnostics.Process.Start($"{Environment.SystemDirectory + System.IO.Path.DirectorySeparatorChar + exec}");
+                        if (ex is System.ComponentModel.Win32Exception || ex is System.IO.FileNotFoundException)
+                        {
+                            string syspath = Environment.SystemDirectory + System.IO.Path.DirectorySeparatorChar;
+
+                            if (execs.Length > 0)
+                                System.Diagnostics.Process.Start($"{syspath + execs[0]}", execs[1]);
+                            else
+                                System.Diagnostics.Process.Start($"{syspath + exec}");
+                        }
+                        else
+                            throw;
                     }
                     break;
 
                 case dType.Link:
+                    // Launch the user's default application that handles URLs.
                     System.Diagnostics.Process.Start(url);
                     break;
 
                 case dType.Directory:
+                    // Open File Explorer with a specific path/directory.
+                    //TODO: Check if directory
                     System.Diagnostics.Process.Start($"explorer {path}");
                     break;
             }

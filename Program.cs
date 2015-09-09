@@ -1,6 +1,14 @@
 ﻿using System;
 using System.Windows.Forms;
 
+// Icon handling in Windows:
+// Also why this will be pretty hard to implement.
+// WARNING: C++ WOULD HAVE TO BE USED.
+//https://msdn.microsoft.com/en-us/library/windows/desktop/ff521690(v=vs.85).aspx
+
+// Windows console error codes:
+//http://www.symantec.com/connect/articles/windows-system-error-codes-exit-codes-description
+
 namespace WinYourDesktop
 {
     static class Program
@@ -9,7 +17,17 @@ namespace WinYourDesktop
         {
             get
             {
-                return $"{System.Reflection.Assembly.GetExecutingAssembly().GetName().Version}";
+                return
+                    $"{System.Reflection.Assembly.GetExecutingAssembly().GetName().Version}";
+            }
+        }
+
+        static string ProjectName
+        {
+            get
+            {
+                return
+                    $"{System.Reflection.Assembly.GetExecutingAssembly().GetName().Name}";
             }
         }
 
@@ -35,25 +53,33 @@ namespace WinYourDesktop
                 {
                     case "-S":
                     case "--showui":
+                    case "/S":
+                    case "/showui":
                         ShowForm();
                         return 0;
 
                     case "-C":
                     case "--createdummy":
+                    case "/C":
+                    case "/createdummy":
                         CreateDummy();
                         return 0;
 
                     case "-D":
                     case "--debug":
+                    case "/D":
+                    case "/debug":
 
                         break;
 
                     case "--version":
+                    case "/version":
                         ShowVersion();
                         return 0;
 
                     case "--help":
                     case "/?":
+                    case "/help":
                         ShowHelp();
                         return 0;
 
@@ -73,29 +99,45 @@ namespace WinYourDesktop
                 {
                     Interpreter.Run(filepath);
                 }
+                catch (System.ComponentModel.Win32Exception ex)
+                {
+                    MessageBox.Show($"A Win32 error happened.{nl + nl}" +
+                           $"Exception: {ex.GetType() + nl}" +
+                           $"Message: {ex.Message}",
+                           $"Oops! - {ProjectName} - {ProjectVersion}",
+                           MessageBoxButtons.OK);
+
+                    return 2;
+                }
                 catch (System.IO.FileNotFoundException ex)
                 {
-                    MessageBox.Show($"The file could not be found. {nl + nl}" +
-                        $"Exception: {ex.GetType()} {nl}" +
+                    MessageBox.Show($"The file could not be found.{nl + nl}" +
+                        $"Exception: {ex.GetType() + nl}" +
                         $"Message: {ex.Message}",
-                        $"Oops! - {ex.GetType()}",
+                        $"Oops! - {ProjectName} - {ProjectVersion}",
                         MessageBoxButtons.OK);
+
+                    return 2;
                 }
                 catch (System.IO.DirectoryNotFoundException ex)
                 {
-                    MessageBox.Show($"The directory could not be found. {nl + nl}" +
-                        $"Exception: {ex.GetType()} {nl}" +
+                    MessageBox.Show($"The directory could not be found.{nl + nl}" +
+                        $"Exception: {ex.GetType() + nl}" +
                         $"Message: {ex.Message}",
-                        $"Oops! - {ex.GetType()}",
+                        $"Oops! - {ProjectName} - {ProjectVersion}",
                         MessageBoxButtons.OK);
+
+                    return 3;
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"There was an error interpreting the desktop file. {nl + nl}" +
-                        $"Exception: {ex.GetType()} {nl}" +
+                    MessageBox.Show($"There was an error interpreting the desktop file.{nl + nl}" +
+                        $"Exception: {ex.GetType() + nl}" +
                         $"Message: {ex.Message}",
-                        $"Oops! - {ex.GetType()}",
+                        $"Oops! - {ProjectName} - {ProjectVersion}",
                         MessageBoxButtons.OK);
+
+                    return 1;
                 }
             }
 
@@ -111,7 +153,8 @@ namespace WinYourDesktop
                 tw.WriteLine("#This is a simple generated dummy desktop file.");
                 tw.WriteLine("Type=Application");
                 tw.WriteLine("Name=Dummy Desktop File");
-                tw.WriteLine("#Exec=cmd");
+                tw.WriteLine("Exec=echo hi & pause");
+                tw.WriteLine("Terminal=true");
                 tw.Close();
             }
         }
@@ -127,12 +170,12 @@ namespace WinYourDesktop
         {
             Console.WriteLine(" Usage:");
             Console.WriteLine("  WinYourDesktop [options]");
-            Console.WriteLine("  --showui, -S        Show the user interface.");
-            Console.WriteLine("  --createdummy, -C   Create a dummy desktop file.");
-            Console.WriteLine("  --debug, -D         Show debugging information in a console.");
+            Console.WriteLine("  /showui, /S        Show the user interface.");
+            Console.WriteLine("  /createdummy, /C   Create a dummy desktop file.");
+            Console.WriteLine("  /debug, /D         Show debugging information in a console.");
             Console.WriteLine();
-            Console.WriteLine("  --help, /?   Shows this screen");
-            Console.WriteLine("  --version    Shows version");
+            Console.WriteLine("  /help, /?   Shows this screen and exits.");
+            Console.WriteLine("  /version    Shows version and exits.");
         }
 
         static void ShowVersion()
