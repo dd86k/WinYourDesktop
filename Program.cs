@@ -31,6 +31,8 @@ namespace WinYourDesktop
             }
         }
 
+        static internal bool Debugging = false;
+
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -69,7 +71,7 @@ namespace WinYourDesktop
                     case "--debug":
                     case "/D":
                     case "/debug":
-
+                        Debugging = true;
                         break;
 
                     case "--version":

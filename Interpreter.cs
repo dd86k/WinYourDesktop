@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 
 namespace WinYourDesktop
 {
@@ -20,14 +21,23 @@ namespace WinYourDesktop
 
         static internal void Run(string pPath)
         {
+            if (Program.Debugging)
+            {
+                Console.WriteLine("=== Debugging information ===");
+                Console.WriteLine($"Command line: {Environment.CommandLine}");
+                Console.WriteLine($"Current directory: {Environment.CurrentDirectory}");
+                Console.WriteLine();
+                Console.WriteLine("Scanning file...");
+            }
+
             if (pPath == null || pPath == string.Empty)
                 throw new NullReferenceException("Specified path is null or empty.");
             
-            if (!System.IO.File.Exists(pPath))
-                throw new System.IO.FileNotFoundException($"Specified desktop file doesn't exist.{Environment.NewLine}Path: {pPath}");
+            if (!File.Exists(pPath))
+                throw new FileNotFoundException($"Specified desktop file doesn't exist.{Environment.NewLine}Path: {pPath}");
 
             string text = string.Empty;
-            using (System.IO.TextReader tr = new System.IO.StreamReader(pPath))
+            using (TextReader tr = new StreamReader(pPath))
             {
                 text = tr.ReadToEnd();
                 tr.Close();
@@ -93,6 +103,9 @@ namespace WinYourDesktop
             if (Type == dType.Unknown)
                 throw new Exception("Unknown or missing Type value!");
 
+            if (Program.Debugging)
+                Console.WriteLine($"Type: {Type}");
+
             switch (Type)
             {
                 case dType.Application:
@@ -108,21 +121,34 @@ namespace WinYourDesktop
                     {
                         if (terminal)
                         {
+                            if (Program.Debugging)
+                                Console.WriteLine($"Line: start cmd {exec}");
+
                             System.Diagnostics.Process.Start($"start cmd {exec}");
                         }
                         else
                         {
                             if (execs.Length > 0)
+                            {
+                                if (Program.Debugging)
+                                    Console.WriteLine($"Line: {execs[0] + " " + execs[1]}");
+
                                 System.Diagnostics.Process.Start(execs[0], execs[1]);
+                            }
                             else
+                            {
+                                if (Program.Debugging)
+                                    Console.WriteLine($"Line: {exec}");
+
                                 System.Diagnostics.Process.Start(exec);
+                            }
                         }
                     }
                     catch (Exception ex)
                     {
-                        if (ex is System.ComponentModel.Win32Exception || ex is System.IO.FileNotFoundException)
+                        if (ex is System.ComponentModel.Win32Exception || ex is FileNotFoundException)
                         {
-                            string syspath = Environment.SystemDirectory + System.IO.Path.DirectorySeparatorChar;
+                            string syspath = Environment.SystemDirectory + Path.DirectorySeparatorChar;
 
                             if (execs.Length > 0)
                                 System.Diagnostics.Process.Start($"{syspath + execs[0]}", execs[1]);
@@ -130,7 +156,7 @@ namespace WinYourDesktop
                                 System.Diagnostics.Process.Start($"{syspath + exec}");
                         }
                         else
-                            throw;
+                            throw; // Rethrow same exception.
                     }
                     break;
 
@@ -141,8 +167,19 @@ namespace WinYourDesktop
 
                 case dType.Directory:
                     // Open File Explorer with a specific path/directory.
-                    //TODO: Check if directory
-                    System.Diagnostics.Process.Start($"explorer {path}");
+                    if (Directory.Exists(path))
+                    {
+                        if (Program.Debugging)
+                            Console.WriteLine($"Path: {path}");
+
+                        string expath = $"{Directory.GetParent(Environment.SystemDirectory).ToString() + Path.DirectorySeparatorChar}explorer";
+
+                        System.Diagnostics.Process.Start($"{expath}", $"{Path.GetFullPath(path)}");
+                    }
+                    else
+                    {
+                        throw new DirectoryNotFoundException($"Path \"{path}\" could not be found.");
+                    }
                     break;
             }
         }

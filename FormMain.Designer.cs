@@ -29,12 +29,12 @@
         {
             this.MainMenuStrip = new System.Windows.Forms.MenuStrip();
             this.tsmiApplication = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.MainStatusStrip = new System.Windows.Forms.StatusStrip();
             this.btnRun = new System.Windows.Forms.Button();
             this.btnEdit = new System.Windows.Forms.Button();
             this.btnDebug = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.MainMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -55,6 +55,12 @@
             this.tsmiApplication.Name = "tsmiApplication";
             this.tsmiApplication.Size = new System.Drawing.Size(80, 20);
             this.tsmiApplication.Text = "Application";
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(24, 20);
+            this.toolStripMenuItem1.Text = "?";
             // 
             // MainStatusStrip
             // 
@@ -112,12 +118,6 @@
             this.button4.Text = "button4";
             this.button4.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.button4.UseVisualStyleBackColor = true;
-            // 
-            // toolStripMenuItem1
-            // 
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(24, 20);
-            this.toolStripMenuItem1.Text = "?";
             // 
             // FormMain
             // 
