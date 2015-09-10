@@ -178,7 +178,7 @@ namespace WinYourDesktop
                     }
                     else
                     {
-                        throw new DirectoryNotFoundException($"Path \"{path}\" could not be found.");
+                        throw new DirectoryNotFoundException($"Directory \"{path}\" could not be found.");
                     }
                     break;
             }

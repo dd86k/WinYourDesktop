@@ -47,6 +47,7 @@ namespace WinYourDesktop
             }
 
             string filepath = string.Empty;
+            bool showform = false;
 
             // CLI arguments
             foreach (string arg in args)
@@ -57,7 +58,7 @@ namespace WinYourDesktop
                     case "--showui":
                     case "/S":
                     case "/showui":
-                        ShowForm();
+                        showform = true;
                         return 0;
 
                     case "-C":
@@ -93,6 +94,12 @@ namespace WinYourDesktop
             }
 
             //TODO: --showui + path => Edit file
+            if (showform)
+            {
+                ShowForm(filepath);
+
+                return 0;
+            }
 
             if (filepath != string.Empty)
             {
@@ -163,9 +170,14 @@ namespace WinYourDesktop
 
         static void ShowForm()
         {
+            ShowForm(null);
+        }
+
+        static void ShowForm(string pFile)
+        {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FormMain());
+            Application.Run(new FormMain(pFile));
         }
 
         static void ShowHelp()
