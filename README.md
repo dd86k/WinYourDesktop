@@ -3,29 +3,57 @@
 
 You know what I don't like on Windows?
 
-Shortcut (.lnk) files.
+Windows File Shortcut (.lnk) files.
 
 You know what I loved when I stayed on Linux Mint?
 
 Desktop Entry (.desktop) files.
 
-_WinYourDesktop_ is a loose and simple Desktop Entry file interpreter for Windows.
+__WinYourDesktop__ is a loose (not strict by standard) and simple Desktop Entry file interpreter for Windows.
 
-# What is working so far?
+# What is going on?
 
-- Absolute paths
-- Relative paths (Soon!)
+| General | Progress |
+| --- | --- |
+| Absolute paths | Done |
+| Relative paths | Testing - 90% |
+| System paths | Assumed done |
+| UI App | Working - 10% |
 
-- Type
-  - Application
-    - Executable
-    - Executable with arguments
-    - Terminal (cmd) applications
-    - Normal cmd commands
-  - Directory
-    - Path
-  - Link
-    - URL
+---
+
+| Application type | Progress |
+| --- | --- |
+| Exec | Working - 80% |
+| TryExec | Working - 80% |
+
+- Executable
+- Executable + arguments
+- Terminal applications (CLI)
+- Terminal applications (CLI) + arguments
+- Batch (Hopefully soon!)
+- Batch scripts (Untested)
+
+---
+
+| Directory type | Progress |
+| --- | --- |
+| Path | Done |
+
+---
+
+| Link type | Progress |
+| --- | --- |
+| URL | Done |
+
+---
+
+| Handler | Progress |
+| --- | --- |
+| IconHandler (hard) | Working - Paused |
+| FilenameHandler (hard) | Not started |
+| TooltipHandler (hard) | Not started |
+| LogHandler | Working - 1% |
 
 # Installing
 
@@ -41,19 +69,23 @@ Note:
 
 # Installing (source)
 
-You will need at least Visual Studio 2015 or a recent version of Xamarin Studio (with some tweaks in the project file).
+You will need at least Visual Studio 2015 or a recent version of Xamarin Studio (you will likely need to do some tweaks in the project file).
 
-Please note that I'm writing C# 6.0 on .NET 4.0.
+Please note that I'm writing C# 6.0 for .NET 4.0.
 
 ---
 
-Also you might want to turn off the signed assembly option. To do that, you need to:
+Also you _might_ want to turn off the signed assembly option. To do that, you need to:
 
 1. Double click on the __Properties__ item in the Solution Explorer (or right click WinYourDesktop, Properties). 
 
 2. Go down to __Signature__.
 
 3. Uncheck __Sign ClickOnce manifests__ and __Sign Assembly__ items.
+
+# Ideas?
+
+Just toss them in the ticket system ("Issues")!
 
 # FAQ
 

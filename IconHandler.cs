@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Reflection;
+using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.IO;
 using SharpShell;
 using SharpShell.Attributes;
 using SharpShell.SharpIconHandler;
@@ -13,6 +15,20 @@ using SharpShell.Interop;
 using SharpShell.Diagnostics;
 using SharpShell.NativeBridge;
 using System.ComponentModel;
+
+/*
+    IconHandler
+    Used to change icons, independent on extension.
+*/
+
+// SharpShell Project Home
+// http://www.codeproject.com/Articles/522665/NET-Shell-Extensions-Shell-Icon-Handlers
+//TODO: SharpShell Server (ugh)
+
+// Icon handling in Windows:
+// Also why this will be pretty hard to implement.
+// WARNING: C++ WOULD HAVE TO BE USED.
+//https://msdn.microsoft.com/en-us/library/windows/desktop/ff521690(v=vs.85).aspx
 
 namespace WinYourDesktop
 {
@@ -23,15 +39,20 @@ namespace WinYourDesktop
     {
         static IconConverter ic = new IconConverter();
 
-        internal static void ChangeIcon(string pPathFile, string pPathIcon)
+        /// <summary>
+        /// Change the icon of a desktop file to a user specified icon.
+        /// </summary>
+        /// <param name="pPathDesktopFile">Desktop Entry file path.</param>
+        /// <param name="pPathIcon">Icon path.</param>
+        internal static void ChangeIcon(string pPathDesktopFile, string pPathIcon)
         {
-            Type g = Assembly.LoadFrom(pPathFile).GetType();
-            if (ic.CanConvertFrom(g))
-            {
-
-            }
-
             //TODO: IconHandler
+            if (!File.Exists(pPathIcon))
+                throw new FileNotFoundException("File not found.", pPathDesktopFile);
+
+            Icon newicon = new Icon(pPathIcon);
+
+
         }
 
         /// <summary>
@@ -45,34 +66,6 @@ namespace WinYourDesktop
         protected override Icon GetIcon(bool smallIcon, uint iconSize)
         {
             throw new NotImplementedException();
-
-            //  The icon we'll return.
-            Icon icon = null;
-
-            //  Check the assembly name. If it's a native dll, this'll throw an exception.
-            try
-            {
-                //  SelectedItemPath is provided by 'SharpIconHandlder' and contains the path of the file.
-                AssemblyName.GetAssemblyName(SelectedItemPath);
-            }
-            catch (BadImageFormatException)
-            {
-                //  The file is not an assembly.
-                //icon = Properties.Resources.NativeDll;
-            }
-            catch (Exception)
-            {
-                //  Some other eception occured, so assume we're native.
-                //icon = Properties.Resources.NativeDll;
-            }
-
-            //  If we haven't determined that the dll is native, use the managed icon.
-            if (icon == null)
-                //icon = Properties.Resources.ManagedDll;
-
-            //  Return the icon with the correct size. Use the SharpIconHandler 'GetIconSpecificSize'
-            //  function to extract the icon of the required size.
-            return GetIconSpecificSize(icon, new Size((int)iconSize, (int)iconSize));
         }
     }
 }

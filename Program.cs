@@ -1,11 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
 
-// Icon handling in Windows:
-// Also why this will be pretty hard to implement.
-// WARNING: C++ WOULD HAVE TO BE USED.
-//https://msdn.microsoft.com/en-us/library/windows/desktop/ff521690(v=vs.85).aspx
-
 // Windows console error codes:
 //http://www.symantec.com/connect/articles/windows-system-error-codes-exit-codes-description
 
@@ -18,7 +13,8 @@ namespace WinYourDesktop
             get
             {
                 return
-                    $"{System.Reflection.Assembly.GetExecutingAssembly().GetName().Version}";
+                    System.Reflection.Assembly
+                    .GetExecutingAssembly().GetName().Version.ToString();
             }
         }
 
@@ -27,7 +23,8 @@ namespace WinYourDesktop
             get
             {
                 return
-                    $"{System.Reflection.Assembly.GetExecutingAssembly().GetName().Name}";
+                    System.Reflection.Assembly
+                    .GetExecutingAssembly().GetName().Name;
             }
         }
 
@@ -39,7 +36,7 @@ namespace WinYourDesktop
         [STAThread]
         static int Main(string[] args)
         {
-            // No file or switches
+            // No arguments
             if (args.Length == 0)
             {
                 ShowForm();
@@ -93,7 +90,9 @@ namespace WinYourDesktop
                 }
             }
 
-            //TODO: --showui + path => Edit file
+            //TODO: Show UI depending on arguments
+            // --showui => Main
+            // --showui + path => Editor mode (Edit)
             if (showform)
             {
                 ShowForm(filepath);
@@ -140,7 +139,7 @@ namespace WinYourDesktop
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"There was an error interpreting the desktop file.{nl + nl}" +
+                    MessageBox.Show($"There was an error interpreting the desktop file.{nl}{nl}" +
                         $"Exception: {ex.GetType() + nl}" +
                         $"Message: {ex.Message}",
                         $"Oops! - {ProjectName} - {ProjectVersion}",
@@ -176,7 +175,6 @@ namespace WinYourDesktop
         static void ShowForm(string pFile)
         {
             Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new FormMain(pFile));
         }
 
@@ -194,7 +192,7 @@ namespace WinYourDesktop
 
         static void ShowVersion()
         {
-            Console.WriteLine("WinYourDesktop - ");
+            Console.WriteLine($"{ProjectName} - {ProjectVersion}");
             Console.WriteLine("Copyright (c) 2015 DD~!/guitarxhero");
             Console.WriteLine("License: MIT License <http://opensource.org/licenses/MIT>");
             Console.WriteLine("Project page: <https://github.com/guitarxhero/WinYourDesktop>");

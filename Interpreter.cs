@@ -11,39 +11,40 @@ namespace WinYourDesktop
     /// </summary>
     static class Interpreter
     {
+        /// <summary>
+        /// Desktop Entry header type.
+        /// </summary>
         enum dType
         {
+            /// <summary>
+            /// Application type. (UI and CLI apps)
+            /// </summary>
             Application,
+            /// <summary>
+            /// Link type. (URLs)
+            /// </summary>
             Link,
+            /// <summary>
+            /// Directory type. (File Explorer)
+            /// </summary>
             Directory,
+            /// <summary>
+            /// Unknown header type.
+            /// </summary>
             Unknown
         }
 
         static internal void Run(string pPath)
         {
-            if (Program.Debugging)
-            {
-                Console.WriteLine("=== Debugging information ===");
-                Console.WriteLine($"Command line: {Environment.CommandLine}");
-                Console.WriteLine($"Current directory: {Environment.CurrentDirectory}");
-                Console.WriteLine();
-                Console.WriteLine("Scanning file...");
-            }
-
             if (pPath == null || pPath == string.Empty)
                 throw new NullReferenceException("Specified path is null or empty.");
             
             if (!File.Exists(pPath))
                 throw new FileNotFoundException($"Specified desktop file doesn't exist.{Environment.NewLine}Path: {pPath}");
 
-            string text = string.Empty;
-            using (TextReader tr = new StreamReader(pPath))
-            {
-                text = tr.ReadToEnd();
-                tr.Close();
-            }
+            string text = File.ReadAllText(pPath);
 
-            if (text.Length == 0)
+            if (text.Length == 0 || !text.Contains("\n"))
                 throw new Exception("Specified desktop file is empty.");
 
             string[] lines = text.Split(new char[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries);
@@ -57,21 +58,23 @@ namespace WinYourDesktop
             string url = string.Empty;
             string path = string.Empty;
             bool terminal = false;
+            // Starts at 1 to skip "[Desktop Entry]"
             for (int i = 1; i < lines.Length; i++)
             {
                 //TODO: lines[i][0] == '[' // Group header
 
-                if (lines[i][0] != '#' || lines[i][0] != '[') // Avoid comments. And group headers, for now.
+                if (lines[i][0] != '#') // Avoid comments.
                 {
-                    line = lines[i].Split(new char[] { '=' }, StringSplitOptions.RemoveEmptyEntries);
-
-                    if (line.Length < 2) // i + 1 is because we start at 1, due to [Desktop Entry]
+                    if (!line[i].Contains("="))
+                        // "i + 1" is due to object oriented programming, indexes starting at 0.
                         throw new Exception($"Failed to split key and value at line {i + 1}.{Environment.NewLine}Missing '=' operator?");
+
+                    line = lines[i].Split(new char[] { '=' }, StringSplitOptions.RemoveEmptyEntries);
 
                     switch (line[0].Trim())
                     {
                         case "Type":
-                            switch (line[1].Trim())
+                            switch (line[1])
                             {
                                 case "Application": Type = dType.Application; break;
                                 case "Link": Type = dType.Link; break;
@@ -79,8 +82,8 @@ namespace WinYourDesktop
                             }
                             break;
 
-                        case "TryExec":
                         case "Exec":
+                        case "TryExec":
                             exec = line[1];
                             break;
 
@@ -93,7 +96,7 @@ namespace WinYourDesktop
                             break;
 
                         case "Terminal":
-                            if (line[1].Trim() == "true")
+                            if (line[1].ToLower() == "true")
                                 terminal = true;
                             break;
                     }
@@ -103,78 +106,47 @@ namespace WinYourDesktop
             if (Type == dType.Unknown)
                 throw new Exception("Unknown or missing Type value!");
 
-            if (Program.Debugging)
-                Console.WriteLine($"Type: {Type}");
-
             switch (Type)
             {
+                // Launch an application.
                 case dType.Application:
-                    // Launch an application.
                     string[] execs = new string[0];
-                    if (exec.Contains(" "))
+
+                    if (exec.Contains(" ") && !terminal)
+                        // Split application (e.g. ping) with arguments (-t ::1)
                         execs = exec.Split(new char[] { ' ' }, 2);
-
-                    //TODO: Check if splitting the Value with a first space is really worth it.
+                    
                     //TODO: Fix Terminal key usage.
-
-                    try
+                    
+                    if (terminal)
                     {
-                        if (terminal)
-                        {
-                            if (Program.Debugging)
-                                Console.WriteLine($"Line: start cmd {exec}");
-
-                            System.Diagnostics.Process.Start($"start cmd {exec}");
-                        }
-                        else
-                        {
-                            if (execs.Length > 0)
-                            {
-                                if (Program.Debugging)
-                                    Console.WriteLine($"Line: {execs[0] + " " + execs[1]}");
-
-                                System.Diagnostics.Process.Start(execs[0], execs[1]);
-                            }
-                            else
-                            {
-                                if (Program.Debugging)
-                                    Console.WriteLine($"Line: {exec}");
-
-                                System.Diagnostics.Process.Start(exec);
-                            }
-                        }
+                        System.Diagnostics.Process.Start("start cmd", $"{exec}");
                     }
-                    catch (Exception ex)
+                    else
                     {
-                        if (ex is System.ComponentModel.Win32Exception || ex is FileNotFoundException)
+                        if (execs.Length > 0)
                         {
-                            string syspath = Environment.SystemDirectory + Path.DirectorySeparatorChar;
-
-                            if (execs.Length > 0)
-                                System.Diagnostics.Process.Start($"{syspath + execs[0]}", execs[1]);
-                            else
-                                System.Diagnostics.Process.Start($"{syspath + exec}");
+                            System.Diagnostics.Process.Start(execs[0], execs[1]);
                         }
                         else
-                            throw; // Rethrow same exception.
+                        {
+                            System.Diagnostics.Process.Start(exec);
+                        }
                     }
                     break;
 
+                // Launch the user's default application that handles URLs.
                 case dType.Link:
-                    // Launch the user's default application that handles URLs.
                     System.Diagnostics.Process.Start(url);
                     break;
 
+                // Open File Explorer with a specific path/directory.
                 case dType.Directory:
-                    // Open File Explorer with a specific path/directory.
                     if (Directory.Exists(path))
                     {
-                        if (Program.Debugging)
-                            Console.WriteLine($"Path: {path}");
-
                         string expath = $"{Directory.GetParent(Environment.SystemDirectory).ToString() + Path.DirectorySeparatorChar}explorer";
-
-                        System.Diagnostics.Process.Start($"{expath}", $"{Path.GetFullPath(path)}");
+                        
+                        System.Diagnostics.Process.Start($"{expath}", $"{path}");
                     }
                     else
                     {
