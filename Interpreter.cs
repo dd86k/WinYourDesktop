@@ -29,11 +29,15 @@ namespace WinYourDesktop
             /// </summary>
             Directory,
             /// <summary>
-            /// Unknown header type.
+            /// Unknown header type. Default.
             /// </summary>
             Unknown
         }
 
+        /// <summary>
+        /// Interprets a Desktop file.
+        /// </summary>
+        /// <param name="pPath">Path of the Desktop file.</param>
         static internal void Run(string pPath)
         {
             if (pPath == null || pPath == string.Empty)
@@ -65,13 +69,13 @@ namespace WinYourDesktop
 
                 if (lines[i][0] != '#') // Avoid comments.
                 {
-                    if (!line[i].Contains("="))
+                    if (!lines[i].Contains("="))
                         // "i + 1" is due to object oriented programming, indexes starting at 0.
                         throw new Exception($"Failed to split key and value at line {i + 1}.{Environment.NewLine}Missing '=' operator?");
 
                     line = lines[i].Split(new char[] { '=' }, StringSplitOptions.RemoveEmptyEntries);
 
-                    switch (line[0].Trim())
+                    switch (line[0])
                     {
                         case "Type":
                             switch (line[1])
@@ -144,9 +148,12 @@ namespace WinYourDesktop
                 case dType.Directory:
                     if (Directory.Exists(path))
                     {
-                        string expath = $"{Directory.GetParent(Environment.SystemDirectory).ToString() + Path.DirectorySeparatorChar}explorer";
+                        string explorerpath =
+                            Directory.GetParent(Environment.SystemDirectory).ToString() +
+                            Path.DirectorySeparatorChar +
+                            "explorer";
                         
-                        System.Diagnostics.Process.Start($"{expath}", $"{path}");
+                        System.Diagnostics.Process.Start($"{explorerpath}", $"{path}");
                     }
                     else
                     {

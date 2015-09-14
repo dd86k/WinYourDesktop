@@ -79,8 +79,10 @@
             // 
             // homeToolStripMenuItem
             // 
+            this.homeToolStripMenuItem.Checked = true;
+            this.homeToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.homeToolStripMenuItem.Name = "homeToolStripMenuItem";
-            this.homeToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
+            this.homeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.homeToolStripMenuItem.Text = "Home";
             // 
             // showEditorToolStripMenuItem

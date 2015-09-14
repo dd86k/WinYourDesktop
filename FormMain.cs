@@ -1,4 +1,5 @@
 ﻿using System.Windows.Forms;
+using System.Drawing;
 
 namespace WinYourDesktop
 {
@@ -22,10 +23,58 @@ namespace WinYourDesktop
         }
         #endregion
 
-        #region Methods
-        void ToggleMode()
+        #region Modes
+        /// <summary>
+        /// Viewing modes.
+        /// </summary>
+        enum ViewingMode
         {
+            /// <summary>
+            /// Default viewing mode.
+            /// Also like ImgBurn's Ez-Picker Mode.
+            /// </summary>
+            Default,
+            /// <summary>
+            /// Editing
+            /// </summary>
+            Editing,
+            Debugging
+        }
 
+        ViewingMode CurrentViewingMode = ViewingMode.Default;
+
+        void ToggleMode(ViewingMode pNewViewingMode)
+        {
+            //TODO: Mode toggle
+            // ...Just do the other panels.
+
+            this.SuspendLayout();
+
+            switch (CurrentViewingMode)
+            {
+                case ViewingMode.Default:
+                    MainPanel.Visible = false;
+                    break;
+                case ViewingMode.Editing:
+
+                    break;
+                case ViewingMode.Debugging:
+
+                    break;
+            }
+
+            switch (pNewViewingMode)
+            {
+                case ViewingMode.Default:
+                    MainPanel.Visible = true;
+                    break;
+                case ViewingMode.Editing:
+                    break;
+                case ViewingMode.Debugging:
+                    break;
+            }
+
+            this.ResumeLayout(false);
         }
         #endregion
 
@@ -51,7 +100,17 @@ namespace WinYourDesktop
         // About
         private void aboutToolStripMenuItem_Click(object sender, System.EventArgs e)
         {
-            new FormAbout().ShowDialog();
+            FormAbout fAbout = new FormAbout();
+            fAbout.Location = new Point
+            {
+                // FormAbout will show right if only it can fit into the current screen.
+                X = Location.X + Size.Width + fAbout.Size.Width >
+                    Screen.FromControl(this).WorkingArea.Size.Width ?
+                    Location.X - fAbout.Size.Width :
+                    Location.X + Size.Width,
+                Y = Location.Y
+            };
+            fAbout.Show();
         }
         #endregion
 

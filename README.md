@@ -16,16 +16,16 @@ __WinYourDesktop__ is a loose (not strict by standard) and simple Desktop Entry 
 | General | Progress |
 | --- | --- |
 | Absolute paths | Done |
-| Relative paths | Testing - 90% |
+| Relative paths | Testing |
 | System paths | Assumed done |
-| UI App | Working - 10% |
+| UI App | Working |
 
 ---
 
 | Application type | Progress |
 | --- | --- |
-| Exec | Working - 80% |
-| TryExec | Working - 80% |
+| Exec | Working |
+| TryExec | Working |
 
 - Executable
 - Executable + arguments
@@ -53,7 +53,7 @@ __WinYourDesktop__ is a loose (not strict by standard) and simple Desktop Entry 
 | IconHandler (hard) | Working - Paused |
 | FilenameHandler (hard) | Not started |
 | TooltipHandler (hard) | Not started |
-| LogHandler | Working - 1% |
+| LogHandler | Working |
 
 # Installing
 

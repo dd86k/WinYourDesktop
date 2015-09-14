@@ -28,10 +28,15 @@ namespace WinYourDesktop
             }
         }
 
-        static internal bool Debugging = false;
+        static internal bool Debugging
+        {
+            get;
+            private set;
+        }
 
         /// <summary>
         /// The main entry point for the application.
+        /// Also know as <c>.ctor</c> in MSIL.
         /// </summary>
         [STAThread]
         static int Main(string[] args)
@@ -100,9 +105,10 @@ namespace WinYourDesktop
                 return 0;
             }
 
+            string nl = Environment.NewLine;
+
             if (filepath != string.Empty)
             {
-                string nl = Environment.NewLine;
                 try
                 {
                     Interpreter.Run(filepath);
@@ -180,6 +186,9 @@ namespace WinYourDesktop
 
         static void ShowHelp()
         {
+                            // Character ruler, default ANSI/ISO Width is 80 characters.
+                            //0        10        20        30        40        50        60        70        80
+                            //|---------|---------|---------|---------|---------|---------|---------|---------|
             Console.WriteLine(" Usage:");
             Console.WriteLine("  WinYourDesktop [options]");
             Console.WriteLine("  /showui, /S        Show the user interface.");
