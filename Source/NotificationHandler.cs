@@ -4,14 +4,13 @@ using System.Linq;
 using System.Text;
 
 /*
-    LogHandler
-    Manages the log file, showing notifications,
-    and taking actions depending on the notification.
+    NotificationHandler
+    Manages notifications.
 */
 
 namespace WinYourDesktop
 {
-    class LogHandler
+    class NotificationHandler
     {
 
     }
