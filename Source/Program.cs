@@ -186,9 +186,8 @@ namespace WinYourDesktop
 
         static void ShowHelp()
         {
-                            // Character ruler, default ANSI/ISO Width is 80 characters.
-                            //1       10        20        30        40        50        60        70        80
-                            //|--------|---------|---------|---------|---------|---------|---------|---------|
+                             //1       10        20        30        40        50        60        70        80
+                             //|--------|---------|---------|---------|---------|---------|---------|---------|
             Console.WriteLine(" Usage:");
             Console.WriteLine("  WinYourDesktop [options]");
             Console.WriteLine("  /showui, /S        Show the user interface.");

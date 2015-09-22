@@ -34,8 +34,10 @@
             this.tsmiQuit = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmView = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiHome = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.tsmiEditor = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiDebugger = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.tsmiSettings = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmTools = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiSupport = new System.Windows.Forms.ToolStripMenuItem();
@@ -52,17 +54,23 @@
             this.panelMain = new System.Windows.Forms.Panel();
             this.panelEditor = new System.Windows.Forms.Panel();
             this.panelDebugger = new System.Windows.Forms.Panel();
+            this.btnOpen = new System.Windows.Forms.Button();
+            this.btnRunWithDebugger = new System.Windows.Forms.Button();
+            this.lblRunCurrentFile = new System.Windows.Forms.Label();
+            this.txtRunOutput = new System.Windows.Forms.TextBox();
             this.panelSettings = new System.Windows.Forms.Panel();
             this.lblSettingsLanguage = new System.Windows.Forms.Label();
             this.cboSettingsLanguage = new System.Windows.Forms.ComboBox();
             this.msMain.SuspendLayout();
             this.ssMain.SuspendLayout();
             this.panelMain.SuspendLayout();
+            this.panelDebugger.SuspendLayout();
             this.panelSettings.SuspendLayout();
             this.SuspendLayout();
             // 
             // msMain
             // 
+            this.msMain.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.msMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsmApplication,
             this.tsmView,
@@ -71,8 +79,8 @@
             this.toolStripMenuItem1});
             this.msMain.Location = new System.Drawing.Point(0, 0);
             this.msMain.Name = "msMain";
-            this.msMain.Padding = new System.Windows.Forms.Padding(7, 2, 0, 2);
-            this.msMain.Size = new System.Drawing.Size(712, 24);
+            this.msMain.Padding = new System.Windows.Forms.Padding(8, 2, 0, 2);
+            this.msMain.Size = new System.Drawing.Size(679, 25);
             this.msMain.TabIndex = 0;
             this.msMain.Text = "menuStrip1";
             // 
@@ -82,14 +90,14 @@
             this.tsmiRestart,
             this.tsmiQuit});
             this.tsmApplication.Name = "tsmApplication";
-            this.tsmApplication.Size = new System.Drawing.Size(41, 20);
+            this.tsmApplication.Size = new System.Drawing.Size(44, 21);
             this.tsmApplication.Text = "App";
             // 
             // tsmiRestart
             // 
             this.tsmiRestart.Name = "tsmiRestart";
             this.tsmiRestart.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.R)));
-            this.tsmiRestart.Size = new System.Drawing.Size(151, 22);
+            this.tsmiRestart.Size = new System.Drawing.Size(162, 22);
             this.tsmiRestart.Text = "Restart";
             this.tsmiRestart.Click += new System.EventHandler(this.restartToolStripMenuItem_Click);
             // 
@@ -97,7 +105,7 @@
             // 
             this.tsmiQuit.Name = "tsmiQuit";
             this.tsmiQuit.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Q)));
-            this.tsmiQuit.Size = new System.Drawing.Size(151, 22);
+            this.tsmiQuit.Size = new System.Drawing.Size(162, 22);
             this.tsmiQuit.Text = "Quit";
             this.tsmiQuit.Click += new System.EventHandler(this.quitToolStripMenuItem_Click);
             // 
@@ -105,11 +113,13 @@
             // 
             this.tsmView.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsmiHome,
+            this.toolStripSeparator3,
             this.tsmiEditor,
             this.tsmiDebugger,
+            this.toolStripSeparator2,
             this.tsmiSettings});
             this.tsmView.Name = "tsmView";
-            this.tsmView.Size = new System.Drawing.Size(44, 20);
+            this.tsmView.Size = new System.Drawing.Size(47, 21);
             this.tsmView.Text = "View";
             // 
             // tsmiHome
@@ -117,35 +127,49 @@
             this.tsmiHome.Checked = true;
             this.tsmiHome.CheckState = System.Windows.Forms.CheckState.Checked;
             this.tsmiHome.Name = "tsmiHome";
-            this.tsmiHome.Size = new System.Drawing.Size(126, 22);
+            this.tsmiHome.ShortcutKeys = System.Windows.Forms.Keys.F5;
+            this.tsmiHome.Size = new System.Drawing.Size(152, 22);
             this.tsmiHome.Text = "Home";
             this.tsmiHome.Click += new System.EventHandler(this.tsmiHome_Click);
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(149, 6);
             // 
             // tsmiEditor
             // 
             this.tsmiEditor.Name = "tsmiEditor";
-            this.tsmiEditor.Size = new System.Drawing.Size(126, 22);
-            this.tsmiEditor.Text = "Editor";
+            this.tsmiEditor.ShortcutKeys = System.Windows.Forms.Keys.F6;
+            this.tsmiEditor.Size = new System.Drawing.Size(152, 22);
+            this.tsmiEditor.Text = "Edit";
             this.tsmiEditor.Click += new System.EventHandler(this.tsmiEditor_Click);
             // 
             // tsmiDebugger
             // 
             this.tsmiDebugger.Name = "tsmiDebugger";
-            this.tsmiDebugger.Size = new System.Drawing.Size(126, 22);
-            this.tsmiDebugger.Text = "Debugger";
+            this.tsmiDebugger.ShortcutKeys = System.Windows.Forms.Keys.F7;
+            this.tsmiDebugger.Size = new System.Drawing.Size(152, 22);
+            this.tsmiDebugger.Text = "Debug";
             this.tsmiDebugger.Click += new System.EventHandler(this.tsmiDebugger_Click);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(149, 6);
             // 
             // tsmiSettings
             // 
             this.tsmiSettings.Name = "tsmiSettings";
-            this.tsmiSettings.Size = new System.Drawing.Size(126, 22);
+            this.tsmiSettings.ShortcutKeys = System.Windows.Forms.Keys.F8;
+            this.tsmiSettings.Size = new System.Drawing.Size(152, 22);
             this.tsmiSettings.Text = "Settings";
             this.tsmiSettings.Click += new System.EventHandler(this.tsmiSettings_Click);
             // 
             // tsmTools
             // 
             this.tsmTools.Name = "tsmTools";
-            this.tsmTools.Size = new System.Drawing.Size(47, 20);
+            this.tsmTools.Size = new System.Drawing.Size(51, 21);
             this.tsmTools.Text = "Tools";
             // 
             // tsmiSupport
@@ -155,25 +179,25 @@
             this.toolStripSeparator1,
             this.tsmiAbout});
             this.tsmiSupport.Name = "tsmiSupport";
-            this.tsmiSupport.Size = new System.Drawing.Size(24, 20);
+            this.tsmiSupport.Size = new System.Drawing.Size(26, 21);
             this.tsmiSupport.Text = "?";
             // 
             // tsmiHelp
             // 
             this.tsmiHelp.Name = "tsmiHelp";
             this.tsmiHelp.ShortcutKeys = System.Windows.Forms.Keys.F1;
-            this.tsmiHelp.Size = new System.Drawing.Size(118, 22);
+            this.tsmiHelp.Size = new System.Drawing.Size(152, 22);
             this.tsmiHelp.Text = "Help";
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(115, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
             // 
             // tsmiAbout
             // 
             this.tsmiAbout.Name = "tsmiAbout";
-            this.tsmiAbout.Size = new System.Drawing.Size(118, 22);
+            this.tsmiAbout.Size = new System.Drawing.Size(152, 22);
             this.tsmiAbout.Text = "About";
             this.tsmiAbout.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
@@ -182,25 +206,27 @@
             this.toolStripMenuItem1.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.toolStripMenuItem1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripMenuItem1.Image")));
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(41, 20);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(43, 21);
             this.toolStripMenuItem1.Text = "0";
             this.toolStripMenuItem1.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
             // 
             // ssMain
             // 
+            this.ssMain.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ssMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.sslblStatus});
-            this.ssMain.Location = new System.Drawing.Point(0, 570);
+            this.ssMain.Location = new System.Drawing.Point(0, 564);
             this.ssMain.Name = "ssMain";
-            this.ssMain.Padding = new System.Windows.Forms.Padding(1, 0, 16, 0);
-            this.ssMain.Size = new System.Drawing.Size(712, 22);
+            this.ssMain.Padding = new System.Windows.Forms.Padding(1, 0, 18, 0);
+            this.ssMain.Size = new System.Drawing.Size(679, 22);
+            this.ssMain.SizingGrip = false;
             this.ssMain.TabIndex = 1;
             this.ssMain.Text = "statusStrip1";
             // 
             // sslblStatus
             // 
             this.sslblStatus.Name = "sslblStatus";
-            this.sslblStatus.Size = new System.Drawing.Size(38, 17);
+            this.sslblStatus.Size = new System.Drawing.Size(42, 17);
             this.sslblStatus.Text = "Hello!";
             // 
             // btnRun
@@ -211,7 +237,7 @@
             this.btnRun.Margin = new System.Windows.Forms.Padding(2);
             this.btnRun.Name = "btnRun";
             this.btnRun.Size = new System.Drawing.Size(128, 96);
-            this.btnRun.TabIndex = 2;
+            this.btnRun.TabIndex = 1;
             this.btnRun.Text = "Run";
             this.btnRun.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btnRun.UseVisualStyleBackColor = true;
@@ -227,7 +253,7 @@
             this.btnEdit.Margin = new System.Windows.Forms.Padding(2);
             this.btnEdit.Name = "btnEdit";
             this.btnEdit.Size = new System.Drawing.Size(128, 96);
-            this.btnEdit.TabIndex = 3;
+            this.btnEdit.TabIndex = 4;
             this.btnEdit.Text = "Edit";
             this.btnEdit.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btnEdit.UseVisualStyleBackColor = true;
@@ -243,7 +269,7 @@
             this.btnDebug.Margin = new System.Windows.Forms.Padding(2);
             this.btnDebug.Name = "btnDebug";
             this.btnDebug.Size = new System.Drawing.Size(128, 96);
-            this.btnDebug.TabIndex = 4;
+            this.btnDebug.TabIndex = 3;
             this.btnDebug.Text = "Debug";
             this.btnDebug.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btnDebug.UseVisualStyleBackColor = true;
@@ -259,7 +285,7 @@
             this.btnCreate.Margin = new System.Windows.Forms.Padding(2);
             this.btnCreate.Name = "btnCreate";
             this.btnCreate.Size = new System.Drawing.Size(128, 96);
-            this.btnCreate.TabIndex = 5;
+            this.btnCreate.TabIndex = 2;
             this.btnCreate.Text = "Create";
             this.btnCreate.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btnCreate.UseVisualStyleBackColor = true;
@@ -273,32 +299,81 @@
             this.panelMain.Controls.Add(this.btnCreate);
             this.panelMain.Controls.Add(this.btnEdit);
             this.panelMain.Controls.Add(this.btnDebug);
-            this.panelMain.Location = new System.Drawing.Point(12, 59);
+            this.panelMain.Location = new System.Drawing.Point(16, 42);
+            this.panelMain.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.panelMain.Name = "panelMain";
             this.panelMain.Size = new System.Drawing.Size(264, 200);
             this.panelMain.TabIndex = 6;
             // 
             // panelEditor
             // 
-            this.panelEditor.Location = new System.Drawing.Point(308, 36);
+            this.panelEditor.Location = new System.Drawing.Point(352, 42);
+            this.panelEditor.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.panelEditor.Name = "panelEditor";
-            this.panelEditor.Size = new System.Drawing.Size(287, 248);
+            this.panelEditor.Size = new System.Drawing.Size(279, 230);
             this.panelEditor.TabIndex = 7;
             this.panelEditor.Visible = false;
             // 
             // panelDebugger
             // 
-            this.panelDebugger.Location = new System.Drawing.Point(14, 291);
+            this.panelDebugger.Controls.Add(this.btnOpen);
+            this.panelDebugger.Controls.Add(this.btnRunWithDebugger);
+            this.panelDebugger.Controls.Add(this.lblRunCurrentFile);
+            this.panelDebugger.Controls.Add(this.txtRunOutput);
+            this.panelDebugger.Location = new System.Drawing.Point(12, 263);
+            this.panelDebugger.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.panelDebugger.Name = "panelDebugger";
-            this.panelDebugger.Size = new System.Drawing.Size(248, 246);
+            this.panelDebugger.Size = new System.Drawing.Size(302, 289);
             this.panelDebugger.TabIndex = 8;
             this.panelDebugger.Visible = false;
+            // 
+            // btnOpen
+            // 
+            this.btnOpen.Location = new System.Drawing.Point(3, 28);
+            this.btnOpen.Name = "btnOpen";
+            this.btnOpen.Size = new System.Drawing.Size(145, 35);
+            this.btnOpen.TabIndex = 4;
+            this.btnOpen.Text = "Open";
+            this.btnOpen.UseVisualStyleBackColor = true;
+            // 
+            // btnRunWithDebugger
+            // 
+            this.btnRunWithDebugger.Enabled = false;
+            this.btnRunWithDebugger.Location = new System.Drawing.Point(154, 28);
+            this.btnRunWithDebugger.Name = "btnRunWithDebugger";
+            this.btnRunWithDebugger.Size = new System.Drawing.Size(145, 35);
+            this.btnRunWithDebugger.TabIndex = 3;
+            this.btnRunWithDebugger.Text = "Debug";
+            this.btnRunWithDebugger.UseVisualStyleBackColor = true;
+            // 
+            // lblRunCurrentFile
+            // 
+            this.lblRunCurrentFile.AutoSize = true;
+            this.lblRunCurrentFile.Location = new System.Drawing.Point(5, 5);
+            this.lblRunCurrentFile.Margin = new System.Windows.Forms.Padding(5);
+            this.lblRunCurrentFile.Name = "lblRunCurrentFile";
+            this.lblRunCurrentFile.Size = new System.Drawing.Size(54, 20);
+            this.lblRunCurrentFile.TabIndex = 1;
+            this.lblRunCurrentFile.Text = "No file";
+            // 
+            // txtRunOutput
+            // 
+            this.txtRunOutput.BackColor = System.Drawing.Color.Black;
+            this.txtRunOutput.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.txtRunOutput.Font = new System.Drawing.Font("Consolas", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtRunOutput.ForeColor = System.Drawing.Color.White;
+            this.txtRunOutput.Location = new System.Drawing.Point(0, 69);
+            this.txtRunOutput.Multiline = true;
+            this.txtRunOutput.Name = "txtRunOutput";
+            this.txtRunOutput.Size = new System.Drawing.Size(302, 220);
+            this.txtRunOutput.TabIndex = 0;
             // 
             // panelSettings
             // 
             this.panelSettings.Controls.Add(this.lblSettingsLanguage);
             this.panelSettings.Controls.Add(this.cboSettingsLanguage);
-            this.panelSettings.Location = new System.Drawing.Point(308, 291);
+            this.panelSettings.Location = new System.Drawing.Point(342, 291);
+            this.panelSettings.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.panelSettings.Name = "panelSettings";
             this.panelSettings.Size = new System.Drawing.Size(264, 200);
             this.panelSettings.TabIndex = 9;
@@ -307,10 +382,10 @@
             // lblSettingsLanguage
             // 
             this.lblSettingsLanguage.AutoSize = true;
-            this.lblSettingsLanguage.Location = new System.Drawing.Point(3, 3);
-            this.lblSettingsLanguage.Margin = new System.Windows.Forms.Padding(3);
+            this.lblSettingsLanguage.Location = new System.Drawing.Point(3, 4);
+            this.lblSettingsLanguage.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.lblSettingsLanguage.Name = "lblSettingsLanguage";
-            this.lblSettingsLanguage.Size = new System.Drawing.Size(65, 17);
+            this.lblSettingsLanguage.Size = new System.Drawing.Size(74, 20);
             this.lblSettingsLanguage.TabIndex = 1;
             this.lblSettingsLanguage.Text = "Language";
             // 
@@ -321,27 +396,28 @@
             this.cboSettingsLanguage.Items.AddRange(new object[] {
             "English (English) - en-US",
             "French (Français) - fr-FR",
-            "Pirate - en-Pirate"});
-            this.cboSettingsLanguage.Location = new System.Drawing.Point(5, 26);
-            this.cboSettingsLanguage.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
+            "Pirate (English) - en-Pirate"});
+            this.cboSettingsLanguage.Location = new System.Drawing.Point(6, 31);
+            this.cboSettingsLanguage.Margin = new System.Windows.Forms.Padding(6, 4, 6, 4);
             this.cboSettingsLanguage.Name = "cboSettingsLanguage";
-            this.cboSettingsLanguage.Size = new System.Drawing.Size(254, 25);
+            this.cboSettingsLanguage.Size = new System.Drawing.Size(252, 28);
             this.cboSettingsLanguage.TabIndex = 0;
             this.cboSettingsLanguage.SelectedValueChanged += new System.EventHandler(this.cboSettingsLanguage_SelectedValueChanged);
             // 
             // FormMain
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(712, 592);
+            this.ClientSize = new System.Drawing.Size(679, 586);
             this.Controls.Add(this.ssMain);
             this.Controls.Add(this.panelSettings);
             this.Controls.Add(this.panelDebugger);
             this.Controls.Add(this.panelEditor);
             this.Controls.Add(this.panelMain);
             this.Controls.Add(this.msMain);
-            this.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.MaximizeBox = false;
             this.Name = "FormMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -351,6 +427,8 @@
             this.ssMain.ResumeLayout(false);
             this.ssMain.PerformLayout();
             this.panelMain.ResumeLayout(false);
+            this.panelDebugger.ResumeLayout(false);
+            this.panelDebugger.PerformLayout();
             this.panelSettings.ResumeLayout(false);
             this.panelSettings.PerformLayout();
             this.ResumeLayout(false);
@@ -387,5 +465,11 @@
         private System.Windows.Forms.ToolStripStatusLabel sslblStatus;
         private System.Windows.Forms.Label lblSettingsLanguage;
         private System.Windows.Forms.ComboBox cboSettingsLanguage;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+        private System.Windows.Forms.Button btnOpen;
+        private System.Windows.Forms.Button btnRunWithDebugger;
+        private System.Windows.Forms.Label lblRunCurrentFile;
+        private System.Windows.Forms.TextBox txtRunOutput;
     }
 }

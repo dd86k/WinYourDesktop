@@ -7,10 +7,32 @@ using System.Drawing;
     Constructors, events (delegates).
 */
 
+// TODO:View: Execute -> OpenFileDialog
+// TODO:View: Create -> SaveFileDialog -> Edit
+
 namespace WinYourDesktop
 {
     internal partial class FormMain : Form
     {
+        #region File
+        struct CurrentFile
+        {
+            internal static string FileName
+            {
+                get
+                {
+                    return
+                        Path != null ?
+                        System.IO.Path.GetFileName(Path) : null;
+                }
+            }
+            internal static string Path
+            {
+                get; set;
+            }
+        }
+        #endregion
+
         #region Constructors
         internal FormMain() : this(null)
         {
@@ -48,7 +70,6 @@ namespace WinYourDesktop
         // Editor view
         private void tsmiEditor_Click(object sender, System.EventArgs e)
         {
-            System.Console.Write("wtf");
             if (!tsmiEditor.Checked)
             {
                 tsmiHome.Checked = false;
@@ -68,7 +89,7 @@ namespace WinYourDesktop
                 tsmiEditor.Checked = false;
                 tsmiDebugger.Checked = true;
                 tsmiSettings.Checked = false;
-                ToggleMode(ViewingMode.Debuger);
+                ToggleMode(ViewingMode.Debugger);
             }
         }
 
@@ -128,7 +149,7 @@ namespace WinYourDesktop
 
         private void btnRun_MouseLeave(object sender, System.EventArgs e)
         {
-            sslblStatus.Text = RM.GetString("Welcome");
+            sslblStatus.Text = string.Empty;
         }
 
         // Create
@@ -144,7 +165,7 @@ namespace WinYourDesktop
 
         private void btnCreate_MouseLeave(object sender, System.EventArgs e)
         {
-            sslblStatus.Text = RM.GetString("Welcome");
+            sslblStatus.Text = string.Empty;
         }
 
         // Debug
@@ -160,7 +181,7 @@ namespace WinYourDesktop
 
         private void btnDebug_MouseLeave(object sender, System.EventArgs e)
         {
-            sslblStatus.Text = RM.GetString("Welcome");
+            sslblStatus.Text = string.Empty;
         }
 
         // Edit
@@ -176,17 +197,44 @@ namespace WinYourDesktop
 
         private void btnEdit_MouseLeave(object sender, System.EventArgs e)
         {
-            sslblStatus.Text = RM.GetString("Welcome");
+            sslblStatus.Text = string.Empty;
         }
         #endregion
 
+        #region Debug
+        static bool Debugging;
+        static internal bool DebugEnabled
+        {
+            get
+            {
+                return DebugEnabled;
+            }
+        }
+
+        static internal void dbgWrite(string pObject)
+        {
+            //TODO: Find a way to write to txtRunDebug from a static method.
+        }
+        #endregion
+
+        #region Settings
         private void cboSettingsLanguage_SelectedValueChanged(object sender, System.EventArgs e)
         {
+            string culture = string.Empty;
             // I felt like doing a crazy one liner.
-            string culture = cboSettingsLanguage.Items[cboSettingsLanguage.SelectedIndex]
-                .ToString()
-                .Split(new string[] { " - " }, System.StringSplitOptions.None)[1];
-            ChangeCulture(culture);
+            try
+            {
+                culture =
+                    cboSettingsLanguage.Items[cboSettingsLanguage.SelectedIndex]
+                    .ToString()
+                    .Split(new string[] { " - " }, System.StringSplitOptions.None)[1];
+            }
+            catch
+            { }
+
+            if (culture != string.Empty)
+                ChangeCulture(culture);
         }
+        #endregion
     }
 }

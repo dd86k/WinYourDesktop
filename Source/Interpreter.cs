@@ -40,6 +40,8 @@ namespace WinYourDesktop
         /// <param name="pPath">Path of the Desktop file.</param>
         static internal void Run(string pPath)
         {
+            
+
             if (pPath == null || pPath == string.Empty)
                 throw new NullReferenceException("Specified path is null or empty.");
             

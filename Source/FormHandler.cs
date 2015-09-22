@@ -69,8 +69,6 @@ namespace WinYourDesktop
 
         void ChangeCulture(string pLanguage)
         {
-            // For now, we're using a switch, but if this project
-            // gets really big, now we could use string interpolation.
             switch (pLanguage)
             {
                 case "en-Pirate":
@@ -119,7 +117,7 @@ namespace WinYourDesktop
             btnDebug.Text = RM.GetString("btnDebug");
 
             // == Misc ==
-            sslblStatus.Text = RM.GetString("Welcome");
+            sslblStatus.Text = RM.GetString($"Welcome");
         }
         #endregion
 
@@ -131,7 +129,7 @@ namespace WinYourDesktop
         {
             Home,
             Editor,
-            Debuger,
+            Debugger,
             Settings
         }
 
@@ -143,9 +141,9 @@ namespace WinYourDesktop
             {
                 case ViewingMode.Home:
                     panelMain.Visible = true;
-                    panelEditor.Visible = false;
-                    panelDebugger.Visible = false;
-                    panelSettings.Visible = false;
+                    panelEditor.Visible =
+                        panelDebugger.Visible =
+                        panelSettings.Visible = false;
                     this.ClientSize = new Size
                     {
                         Width = this.panelMain.Size.Width,
@@ -157,13 +155,13 @@ namespace WinYourDesktop
                     break;
 
                 case ViewingMode.Editor:
-                    panelMain.Visible = false;
                     panelEditor.Visible = true;
-                    panelDebugger.Visible = false;
-                    panelSettings.Visible = false;
+                    panelMain.Visible =
+                        panelDebugger.Visible =
+                        panelSettings.Visible = false;
                     this.ClientSize = new Size
                     {
-                        Width = this.panelMain.Size.Width,
+                        Width = this.panelEditor.Size.Width,
                         Height =
                             this.msMain.Size.Height +
                             this.panelEditor.Size.Height +
@@ -171,14 +169,14 @@ namespace WinYourDesktop
                     };
                     break;
 
-                case ViewingMode.Debuger:
-                    panelMain.Visible = false;
-                    panelEditor.Visible = false;
+                case ViewingMode.Debugger:
                     panelDebugger.Visible = true;
-                    panelSettings.Visible = false;
+                    panelMain.Visible =
+                        panelEditor.Visible =
+                        panelSettings.Visible = false;
                     this.ClientSize = new Size
                     {
-                        Width = this.panelMain.Size.Width,
+                        Width = this.panelDebugger.Size.Width,
                         Height =
                             this.msMain.Size.Height +
                             this.panelDebugger.Size.Height +
@@ -187,10 +185,10 @@ namespace WinYourDesktop
                     break;
 
                 case ViewingMode.Settings:
-                    panelMain.Visible = false;
-                    panelEditor.Visible = false;
-                    panelDebugger.Visible = false;
                     panelSettings.Visible = true;
+                    panelMain.Visible =
+                        panelEditor.Visible =
+                        panelDebugger.Visible = false;
                     this.ClientSize = new Size
                     {
                         Width = this.panelMain.Size.Width,

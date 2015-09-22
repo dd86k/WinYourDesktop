@@ -54,6 +54,9 @@
   <PropertyGroup>
     <ManifestKeyFile>sig.pfx</ManifestKeyFile>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="SharpShell, Version=1.2.0.0, Culture=neutral, PublicKeyToken=f14dc899472fe6fb, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
