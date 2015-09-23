@@ -14,9 +14,12 @@ namespace WinYourDesktop
 {
     internal partial class FormMain : Form
     {
-        #region File
+        #region Properties
         struct CurrentFile
         {
+            /// <summary>
+            /// Only get the name of the file out of the path.
+            /// </summary>
             internal static string FileName
             {
                 get
@@ -26,11 +29,16 @@ namespace WinYourDesktop
                         System.IO.Path.GetFileName(Path) : null;
                 }
             }
+            /// <summary>
+            /// The full path of the file.
+            /// </summary>
             internal static string Path
             {
                 get; set;
             }
         }
+
+        readonly string nl = System.Environment.NewLine;
         #endregion
 
         #region Constructors
@@ -202,18 +210,52 @@ namespace WinYourDesktop
         #endregion
 
         #region Debug
-        static bool Debugging;
         static internal bool DebugEnabled
         {
-            get
-            {
-                return DebugEnabled;
-            }
+            get; set;
         }
 
-        static internal void dbgWrite(string pObject)
+        internal enum ErrorLevel
         {
-            //TODO: Find a way to write to txtRunDebug from a static method.
+            Debug,
+            Info,
+            Warning,
+            Error,
+            Fatal
+        }
+
+        //TODO: Find a better way for a static method
+        // to interact with a non-static method
+
+        static Debugger w = new Debugger();
+        static internal void dbgWrite(ErrorLevel pLevel, string pInput)
+        {
+            w.Write(pLevel, pInput);
+        }
+
+        class Debugger : FormMain
+        {
+            internal void Write(ErrorLevel pLevel, string pInput)
+            {
+                switch (pLevel)
+                {
+                    case ErrorLevel.Debug:
+                        txtRunOutput.Text += $"[ DBUG ] {pInput}{nl}";
+                        break;
+                    case ErrorLevel.Info:
+                        txtRunOutput.Text += $"[ INFO ] {pInput}{nl}";
+                        break;
+                    case ErrorLevel.Warning:
+                        txtRunOutput.Text += $"[ WARN ] {pInput}{nl}";
+                        break;
+                    case ErrorLevel.Error:
+                        txtRunOutput.Text += $"[ ERR! ] {pInput}{nl}";
+                        break;
+                    case ErrorLevel.Fatal:
+                        txtRunOutput.Text += $"[FATAL!] {pInput}{nl}";
+                        break;
+                }
+            }
         }
         #endregion
 
@@ -221,9 +263,9 @@ namespace WinYourDesktop
         private void cboSettingsLanguage_SelectedValueChanged(object sender, System.EventArgs e)
         {
             string culture = string.Empty;
-            // I felt like doing a crazy one liner.
             try
             {
+                // I felt like doing a crazy one liner.
                 culture =
                     cboSettingsLanguage.Items[cboSettingsLanguage.SelectedIndex]
                     .ToString()

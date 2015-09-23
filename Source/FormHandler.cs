@@ -27,30 +27,30 @@ namespace WinYourDesktop
         /// </remarks>
         void PostInitialize()
         {
-            this.SuspendLayout();
+            SuspendLayout();
 
-            this.panelDebugger.Location =
-            this.panelEditor.Location =
-            this.panelSettings.Location =
-            this.panelMain.Location =
+            panelDebugger.Location =
+            panelEditor.Location =
+            panelSettings.Location =
+            panelMain.Location =
                 new Point
                 {
                     X = 0,
-                    Y = this.msMain.Size.Height
+                    Y = msMain.Size.Height
                 };
 
-            this.ClientSize = new Size
+            ClientSize = new Size
             {
-                Width = this.panelMain.Size.Width,
+                Width = panelMain.Size.Width,
                 Height =
-                    this.msMain.Size.Height +
-                    this.panelMain.Size.Height +
-                    this.ssMain.Size.Height
+                    msMain.Size.Height +
+                    panelMain.Size.Height +
+                    ssMain.Size.Height
             };
 
             ChangeCulture();
 
-            this.ResumeLayout();
+            ResumeLayout();
         }
 
         #region Language
@@ -135,7 +135,7 @@ namespace WinYourDesktop
 
         void ToggleMode(ViewingMode pNewViewingMode)
         {
-            this.SuspendLayout();
+            SuspendLayout();
 
             switch (pNewViewingMode)
             {
@@ -143,14 +143,15 @@ namespace WinYourDesktop
                     panelMain.Visible = true;
                     panelEditor.Visible =
                         panelDebugger.Visible =
-                        panelSettings.Visible = false;
-                    this.ClientSize = new Size
+                        panelSettings.Visible =
+                        DebugEnabled = false;
+                    ClientSize = new Size
                     {
-                        Width = this.panelMain.Size.Width,
+                        Width = panelMain.Size.Width,
                         Height =
-                            this.msMain.Size.Height +
-                            this.panelMain.Size.Height +
-                            this.ssMain.Size.Height
+                            msMain.Size.Height +
+                            panelMain.Size.Height +
+                            ssMain.Size.Height
                     };
                     break;
 
@@ -158,29 +159,31 @@ namespace WinYourDesktop
                     panelEditor.Visible = true;
                     panelMain.Visible =
                         panelDebugger.Visible =
-                        panelSettings.Visible = false;
-                    this.ClientSize = new Size
+                        panelSettings.Visible =
+                        DebugEnabled = false;
+                    ClientSize = new Size
                     {
-                        Width = this.panelEditor.Size.Width,
+                        Width = panelEditor.Size.Width,
                         Height =
-                            this.msMain.Size.Height +
-                            this.panelEditor.Size.Height +
-                            this.ssMain.Size.Height
+                            msMain.Size.Height +
+                            panelEditor.Size.Height +
+                            ssMain.Size.Height
                     };
                     break;
 
                 case ViewingMode.Debugger:
-                    panelDebugger.Visible = true;
+                    panelDebugger.Visible =
+                        DebugEnabled = true;
                     panelMain.Visible =
                         panelEditor.Visible =
                         panelSettings.Visible = false;
-                    this.ClientSize = new Size
+                    ClientSize = new Size
                     {
-                        Width = this.panelDebugger.Size.Width,
+                        Width = panelDebugger.Size.Width,
                         Height =
-                            this.msMain.Size.Height +
-                            this.panelDebugger.Size.Height +
-                            this.ssMain.Size.Height
+                            msMain.Size.Height +
+                            panelDebugger.Size.Height +
+                            ssMain.Size.Height
                     };
                     break;
 
@@ -188,19 +191,20 @@ namespace WinYourDesktop
                     panelSettings.Visible = true;
                     panelMain.Visible =
                         panelEditor.Visible =
-                        panelDebugger.Visible = false;
-                    this.ClientSize = new Size
+                        panelDebugger.Visible =
+                        DebugEnabled = false;
+                    ClientSize = new Size
                     {
-                        Width = this.panelMain.Size.Width,
+                        Width = panelMain.Size.Width,
                         Height =
-                            this.msMain.Size.Height +
-                            this.panelSettings.Size.Height +
-                            this.ssMain.Size.Height
+                            msMain.Size.Height +
+                            panelSettings.Size.Height +
+                            ssMain.Size.Height
                     };
                     break;
             }
 
-            this.ResumeLayout(true);
+            ResumeLayout(true);
         }
         #endregion
     }

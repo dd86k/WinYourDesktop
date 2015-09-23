@@ -128,20 +128,20 @@
             this.tsmiHome.CheckState = System.Windows.Forms.CheckState.Checked;
             this.tsmiHome.Name = "tsmiHome";
             this.tsmiHome.ShortcutKeys = System.Windows.Forms.Keys.F5;
-            this.tsmiHome.Size = new System.Drawing.Size(152, 22);
+            this.tsmiHome.Size = new System.Drawing.Size(143, 22);
             this.tsmiHome.Text = "Home";
             this.tsmiHome.Click += new System.EventHandler(this.tsmiHome_Click);
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(140, 6);
             // 
             // tsmiEditor
             // 
             this.tsmiEditor.Name = "tsmiEditor";
             this.tsmiEditor.ShortcutKeys = System.Windows.Forms.Keys.F6;
-            this.tsmiEditor.Size = new System.Drawing.Size(152, 22);
+            this.tsmiEditor.Size = new System.Drawing.Size(143, 22);
             this.tsmiEditor.Text = "Edit";
             this.tsmiEditor.Click += new System.EventHandler(this.tsmiEditor_Click);
             // 
@@ -149,20 +149,20 @@
             // 
             this.tsmiDebugger.Name = "tsmiDebugger";
             this.tsmiDebugger.ShortcutKeys = System.Windows.Forms.Keys.F7;
-            this.tsmiDebugger.Size = new System.Drawing.Size(152, 22);
+            this.tsmiDebugger.Size = new System.Drawing.Size(143, 22);
             this.tsmiDebugger.Text = "Debug";
             this.tsmiDebugger.Click += new System.EventHandler(this.tsmiDebugger_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(140, 6);
             // 
             // tsmiSettings
             // 
             this.tsmiSettings.Name = "tsmiSettings";
             this.tsmiSettings.ShortcutKeys = System.Windows.Forms.Keys.F8;
-            this.tsmiSettings.Size = new System.Drawing.Size(152, 22);
+            this.tsmiSettings.Size = new System.Drawing.Size(143, 22);
             this.tsmiSettings.Text = "Settings";
             this.tsmiSettings.Click += new System.EventHandler(this.tsmiSettings_Click);
             // 
@@ -186,18 +186,18 @@
             // 
             this.tsmiHelp.Name = "tsmiHelp";
             this.tsmiHelp.ShortcutKeys = System.Windows.Forms.Keys.F1;
-            this.tsmiHelp.Size = new System.Drawing.Size(152, 22);
+            this.tsmiHelp.Size = new System.Drawing.Size(124, 22);
             this.tsmiHelp.Text = "Help";
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(121, 6);
             // 
             // tsmiAbout
             // 
             this.tsmiAbout.Name = "tsmiAbout";
-            this.tsmiAbout.Size = new System.Drawing.Size(152, 22);
+            this.tsmiAbout.Size = new System.Drawing.Size(124, 22);
             this.tsmiAbout.Text = "About";
             this.tsmiAbout.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 

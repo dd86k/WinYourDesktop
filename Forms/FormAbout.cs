@@ -13,12 +13,12 @@ namespace WinYourDesktop
         public FormAbout()
         {
             InitializeComponent();
-            this.Text = String.Format("À propos de {0}", AssemblyTitle);
-            this.labelProductName.Text = AssemblyProduct;
-            this.labelVersion.Text = String.Format("Version {0}", AssemblyVersion);
-            this.labelCopyright.Text = AssemblyCopyright;
-            this.labelCompanyName.Text = AssemblyCompany;
-            this.textBoxDescription.Text = AssemblyDescription;
+            Text = String.Format("À propos de {0}", AssemblyTitle);
+            labelProductName.Text = AssemblyProduct;
+            labelVersion.Text = String.Format("Version {0}", AssemblyVersion);
+            labelCopyright.Text = AssemblyCopyright;
+            labelCompanyName.Text = AssemblyCompany;
+            textBoxDescription.Text = AssemblyDescription;
         }
 
         #region Accesseurs d'attribut de l'assembly
@@ -103,7 +103,7 @@ namespace WinYourDesktop
 
         private void FormAbout_Deactivate(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }
     }
 }
