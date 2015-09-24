@@ -40,11 +40,18 @@ namespace WinYourDesktop
         /// <param name="pPath">Path of the Desktop file.</param>
         static internal void Run(string pPath)
         {
-            if (FormMain.DebugEnabled)
-                FormMain.dbgWrite(FormMain.ErrorLevel.Info, "Debugging started");
+            FormMain.dbgWrite($"Started debugging {Path.GetFileName(pPath)}");
 
             if (pPath == null || pPath == string.Empty)
-                throw new NullReferenceException("Specified path is null or empty.");
+            {
+                if (FormMain.DebugEnabled)
+                {
+                    FormMain.dbgWrite($"");
+                    return;
+                }
+                else
+                    throw new NullReferenceException("Specified path is null or empty.");
+            }
             
             if (!File.Exists(pPath))
                 throw new FileNotFoundException($"Specified desktop file doesn't exist.{Environment.NewLine}Path: {pPath}");
@@ -54,7 +61,9 @@ namespace WinYourDesktop
             if (text.Length == 0 || !text.Contains("\n"))
                 throw new Exception("Specified desktop file is empty.");
 
-            string[] lines = text.Split(new char[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries);
+            string[] lines =
+                text.Split(new char[] { '\n', '\r' },
+                StringSplitOptions.RemoveEmptyEntries);
 
             if (lines[0] != "[Desktop Entry]")
                 throw new FormatException("First line must be [Desktop Entry].");

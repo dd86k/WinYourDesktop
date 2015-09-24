@@ -35,9 +35,17 @@ namespace WinYourDesktop
         }
 
         /// <summary>
-        /// The main entry point for the application.
-        /// Also know as <c>.ctor</c> in MSIL.
+        /// Non-disposed instance of <see cref="FormMain"/>
+        /// for debugging (desktop files) purposes.
         /// </summary>
+        static internal FormMain form = new FormMain();
+
+        /// <summary>
+        /// The main entry point for the application.
+        /// </summary>
+        /// <remarks>
+        /// Also know as <c>.ctor</c> in MSIL.
+        /// </remarks>
         [STAThread]
         static int Main(string[] args)
         {
@@ -100,8 +108,7 @@ namespace WinYourDesktop
             // --showui + path => Editor mode (Edit)
             if (showform)
             {
-                ShowForm(filepath);
-
+                ShowForm();
                 return 0;
             }
 
@@ -175,13 +182,8 @@ namespace WinYourDesktop
 
         static void ShowForm()
         {
-            ShowForm(null);
-        }
-
-        static void ShowForm(string pFile)
-        {
             Application.EnableVisualStyles();
-            Application.Run(new FormMain(pFile));
+            Application.Run(form);
         }
 
         static void ShowHelp()

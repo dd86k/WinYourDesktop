@@ -224,18 +224,19 @@ namespace WinYourDesktop
             Fatal
         }
 
-        //TODO: Find a better way for a static method
-        // to interact with a non-static method
-
-        static Debugger w = new Debugger();
-        static internal void dbgWrite(ErrorLevel pLevel, string pInput)
+        static internal void dbgWrite(string pInput)
         {
-            w.Write(pLevel, pInput);
+            Program.form.Write(ErrorLevel.Info, pInput);
         }
 
-        class Debugger : FormMain
+        static internal void dbgWrite(ErrorLevel pLevel, string pInput)
         {
-            internal void Write(ErrorLevel pLevel, string pInput)
+            Program.form.Write(pLevel, pInput);
+        }
+        
+        internal void Write(ErrorLevel pLevel, string pInput)
+        {
+            if (DebugEnabled)
             {
                 switch (pLevel)
                 {
