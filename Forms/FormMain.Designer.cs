@@ -54,6 +54,7 @@
             this.panelMain = new System.Windows.Forms.Panel();
             this.panelEditor = new System.Windows.Forms.Panel();
             this.panelDebugger = new System.Windows.Forms.Panel();
+            this.btnRunClearOutput = new System.Windows.Forms.Button();
             this.btnOpen = new System.Windows.Forms.Button();
             this.btnRunWithDebugger = new System.Windows.Forms.Button();
             this.lblRunCurrentFile = new System.Windows.Forms.Label();
@@ -61,6 +62,7 @@
             this.panelSettings = new System.Windows.Forms.Panel();
             this.lblSettingsLanguage = new System.Windows.Forms.Label();
             this.cboSettingsLanguage = new System.Windows.Forms.ComboBox();
+            this.ofdMain = new System.Windows.Forms.OpenFileDialog();
             this.msMain.SuspendLayout();
             this.ssMain.SuspendLayout();
             this.panelMain.SuspendLayout();
@@ -80,7 +82,7 @@
             this.msMain.Location = new System.Drawing.Point(0, 0);
             this.msMain.Name = "msMain";
             this.msMain.Padding = new System.Windows.Forms.Padding(8, 2, 0, 2);
-            this.msMain.Size = new System.Drawing.Size(679, 25);
+            this.msMain.Size = new System.Drawing.Size(857, 25);
             this.msMain.TabIndex = 0;
             this.msMain.Text = "menuStrip1";
             // 
@@ -218,7 +220,7 @@
             this.ssMain.Location = new System.Drawing.Point(0, 564);
             this.ssMain.Name = "ssMain";
             this.ssMain.Padding = new System.Windows.Forms.Padding(1, 0, 18, 0);
-            this.ssMain.Size = new System.Drawing.Size(679, 22);
+            this.ssMain.Size = new System.Drawing.Size(857, 22);
             this.ssMain.SizingGrip = false;
             this.ssMain.TabIndex = 1;
             this.ssMain.Text = "statusStrip1";
@@ -307,7 +309,7 @@
             // 
             // panelEditor
             // 
-            this.panelEditor.Location = new System.Drawing.Point(352, 42);
+            this.panelEditor.Location = new System.Drawing.Point(521, 44);
             this.panelEditor.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.panelEditor.Name = "panelEditor";
             this.panelEditor.Size = new System.Drawing.Size(279, 230);
@@ -316,6 +318,7 @@
             // 
             // panelDebugger
             // 
+            this.panelDebugger.Controls.Add(this.btnRunClearOutput);
             this.panelDebugger.Controls.Add(this.btnOpen);
             this.panelDebugger.Controls.Add(this.btnRunWithDebugger);
             this.panelDebugger.Controls.Add(this.lblRunCurrentFile);
@@ -323,28 +326,43 @@
             this.panelDebugger.Location = new System.Drawing.Point(12, 263);
             this.panelDebugger.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.panelDebugger.Name = "panelDebugger";
-            this.panelDebugger.Size = new System.Drawing.Size(302, 289);
+            this.panelDebugger.Size = new System.Drawing.Size(447, 289);
             this.panelDebugger.TabIndex = 8;
             this.panelDebugger.Visible = false;
+            // 
+            // btnRunClearOutput
+            // 
+            this.btnRunClearOutput.Location = new System.Drawing.Point(151, 28);
+            this.btnRunClearOutput.Margin = new System.Windows.Forms.Padding(3, 3, 0, 3);
+            this.btnRunClearOutput.Name = "btnRunClearOutput";
+            this.btnRunClearOutput.Size = new System.Drawing.Size(145, 35);
+            this.btnRunClearOutput.TabIndex = 5;
+            this.btnRunClearOutput.Text = "Clear";
+            this.btnRunClearOutput.UseVisualStyleBackColor = true;
+            this.btnRunClearOutput.Click += new System.EventHandler(this.btnRunClearOutput_Click);
             // 
             // btnOpen
             // 
             this.btnOpen.Location = new System.Drawing.Point(3, 28);
+            this.btnOpen.Margin = new System.Windows.Forms.Padding(3, 3, 0, 3);
             this.btnOpen.Name = "btnOpen";
             this.btnOpen.Size = new System.Drawing.Size(145, 35);
             this.btnOpen.TabIndex = 4;
             this.btnOpen.Text = "Open";
             this.btnOpen.UseVisualStyleBackColor = true;
+            this.btnOpen.Click += new System.EventHandler(this.btnOpen_Click);
             // 
             // btnRunWithDebugger
             // 
             this.btnRunWithDebugger.Enabled = false;
-            this.btnRunWithDebugger.Location = new System.Drawing.Point(154, 28);
+            this.btnRunWithDebugger.Location = new System.Drawing.Point(299, 28);
+            this.btnRunWithDebugger.Margin = new System.Windows.Forms.Padding(3, 3, 0, 3);
             this.btnRunWithDebugger.Name = "btnRunWithDebugger";
             this.btnRunWithDebugger.Size = new System.Drawing.Size(145, 35);
             this.btnRunWithDebugger.TabIndex = 3;
             this.btnRunWithDebugger.Text = "Debug";
             this.btnRunWithDebugger.UseVisualStyleBackColor = true;
+            this.btnRunWithDebugger.Click += new System.EventHandler(this.btnRunWithDebugger_Click);
             // 
             // lblRunCurrentFile
             // 
@@ -365,14 +383,15 @@
             this.txtRunOutput.Location = new System.Drawing.Point(0, 69);
             this.txtRunOutput.Multiline = true;
             this.txtRunOutput.Name = "txtRunOutput";
-            this.txtRunOutput.Size = new System.Drawing.Size(302, 220);
+            this.txtRunOutput.ReadOnly = true;
+            this.txtRunOutput.Size = new System.Drawing.Size(447, 220);
             this.txtRunOutput.TabIndex = 0;
             // 
             // panelSettings
             // 
             this.panelSettings.Controls.Add(this.lblSettingsLanguage);
             this.panelSettings.Controls.Add(this.cboSettingsLanguage);
-            this.panelSettings.Location = new System.Drawing.Point(342, 291);
+            this.panelSettings.Location = new System.Drawing.Point(521, 334);
             this.panelSettings.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.panelSettings.Name = "panelSettings";
             this.panelSettings.Size = new System.Drawing.Size(264, 200);
@@ -404,11 +423,15 @@
             this.cboSettingsLanguage.TabIndex = 0;
             this.cboSettingsLanguage.SelectedValueChanged += new System.EventHandler(this.cboSettingsLanguage_SelectedValueChanged);
             // 
+            // ofdMain
+            // 
+            this.ofdMain.Filter = "Desktop files|*.desktop|All file|*.*";
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(679, 586);
+            this.ClientSize = new System.Drawing.Size(857, 586);
             this.Controls.Add(this.ssMain);
             this.Controls.Add(this.panelSettings);
             this.Controls.Add(this.panelDebugger);
@@ -471,5 +494,7 @@
         private System.Windows.Forms.Button btnRunWithDebugger;
         private System.Windows.Forms.Label lblRunCurrentFile;
         private System.Windows.Forms.TextBox txtRunOutput;
+        private System.Windows.Forms.OpenFileDialog ofdMain;
+        private System.Windows.Forms.Button btnRunClearOutput;
     }
 }

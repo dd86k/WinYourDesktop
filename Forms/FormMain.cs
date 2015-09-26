@@ -212,7 +212,7 @@ namespace WinYourDesktop
         #region Debug
         static internal bool DebugEnabled
         {
-            get; set;
+            get; private set;
         }
 
         internal enum ErrorLevel
@@ -226,15 +226,15 @@ namespace WinYourDesktop
 
         static internal void dbgWrite(string pInput)
         {
-            Program.form.Write(ErrorLevel.Info, pInput);
+            Program.form.Write(pInput, ErrorLevel.Info);
         }
 
-        static internal void dbgWrite(ErrorLevel pLevel, string pInput)
+        static internal void dbgWrite(string pInput, ErrorLevel pLevel)
         {
-            Program.form.Write(pLevel, pInput);
+            Program.form.Write(pInput, pLevel);
         }
-        
-        internal void Write(ErrorLevel pLevel, string pInput)
+
+        void Write(string pInput, ErrorLevel pLevel)
         {
             if (DebugEnabled)
             {
@@ -258,6 +258,31 @@ namespace WinYourDesktop
                 }
             }
         }
+
+        // Open file
+        private void btnOpen_Click(object sender, System.EventArgs e)
+        {
+            ofdMain.FileName = string.Empty;
+            ofdMain.ShowDialog();
+            if (ofdMain.FileName != string.Empty)
+            {
+                CurrentFile.Path = ofdMain.FileName;
+                lblRunCurrentFile.Text = CurrentFile.FileName;
+                btnRunWithDebugger.Enabled = true;
+            }
+        }
+
+        // Clear output
+        private void btnRunClearOutput_Click(object sender, System.EventArgs e)
+        {
+            txtRunOutput.Clear();
+        }
+
+        // Run file
+        private void btnRunWithDebugger_Click(object sender, System.EventArgs e)
+        {
+            Interpreter.Run(CurrentFile.Path);
+        }
         #endregion
 
         #region Settings
@@ -279,5 +304,6 @@ namespace WinYourDesktop
                 ChangeCulture(culture);
         }
         #endregion
+
     }
 }

@@ -10,8 +10,6 @@ using System.Threading;
     Methods, properties, enums.
 */
 
-//TODO: Pick random welcoming text at startup
-
 namespace WinYourDesktop
 {
     partial class FormMain

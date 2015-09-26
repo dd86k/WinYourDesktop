@@ -46,27 +46,45 @@ namespace WinYourDesktop
             {
                 if (FormMain.DebugEnabled)
                 {
-                    FormMain.dbgWrite($"");
+                    FormMain.dbgWrite("Specified path is null or empty.", FormMain.ErrorLevel.Error);
                     return;
                 }
                 else
                     throw new NullReferenceException("Specified path is null or empty.");
             }
-            
+
             if (!File.Exists(pPath))
                 throw new FileNotFoundException($"Specified desktop file doesn't exist.{Environment.NewLine}Path: {pPath}");
+            else
+                FormMain.dbgWrite("File found");
+
+            FormMain.dbgWrite("Reading file...");
 
             string text = File.ReadAllText(pPath);
 
             if (text.Length == 0 || !text.Contains("\n"))
-                throw new Exception("Specified desktop file is empty.");
+                if (FormMain.DebugEnabled)
+                {
+                    FormMain.dbgWrite("Specified desktop file is empty.", FormMain.ErrorLevel.Error);
+                    return;
+                }
+                else
+                    throw new Exception("Specified desktop file is empty.");
+
+            FormMain.dbgWrite("Splitting file...");
 
             string[] lines =
                 text.Split(new char[] { '\n', '\r' },
                 StringSplitOptions.RemoveEmptyEntries);
 
             if (lines[0] != "[Desktop Entry]")
-                throw new FormatException("First line must be [Desktop Entry].");
+                if (FormMain.DebugEnabled)
+                {
+                    FormMain.dbgWrite("First line must be [Desktop Entry].", FormMain.ErrorLevel.Error);
+                    return;
+                }
+                else
+                    throw new Exception("First line must be [Desktop Entry].");
 
             string[] line = new string[0];
             dType Type = dType.Unknown;
@@ -82,10 +100,18 @@ namespace WinYourDesktop
                 if (lines[i][0] != '#') // Avoid comments.
                 {
                     if (!lines[i].Contains("="))
-                        // "i + 1" is due to object oriented programming, indexes starting at 0.
-                        throw new Exception($"Failed to split key and value at line {i + 1}.{Environment.NewLine}Missing '=' operator?");
+                        if (FormMain.DebugEnabled)
+                        {
+                            // "i + 1" is due to object oriented programming, indexes starting at 0.
+                            FormMain.dbgWrite($"Failed to split key and value at line {i + 1}.", FormMain.ErrorLevel.Error);
+                            return;
+                        }
+                        else
+                            throw new Exception($"Failed to split key and value at line {i + 1}.{Environment.NewLine}Missing '=' operator?");
 
                     line = lines[i].Split(new char[] { '=' }, StringSplitOptions.RemoveEmptyEntries);
+
+                    FormMain.dbgWrite($"Line #{i + 1}: {lines[i]}");
 
                     switch (line[0])
                     {
@@ -96,6 +122,7 @@ namespace WinYourDesktop
                                 case "Link": Type = dType.Link; break;
                                 case "Directory": Type = dType.Directory; break;
                             }
+                            FormMain.dbgWrite($"Type is {Type}");
                             break;
 
                         case "Exec":
@@ -105,22 +132,32 @@ namespace WinYourDesktop
 
                         case "URL":
                             url = line[1];
+                            FormMain.dbgWrite($"URL is {url}");
                             break;
 
                         case "Path":
                             path = line[1];
+                            FormMain.dbgWrite($"Path is {path}");
                             break;
 
                         case "Terminal":
                             if (line[1].ToLower() == "true")
                                 terminal = true;
+
+                            FormMain.dbgWrite($"Terminal mode enabled");
                             break;
                     }
                 }
-            }
+            } // End of for(;;)
 
             if (Type == dType.Unknown)
-                throw new Exception("Unknown or missing Type value!");
+                if (FormMain.DebugEnabled)
+                {
+                    FormMain.dbgWrite("Unknown or missing Type value!", FormMain.ErrorLevel.Error);
+                    return;
+                }
+                else
+                    throw new Exception("Unknown or missing Type value!");
 
             switch (Type)
             {
@@ -131,33 +168,55 @@ namespace WinYourDesktop
                     if (exec.Contains(" ") && !terminal)
                         // Split application (e.g. ping) with arguments (-t ::1)
                         execs = exec.Split(new char[] { ' ' }, 2);
-                    
+
                     //TODO: Fix Terminal key usage.
-                    
+
                     if (terminal)
                     {
-                        System.Diagnostics.Process.Start("start cmd", $"{exec}");
+                        FormMain.dbgWrite($"Program: start cmd {exec}");
+                        FormMain.dbgWrite("Starting...");
+                        try
+                        {
+                            System.Diagnostics.Process.Start("start cmd", $"{exec}");
+                            FormMain.dbgWrite("Started");
+                        }
+                        catch (Exception ex)
+                        {
+                            if (FormMain.DebugEnabled)
+                                FormMain.dbgWrite($"{ex.GetType()} - 0x{ex.GetHashCode().ToString("X8")}", FormMain.ErrorLevel.Error);
+                            else // Re-throw exception
+                                throw;
+                        }
                     }
                     else
                     {
                         if (execs.Length > 0)
                         {
+                            FormMain.dbgWrite($"Program: {execs[0]}");
+                            FormMain.dbgWrite($"Arguments: {execs[1]}");
+                            FormMain.dbgWrite("Starting...");
                             System.Diagnostics.Process.Start(execs[0], execs[1]);
+                            FormMain.dbgWrite("Started");
                         }
                         else
                         {
+                            FormMain.dbgWrite($"Program: {exec}");
+                            FormMain.dbgWrite("Starting...");
                             System.Diagnostics.Process.Start(exec);
+                            FormMain.dbgWrite("Started");
                         }
                     }
                     break;
 
                 // Launch the user's default application that handles URLs.
                 case dType.Link:
+                    FormMain.dbgWrite("Starting...");
                     System.Diagnostics.Process.Start(url);
                     break;
 
                 // Open File Explorer with a specific path/directory.
                 case dType.Directory:
+                    FormMain.dbgWrite("Starting...");
                     if (Directory.Exists(path))
                     {
                         string explorerpath =
@@ -166,13 +225,20 @@ namespace WinYourDesktop
                             "explorer";
                         
                         System.Diagnostics.Process.Start($"{explorerpath}", $"{path}");
+                        FormMain.dbgWrite("Started");
                     }
                     else
                     {
-                        throw new DirectoryNotFoundException($"Directory \"{path}\" could not be found.");
+                        if (FormMain.DebugEnabled)
+                        {
+                            FormMain.dbgWrite($"Directory \"{path}\" could not be found.", FormMain.ErrorLevel.Error);
+                            FormMain.dbgWrite("Started");
+                        }
+                        else
+                            throw new DirectoryNotFoundException($"Directory \"{path}\" could not be found.");
                     }
                     break;
-            }
+            } // End of switch()
         }
     }
 }
