@@ -129,16 +129,16 @@
   <data name="btnRun" xml:space="preserve">
     <value>Sail ship</value>
   </data>
-  <data name="sslblStatusbtnCreate" xml:space="preserve">
+  <data name="btnCreate_MouseEnter" xml:space="preserve">
     <value>Make me new ship!</value>
   </data>
-  <data name="sslblStatusbtnDebug" xml:space="preserve">
+  <data name="btnDebug_MouseEnter" xml:space="preserve">
     <value>Check me ship!</value>
   </data>
-  <data name="sslblStatusbtnEdit" xml:space="preserve">
+  <data name="btnEdit_MouseEnter" xml:space="preserve">
     <value>Mod me ship!</value>
   </data>
-  <data name="sslblStatusbtnRun" xml:space="preserve">
+  <data name="btnRun_MouseEnter" xml:space="preserve">
     <value>Adventure time, boys!</value>
   </data>
   <data name="tsmApplication" xml:space="preserve">
@@ -176,5 +176,26 @@
   </data>
   <data name="Welcome" xml:space="preserve">
     <value>Arrr, ay mate!</value>
+  </data>
+  <data name="btnOpen" xml:space="preserve">
+    <value>OPEN</value>
+  </data>
+  <data name="btnOpen_MouseEnter" xml:space="preserve">
+    <value>Arr, open file!</value>
+  </data>
+  <data name="btnRunClear" xml:space="preserve">
+    <value>DESTROY</value>
+  </data>
+  <data name="btnRunClear_MouseEnter" xml:space="preserve">
+    <value>remove traces boys!!!</value>
+  </data>
+  <data name="btnRunWithDebugger" xml:space="preserve">
+    <value>SHOOT</value>
+  </data>
+  <data name="btnRunWithDebugger_MouseEnter" xml:space="preserve">
+    <value>FIRE AWAY BOYS!!</value>
+  </data>
+  <data name="lblSettingsLanguage" xml:space="preserve">
+    <value>Me ABC's!</value>
   </data>
 </root>

@@ -164,19 +164,40 @@
   <data name="tsmView" xml:space="preserve">
     <value>Vue</value>
   </data>
-  <data name="sslblStatusbtnCreate" xml:space="preserve">
+  <data name="btnCreate_MouseEnter" xml:space="preserve">
     <value>Créer une entrée</value>
   </data>
-  <data name="sslblStatusbtnDebug" xml:space="preserve">
+  <data name="btnDebug_MouseEnter" xml:space="preserve">
     <value>Débugger une entrée</value>
   </data>
-  <data name="sslblStatusbtnEdit" xml:space="preserve">
+  <data name="btnEdit_MouseEnter" xml:space="preserve">
     <value>Modifier une entrée</value>
   </data>
-  <data name="sslblStatusbtnRun" xml:space="preserve">
+  <data name="btnRun_MouseEnter" xml:space="preserve">
     <value>Éxecuter une entrée</value>
   </data>
   <data name="Welcome" xml:space="preserve">
     <value>Salut!</value>
+  </data>
+  <data name="btnOpen" xml:space="preserve">
+    <value>Ouvrir</value>
+  </data>
+  <data name="btnOpen_MouseEnter" xml:space="preserve">
+    <value>Ouvrir un fichier</value>
+  </data>
+  <data name="btnRunClear" xml:space="preserve">
+    <value>Effacer</value>
+  </data>
+  <data name="btnRunClear_MouseEnter" xml:space="preserve">
+    <value>Effacer la sortie</value>
+  </data>
+  <data name="btnRunWithDebugger" xml:space="preserve">
+    <value>Éxecuter l'entrée</value>
+  </data>
+  <data name="btnRunWithDebugger_MouseEnter" xml:space="preserve">
+    <value>Éxecuter</value>
+  </data>
+  <data name="lblSettingsLanguage" xml:space="preserve">
+    <value>Langage</value>
   </data>
 </root>

@@ -183,7 +183,10 @@ namespace WinYourDesktop
                         catch (Exception ex)
                         {
                             if (FormMain.DebugEnabled)
+                            {
                                 FormMain.dbgWrite($"{ex.GetType()} - 0x{ex.GetHashCode().ToString("X8")}", FormMain.ErrorLevel.Error);
+                                FormMain.dbgWrite("Stopped", FormMain.ErrorLevel.Error);
+                            }
                             else // Re-throw exception
                                 throw;
                         }
@@ -212,6 +215,7 @@ namespace WinYourDesktop
                 case dType.Link:
                     FormMain.dbgWrite("Starting...");
                     System.Diagnostics.Process.Start(url);
+                    FormMain.dbgWrite("Started");
                     break;
 
                 // Open File Explorer with a specific path/directory.

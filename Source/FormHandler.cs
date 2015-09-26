@@ -89,7 +89,7 @@ namespace WinYourDesktop
                     break;
             }
 
-            // == Menu bar ==
+            // ========== Menu bar
             // App
             tsmApplication.Text = RM.GetString("tsmApplication");
             tsmiRestart.Text = RM.GetString("tsmiRestart");
@@ -107,15 +107,22 @@ namespace WinYourDesktop
             tsmiHelp.Text = RM.GetString("tsmiHelp");
             tsmiAbout.Text = RM.GetString("tsmiAbout");
 
-            // == Main panel ==
-            // Home buttons
+            // ========== Home panel
             btnRun.Text = RM.GetString("btnRun");
             btnCreate.Text = RM.GetString("btnCreate");
             btnEdit.Text = RM.GetString("btnEdit");
             btnDebug.Text = RM.GetString("btnDebug");
 
-            // == Misc ==
-            sslblStatus.Text = RM.GetString($"Welcome");
+            // ========== Run panel
+            btnOpen.Text = RM.GetString("btnOpen");
+            btnRunClear.Text = RM.GetString("btnRunClear");
+            btnRunWithDebugger.Text = RM.GetString("btnRun");
+
+            // ========== Settings panel
+            lblSettingsLanguage.Text = RM.GetString("lblSettingsLanguage");
+
+            // ========== Misc.
+            sslblStatus.Text = RM.GetString("Welcome");
         }
         #endregion
 
@@ -138,8 +145,12 @@ namespace WinYourDesktop
             switch (pNewViewingMode)
             {
                 case ViewingMode.Home:
-                    panelMain.Visible = true;
-                    panelEditor.Visible =
+                    tsmiHome.Checked =
+                        panelMain.Visible = true;
+                    tsmiEditor.Checked =
+                        tsmiDebugger.Checked =
+                        tsmiSettings.Checked =
+                        panelEditor.Visible =
                         panelDebugger.Visible =
                         panelSettings.Visible =
                         DebugEnabled = false;
@@ -154,8 +165,12 @@ namespace WinYourDesktop
                     break;
 
                 case ViewingMode.Editor:
-                    panelEditor.Visible = true;
-                    panelMain.Visible =
+                    tsmiEditor.Checked =
+                        panelEditor.Visible = true;
+                    tsmiHome.Checked =
+                        tsmiDebugger.Checked =
+                        tsmiSettings.Checked =
+                        panelMain.Visible =
                         panelDebugger.Visible =
                         panelSettings.Visible =
                         DebugEnabled = false;
@@ -170,9 +185,13 @@ namespace WinYourDesktop
                     break;
 
                 case ViewingMode.Debugger:
-                    panelDebugger.Visible =
+                    tsmiDebugger.Checked =
+                        panelDebugger.Visible =
                         DebugEnabled = true;
-                    panelMain.Visible =
+                    tsmiHome.Checked =
+                        tsmiEditor.Checked =
+                        tsmiSettings.Checked =
+                        panelMain.Visible =
                         panelEditor.Visible =
                         panelSettings.Visible = false;
                     ClientSize = new Size
@@ -186,8 +205,12 @@ namespace WinYourDesktop
                     break;
 
                 case ViewingMode.Settings:
-                    panelSettings.Visible = true;
-                    panelMain.Visible =
+                    tsmiSettings.Checked =
+                        panelSettings.Visible = true;
+                    tsmiHome.Checked =
+                        tsmiEditor.Checked =
+                        tsmiDebugger.Checked =
+                        panelMain.Visible =
                         panelEditor.Visible =
                         panelDebugger.Visible =
                         DebugEnabled = false;

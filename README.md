@@ -13,41 +13,6 @@ __WinYourDesktop__ is a loose (not strict by standard) and simple Desktop Entry 
 
 # What is going on?
 
-| General | Progress |
-| --- | --- |
-| Absolute paths | Done |
-| Relative paths | Testing |
-| System paths | Assumed done |
-| UI App | Working |
-
----
-
-| Application type | Progress |
-| --- | --- |
-| Exec | Working |
-| TryExec | Working |
-
-- Executable
-- Executable + arguments
-- Terminal applications (CLI)
-- Terminal applications (CLI) + arguments
-- Batch (Hopefully soon!)
-- Batch scripts (Untested)
-
----
-
-| Directory type | Progress |
-| --- | --- |
-| Path | Done |
-
----
-
-| Link type | Progress |
-| --- | --- |
-| URL | Done |
-
----
-
 | Handler | Progress |
 | --- | --- |
 | IconHandler (hard) | Working - Paused |
@@ -69,7 +34,7 @@ Note:
 
 # Installing (source)
 
-You will need at least Visual Studio 2015 or a recent version of Xamarin Studio (you will likely need to do some tweaks in the project file).
+You will need at least Visual Studio 2015 or a recent version of Xamarin Studio (you will need to do some tweaks in the project file).
 
 Please note that I'm writing C# 6.0 for .NET 4.0.
 
@@ -92,4 +57,4 @@ Just toss them in the ticket system ("Issues")!
 - What is a Desktop Entry file?
   - Please see this [article](http://www.linuxtopia.org/online_books/linux_desktop_guides/gnome_2.14_admin_guide/menustructure-desktopentry.html).
 
-I'm looking forward to finish it!
+I'm looking forward to finish this!

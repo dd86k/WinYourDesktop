@@ -70,11 +70,29 @@ namespace WinYourDesktop.Culture {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Create an entry.
+        /// </summary>
+        internal static string btnCreate_MouseEnter {
+            get {
+                return ResourceManager.GetString("btnCreate_MouseEnter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Debug.
         /// </summary>
         internal static string btnDebug {
             get {
                 return ResourceManager.GetString("btnDebug", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Debug an entry.
+        /// </summary>
+        internal static string btnDebug_MouseEnter {
+            get {
+                return ResourceManager.GetString("btnDebug_MouseEnter", resourceCulture);
             }
         }
         
@@ -88,6 +106,33 @@ namespace WinYourDesktop.Culture {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Edit an entry.
+        /// </summary>
+        internal static string btnEdit_MouseEnter {
+            get {
+                return ResourceManager.GetString("btnEdit_MouseEnter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Open.
+        /// </summary>
+        internal static string btnOpen {
+            get {
+                return ResourceManager.GetString("btnOpen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Open the file to run.
+        /// </summary>
+        internal static string btnOpen_MouseEnter {
+            get {
+                return ResourceManager.GetString("btnOpen_MouseEnter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Run.
         /// </summary>
         internal static string btnRun {
@@ -97,38 +142,56 @@ namespace WinYourDesktop.Culture {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Create an entry.
-        /// </summary>
-        internal static string sslblStatusbtnCreate {
-            get {
-                return ResourceManager.GetString("sslblStatusbtnCreate", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Recherche une chaîne localisée semblable à Debug an entry.
-        /// </summary>
-        internal static string sslblStatusbtnDebug {
-            get {
-                return ResourceManager.GetString("sslblStatusbtnDebug", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Recherche une chaîne localisée semblable à Edit an entry.
-        /// </summary>
-        internal static string sslblStatusbtnEdit {
-            get {
-                return ResourceManager.GetString("sslblStatusbtnEdit", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Recherche une chaîne localisée semblable à Run an entry.
         /// </summary>
-        internal static string sslblStatusbtnRun {
+        internal static string btnRun_MouseEnter {
             get {
-                return ResourceManager.GetString("sslblStatusbtnRun", resourceCulture);
+                return ResourceManager.GetString("btnRun_MouseEnter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Clear.
+        /// </summary>
+        internal static string btnRunClear {
+            get {
+                return ResourceManager.GetString("btnRunClear", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Clear the output.
+        /// </summary>
+        internal static string btnRunClear_MouseEnter {
+            get {
+                return ResourceManager.GetString("btnRunClear_MouseEnter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Run.
+        /// </summary>
+        internal static string btnRunWithDebugger {
+            get {
+                return ResourceManager.GetString("btnRunWithDebugger", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Run the current file.
+        /// </summary>
+        internal static string btnRunWithDebugger_MouseEnter {
+            get {
+                return ResourceManager.GetString("btnRunWithDebugger_MouseEnter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Language.
+        /// </summary>
+        internal static string lblSettingsLanguage {
+            get {
+                return ResourceManager.GetString("lblSettingsLanguage", resourceCulture);
             }
         }
         

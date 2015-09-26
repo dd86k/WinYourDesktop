@@ -129,16 +129,16 @@
   <data name="btnRun" xml:space="preserve">
     <value>Run</value>
   </data>
-  <data name="sslblStatusbtnCreate" xml:space="preserve">
+  <data name="btnCreate_MouseEnter" xml:space="preserve">
     <value>Create an entry</value>
   </data>
-  <data name="sslblStatusbtnDebug" xml:space="preserve">
+  <data name="btnDebug_MouseEnter" xml:space="preserve">
     <value>Debug an entry</value>
   </data>
-  <data name="sslblStatusbtnEdit" xml:space="preserve">
+  <data name="btnEdit_MouseEnter" xml:space="preserve">
     <value>Edit an entry</value>
   </data>
-  <data name="sslblStatusbtnRun" xml:space="preserve">
+  <data name="btnRun_MouseEnter" xml:space="preserve">
     <value>Run an entry</value>
   </data>
   <data name="tsmApplication" xml:space="preserve">
@@ -176,5 +176,26 @@
   </data>
   <data name="Welcome" xml:space="preserve">
     <value>Hello!</value>
+  </data>
+  <data name="btnOpen" xml:space="preserve">
+    <value>Open</value>
+  </data>
+  <data name="btnOpen_MouseEnter" xml:space="preserve">
+    <value>Open the file to run</value>
+  </data>
+  <data name="btnRunClear" xml:space="preserve">
+    <value>Clear</value>
+  </data>
+  <data name="btnRunClear_MouseEnter" xml:space="preserve">
+    <value>Clear the output</value>
+  </data>
+  <data name="btnRunWithDebugger" xml:space="preserve">
+    <value>Run</value>
+  </data>
+  <data name="btnRunWithDebugger_MouseEnter" xml:space="preserve">
+    <value>Run the current file</value>
+  </data>
+  <data name="lblSettingsLanguage" xml:space="preserve">
+    <value>Language</value>
   </data>
 </root>

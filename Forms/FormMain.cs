@@ -9,6 +9,9 @@ using System.Drawing;
 
 // TODO:View: Execute -> OpenFileDialog
 // TODO:View: Create -> SaveFileDialog -> Edit
+// TODO: Drag&Drop:
+// *.desktop -> Run
+// *.* -> Add entry (edit)
 
 namespace WinYourDesktop
 {
@@ -67,10 +70,6 @@ namespace WinYourDesktop
         {
             if (!tsmiHome.Checked)
             {
-                tsmiHome.Checked = true;
-                tsmiEditor.Checked = false;
-                tsmiDebugger.Checked = false;
-                tsmiSettings.Checked = false;
                 ToggleMode(ViewingMode.Home);
             }
         }
@@ -80,10 +79,6 @@ namespace WinYourDesktop
         {
             if (!tsmiEditor.Checked)
             {
-                tsmiHome.Checked = false;
-                tsmiEditor.Checked = true;
-                tsmiDebugger.Checked = false;
-                tsmiSettings.Checked = false;
                 ToggleMode(ViewingMode.Editor);
             }
         }
@@ -93,10 +88,6 @@ namespace WinYourDesktop
         {
             if (!tsmiDebugger.Checked)
             {
-                tsmiHome.Checked = false;
-                tsmiEditor.Checked = false;
-                tsmiDebugger.Checked = true;
-                tsmiSettings.Checked = false;
                 ToggleMode(ViewingMode.Debugger);
             }
         }
@@ -106,10 +97,6 @@ namespace WinYourDesktop
         {
             if (!tsmiSettings.Checked)
             {
-                tsmiHome.Checked = false;
-                tsmiEditor.Checked = false;
-                tsmiDebugger.Checked = false;
-                tsmiSettings.Checked = true;
                 ToggleMode(ViewingMode.Settings);
             }
         }
@@ -152,7 +139,7 @@ namespace WinYourDesktop
 
         private void btnRun_MouseEnter(object sender, System.EventArgs e)
         {
-            sslblStatus.Text = RM.GetString("sslblStatusbtnRun");
+            sslblStatus.Text = RM.GetString("btnRun_MouseEnter");
         }
 
         private void btnRun_MouseLeave(object sender, System.EventArgs e)
@@ -168,7 +155,7 @@ namespace WinYourDesktop
 
         private void btnCreate_MouseEnter(object sender, System.EventArgs e)
         {
-            sslblStatus.Text = RM.GetString("sslblStatusbtnCreate");
+            sslblStatus.Text = RM.GetString("btnCreate_MouseEnter");
         }
 
         private void btnCreate_MouseLeave(object sender, System.EventArgs e)
@@ -179,12 +166,12 @@ namespace WinYourDesktop
         // Debug
         private void btnDebug_Click(object sender, System.EventArgs e)
         {
-
+            ToggleMode(ViewingMode.Debugger);
         }
 
         private void btnDebug_MouseEnter(object sender, System.EventArgs e)
         {
-            sslblStatus.Text = RM.GetString("sslblStatusbtnDebug");
+            sslblStatus.Text = RM.GetString("btnDebug_MouseEnter");
         }
 
         private void btnDebug_MouseLeave(object sender, System.EventArgs e)
@@ -200,7 +187,7 @@ namespace WinYourDesktop
 
         private void btnEdit_MouseEnter(object sender, System.EventArgs e)
         {
-            sslblStatus.Text = RM.GetString("sslblStatusbtnEdit");
+            sslblStatus.Text = RM.GetString("btnEdit_MouseEnter");
         }
 
         private void btnEdit_MouseLeave(object sender, System.EventArgs e)
@@ -241,19 +228,19 @@ namespace WinYourDesktop
                 switch (pLevel)
                 {
                     case ErrorLevel.Debug:
-                        txtRunOutput.Text += $"[ DBUG ] {pInput}{nl}";
+                        txtRunOutput.AppendText($"[ DBUG ] {pInput}{nl}");
                         break;
                     case ErrorLevel.Info:
-                        txtRunOutput.Text += $"[ INFO ] {pInput}{nl}";
+                        txtRunOutput.AppendText($"[ INFO ] {pInput}{nl}");
                         break;
                     case ErrorLevel.Warning:
-                        txtRunOutput.Text += $"[ WARN ] {pInput}{nl}";
+                        txtRunOutput.AppendText($"[ WARN ] {pInput}{nl}");
                         break;
                     case ErrorLevel.Error:
-                        txtRunOutput.Text += $"[ ERR! ] {pInput}{nl}";
+                        txtRunOutput.AppendText($"[ ERR! ] {pInput}{nl}");
                         break;
                     case ErrorLevel.Fatal:
-                        txtRunOutput.Text += $"[FATAL!] {pInput}{nl}";
+                        txtRunOutput.AppendText($"[FATAL!] {pInput}{nl}");
                         break;
                 }
             }
@@ -272,16 +259,46 @@ namespace WinYourDesktop
             }
         }
 
+        private void btnOpen_MouseEnter(object sender, System.EventArgs e)
+        {
+            sslblStatus.Text = RM.GetString("btnOpen_MouseEnter");
+        }
+
+        private void btnOpen_MouseLeave(object sender, System.EventArgs e)
+        {
+            sslblStatus.Text = string.Empty;
+        }
+
         // Clear output
         private void btnRunClearOutput_Click(object sender, System.EventArgs e)
         {
             txtRunOutput.Clear();
         }
 
+        private void btnRunClear_MouseEnter(object sender, System.EventArgs e)
+        {
+            sslblStatus.Text = RM.GetString("btnRunClear_MouseEnter");
+        }
+
+        private void btnRunClear_MouseLeave(object sender, System.EventArgs e)
+        {
+            sslblStatus.Text = string.Empty;
+        }
+
         // Run file
         private void btnRunWithDebugger_Click(object sender, System.EventArgs e)
         {
             Interpreter.Run(CurrentFile.Path);
+        }
+
+        private void btnRunWithDebugger_MouseEnter(object sender, System.EventArgs e)
+        {
+            sslblStatus.Text = RM.GetString("btnRunWithDebugger_MouseEnter");
+        }
+
+        private void btnRunWithDebugger_MouseLeave(object sender, System.EventArgs e)
+        {
+            sslblStatus.Text = string.Empty;
         }
         #endregion
 
@@ -304,6 +321,5 @@ namespace WinYourDesktop
                 ChangeCulture(culture);
         }
         #endregion
-
     }
 }

@@ -54,7 +54,7 @@
             this.panelMain = new System.Windows.Forms.Panel();
             this.panelEditor = new System.Windows.Forms.Panel();
             this.panelDebugger = new System.Windows.Forms.Panel();
-            this.btnRunClearOutput = new System.Windows.Forms.Button();
+            this.btnRunClear = new System.Windows.Forms.Button();
             this.btnOpen = new System.Windows.Forms.Button();
             this.btnRunWithDebugger = new System.Windows.Forms.Button();
             this.lblRunCurrentFile = new System.Windows.Forms.Label();
@@ -318,7 +318,7 @@
             // 
             // panelDebugger
             // 
-            this.panelDebugger.Controls.Add(this.btnRunClearOutput);
+            this.panelDebugger.Controls.Add(this.btnRunClear);
             this.panelDebugger.Controls.Add(this.btnOpen);
             this.panelDebugger.Controls.Add(this.btnRunWithDebugger);
             this.panelDebugger.Controls.Add(this.lblRunCurrentFile);
@@ -330,16 +330,18 @@
             this.panelDebugger.TabIndex = 8;
             this.panelDebugger.Visible = false;
             // 
-            // btnRunClearOutput
+            // btnRunClear
             // 
-            this.btnRunClearOutput.Location = new System.Drawing.Point(151, 28);
-            this.btnRunClearOutput.Margin = new System.Windows.Forms.Padding(3, 3, 0, 3);
-            this.btnRunClearOutput.Name = "btnRunClearOutput";
-            this.btnRunClearOutput.Size = new System.Drawing.Size(145, 35);
-            this.btnRunClearOutput.TabIndex = 5;
-            this.btnRunClearOutput.Text = "Clear";
-            this.btnRunClearOutput.UseVisualStyleBackColor = true;
-            this.btnRunClearOutput.Click += new System.EventHandler(this.btnRunClearOutput_Click);
+            this.btnRunClear.Location = new System.Drawing.Point(151, 28);
+            this.btnRunClear.Margin = new System.Windows.Forms.Padding(3, 3, 0, 3);
+            this.btnRunClear.Name = "btnRunClear";
+            this.btnRunClear.Size = new System.Drawing.Size(145, 35);
+            this.btnRunClear.TabIndex = 5;
+            this.btnRunClear.Text = "Clear";
+            this.btnRunClear.UseVisualStyleBackColor = true;
+            this.btnRunClear.Click += new System.EventHandler(this.btnRunClearOutput_Click);
+            this.btnRunClear.MouseEnter += new System.EventHandler(this.btnRunClear_MouseEnter);
+            this.btnRunClear.MouseLeave += new System.EventHandler(this.btnRunClear_MouseLeave);
             // 
             // btnOpen
             // 
@@ -351,6 +353,8 @@
             this.btnOpen.Text = "Open";
             this.btnOpen.UseVisualStyleBackColor = true;
             this.btnOpen.Click += new System.EventHandler(this.btnOpen_Click);
+            this.btnOpen.MouseEnter += new System.EventHandler(this.btnOpen_MouseEnter);
+            this.btnOpen.MouseLeave += new System.EventHandler(this.btnOpen_MouseLeave);
             // 
             // btnRunWithDebugger
             // 
@@ -360,9 +364,11 @@
             this.btnRunWithDebugger.Name = "btnRunWithDebugger";
             this.btnRunWithDebugger.Size = new System.Drawing.Size(145, 35);
             this.btnRunWithDebugger.TabIndex = 3;
-            this.btnRunWithDebugger.Text = "Debug";
+            this.btnRunWithDebugger.Text = "Run";
             this.btnRunWithDebugger.UseVisualStyleBackColor = true;
             this.btnRunWithDebugger.Click += new System.EventHandler(this.btnRunWithDebugger_Click);
+            this.btnRunWithDebugger.MouseEnter += new System.EventHandler(this.btnRunWithDebugger_MouseEnter);
+            this.btnRunWithDebugger.MouseLeave += new System.EventHandler(this.btnRunWithDebugger_MouseLeave);
             // 
             // lblRunCurrentFile
             // 
@@ -370,9 +376,8 @@
             this.lblRunCurrentFile.Location = new System.Drawing.Point(5, 5);
             this.lblRunCurrentFile.Margin = new System.Windows.Forms.Padding(5);
             this.lblRunCurrentFile.Name = "lblRunCurrentFile";
-            this.lblRunCurrentFile.Size = new System.Drawing.Size(54, 20);
+            this.lblRunCurrentFile.Size = new System.Drawing.Size(0, 20);
             this.lblRunCurrentFile.TabIndex = 1;
-            this.lblRunCurrentFile.Text = "No file";
             // 
             // txtRunOutput
             // 
@@ -384,6 +389,7 @@
             this.txtRunOutput.Multiline = true;
             this.txtRunOutput.Name = "txtRunOutput";
             this.txtRunOutput.ReadOnly = true;
+            this.txtRunOutput.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txtRunOutput.Size = new System.Drawing.Size(447, 220);
             this.txtRunOutput.TabIndex = 0;
             // 
@@ -495,6 +501,6 @@
         private System.Windows.Forms.Label lblRunCurrentFile;
         private System.Windows.Forms.TextBox txtRunOutput;
         private System.Windows.Forms.OpenFileDialog ofdMain;
-        private System.Windows.Forms.Button btnRunClearOutput;
+        private System.Windows.Forms.Button btnRunClear;
     }
 }
