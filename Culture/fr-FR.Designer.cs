@@ -232,7 +232,7 @@ namespace WinYourDesktop.Culture {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Aide.
+        ///   Recherche une chaîne localisée semblable à Aide (Anglais).
         /// </summary>
         internal static string tsmiHelp {
             get {

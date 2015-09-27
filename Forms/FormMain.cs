@@ -113,6 +113,22 @@ namespace WinYourDesktop
             Application.Exit();
         }
 
+        // Help
+        private void tsmiHelp_Click(object sender, System.EventArgs e)
+        {
+            FormHelp fHelp = new FormHelp();
+            fHelp.Location = new Point
+            {
+                // FormHelp will show right if only it can fit into the current screen.
+                X = Location.X + Size.Width + fHelp.Size.Width >
+                        Screen.FromControl(this).WorkingArea.Size.Width ?
+                        Location.X - fHelp.Size.Width :
+                        Location.X + Size.Width,
+                Y = Location.Y
+            };
+            fHelp.Show();
+        }
+
         // About
         private void aboutToolStripMenuItem_Click(object sender, System.EventArgs e)
         {
