@@ -1,5 +1,10 @@
+# All binary outputs
 *\bin
+# All object files
 *\obj
+# Temporary VS (hidden) directory
+.vs
+# NuGet packages
 packages
 
 # Windows image file caches

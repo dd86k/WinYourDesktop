@@ -55,7 +55,7 @@ namespace WinYourDesktop
         static public void Run(string pPath)
         {
             //FormMain.dbgWrite($"Started debugging {Path.GetFileName(pPath)}");
-
+            
             if (pPath == null || pPath == string.Empty)
             {
                 /*
