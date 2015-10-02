@@ -11,15 +11,6 @@ __Desktop Entry (.desktop) files.__
 
 _WinYourDesktop_ is a loose (not strict by standard) and simple Desktop Entry file interpreter for Windows.
 
-# What is going on?
-
-| Handler | Progress |
-| --- | --- |
-| IconHandler (hard) | Working - Paused |
-| FilenameHandler (hard) | Not started |
-| TooltipHandler (hard) | Not started |
-| LogHandler | Working - Paused |
-
 # Installing (binaries)
 
 Note:
@@ -34,15 +25,26 @@ Note:
 
 # Installing (source)
 
-You will need at least Visual Studio 2015 or a recent version of Xamarin Studio (you will need to do some tweaks in the project file).
+You will need at least Visual Studio 2015 or the latest version of Xamarin Studio (you will need to do some tweaks in the project file, also I'm not sure if it's entirely compatible).
 
-Please note that I'm writing C# 6.0 for .NET 4.0.
+Please note that I'm writing C# 6.0 on .NET 4.0.
 
 # Debugging
 
+This solution consists of three folders
+
+- WinYourDesktop
+  - UI Project
+- WinYourDesktopConsole
+  - Console project
+- wyd-lib
+  - Library
+
 Generate the wyd-lib project first, since WinYourDesktop and WinYourDesktopConsole depends on the library in order to run.
 
-Fody takes care of embedding these DLLs.
+Then you can just debug right away.
+
+Fody takes care of embedding the DLLs.
 
 # Ideas?
 
