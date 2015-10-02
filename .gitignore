@@ -1,9 +1,5 @@
-WinYourDesktop\bin
-WinYourDesktop\obj
-WinYourDesktopConsole\bin
-WinYourDesktopConsole\obj
-wyd-lib\bin
-wyd-lib\obj
+*\bin
+*\obj
 packages
 
 # Windows image file caches
