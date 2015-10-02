@@ -1,4 +1,0 @@
-C:\Users\DD\Documents\Projects\WinYourDesktop\wyd-lib\bin\Debug\wyd-lib.dll
-C:\Users\DD\Documents\Projects\WinYourDesktop\wyd-lib\bin\Debug\wyd-lib.pdb
-C:\Users\DD\Documents\Projects\WinYourDesktop\wyd-lib\obj\Debug\wyd-lib.dll
-C:\Users\DD\Documents\Projects\WinYourDesktop\wyd-lib\obj\Debug\wyd-lib.pdb
