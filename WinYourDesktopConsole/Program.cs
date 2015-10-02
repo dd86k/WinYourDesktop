@@ -16,16 +16,6 @@ namespace WinYourDesktopConsole
                     .GetExecutingAssembly().GetName().Version.ToString();
             }
         }
-
-        static string ProjectName
-        {
-            get
-            {
-                return
-                    System.Reflection.Assembly
-                    .GetExecutingAssembly().GetName().Name;
-            }
-        }
         
         static string filepath;
         static int Main(string[] args)
@@ -73,7 +63,7 @@ namespace WinYourDesktopConsole
 
         static void ShowVersion()
         {
-            Console.WriteLine($"{ProjectName} - {ProjectVersion}");
+            Console.WriteLine($"WinYourDesktopConsole - {ProjectVersion}");
             Console.WriteLine("Copyright (c) 2015 DD~!/guitarxhero");
             Console.WriteLine("License: MIT License <http://opensource.org/licenses/MIT>");
             Console.WriteLine("Project page: <https://github.com/guitarxhero/WinYourDesktop>");

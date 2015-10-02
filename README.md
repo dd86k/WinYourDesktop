@@ -20,7 +20,7 @@ _WinYourDesktop_ is a loose (not strict by standard) and simple Desktop Entry fi
 | TooltipHandler (hard) | Not started |
 | LogHandler | Working - Paused |
 
-# Installing
+# Installing (binaries)
 
 Note:
 
@@ -38,6 +38,12 @@ You will need at least Visual Studio 2015 or a recent version of Xamarin Studio 
 
 Please note that I'm writing C# 6.0 for .NET 4.0.
 
+# Debugging
+
+Generate the wyd-lib project first, since WinYourDesktop and WinYourDesktopConsole depends on the library in order to run.
+
+Fody takes care of embedding these DLLs.
+
 # Ideas?
 
 Just toss them in the ticket system ("Issues")!
@@ -46,7 +52,7 @@ Just toss them in the ticket system ("Issues")!
 
 - What is a Desktop Entry file?
   - Please see this [article](http://www.linuxtopia.org/online_books/linux_desktop_guides/gnome_2.14_admin_guide/menustructure-desktopentry.html).
-  
+
 # Notes
 
 - I am using

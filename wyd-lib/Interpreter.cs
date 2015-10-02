@@ -3,6 +3,7 @@ using System.IO;
 
 namespace WinYourDesktop
 {
+
     /// <summary>
     /// Standard used:
     /// http://standards.freedesktop.org/desktop-entry-spec/latest/index.html
@@ -11,6 +12,19 @@ namespace WinYourDesktop
     /// </summary>
     static public class Interpreter
     {
+        /// <summary>
+        /// Get the current version of the library.
+        /// </summary>
+        static public string ProjectVersion
+        {
+            get
+            {
+                return
+                    System.Reflection.Assembly
+                    .GetExecutingAssembly().GetName().Version.ToString();
+            }
+        }
+
         /// <summary>
         /// Desktop Entry header type.
         /// </summary>
