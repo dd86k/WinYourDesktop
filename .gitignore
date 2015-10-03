@@ -1,11 +1,16 @@
 # All binary outputs
 *\bin
+
 # All object files
 *\obj
-# Temporary VS (hidden) directory
+
+# Temporary Visual Studio (hidden) directory
 .vs
+
 # NuGet packages
-packages
+# -- Assuming it's okay to re-distribute
+# unmodified packages and libraries. --
+# packages
 
 # Windows image file caches
 Thumbs.db

@@ -169,7 +169,7 @@ namespace WinYourDesktop.Culture {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Éxecuter l&apos;entrée.
+        ///   Recherche une chaîne localisée semblable à Éxecuter.
         /// </summary>
         internal static string btnRunWithDebugger {
             get {
@@ -178,7 +178,7 @@ namespace WinYourDesktop.Culture {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Éxecuter.
+        ///   Recherche une chaîne localisée semblable à Éxecuter l&apos;entrée.
         /// </summary>
         internal static string btnRunWithDebugger_MouseEnter {
             get {

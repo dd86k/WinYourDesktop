@@ -1,0 +1,4 @@
+[Desktop Entry]
+Type=Application
+TryExec=ping 127.0.0.1
+Terminal=true

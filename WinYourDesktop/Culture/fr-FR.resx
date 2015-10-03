@@ -192,10 +192,10 @@
     <value>Effacer la sortie</value>
   </data>
   <data name="btnRunWithDebugger" xml:space="preserve">
-    <value>Éxecuter l'entrée</value>
+    <value>Éxecuter</value>
   </data>
   <data name="btnRunWithDebugger_MouseEnter" xml:space="preserve">
-    <value>Éxecuter</value>
+    <value>Éxecuter l'entrée</value>
   </data>
   <data name="lblSettingsLanguage" xml:space="preserve">
     <value>Langage</value>

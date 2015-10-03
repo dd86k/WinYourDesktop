@@ -28,7 +28,7 @@ namespace WinYourDesktop
         /// <summary>
         /// Desktop Entry header type.
         /// </summary>
-        enum dType
+        enum DesktopFileType
         {
             /// <summary>
             /// Application type. (UI and CLI apps)
@@ -49,7 +49,7 @@ namespace WinYourDesktop
         }
 
         /// <summary>
-        /// Interprets a Desktop file.
+        /// Interpret a Desktop file.
         /// </summary>
         /// <param name="pPath">Path of the Desktop file.</param>
         static public void Run(string pPath)
@@ -69,7 +69,7 @@ namespace WinYourDesktop
             }
 
             if (!File.Exists(pPath))
-                throw new FileNotFoundException($"Specified desktop file doesn't exist.{Environment.NewLine}Path: {pPath}");
+                throw new FileNotFoundException($"Specified file doesn't exist.{Environment.NewLine}Path: {pPath}");
             /*else
                 FormMain.dbgWrite("File found");*/
 
@@ -102,7 +102,7 @@ namespace WinYourDesktop
                     throw new Exception("First line must be [Desktop Entry].");
 
             string[] line = new string[0];
-            dType Type = dType.Unknown;
+            DesktopFileType Type = DesktopFileType.Unknown;
             string exec = string.Empty;
             string url = string.Empty;
             string path = string.Empty;
@@ -133,9 +133,9 @@ namespace WinYourDesktop
                         case "Type":
                             switch (line[1])
                             {
-                                case "Application": Type = dType.Application; break;
-                                case "Link": Type = dType.Link; break;
-                                case "Directory": Type = dType.Directory; break;
+                                case "Application": Type = DesktopFileType.Application; break;
+                                case "Link": Type = DesktopFileType.Link; break;
+                                case "Directory": Type = DesktopFileType.Directory; break;
                             }
                             //FormMain.dbgWrite($"Type is {Type}");
                             break;
@@ -165,7 +165,7 @@ namespace WinYourDesktop
                 }
             } // End of for(;;)
 
-            if (Type == dType.Unknown)
+            if (Type == DesktopFileType.Unknown)
                 /*if (FormMain.DebugEnabled)
                 {
                     FormMain.dbgWrite("Unknown or missing Type value!", FormMain.ErrorLevel.Error);
@@ -177,7 +177,7 @@ namespace WinYourDesktop
             switch (Type)
             {
                 // Launch an application.
-                case dType.Application:
+                case DesktopFileType.Application:
                     string[] execs = new string[0];
 
                     if (exec.Contains(" ") && !terminal)
@@ -227,14 +227,14 @@ namespace WinYourDesktop
                     break;
 
                 // Launch the user's default application that handles URLs.
-                case dType.Link:
+                case DesktopFileType.Link:
                     //FormMain.dbgWrite("Starting...");
                     System.Diagnostics.Process.Start(url);
                     //FormMain.dbgWrite("Started");
                     break;
 
                 // Open File Explorer with a specific path/directory.
-                case dType.Directory:
+                case DesktopFileType.Directory:
                     //FormMain.dbgWrite("Starting...");
                     if (Directory.Exists(path))
                     {
