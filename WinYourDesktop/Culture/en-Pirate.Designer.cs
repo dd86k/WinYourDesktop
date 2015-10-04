@@ -286,7 +286,7 @@ namespace WinYourDesktop.Culture {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à View ship.
+        ///   Recherche une chaîne localisée semblable à Ships!.
         /// </summary>
         internal static string tsmView {
             get {

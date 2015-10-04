@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using WinYourDesktopLibrary;
 
 namespace WinYourDesktop
 {
@@ -25,24 +26,9 @@ namespace WinYourDesktop
             }
         }
 
-        static internal bool Debugging
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// Non-disposed instance of <see cref="FormMain"/>
-        /// for debugging (desktop files) purposes.
-        /// </summary>
-        static internal FormMain form = new FormMain();
-
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
-        /// <remarks>
-        /// Also know as <c>.ctor</c> in MSIL.
-        /// </remarks>
         [STAThread]
         static int Main(string[] args)
         {
@@ -57,9 +43,9 @@ namespace WinYourDesktop
             bool showform = false;
 
             // CLI arguments
-            foreach (string arg in args)
+            for (int i = 0; i < args.Length; i++)
             {
-                switch (arg)
+                switch (args[i])
                 {
                     case "-S":
                     case "--showui":
@@ -72,36 +58,26 @@ namespace WinYourDesktop
                     case "--createdummy":
                     case "/C":
                     case "/createdummy":
-                        CreateDummy();
+                        Interpreter.CreateDummy();
                         return 0;
-
-                    case "-D":
-                    case "--debug":
-                    case "/D":
-                    case "/debug":
-                        Debugging = true;
-                        break;
-
-                    default:
-                        filepath = arg;
-                        break;
-
                 }
             }
 
-            //TODO: Show UI depending on arguments
-            // --showui => Main
-            // --showui + path => Editor mode (Edit)
-            if (showform)
+            if (System.IO.File.Exists(args[args.Length - 1]))
             {
-                ShowForm();
-                return 0;
+                filepath = args[args.Length - 1];
             }
 
             string nl = Environment.NewLine;
 
             if (filepath != string.Empty)
             {
+                if (showform)
+                {
+                    ShowForm(filepath);
+                    return 0;
+                }
+
                 try
                 {
                     Interpreter.Run(filepath);
@@ -109,10 +85,10 @@ namespace WinYourDesktop
                 catch (System.ComponentModel.Win32Exception ex)
                 {
                     MessageBox.Show($"A Win32 error happened.{nl + nl}" +
-                           $"Exception: {ex.GetType() + nl}" +
-                           $"Message: {ex.Message}",
-                           $"Oops! - {ProjectName} - {ProjectVersion}",
-                           MessageBoxButtons.OK);
+                        $"Exception: {ex.GetType() + nl}" +
+                        $"Message: {ex.Message}",
+                        $"{ProjectName} - Oops! ({ProjectVersion})",
+                        MessageBoxButtons.OK);
 
                     return 2;
                 }
@@ -121,7 +97,7 @@ namespace WinYourDesktop
                     MessageBox.Show($"The file could not be found.{nl + nl}" +
                         $"Exception: {ex.GetType() + nl}" +
                         $"Message: {ex.Message}",
-                        $"Oops! - {ProjectName} - {ProjectVersion}",
+                        $"{ProjectName} - Oops! ({ProjectVersion})",
                         MessageBoxButtons.OK);
 
                     return 2;
@@ -131,7 +107,7 @@ namespace WinYourDesktop
                     MessageBox.Show($"The directory could not be found.{nl + nl}" +
                         $"Exception: {ex.GetType() + nl}" +
                         $"Message: {ex.Message}",
-                        $"Oops! - {ProjectName} - {ProjectVersion}",
+                        $"{ProjectName} - Oops! ({ProjectVersion})",
                         MessageBoxButtons.OK);
 
                     return 3;
@@ -141,7 +117,7 @@ namespace WinYourDesktop
                     MessageBox.Show($"There was an error interpreting the desktop file.{nl}{nl}" +
                         $"Exception: {ex.GetType() + nl}" +
                         $"Message: {ex.Message}",
-                        $"Oops! - {ProjectName} - {ProjectVersion}",
+                        $"{ProjectName} - Oops! ({ProjectVersion})",
                         MessageBoxButtons.OK);
 
                     return 1;
@@ -151,25 +127,16 @@ namespace WinYourDesktop
             return 0;
         }
 
-        static void CreateDummy()
-        {
-            string nl = Environment.NewLine;
-            using (System.IO.TextWriter tw = new System.IO.StreamWriter("Dummy.desktop"))
-            {
-                tw.WriteLine("[Desktop Entry]");
-                tw.WriteLine("#This is a simple generated dummy desktop file.");
-                tw.WriteLine("Type=Application");
-                tw.WriteLine("Name=Dummy Desktop File");
-                tw.WriteLine("Exec=echo hi & pause");
-                tw.WriteLine("Terminal=true");
-                tw.Close();
-            }
-        }
-
         static void ShowForm()
         {
             Application.EnableVisualStyles();
-            Application.Run(form);
+            Application.Run(new FormMain());
+        }
+
+        static void ShowForm(string pPath)
+        {
+            Application.EnableVisualStyles();
+            Application.Run(new FormMain(pPath));
         }
     }
 }

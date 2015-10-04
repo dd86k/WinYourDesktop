@@ -58,11 +58,12 @@
             this.lblRunCurrentFile = new System.Windows.Forms.Label();
             this.txtRunOutput = new System.Windows.Forms.TextBox();
             this.panelSettings = new System.Windows.Forms.Panel();
+            this.chkSettingsShowDebug = new System.Windows.Forms.CheckBox();
+            this.btnSettingsSave = new System.Windows.Forms.Button();
             this.lblSettingsLanguage = new System.Windows.Forms.Label();
             this.cboSettingsLanguage = new System.Windows.Forms.ComboBox();
             this.ofdMain = new System.Windows.Forms.OpenFileDialog();
-            this.btnSettingsSave = new System.Windows.Forms.Button();
-            this.chkSettingsShowDebug = new System.Windows.Forms.CheckBox();
+            this.creationWizardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.msMain.SuspendLayout();
             this.ssMain.SuspendLayout();
             this.panelMain.SuspendLayout();
@@ -121,8 +122,8 @@
             this.toolStripSeparator2,
             this.tsmiSettings});
             this.tsmView.Name = "tsmView";
-            this.tsmView.Size = new System.Drawing.Size(47, 21);
-            this.tsmView.Text = "View";
+            this.tsmView.Size = new System.Drawing.Size(55, 21);
+            this.tsmView.Text = "Mode";
             // 
             // tsmiHome
             // 
@@ -130,20 +131,20 @@
             this.tsmiHome.CheckState = System.Windows.Forms.CheckState.Checked;
             this.tsmiHome.Name = "tsmiHome";
             this.tsmiHome.ShortcutKeys = System.Windows.Forms.Keys.F5;
-            this.tsmiHome.Size = new System.Drawing.Size(143, 22);
+            this.tsmiHome.Size = new System.Drawing.Size(152, 22);
             this.tsmiHome.Text = "Home";
             this.tsmiHome.Click += new System.EventHandler(this.tsmiHome_Click);
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(140, 6);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(149, 6);
             // 
             // tsmiEditor
             // 
             this.tsmiEditor.Name = "tsmiEditor";
             this.tsmiEditor.ShortcutKeys = System.Windows.Forms.Keys.F6;
-            this.tsmiEditor.Size = new System.Drawing.Size(143, 22);
+            this.tsmiEditor.Size = new System.Drawing.Size(152, 22);
             this.tsmiEditor.Text = "Edit";
             this.tsmiEditor.Click += new System.EventHandler(this.tsmiEditor_Click);
             // 
@@ -151,25 +152,27 @@
             // 
             this.tsmiDebugger.Name = "tsmiDebugger";
             this.tsmiDebugger.ShortcutKeys = System.Windows.Forms.Keys.F7;
-            this.tsmiDebugger.Size = new System.Drawing.Size(143, 22);
+            this.tsmiDebugger.Size = new System.Drawing.Size(152, 22);
             this.tsmiDebugger.Text = "Debug";
             this.tsmiDebugger.Click += new System.EventHandler(this.tsmiDebugger_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(140, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(149, 6);
             // 
             // tsmiSettings
             // 
             this.tsmiSettings.Name = "tsmiSettings";
             this.tsmiSettings.ShortcutKeys = System.Windows.Forms.Keys.F8;
-            this.tsmiSettings.Size = new System.Drawing.Size(143, 22);
+            this.tsmiSettings.Size = new System.Drawing.Size(152, 22);
             this.tsmiSettings.Text = "Settings";
             this.tsmiSettings.Click += new System.EventHandler(this.tsmiSettings_Click);
             // 
             // tsmTools
             // 
+            this.tsmTools.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.creationWizardToolStripMenuItem});
             this.tsmTools.Name = "tsmTools";
             this.tsmTools.Size = new System.Drawing.Size(51, 21);
             this.tsmTools.Text = "Tools";
@@ -392,6 +395,25 @@
             this.panelSettings.TabIndex = 9;
             this.panelSettings.Visible = false;
             // 
+            // chkSettingsShowDebug
+            // 
+            this.chkSettingsShowDebug.AutoSize = true;
+            this.chkSettingsShowDebug.Location = new System.Drawing.Point(7, 66);
+            this.chkSettingsShowDebug.Name = "chkSettingsShowDebug";
+            this.chkSettingsShowDebug.Size = new System.Drawing.Size(193, 24);
+            this.chkSettingsShowDebug.TabIndex = 3;
+            this.chkSettingsShowDebug.Text = "Show debug information";
+            this.chkSettingsShowDebug.UseVisualStyleBackColor = true;
+            // 
+            // btnSettingsSave
+            // 
+            this.btnSettingsSave.Location = new System.Drawing.Point(3, 158);
+            this.btnSettingsSave.Name = "btnSettingsSave";
+            this.btnSettingsSave.Size = new System.Drawing.Size(98, 39);
+            this.btnSettingsSave.TabIndex = 2;
+            this.btnSettingsSave.Text = "Save";
+            this.btnSettingsSave.UseVisualStyleBackColor = true;
+            // 
             // lblSettingsLanguage
             // 
             this.lblSettingsLanguage.AutoSize = true;
@@ -407,9 +429,9 @@
             this.cboSettingsLanguage.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboSettingsLanguage.FormattingEnabled = true;
             this.cboSettingsLanguage.Items.AddRange(new object[] {
-            "English (English) - en-US",
-            "French (Français) - fr-FR",
-            "Pirate (English) - en-Pirate"});
+            "English (English)",
+            "English (Pirate)",
+            "Français (French)"});
             this.cboSettingsLanguage.Location = new System.Drawing.Point(6, 31);
             this.cboSettingsLanguage.Margin = new System.Windows.Forms.Padding(6, 4, 6, 4);
             this.cboSettingsLanguage.Name = "cboSettingsLanguage";
@@ -421,24 +443,11 @@
             // 
             this.ofdMain.Filter = "Desktop files|*.desktop|All file|*.*";
             // 
-            // btnSettingsSave
+            // creationWizardToolStripMenuItem
             // 
-            this.btnSettingsSave.Location = new System.Drawing.Point(3, 158);
-            this.btnSettingsSave.Name = "btnSettingsSave";
-            this.btnSettingsSave.Size = new System.Drawing.Size(98, 39);
-            this.btnSettingsSave.TabIndex = 2;
-            this.btnSettingsSave.Text = "Save";
-            this.btnSettingsSave.UseVisualStyleBackColor = true;
-            // 
-            // chkSettingsShowDebug
-            // 
-            this.chkSettingsShowDebug.AutoSize = true;
-            this.chkSettingsShowDebug.Location = new System.Drawing.Point(7, 66);
-            this.chkSettingsShowDebug.Name = "chkSettingsShowDebug";
-            this.chkSettingsShowDebug.Size = new System.Drawing.Size(193, 24);
-            this.chkSettingsShowDebug.TabIndex = 3;
-            this.chkSettingsShowDebug.Text = "Show debug information";
-            this.chkSettingsShowDebug.UseVisualStyleBackColor = true;
+            this.creationWizardToolStripMenuItem.Name = "creationWizardToolStripMenuItem";
+            this.creationWizardToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
+            this.creationWizardToolStripMenuItem.Text = "Creation Wizard";
             // 
             // FormMain
             // 
@@ -509,5 +518,6 @@
         private System.Windows.Forms.Button btnRunClear;
         private System.Windows.Forms.CheckBox chkSettingsShowDebug;
         private System.Windows.Forms.Button btnSettingsSave;
+        private System.Windows.Forms.ToolStripMenuItem creationWizardToolStripMenuItem;
     }
 }

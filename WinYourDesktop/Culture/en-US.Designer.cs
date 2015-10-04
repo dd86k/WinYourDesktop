@@ -286,7 +286,7 @@ namespace WinYourDesktop.Culture {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à View.
+        ///   Recherche une chaîne localisée semblable à Mode.
         /// </summary>
         internal static string tsmView {
             get {

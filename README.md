@@ -41,7 +41,7 @@ This solution consists of three projects
 
 Make sure Costura.Fody and SharpShell are installed and referenced.
 
-Generate the wyd-lib project first, since WinYourDesktop and WinYourDesktopConsole depends on the library in order to run.
+Since WinYourDesktop and WinYourDesktopConsole, Visual Studio generates wyd-lib first.
 
 Then you can just debug right away.
 

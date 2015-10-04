@@ -162,7 +162,7 @@
     <value>Outils</value>
   </data>
   <data name="tsmView" xml:space="preserve">
-    <value>Vue</value>
+    <value>Mode</value>
   </data>
   <data name="btnCreate_MouseEnter" xml:space="preserve">
     <value>Créer une entrée</value>

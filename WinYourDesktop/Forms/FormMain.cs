@@ -1,5 +1,6 @@
 ﻿using System.Windows.Forms;
 using System.Drawing;
+using WinYourDesktopLibrary;
 
 /*
     FormMain.cs
@@ -9,9 +10,6 @@ using System.Drawing;
 
 // TODO:View: Execute -> OpenFileDialog
 // TODO:View: Create -> SaveFileDialog -> Edit
-// TODO: Drag&Drop:
-// *.desktop -> Run
-// *.* -> Add entry (edit)
 
 namespace WinYourDesktop
 {
@@ -49,8 +47,7 @@ namespace WinYourDesktop
         {
             // Call FormMain(string) with this(null)
         }
-
-        string file = null;
+        
         internal FormMain(string pDesktopFilePath)
         {
             InitializeComponent();
@@ -58,7 +55,7 @@ namespace WinYourDesktop
 
             if (pDesktopFilePath != null)
             {
-                file = pDesktopFilePath;
+                CurrentFile.Path = pDesktopFilePath;
             }
         }
         #endregion
@@ -215,37 +212,8 @@ namespace WinYourDesktop
         #endregion
 
         #region Debug
-        static internal bool DebugEnabled
-        {
-            get; private set;
-        }
-
-        internal enum ErrorLevel
-        {
-            Debug,
-            Info,
-            Warning,
-            Error,
-            Fatal
-        }
-
-        static internal void dbgWrite(string pInput)
-        {
-            Program.form.Write(pInput, ErrorLevel.Info);
-        }
-
-        static internal void dbgWrite(string pInput, ErrorLevel pLevel)
-        {
-            Program.form.Write(pInput, pLevel);
-        }
-
-        void Write(string pInput, ErrorLevel pLevel)
-        {
-            if (DebugEnabled)
-            {
-                txtRunOutput.AppendText($"[{pLevel}] {pInput}{nl}");
-            }
-        }
+        //TODO: [IMPORTANT] Find a way to send data
+        // from the library to the textbox control
 
         // Open file
         private void btnOpen_Click(object sender, System.EventArgs e)
@@ -313,13 +281,26 @@ namespace WinYourDesktop
                 culture =
                     cboSettingsLanguage.Items[cboSettingsLanguage.SelectedIndex]
                     .ToString()
-                    .Split(new string[] { " - " }, System.StringSplitOptions.None)[1];
+                    .Split(new char[] { '(', ')' }, System.StringSplitOptions.None)[1];
             }
             catch
             { }
+            
+            switch (culture)
+            {
+                case "Pirate":
+                    ChangeCulture("en-Pirate");
+                    break;
 
-            if (culture != string.Empty)
-                ChangeCulture(culture);
+                case "French":
+                    ChangeCulture("fr-FR");
+                    break;
+
+                // English and fallbacks fall into this categorie.
+                default:
+                    ChangeCulture("en-US");
+                    break;
+            }
         }
         #endregion
     }

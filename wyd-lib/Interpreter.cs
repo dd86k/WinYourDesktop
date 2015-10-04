@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace WinYourDesktop
+namespace WinYourDesktopLibrary
 {
 
     /// <summary>
@@ -12,6 +12,7 @@ namespace WinYourDesktop
     /// </summary>
     static public class Interpreter
     {
+        #region Properties
         /// <summary>
         /// Get the current version of the library.
         /// </summary>
@@ -25,6 +26,10 @@ namespace WinYourDesktop
             }
         }
 
+        static Debugger dbg = new Debugger();
+        #endregion
+
+        #region Enumerations
         /// <summary>
         /// Desktop Entry header type.
         /// </summary>
@@ -47,15 +52,19 @@ namespace WinYourDesktop
             /// </summary>
             Unknown
         }
+        #endregion
 
+        #region Public methods
         /// <summary>
         /// Interpret a Desktop file.
         /// </summary>
         /// <param name="pPath">Path of the Desktop file.</param>
         static public void Run(string pPath)
         {
+            dbg.WriteLine("test");
+
             //FormMain.dbgWrite($"Started debugging {Path.GetFileName(pPath)}");
-            
+
             if (pPath == null || pPath == string.Empty)
             {
                 /*
@@ -65,7 +74,7 @@ namespace WinYourDesktop
                     return;
                 }
                 else*/
-                    throw new NullReferenceException("Specified path is null or empty.");
+                throw new NullReferenceException("Specified path is null or empty.");
             }
 
             if (!File.Exists(pPath))
@@ -84,7 +93,7 @@ namespace WinYourDesktop
                     return;
                 }
                 else*/
-                    throw new Exception("Specified desktop file is empty.");
+                throw new FormatException("Specified desktop file is empty, or contains no new lines.");
 
             //FormMain.dbgWrite("Splitting file...");
 
@@ -99,7 +108,7 @@ namespace WinYourDesktop
                     return;
                 }
                 else*/
-                    throw new Exception("First line must be [Desktop Entry].");
+                throw new FormatException("First line must be [Desktop Entry].");
 
             string[] line = new string[0];
             DesktopFileType Type = DesktopFileType.Unknown;
@@ -117,14 +126,17 @@ namespace WinYourDesktop
                     if (!lines[i].Contains("="))
                         /*if (FormMain.DebugEnabled)
                         {
-                            // "i + 1" is due to object oriented programming, indexes starting at 0.
                             FormMain.dbgWrite($"Failed to split key and value at line {i + 1}.", FormMain.ErrorLevel.Error);
                             return;
                         }
                         else*/
-                            throw new Exception($"Failed to split key and value at line {i + 1}.{Environment.NewLine}Missing '=' operator?");
+                        throw new FormatException(
+                            $"Failed to split key and value at line {i + 1}.{Environment.NewLine}Missing '=' operator?"
+                        );
 
-                    line = lines[i].Split(new char[] { '=' }, StringSplitOptions.RemoveEmptyEntries);
+                    line =
+                        lines[i].Split(new char[] { '=' },
+                        StringSplitOptions.RemoveEmptyEntries);
 
                     //FormMain.dbgWrite($"Line #{i + 1}: {lines[i]}");
 
@@ -172,7 +184,7 @@ namespace WinYourDesktop
                     return;
                 }
                 else*/
-                    throw new Exception("Unknown or missing Type value!");
+                throw new FormatException("Unknown or missing Type value!");
 
             switch (Type)
             {
@@ -180,8 +192,8 @@ namespace WinYourDesktop
                 case DesktopFileType.Application:
                     string[] execs = new string[0];
 
+                    // Split application (e.g. ping) with arguments (-t ::1) if possible
                     if (exec.Contains(" ") && !terminal)
-                        // Split application (e.g. ping) with arguments (-t ::1)
                         execs = exec.Split(new char[] { ' ' }, 2);
 
                     //TODO: Fix Terminal key usage.
@@ -197,13 +209,16 @@ namespace WinYourDesktop
                         }
                         catch (Exception ex)
                         {
-                            /*if (FormMain.DebugEnabled)
+                            /*
+                            if (FormMain.DebugEnabled)
                             {
                                 FormMain.dbgWrite($"{ex.GetType()} - 0x{ex.GetHashCode().ToString("X8")}", FormMain.ErrorLevel.Error);
                                 FormMain.dbgWrite("Stopped", FormMain.ErrorLevel.Error);
                             }
-                            else // Re-throw exception*/
-                                throw;
+                            else
+                            */
+                            // Re-throw exception
+                            throw;
                         }
                     }
                     else
@@ -247,17 +262,42 @@ namespace WinYourDesktop
                         //FormMain.dbgWrite("Started");
                     }
                     else
-                    {
+                    { 
                         /*if (FormMain.DebugEnabled)
                         {
                             FormMain.dbgWrite($"Directory \"{path}\" could not be found.", FormMain.ErrorLevel.Error);
                             FormMain.dbgWrite("Started");
                         }
                         else*/
-                            throw new DirectoryNotFoundException($"Directory \"{path}\" could not be found.");
+                        throw new DirectoryNotFoundException($"Directory \"{path}\" could not be found.");
                     }
                     break;
             } // End of switch()
+        }
+
+        /// <summary>
+        /// Creates a dummy/example file in the current directory.
+        /// </summary>
+        static public void CreateDummy()
+        {
+            using (TextWriter tw = new StreamWriter("Dummy.desktop", false))
+            {
+                tw.WriteLine("[Desktop Entry]");
+                tw.WriteLine("# This is a simple generated dummy desktop file.");
+                tw.WriteLine("Type=Application");
+                tw.WriteLine("Name=Dummy Desktop File");
+                tw.WriteLine("Exec=echo hi & pause");
+                tw.WriteLine("Terminal=true");
+            }
+        }
+        #endregion Public Methods
+    }
+
+    public class Debugger
+    {
+        public void WriteLine(string pMessage)
+        {
+
         }
     }
 }

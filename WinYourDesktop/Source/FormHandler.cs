@@ -152,8 +152,7 @@ namespace WinYourDesktop
                         tsmiSettings.Checked =
                         panelEditor.Visible =
                         panelDebugger.Visible =
-                        panelSettings.Visible =
-                        DebugEnabled = false;
+                        panelSettings.Visible = false;
                     ClientSize = new Size
                     {
                         Width = panelMain.Size.Width,
@@ -172,8 +171,7 @@ namespace WinYourDesktop
                         tsmiSettings.Checked =
                         panelMain.Visible =
                         panelDebugger.Visible =
-                        panelSettings.Visible =
-                        DebugEnabled = false;
+                        panelSettings.Visible = false;
                     ClientSize = new Size
                     {
                         Width = panelEditor.Size.Width,
@@ -186,8 +184,7 @@ namespace WinYourDesktop
 
                 case ViewingMode.Debugger:
                     tsmiDebugger.Checked =
-                        panelDebugger.Visible =
-                        DebugEnabled = true;
+                        panelDebugger.Visible = true;
                     tsmiHome.Checked =
                         tsmiEditor.Checked =
                         tsmiSettings.Checked =
@@ -212,8 +209,7 @@ namespace WinYourDesktop
                         tsmiDebugger.Checked =
                         panelMain.Visible =
                         panelEditor.Visible =
-                        panelDebugger.Visible =
-                        DebugEnabled = false;
+                        panelDebugger.Visible = false;
                     ClientSize = new Size
                     {
                         Width = panelMain.Size.Width,

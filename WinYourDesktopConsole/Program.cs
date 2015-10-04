@@ -1,8 +1,11 @@
 ﻿using System;
 using static System.Console;
+using WinYourDesktopLibrary;
 
-// Windows console error codes:
-//http://www.symantec.com/connect/articles/windows-system-error-codes-exit-codes-description
+/*
+Windows console error codes:
+http://www.symantec.com/connect/articles/windows-system-error-codes-exit-codes-description
+*/
 
 namespace WinYourDesktopConsole
 {
@@ -22,9 +25,9 @@ namespace WinYourDesktopConsole
         }
 
         /// <summary>
-        /// Returns the current name of the file.
+        /// Get the current filename without extension of the executable.
         /// </summary>
-        static string CurrentFilename
+        static string CurrentFilenameWithoutExtension
         {
             get
             {
@@ -35,13 +38,21 @@ namespace WinYourDesktopConsole
                     );
             }
         }
-        
+
+        static ConsoleColor OriginalForegroundColor = ForegroundColor;
+
         static string filepath;
         static int Main(string[] args)
         {
-            foreach (string arg in args)
+            if (args.Length == 0)
             {
-                switch (arg)
+                ShowHelp();
+                return 0;
+            }
+
+            for (int i = 0; i < args.Length; i++)
+            {
+                switch (args[i])
                 {
                     case "--version":
                     case "/version":
@@ -55,7 +66,7 @@ namespace WinYourDesktopConsole
                         return 0;
 
                     default:
-                        filepath = arg;
+                        filepath = args[i];
                         break;
 
                 }
@@ -63,11 +74,15 @@ namespace WinYourDesktopConsole
 
             try
             {
-                WinYourDesktop.Interpreter.Run(filepath);
+                Interpreter.Run(filepath);
             }
             catch (Exception ex)
             {
-                WriteLine($"The following error occured: {ex.GetType()}");
+                ForegroundColor = ConsoleColor.Red;
+                WriteLine("[ ERROR ]");
+                ForegroundColor = OriginalForegroundColor;
+                WriteLine($"Exception: {ex.GetType()}");
+                WriteLine($"  Message: {ex.Message}");
                 return 1;
             }
 
@@ -79,11 +94,10 @@ namespace WinYourDesktopConsole
             //         1       10        20        30        40        50        60        70        80
             //         |--------|---------|---------|---------|---------|---------|---------|---------|
             WriteLine(" Usage:");
-            WriteLine($"  {CurrentFilename} [options]");
+            WriteLine($"  {CurrentFilenameWithoutExtension} [options] <file>");
             /*
-            WriteLine("  /showui, /S        Show the user interface.");
             WriteLine("  /createdummy, /C   Create a dummy desktop file.");
-            WriteLine("  /debug, /D         Show debugging information in a console.");
+            WriteLine("  /debug, /D         Show debugging information in console.");
             */
             WriteLine();
             WriteLine("  /help, /?   Shows this screen and exits.");
@@ -92,7 +106,11 @@ namespace WinYourDesktopConsole
 
         static void ShowVersion()
         {
-            WriteLine($"{CurrentFilename} - {ProjectVersion}");
+            //         1       10        20        30        40        50        60        70        80
+            //         |--------|---------|---------|---------|---------|---------|---------|---------|
+            WriteLine();
+            WriteLine($"{CurrentFilenameWithoutExtension} - {ProjectVersion}");
+            WriteLine($"WinYourDesktopLibrary - {Interpreter.ProjectVersion}");
             WriteLine("Copyright (c) 2015 DD~!/guitarxhero");
             WriteLine("License: MIT License <http://opensource.org/licenses/MIT>");
             WriteLine("Project page: <https://github.com/guitarxhero/WinYourDesktop>");
