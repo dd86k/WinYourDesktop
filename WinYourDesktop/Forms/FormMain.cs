@@ -212,8 +212,8 @@ namespace WinYourDesktop
         #endregion
 
         #region Debug
-        //TODO: [IMPORTANT] Find a way to send data
-        // from the library to the textbox control
+        //TODO: [IMPORTANT] Find a way to send data in between two asssemblies
+        // Library -> Form
 
         // Open file
         private void btnOpen_Click(object sender, System.EventArgs e)

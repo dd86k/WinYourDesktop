@@ -25,8 +25,6 @@ namespace WinYourDesktopLibrary
                     .GetExecutingAssembly().GetName().Version.ToString();
             }
         }
-
-        static Debugger dbg = new Debugger();
         #endregion
 
         #region Enumerations
@@ -61,8 +59,6 @@ namespace WinYourDesktopLibrary
         /// <param name="pPath">Path of the Desktop file.</param>
         static public void Run(string pPath)
         {
-            dbg.WriteLine("test");
-
             //FormMain.dbgWrite($"Started debugging {Path.GetFileName(pPath)}");
 
             if (pPath == null || pPath == string.Empty)
@@ -291,13 +287,5 @@ namespace WinYourDesktopLibrary
             }
         }
         #endregion Public Methods
-    }
-
-    public class Debugger
-    {
-        public void WriteLine(string pMessage)
-        {
-
-        }
     }
 }
