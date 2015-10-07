@@ -40,6 +40,7 @@
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.tsmiSettings = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmTools = new System.Windows.Forms.ToolStripMenuItem();
+            this.creationWizardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiSupport = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -63,7 +64,6 @@
             this.lblSettingsLanguage = new System.Windows.Forms.Label();
             this.cboSettingsLanguage = new System.Windows.Forms.ComboBox();
             this.ofdMain = new System.Windows.Forms.OpenFileDialog();
-            this.creationWizardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.msMain.SuspendLayout();
             this.ssMain.SuspendLayout();
             this.panelMain.SuspendLayout();
@@ -131,20 +131,20 @@
             this.tsmiHome.CheckState = System.Windows.Forms.CheckState.Checked;
             this.tsmiHome.Name = "tsmiHome";
             this.tsmiHome.ShortcutKeys = System.Windows.Forms.Keys.F5;
-            this.tsmiHome.Size = new System.Drawing.Size(152, 22);
+            this.tsmiHome.Size = new System.Drawing.Size(143, 22);
             this.tsmiHome.Text = "Home";
             this.tsmiHome.Click += new System.EventHandler(this.tsmiHome_Click);
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(140, 6);
             // 
             // tsmiEditor
             // 
             this.tsmiEditor.Name = "tsmiEditor";
             this.tsmiEditor.ShortcutKeys = System.Windows.Forms.Keys.F6;
-            this.tsmiEditor.Size = new System.Drawing.Size(152, 22);
+            this.tsmiEditor.Size = new System.Drawing.Size(143, 22);
             this.tsmiEditor.Text = "Edit";
             this.tsmiEditor.Click += new System.EventHandler(this.tsmiEditor_Click);
             // 
@@ -152,20 +152,20 @@
             // 
             this.tsmiDebugger.Name = "tsmiDebugger";
             this.tsmiDebugger.ShortcutKeys = System.Windows.Forms.Keys.F7;
-            this.tsmiDebugger.Size = new System.Drawing.Size(152, 22);
+            this.tsmiDebugger.Size = new System.Drawing.Size(143, 22);
             this.tsmiDebugger.Text = "Debug";
             this.tsmiDebugger.Click += new System.EventHandler(this.tsmiDebugger_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(140, 6);
             // 
             // tsmiSettings
             // 
             this.tsmiSettings.Name = "tsmiSettings";
             this.tsmiSettings.ShortcutKeys = System.Windows.Forms.Keys.F8;
-            this.tsmiSettings.Size = new System.Drawing.Size(152, 22);
+            this.tsmiSettings.Size = new System.Drawing.Size(143, 22);
             this.tsmiSettings.Text = "Settings";
             this.tsmiSettings.Click += new System.EventHandler(this.tsmiSettings_Click);
             // 
@@ -176,6 +176,12 @@
             this.tsmTools.Name = "tsmTools";
             this.tsmTools.Size = new System.Drawing.Size(51, 21);
             this.tsmTools.Text = "Tools";
+            // 
+            // creationWizardToolStripMenuItem
+            // 
+            this.creationWizardToolStripMenuItem.Name = "creationWizardToolStripMenuItem";
+            this.creationWizardToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
+            this.creationWizardToolStripMenuItem.Text = "Creation Wizard";
             // 
             // tsmiSupport
             // 
@@ -224,8 +230,8 @@
             // 
             this.btnRun.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnRun.BackgroundImage")));
             this.btnRun.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRun.Location = new System.Drawing.Point(2, 2);
-            this.btnRun.Margin = new System.Windows.Forms.Padding(2);
+            this.btnRun.Location = new System.Drawing.Point(8, 8);
+            this.btnRun.Margin = new System.Windows.Forms.Padding(8);
             this.btnRun.Name = "btnRun";
             this.btnRun.Size = new System.Drawing.Size(128, 96);
             this.btnRun.TabIndex = 1;
@@ -240,8 +246,8 @@
             // 
             this.btnEdit.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnEdit.BackgroundImage")));
             this.btnEdit.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnEdit.Location = new System.Drawing.Point(134, 102);
-            this.btnEdit.Margin = new System.Windows.Forms.Padding(2);
+            this.btnEdit.Location = new System.Drawing.Point(152, 120);
+            this.btnEdit.Margin = new System.Windows.Forms.Padding(8);
             this.btnEdit.Name = "btnEdit";
             this.btnEdit.Size = new System.Drawing.Size(128, 96);
             this.btnEdit.TabIndex = 4;
@@ -256,8 +262,8 @@
             // 
             this.btnDebug.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnDebug.BackgroundImage")));
             this.btnDebug.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDebug.Location = new System.Drawing.Point(2, 102);
-            this.btnDebug.Margin = new System.Windows.Forms.Padding(2);
+            this.btnDebug.Location = new System.Drawing.Point(8, 120);
+            this.btnDebug.Margin = new System.Windows.Forms.Padding(8);
             this.btnDebug.Name = "btnDebug";
             this.btnDebug.Size = new System.Drawing.Size(128, 96);
             this.btnDebug.TabIndex = 3;
@@ -272,8 +278,8 @@
             // 
             this.btnCreate.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnCreate.BackgroundImage")));
             this.btnCreate.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCreate.Location = new System.Drawing.Point(134, 2);
-            this.btnCreate.Margin = new System.Windows.Forms.Padding(2);
+            this.btnCreate.Location = new System.Drawing.Point(152, 8);
+            this.btnCreate.Margin = new System.Windows.Forms.Padding(8);
             this.btnCreate.Name = "btnCreate";
             this.btnCreate.Size = new System.Drawing.Size(128, 96);
             this.btnCreate.TabIndex = 2;
@@ -290,10 +296,10 @@
             this.panelMain.Controls.Add(this.btnCreate);
             this.panelMain.Controls.Add(this.btnEdit);
             this.panelMain.Controls.Add(this.btnDebug);
-            this.panelMain.Location = new System.Drawing.Point(16, 42);
+            this.panelMain.Location = new System.Drawing.Point(12, 30);
             this.panelMain.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.panelMain.Name = "panelMain";
-            this.panelMain.Size = new System.Drawing.Size(264, 200);
+            this.panelMain.Size = new System.Drawing.Size(292, 225);
             this.panelMain.TabIndex = 6;
             // 
             // panelEditor
@@ -442,12 +448,6 @@
             // ofdMain
             // 
             this.ofdMain.Filter = "Desktop files|*.desktop|All file|*.*";
-            // 
-            // creationWizardToolStripMenuItem
-            // 
-            this.creationWizardToolStripMenuItem.Name = "creationWizardToolStripMenuItem";
-            this.creationWizardToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
-            this.creationWizardToolStripMenuItem.Text = "Creation Wizard";
             // 
             // FormMain
             // 
