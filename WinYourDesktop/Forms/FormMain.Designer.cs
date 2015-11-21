@@ -83,7 +83,7 @@
             this.msMain.Location = new System.Drawing.Point(0, 0);
             this.msMain.Name = "msMain";
             this.msMain.Padding = new System.Windows.Forms.Padding(8, 2, 0, 2);
-            this.msMain.Size = new System.Drawing.Size(857, 25);
+            this.msMain.Size = new System.Drawing.Size(794, 25);
             this.msMain.TabIndex = 0;
             this.msMain.Text = "menuStrip1";
             // 
@@ -215,7 +215,7 @@
             this.ssMain.Location = new System.Drawing.Point(0, 564);
             this.ssMain.Name = "ssMain";
             this.ssMain.Padding = new System.Windows.Forms.Padding(1, 0, 18, 0);
-            this.ssMain.Size = new System.Drawing.Size(857, 22);
+            this.ssMain.Size = new System.Drawing.Size(794, 22);
             this.ssMain.SizingGrip = false;
             this.ssMain.TabIndex = 1;
             this.ssMain.Text = "statusStrip1";
@@ -453,7 +453,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(857, 586);
+            this.ClientSize = new System.Drawing.Size(794, 586);
             this.Controls.Add(this.ssMain);
             this.Controls.Add(this.panelSettings);
             this.Controls.Add(this.panelDebugger);
