@@ -19,9 +19,10 @@ namespace WinYourDesktop
         #endregion
 
         #region Constructors
-        internal FormMain() : this(null)
+        internal FormMain()
         {
-            // Call FormMain(string) with this(null)
+            InitializeComponent();
+            PostInitialize();
         }
         
         internal FormMain(string pDesktopFilePath)
@@ -29,7 +30,7 @@ namespace WinYourDesktop
             InitializeComponent();
             PostInitialize();
 
-            if (pDesktopFilePath != null)
+            if (File.Exists(pDesktopFilePath))
             {
                 CurrentFile = new FileInfo(pDesktopFilePath);
             }

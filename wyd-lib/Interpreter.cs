@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using wyd_lib;
 
 namespace WinYourDesktopLibrary
 {
@@ -12,11 +11,15 @@ namespace WinYourDesktopLibrary
     /// </remarks>
     static public class Interpreter
     {
+        #region Constants
+        const char DELIMITER = '=';
+        #endregion
+
         #region Properties
         /// <summary>
         /// Get the current version of the library.
         /// </summary>
-        static public string ProjectVersion
+        public static string ProjectVersion
         {
             get
             {
@@ -50,6 +53,43 @@ namespace WinYourDesktopLibrary
             /// </summary>
             Unknown
         }
+
+        enum ErrorCodes
+        {
+            // Path related errors
+
+            NullPath = 0x8,
+            EmptyPath = 0x9,
+
+            // Desktop files related errors
+
+            EmptyFile = 0x16,
+            NoDesktopEntry = 0x17,
+            MissingDelimiter = 0x18,
+            MissingTypeValue = 0x20,
+
+            // Exec/TryExec related errors
+
+            /// <summary>
+            /// Generic Exec error.
+            /// </summary>
+            ExecError = 0x32,
+
+            // Link type related errors
+
+            /// <summary>
+            /// Generic Link error.
+            /// </summary>
+            LinkError = 0x40,
+
+            // Directory type related errors
+
+            /// <summary>
+            /// Generic Directory error.
+            /// </summary>
+            DirectoryError = 0x48,
+            DirectoryNotFound = 0x49,
+        }
         #endregion
 
         #region Public methods
@@ -60,14 +100,14 @@ namespace WinYourDesktopLibrary
         public static int Run(string pPath)
         {
             //TODO: pVerboise (debug)
-
-            Console.WriteLine($"Started debugging {Path.GetFileName(pPath)}...");
-
+            
             if (pPath == null || pPath == string.Empty)
             {
                 Console.WriteLine("Error: Specified path is null or empty.");
-                return 1;
+                return pPath == null ? (int)ErrorCodes.NullPath : (int)ErrorCodes.EmptyPath;
             }
+
+            Console.WriteLine($"Started debugging {Path.GetFileName(pPath)}...");
 
             if (!File.Exists(pPath))
                 Console.WriteLine($"Error: Specified file doesn't exist.{Environment.NewLine}Path: {pPath}");
@@ -81,7 +121,7 @@ namespace WinYourDesktopLibrary
             if (text.Length == 0 || !text.Contains("\n"))
             {
                 Console.WriteLine("Error: Specified desktop file is empty, or contains no new lines.");
-                return 3;
+                return (int)ErrorCodes.EmptyFile;
             }
 
             Console.WriteLine("Splitting file...");
@@ -93,7 +133,7 @@ namespace WinYourDesktopLibrary
             if (lines[0] != "[Desktop Entry]")
             {
                 Console.WriteLine("Error: First line must be [Desktop Entry].");
-                return 5;
+                return (int)ErrorCodes.NoDesktopEntry;
             }
 
             // Defaults
@@ -114,8 +154,8 @@ namespace WinYourDesktopLibrary
                     if (!lines[i].Contains("="))
                     {
                         Console.WriteLine($"Error: Failed to split key and value at line #{i + 1}.");
-                        Console.WriteLine("Missing '=' operator?");
-                        return 7;
+                        Console.WriteLine($"Missing '{DELIMITER}' delimiter?");
+                        return (int)ErrorCodes.MissingDelimiter;
                     }
 
                     line =
@@ -133,9 +173,7 @@ namespace WinYourDesktopLibrary
                                     type = DesktopFileType.Link; break;
                                 case "Directory":
                                     type = DesktopFileType.Directory; break;
-                                default:
-                                    Console.WriteLine($"Error: Unknown Type value!");
-                                    return 9;
+                                // Skip/Ignore by default
                             }
                             Console.WriteLine($"TYPE SET AS {type}");
                             break;
@@ -167,9 +205,9 @@ namespace WinYourDesktopLibrary
 
             if (type == DesktopFileType.Unknown)
             {
-                // Because the "unknown" part is checked in earlier switch()
+                // Because the "unknown" part is checked in the earlier switch()
                 Console.WriteLine($"Error: Missing Type value!");
-                return 9;
+                return (int)ErrorCodes.MissingTypeValue;
             }
 
             Console.WriteLine("Starting...");
@@ -180,14 +218,18 @@ namespace WinYourDesktopLibrary
                     Console.WriteLine($"EXEC: {exec}");
                     try
                     {
-                        System.Diagnostics.Process.Start(terminal ? "start cmd" : exec, exec.Contains(" ") ?
-                        exec.Substring(exec.IndexOf(" ") + 1) :
-                        string.Empty);
+                        System.Diagnostics.Process.Start(terminal ?
+                            $"start cmd {exec}" :
+                            exec,
+                            exec.Contains(" ") ?
+                            exec.Substring(exec.IndexOf(" ") + 1) :
+                            string.Empty);
                     }
                     catch (Exception ex)
                     {
-                        Console.WriteLine($"Error: {ex.GetType()} (0x{ex.HResult:X8})");
-                        return ex.HResult;
+                        Console.WriteLine($"Error: Could not start the application.");
+                        Console.WriteLine($"{ex.GetType()} (0x{ex.HResult:X8})");
+                        return (int)ErrorCodes.ExecError;
                     }
                     break;
 
@@ -202,7 +244,7 @@ namespace WinYourDesktopLibrary
                     {
                         Console.WriteLine("Could not start with the provided link.");
                         Console.WriteLine($"Error: {ex.GetType()} (0x{ex.HResult:X8})");
-                        return 12;
+                        return (int)ErrorCodes.LinkError;
                     }
                     break;
 
@@ -211,13 +253,22 @@ namespace WinYourDesktopLibrary
                     Console.WriteLine($"DIR: {path}");
                     if (Directory.Exists(path))
                     {
-                        System.Diagnostics.Process.Start($"{Utils.ExplorerPath}",
-                            $"{path.Replace("/", @"\")}");
+                        try
+                        {
+                            System.Diagnostics.Process.Start($"{Utils.ExplorerPath}",
+                                $"{path.Replace("/", @"\")}");
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine("Error: Could not open the directory.");
+                            Console.WriteLine($"{ex.GetType()} (0x{ex.HResult:X8})");
+                            return (int)ErrorCodes.LinkError;
+                        }
                     }
                     else
                     { 
                         Console.WriteLine($"Error: Directory \"{path}\" could not be found.");
-                        return 14;
+                        return (int)ErrorCodes.DirectoryNotFound;
                     }
                     break;
             } // End of switch()

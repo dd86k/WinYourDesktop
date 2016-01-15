@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("WinYourDesktop")]
-[assembly: AssemblyDescription("File interpreter for DESKTOP files for Windows!")]
+[assembly: AssemblyDescription("File interpreter for desktop files for Windows!")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("DD~!")]
 [assembly: AssemblyProduct("WinYourDesktop")]

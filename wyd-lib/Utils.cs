@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace wyd_lib
+namespace WinYourDesktopLibrary
 {
     public static class Utils
     {
