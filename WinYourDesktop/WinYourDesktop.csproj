@@ -91,6 +91,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>en-Pirate.resx</DependentUpon>
     </Compile>
+    <Compile Include="Forms\FormHelp.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormHelp.Designer.cs">
+      <DependentUpon>FormHelp.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\FormCreationWizard.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -122,6 +128,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Source\TypeExtension.cs" />
+    <Compile Include="Source\UserSettings.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Application.ico" />
@@ -161,9 +168,6 @@
       <Project>{18a28ec1-de0f-40c1-8f34-ecef36ce67bc}</Project>
       <Name>wyd-lib</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="app.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <UsingTask TaskName="CosturaCleanup" AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.v4.0.dll" TaskFactory="CodeTaskFactory">

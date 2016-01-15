@@ -126,11 +126,17 @@ namespace WinYourDesktopLibrary
                         case "Type":
                             switch (line[1])
                             {
-                                case "Application": type = DesktopFileType.Application; break;
-                                case "Link": type = DesktopFileType.Link; break;
-                                case "Directory": type = DesktopFileType.Directory; break;
+                                case "Application":
+                                    type = DesktopFileType.Application; break;
+                                case "Link":
+                                    type = DesktopFileType.Link; break;
+                                case "Directory":
+                                    type = DesktopFileType.Directory; break;
+                                default:
+                                    Console.WriteLine("Error: Unknown type.");
+                                    return 18;
                             }
-                            Console.WriteLine($"Type is {type}");
+                            Console.WriteLine($"Type SET AS {type}");
                             break;
 
                         case "Exec":

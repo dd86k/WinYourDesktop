@@ -214,6 +214,24 @@ namespace WinYourDesktop.Culture {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Creation Wizard.
+        /// </summary>
+        internal static string tsmiCreationWizard {
+            get {
+                return ResourceManager.GetString("tsmiCreationWizard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Shows the file creation wizard for DESKTOP files.
+        /// </summary>
+        internal static string tsmiCreationWizard_MouseEnter {
+            get {
+                return ResourceManager.GetString("tsmiCreationWizard_MouseEnter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Debugger.
         /// </summary>
         internal static string tsmiDebugger {

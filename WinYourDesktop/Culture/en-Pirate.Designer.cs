@@ -214,6 +214,24 @@ namespace WinYourDesktop.Culture {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to HELP MAKE SHIP.
+        /// </summary>
+        internal static string tsmiCreationWizard {
+            get {
+                return ResourceManager.GetString("tsmiCreationWizard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Helpin&apos; me make new ship!.
+        /// </summary>
+        internal static string tsmiCreationWizard_MouseEnter {
+            get {
+                return ResourceManager.GetString("tsmiCreationWizard_MouseEnter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Check.
         /// </summary>
         internal static string tsmiDebugger {

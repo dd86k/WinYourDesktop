@@ -198,4 +198,10 @@
   <data name="lblSettingsLanguage" xml:space="preserve">
     <value>Me ABC's!</value>
   </data>
+  <data name="tsmiCreationWizard" xml:space="preserve">
+    <value>HELP MAKE SHIP</value>
+  </data>
+  <data name="tsmiCreationWizard_MouseEnter" xml:space="preserve">
+    <value>Helpin' me make new ship!</value>
+  </data>
 </root>

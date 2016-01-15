@@ -7,12 +7,6 @@ using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 
-/*
-    FormHandler.cs
-    FormMain
-    Methods, properties, enums.
-*/
-
 namespace WinYourDesktop
 {
     partial class FormMain
@@ -33,21 +27,9 @@ namespace WinYourDesktop
             panelDebugger.Location =
             panelEditor.Location =
             panelSettings.Location =
-            panelMain.Location =
-                new Point
-                {
-                    X = 0,
-                    Y = msMain.Size.Height
-                };
+            panelMain.Location = new Point(0, msMain.Size.Height);
 
-            ClientSize = new Size
-            {
-                Width = panelMain.Size.Width,
-                Height =
-                    msMain.Size.Height +
-                    panelMain.Size.Height +
-                    ssMain.Size.Height
-            };
+            AdjustClientSize(panelMain);
 
             Console.SetOut(new ConStreamWriter(txtRunOutput));
 
@@ -94,39 +76,39 @@ namespace WinYourDesktop
                     break;
             }
 
-            // ========== Menu bar
-            // App
+            // === msMain
+            // == App
             tsmApplication.Text = RM.GetString("tsmApplication");
             tsmiRestart.Text = RM.GetString("tsmiRestart");
             tsmiQuit.Text = RM.GetString("tsmiQuit");
-            // View
+            // == View
             tsmView.Text = RM.GetString("tsmView");
             tsmiHome.Text = RM.GetString("tsmiHome");
             tsmiEditor.Text = RM.GetString("tsmiEditor");
             tsmiDebugger.Text = RM.GetString("tsmiDebugger");
             tsmiSettings.Text = RM.GetString("tsmiSettings");
-            // Tools
+            // == Tools
             tsmTools.Text = RM.GetString("tsmTools");
-
-            // ?
-            //tsmiHelp.Text = RM.GetString("tsmiHelp");
+            tsmiCreationWizard.Text = RM.GetString("tsmiCreationWizard");
+            // == ?
+            tsmiHelp.Text = RM.GetString("tsmiHelp");
             tsmiAbout.Text = RM.GetString("tsmiAbout");
 
-            // ========== Home panel
+            // === panelMain
             btnRun.Text = RM.GetString("btnRun");
             btnCreate.Text = RM.GetString("btnCreate");
             btnEdit.Text = RM.GetString("btnEdit");
             btnDebug.Text = RM.GetString("btnDebug");
 
-            // ========== Run panel
+            // === panelDebugger
             btnOpen.Text = RM.GetString("btnOpen");
             btnRunClear.Text = RM.GetString("btnRunClear");
             btnRunWithDebugger.Text = RM.GetString("btnRun");
 
-            // ========== Settings panel
+            // === panelSettings
             lblSettingsLanguage.Text = RM.GetString("lblSettingsLanguage");
 
-            // ========== Misc.
+            // === ssMain
             sslblStatus.Text = RM.GetString("Welcome");
         }
         #endregion
@@ -135,7 +117,7 @@ namespace WinYourDesktop
         /// <summary>
         /// Viewing modes.
         /// </summary>
-        enum ViewingMode
+        enum ViewingMode : byte
         {
             Home,
             Editor,
@@ -158,14 +140,7 @@ namespace WinYourDesktop
                         panelEditor.Visible =
                         panelDebugger.Visible =
                         panelSettings.Visible = false;
-                    ClientSize = new Size
-                    {
-                        Width = panelMain.Size.Width,
-                        Height =
-                            msMain.Size.Height +
-                            panelMain.Size.Height +
-                            ssMain.Size.Height
-                    };
+                    AdjustClientSize(panelMain);
                     break;
 
                 case ViewingMode.Editor:
@@ -177,14 +152,7 @@ namespace WinYourDesktop
                         panelMain.Visible =
                         panelDebugger.Visible =
                         panelSettings.Visible = false;
-                    ClientSize = new Size
-                    {
-                        Width = panelEditor.Size.Width,
-                        Height =
-                            msMain.Size.Height +
-                            panelEditor.Size.Height +
-                            ssMain.Size.Height
-                    };
+                    AdjustClientSize(panelEditor);
                     break;
 
                 case ViewingMode.Debugger:
@@ -196,14 +164,7 @@ namespace WinYourDesktop
                         panelMain.Visible =
                         panelEditor.Visible =
                         panelSettings.Visible = false;
-                    ClientSize = new Size
-                    {
-                        Width = panelDebugger.Size.Width,
-                        Height =
-                            msMain.Size.Height +
-                            panelDebugger.Size.Height +
-                            ssMain.Size.Height
-                    };
+                    AdjustClientSize(panelDebugger);
                     break;
 
                 case ViewingMode.Settings:
@@ -215,20 +176,40 @@ namespace WinYourDesktop
                         panelMain.Visible =
                         panelEditor.Visible =
                         panelDebugger.Visible = false;
-                    ClientSize = new Size
-                    {
-                        Width = panelMain.Size.Width,
-                        Height =
-                            msMain.Size.Height +
-                            panelSettings.Size.Height +
-                            ssMain.Size.Height
-                    };
+                    AdjustClientSize(panelSettings);
                     break;
             }
 
             ResumeLayout(true);
         }
         #endregion
+
+        /// <summary>
+        /// Adjusts the size of the client.
+        /// </summary>
+        /// <param name="pPanel">Panel</param>
+        void AdjustClientSize(Panel pPanel)
+        {
+            ClientSize = new Size(pPanel.Size.Width,
+                msMain.Size.Height +
+                pPanel.Size.Height +
+                ssMain.Size.Height
+            );
+        }
+
+        /// <summary>
+        /// Adjusts the size of the client.
+        /// </summary>
+        /// <param name="pPanelHeight">Panel's height.</param>
+        void AdjustClientSize(int pPanelWidth, int pPanelHeight)
+        {
+            ClientSize = new Size(pPanelWidth,
+                msMain.Size.Height +
+                pPanelHeight +
+                ssMain.Size.Height
+            );
+            Refresh();
+        }
     }
 
     /// <summary>
@@ -245,13 +226,11 @@ namespace WinYourDesktop
 
         public override void Write(char value)
         {
-            base.Write(value);
             t.AppendText($"{value}");
         }
 
         public override void Write(string value)
         {
-            base.Write(value);
             t.AppendText(value);
         }
 

@@ -1,43 +1,19 @@
 ﻿using System.Windows.Forms;
 using System.Drawing;
 using WinYourDesktopLibrary;
+using System.IO;
 
-/*
-    FormMain.cs
-    FormMain
-    Constructors, events (delegates).
-*/
+//TODO:View: Execute -> OpenFileDialog
+//TODO:View: Create -> SaveFileDialog -> Edit
 
-// TODO:View: Execute -> OpenFileDialog
-// TODO:View: Create -> SaveFileDialog -> Edit
+// Tip: In VS, you can fold all #regions with CTRL+M+O.
 
 namespace WinYourDesktop
 {
     internal partial class FormMain : Form
     {
         #region Properties
-        struct CurrentFile
-        {
-            /// <summary>
-            /// Only get the name of the file out of the path.
-            /// </summary>
-            internal static string FileName
-            {
-                get
-                {
-                    return
-                        Path != null ?
-                        System.IO.Path.GetFileName(Path) : null;
-                }
-            }
-            /// <summary>
-            /// The full path of the file.
-            /// </summary>
-            internal static string Path
-            {
-                get; set;
-            }
-        }
+        FileInfo CurrentFile;
 
         readonly string nl = System.Environment.NewLine;
         #endregion
@@ -55,14 +31,28 @@ namespace WinYourDesktop
 
             if (pDesktopFilePath != null)
             {
-                CurrentFile.Path = pDesktopFilePath;
+                CurrentFile = new FileInfo(pDesktopFilePath);
             }
         }
         #endregion
 
-        #region Menubar
-        // ImgBurn's EzPicker-styled view
-        // Do I have to say sorry for this?
+        #region Main MenuStrip (ssMain)
+        #region App
+        // Restart
+        private void restartToolStripMenuItem_Click(object sender, System.EventArgs e)
+        {
+            Application.Restart();
+        }
+
+        // Quit
+        private void quitToolStripMenuItem_Click(object sender, System.EventArgs e)
+        {
+            Application.Exit();
+        }
+        #endregion
+
+        #region View mode
+        // Home view
         private void tsmiHome_Click(object sender, System.EventArgs e)
         {
             if (!tsmiHome.Checked)
@@ -97,21 +87,27 @@ namespace WinYourDesktop
                 ToggleMode(ViewingMode.Settings);
             }
         }
+        #endregion
 
-        // Restart
-        private void restartToolStripMenuItem_Click(object sender, System.EventArgs e)
+        #region Tools
+        private void tsmiCreationWizard_Click(object sender, System.EventArgs e)
         {
-            Application.Restart();
+
         }
 
-        // Quit
-        private void quitToolStripMenuItem_Click(object sender, System.EventArgs e)
+        private void tsmiCreationWizard_MouseEnter(object sender, System.EventArgs e)
         {
-            Application.Exit();
+            sslblStatus.Text = RM.GetString("tsmiCreationWizard_MouseEnter");
         }
 
+        private void tsmiCreationWizard_MouseLeave(object sender, System.EventArgs e)
+        {
+            sslblStatus.Text = string.Empty;
+        }
+        #endregion
+
+        #region ?
         // Help
-        /*
         private void tsmiHelp_Click(object sender, System.EventArgs e)
         {
             FormHelp fHelp = new FormHelp();
@@ -126,7 +122,6 @@ namespace WinYourDesktop
             };
             fHelp.Show();
         }
-        */
 
         // About
         private void aboutToolStripMenuItem_Click(object sender, System.EventArgs e)
@@ -144,8 +139,9 @@ namespace WinYourDesktop
             fAbout.Show();
         }
         #endregion
+        #endregion
 
-        #region Main buttons
+        #region Main buttons (Home view)
         // Run
         private void btnRun_Click(object sender, System.EventArgs e)
         {
@@ -219,8 +215,8 @@ namespace WinYourDesktop
             ofdMain.ShowDialog();
             if (ofdMain.FileName != string.Empty)
             {
-                CurrentFile.Path = ofdMain.FileName;
-                lblRunCurrentFile.Text = CurrentFile.FileName;
+                CurrentFile = new FileInfo(ofdMain.FileName);
+                lblRunCurrentFile.Text = CurrentFile.Name;
                 btnRunWithDebugger.Enabled = true;
             }
         }
@@ -254,7 +250,7 @@ namespace WinYourDesktop
         // Run file
         private void btnRunWithDebugger_Click(object sender, System.EventArgs e)
         {
-            int r = Interpreter.Run(CurrentFile.Path);
+            int r = Interpreter.Run(CurrentFile.FullName);
             txtRunOutput.AppendText($"Return code: {r:X8} ({r})");
         }
 
@@ -272,11 +268,11 @@ namespace WinYourDesktop
         #region Settings
         private void cboSettingsLanguage_SelectedValueChanged(object sender, System.EventArgs e)
         {
+            //TODO: Refacter cboSettingsLanguage_SelectedValueChanged
             string culture = string.Empty;
             try
             {
                 // I felt like doing a crazy one liner.
-                //TODO: Refacter
                 culture =
                     cboSettingsLanguage.Items[cboSettingsLanguage.SelectedIndex]
                     .ToString()

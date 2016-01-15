@@ -200,4 +200,10 @@
   <data name="lblSettingsLanguage" xml:space="preserve">
     <value>Langage</value>
   </data>
+  <data name="tsmiCreationWizard" xml:space="preserve">
+    <value>Assistant de création</value>
+  </data>
+  <data name="tsmiCreationWizard_MouseEnter" xml:space="preserve">
+    <value>Affiche l'assistant de création de fichier DESKTOP</value>
+  </data>
 </root>

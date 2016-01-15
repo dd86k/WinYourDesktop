@@ -40,12 +40,16 @@
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.tsmiSettings = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmTools = new System.Windows.Forms.ToolStripMenuItem();
-            this.creationWizardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiCreationWizard = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiSupport = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiHelp = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.tsmiAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.ssMain = new System.Windows.Forms.StatusStrip();
             this.sslblStatus = new System.Windows.Forms.ToolStripStatusLabel();
+            this.sslblSpacer = new System.Windows.Forms.ToolStripStatusLabel();
+            this.ssProgressBar = new System.Windows.Forms.ToolStripProgressBar();
             this.btnRun = new System.Windows.Forms.Button();
             this.btnEdit = new System.Windows.Forms.Button();
             this.btnDebug = new System.Windows.Forms.Button();
@@ -59,7 +63,6 @@
             this.lblRunCurrentFile = new System.Windows.Forms.Label();
             this.txtRunOutput = new System.Windows.Forms.TextBox();
             this.panelSettings = new System.Windows.Forms.Panel();
-            this.chkSettingsShowDebug = new System.Windows.Forms.CheckBox();
             this.btnSettingsSave = new System.Windows.Forms.Button();
             this.lblSettingsLanguage = new System.Windows.Forms.Label();
             this.cboSettingsLanguage = new System.Windows.Forms.ComboBox();
@@ -130,66 +133,85 @@
             this.tsmiHome.Checked = true;
             this.tsmiHome.CheckState = System.Windows.Forms.CheckState.Checked;
             this.tsmiHome.Name = "tsmiHome";
-            this.tsmiHome.ShortcutKeys = System.Windows.Forms.Keys.F5;
-            this.tsmiHome.Size = new System.Drawing.Size(143, 22);
+            this.tsmiHome.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D1)));
+            this.tsmiHome.Size = new System.Drawing.Size(159, 22);
             this.tsmiHome.Text = "Home";
             this.tsmiHome.Click += new System.EventHandler(this.tsmiHome_Click);
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(140, 6);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(156, 6);
             // 
             // tsmiEditor
             // 
             this.tsmiEditor.Name = "tsmiEditor";
-            this.tsmiEditor.ShortcutKeys = System.Windows.Forms.Keys.F6;
-            this.tsmiEditor.Size = new System.Drawing.Size(143, 22);
+            this.tsmiEditor.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D3)));
+            this.tsmiEditor.Size = new System.Drawing.Size(159, 22);
             this.tsmiEditor.Text = "Edit";
             this.tsmiEditor.Click += new System.EventHandler(this.tsmiEditor_Click);
             // 
             // tsmiDebugger
             // 
             this.tsmiDebugger.Name = "tsmiDebugger";
-            this.tsmiDebugger.ShortcutKeys = System.Windows.Forms.Keys.F7;
-            this.tsmiDebugger.Size = new System.Drawing.Size(143, 22);
+            this.tsmiDebugger.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D4)));
+            this.tsmiDebugger.Size = new System.Drawing.Size(159, 22);
             this.tsmiDebugger.Text = "Debug";
             this.tsmiDebugger.Click += new System.EventHandler(this.tsmiDebugger_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(140, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(156, 6);
             // 
             // tsmiSettings
             // 
             this.tsmiSettings.Name = "tsmiSettings";
             this.tsmiSettings.ShortcutKeys = System.Windows.Forms.Keys.F8;
-            this.tsmiSettings.Size = new System.Drawing.Size(143, 22);
+            this.tsmiSettings.Size = new System.Drawing.Size(159, 22);
             this.tsmiSettings.Text = "Settings";
             this.tsmiSettings.Click += new System.EventHandler(this.tsmiSettings_Click);
             // 
             // tsmTools
             // 
             this.tsmTools.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.creationWizardToolStripMenuItem});
+            this.tsmiCreationWizard});
             this.tsmTools.Name = "tsmTools";
             this.tsmTools.Size = new System.Drawing.Size(51, 21);
             this.tsmTools.Text = "Tools";
             // 
-            // creationWizardToolStripMenuItem
+            // tsmiCreationWizard
             // 
-            this.creationWizardToolStripMenuItem.Name = "creationWizardToolStripMenuItem";
-            this.creationWizardToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
-            this.creationWizardToolStripMenuItem.Text = "Creation Wizard";
+            this.tsmiCreationWizard.Enabled = false;
+            this.tsmiCreationWizard.Name = "tsmiCreationWizard";
+            this.tsmiCreationWizard.Size = new System.Drawing.Size(170, 22);
+            this.tsmiCreationWizard.Text = "Creation Wizard";
+            this.tsmiCreationWizard.Click += new System.EventHandler(this.tsmiCreationWizard_Click);
+            this.tsmiCreationWizard.MouseEnter += new System.EventHandler(this.tsmiCreationWizard_MouseEnter);
+            this.tsmiCreationWizard.MouseLeave += new System.EventHandler(this.tsmiCreationWizard_MouseLeave);
             // 
             // tsmiSupport
             // 
             this.tsmiSupport.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmiHelp,
+            this.toolStripSeparator1,
             this.tsmiAbout});
             this.tsmiSupport.Name = "tsmiSupport";
             this.tsmiSupport.Size = new System.Drawing.Size(26, 21);
             this.tsmiSupport.Text = "?";
+            // 
+            // tsmiHelp
+            // 
+            this.tsmiHelp.Enabled = false;
+            this.tsmiHelp.Name = "tsmiHelp";
+            this.tsmiHelp.Size = new System.Drawing.Size(111, 22);
+            this.tsmiHelp.Text = "Help";
+            this.tsmiHelp.Click += new System.EventHandler(this.tsmiHelp_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(108, 6);
             // 
             // tsmiAbout
             // 
@@ -211,7 +233,9 @@
             // 
             this.ssMain.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ssMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.sslblStatus});
+            this.sslblStatus,
+            this.sslblSpacer,
+            this.ssProgressBar});
             this.ssMain.Location = new System.Drawing.Point(0, 564);
             this.ssMain.Name = "ssMain";
             this.ssMain.Padding = new System.Windows.Forms.Padding(1, 0, 18, 0);
@@ -225,6 +249,21 @@
             this.sslblStatus.Name = "sslblStatus";
             this.sslblStatus.Size = new System.Drawing.Size(69, 17);
             this.sslblStatus.Text = "sslblStatus";
+            // 
+            // sslblSpacer
+            // 
+            this.sslblSpacer.Name = "sslblSpacer";
+            this.sslblSpacer.Size = new System.Drawing.Size(573, 17);
+            this.sslblSpacer.Spring = true;
+            this.sslblSpacer.Text = "sslblSpacer";
+            this.sslblSpacer.Visible = false;
+            // 
+            // ssProgressBar
+            // 
+            this.ssProgressBar.Name = "ssProgressBar";
+            this.ssProgressBar.Size = new System.Drawing.Size(100, 16);
+            this.ssProgressBar.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
+            this.ssProgressBar.Visible = false;
             // 
             // btnRun
             // 
@@ -331,7 +370,7 @@
             this.btnRunClear.Margin = new System.Windows.Forms.Padding(3, 3, 0, 3);
             this.btnRunClear.Name = "btnRunClear";
             this.btnRunClear.Size = new System.Drawing.Size(145, 35);
-            this.btnRunClear.TabIndex = 5;
+            this.btnRunClear.TabIndex = 6;
             this.btnRunClear.Text = "Clear";
             this.btnRunClear.UseVisualStyleBackColor = true;
             this.btnRunClear.Click += new System.EventHandler(this.btnRunClearOutput_Click);
@@ -344,7 +383,7 @@
             this.btnOpen.Margin = new System.Windows.Forms.Padding(3, 3, 0, 3);
             this.btnOpen.Name = "btnOpen";
             this.btnOpen.Size = new System.Drawing.Size(145, 35);
-            this.btnOpen.TabIndex = 4;
+            this.btnOpen.TabIndex = 5;
             this.btnOpen.Text = "Open";
             this.btnOpen.UseVisualStyleBackColor = true;
             this.btnOpen.Click += new System.EventHandler(this.btnOpen_Click);
@@ -358,7 +397,7 @@
             this.btnRunWithDebugger.Margin = new System.Windows.Forms.Padding(3, 3, 0, 3);
             this.btnRunWithDebugger.Name = "btnRunWithDebugger";
             this.btnRunWithDebugger.Size = new System.Drawing.Size(145, 35);
-            this.btnRunWithDebugger.TabIndex = 3;
+            this.btnRunWithDebugger.TabIndex = 7;
             this.btnRunWithDebugger.Text = "Run";
             this.btnRunWithDebugger.UseVisualStyleBackColor = true;
             this.btnRunWithDebugger.Click += new System.EventHandler(this.btnRunWithDebugger_Click);
@@ -377,8 +416,9 @@
             // txtRunOutput
             // 
             this.txtRunOutput.BackColor = System.Drawing.Color.Black;
+            this.txtRunOutput.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtRunOutput.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.txtRunOutput.Font = new System.Drawing.Font("Consolas", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtRunOutput.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtRunOutput.ForeColor = System.Drawing.Color.White;
             this.txtRunOutput.Location = new System.Drawing.Point(0, 69);
             this.txtRunOutput.Multiline = true;
@@ -386,11 +426,10 @@
             this.txtRunOutput.ReadOnly = true;
             this.txtRunOutput.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txtRunOutput.Size = new System.Drawing.Size(447, 220);
-            this.txtRunOutput.TabIndex = 0;
+            this.txtRunOutput.TabIndex = 8;
             // 
             // panelSettings
             // 
-            this.panelSettings.Controls.Add(this.chkSettingsShowDebug);
             this.panelSettings.Controls.Add(this.btnSettingsSave);
             this.panelSettings.Controls.Add(this.lblSettingsLanguage);
             this.panelSettings.Controls.Add(this.cboSettingsLanguage);
@@ -400,16 +439,6 @@
             this.panelSettings.Size = new System.Drawing.Size(264, 200);
             this.panelSettings.TabIndex = 9;
             this.panelSettings.Visible = false;
-            // 
-            // chkSettingsShowDebug
-            // 
-            this.chkSettingsShowDebug.AutoSize = true;
-            this.chkSettingsShowDebug.Location = new System.Drawing.Point(7, 66);
-            this.chkSettingsShowDebug.Name = "chkSettingsShowDebug";
-            this.chkSettingsShowDebug.Size = new System.Drawing.Size(193, 24);
-            this.chkSettingsShowDebug.TabIndex = 3;
-            this.chkSettingsShowDebug.Text = "Show debug information";
-            this.chkSettingsShowDebug.UseVisualStyleBackColor = true;
             // 
             // btnSettingsSave
             // 
@@ -516,8 +545,11 @@
         private System.Windows.Forms.TextBox txtRunOutput;
         private System.Windows.Forms.OpenFileDialog ofdMain;
         private System.Windows.Forms.Button btnRunClear;
-        private System.Windows.Forms.CheckBox chkSettingsShowDebug;
         private System.Windows.Forms.Button btnSettingsSave;
-        private System.Windows.Forms.ToolStripMenuItem creationWizardToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem tsmiCreationWizard;
+        private System.Windows.Forms.ToolStripMenuItem tsmiHelp;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripProgressBar ssProgressBar;
+        private System.Windows.Forms.ToolStripStatusLabel sslblSpacer;
     }
 }
