@@ -1,8 +1,11 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Resources;
+using System.Text;
 using System.Threading;
+using System.Windows.Forms;
 
 /*
     FormHandler.cs
@@ -45,6 +48,8 @@ namespace WinYourDesktop
                     panelMain.Size.Height +
                     ssMain.Size.Height
             };
+
+            Console.SetOut(new ConStreamWriter(txtRunOutput));
 
             ChangeCulture();
 
@@ -224,5 +229,35 @@ namespace WinYourDesktop
             ResumeLayout(true);
         }
         #endregion
+    }
+
+    /// <summary>
+    /// Console Reader
+    /// </summary>
+    public class ConStreamWriter : TextWriter
+    {
+        TextBox t = null;
+
+        public ConStreamWriter(TextBox output)
+        {
+            t = output;
+        }
+
+        public override void Write(char value)
+        {
+            base.Write(value);
+            t.AppendText($"{value}");
+        }
+
+        public override void Write(string value)
+        {
+            base.Write(value);
+            t.AppendText(value);
+        }
+
+        public override Encoding Encoding
+        {
+            get { return Encoding.UTF8; }
+        }
     }
 }

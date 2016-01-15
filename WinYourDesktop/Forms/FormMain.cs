@@ -212,9 +212,6 @@ namespace WinYourDesktop
         #endregion
 
         #region Debug
-        //TODO: [IMPORTANT] Find a way to send data in between two asssemblies
-        // Library -> Form
-
         // Open file
         private void btnOpen_Click(object sender, System.EventArgs e)
         {
@@ -278,6 +275,7 @@ namespace WinYourDesktop
             try
             {
                 // I felt like doing a crazy one liner.
+                //TODO: Refacter
                 culture =
                     cboSettingsLanguage.Items[cboSettingsLanguage.SelectedIndex]
                     .ToString()
