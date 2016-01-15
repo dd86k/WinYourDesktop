@@ -56,33 +56,33 @@ namespace WinYourDesktopLibrary
 
         enum ErrorCodes
         {
-            // Path related errors
+            // -- Path related errors --
 
             NullPath = 0x8,
             EmptyPath = 0x9,
 
-            // Desktop files related errors
+            // -- Desktop files related errors --
 
             EmptyFile = 0x16,
             NoDesktopEntry = 0x17,
             MissingDelimiter = 0x18,
             MissingTypeValue = 0x20,
 
-            // Exec/TryExec related errors
+            // -- Exec/TryExec related errors --
 
             /// <summary>
             /// Generic Exec error.
             /// </summary>
             ExecError = 0x32,
 
-            // Link type related errors
+            // -- Link type related errors --
 
             /// <summary>
             /// Generic Link error.
             /// </summary>
             LinkError = 0x40,
 
-            // Directory type related errors
+            // -- Directory type related errors --
 
             /// <summary>
             /// Generic Directory error.
