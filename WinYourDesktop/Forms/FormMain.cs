@@ -1,7 +1,7 @@
-﻿using System.Windows.Forms;
-using System.Drawing;
-using WinYourDesktopLibrary;
+﻿using System.Drawing;
 using System.IO;
+using System.Windows.Forms;
+using WinYourDesktopLibrary;
 
 //TODO:View: Execute -> OpenFileDialog
 //TODO:View: Create -> SaveFileDialog -> Edit
@@ -207,7 +207,7 @@ namespace WinYourDesktop
         }
         #endregion
 
-        #region Debug
+        #region Debug view
         // Open file
         private void btnOpen_Click(object sender, System.EventArgs e)
         {
@@ -215,9 +215,7 @@ namespace WinYourDesktop
             ofdMain.ShowDialog();
             if (ofdMain.FileName != string.Empty)
             {
-                CurrentFile = new FileInfo(ofdMain.FileName);
-                lblRunCurrentFile.Text = CurrentFile.Name;
-                btnRunWithDebugger.Enabled = true;
+                SetCurrentFile(ofdMain.FileName);
             }
         }
 
@@ -251,7 +249,7 @@ namespace WinYourDesktop
         private void btnRunWithDebugger_Click(object sender, System.EventArgs e)
         {
             int r = Interpreter.Run(CurrentFile.FullName);
-            txtRunOutput.AppendText($"Return code: {r:X8} ({r})");
+            txtRunOutput.AppendText($"Return code: 0x{r:X8} ({r})");
         }
 
         private void btnRunWithDebugger_MouseEnter(object sender, System.EventArgs e)
@@ -263,9 +261,29 @@ namespace WinYourDesktop
         {
             sslblStatus.Text = string.Empty;
         }
+
+        // DragDrop
+        private void panelDebugger_DragEnter(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+                e.Effect = DragDropEffects.Move;
+            else
+                e.Effect = DragDropEffects.None;
+        }
+
+        private void panelDebugger_DragDrop(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop, false))
+            {
+                string[] list = (string[])(e.Data.GetData(DataFormats.FileDrop));
+
+                if (list[0].ToLower().Contains(".desktop"))
+                    SetCurrentFile(list[0]);
+            }
+        }
         #endregion
 
-        #region Settings
+        #region Settings view
         private void cboSettingsLanguage_SelectedValueChanged(object sender, System.EventArgs e)
         {
             //TODO: Refacter cboSettingsLanguage_SelectedValueChanged

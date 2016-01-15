@@ -210,6 +210,17 @@ namespace WinYourDesktop
             );
             Refresh();
         }
+
+        /// <summary>
+        /// Set current file for the debugger or edit view.
+        /// </summary>
+        /// <param name="pPath">File path.</param>
+        void SetCurrentFile(string pPath)
+        {
+            CurrentFile = new FileInfo(pPath);
+            lblRunCurrentFile.Text = CurrentFile.Name;
+            btnRunWithDebugger.Enabled = true;
+        }
     }
 
     /// <summary>

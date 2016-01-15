@@ -253,7 +253,7 @@
             // sslblSpacer
             // 
             this.sslblSpacer.Name = "sslblSpacer";
-            this.sslblSpacer.Size = new System.Drawing.Size(573, 17);
+            this.sslblSpacer.Size = new System.Drawing.Size(604, 17);
             this.sslblSpacer.Spring = true;
             this.sslblSpacer.Text = "sslblSpacer";
             this.sslblSpacer.Visible = false;
@@ -352,6 +352,7 @@
             // 
             // panelDebugger
             // 
+            this.panelDebugger.AllowDrop = true;
             this.panelDebugger.Controls.Add(this.btnRunClear);
             this.panelDebugger.Controls.Add(this.btnOpen);
             this.panelDebugger.Controls.Add(this.btnRunWithDebugger);
@@ -363,6 +364,8 @@
             this.panelDebugger.Size = new System.Drawing.Size(447, 289);
             this.panelDebugger.TabIndex = 8;
             this.panelDebugger.Visible = false;
+            this.panelDebugger.DragDrop += new System.Windows.Forms.DragEventHandler(this.panelDebugger_DragDrop);
+            this.panelDebugger.DragEnter += new System.Windows.Forms.DragEventHandler(this.panelDebugger_DragEnter);
             // 
             // btnRunClear
             // 

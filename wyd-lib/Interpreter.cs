@@ -4,13 +4,12 @@ using wyd_lib;
 
 namespace WinYourDesktopLibrary
 {
-
-    /// <summary>
+    /// <remarks>
     /// Standard used:
     /// http://standards.freedesktop.org/desktop-entry-spec/latest/index.html
     /// Most useful page:
     /// http://standards.freedesktop.org/desktop-entry-spec/latest/ar01s05.html
-    /// </summary>
+    /// </remarks>
     static public class Interpreter
     {
         #region Properties
@@ -32,7 +31,7 @@ namespace WinYourDesktopLibrary
         /// <summary>
         /// Desktop Entry header type.
         /// </summary>
-        enum DesktopFileType
+        enum DesktopFileType : byte
         {
             /// <summary>
             /// Application type. (UI and CLI apps)
@@ -58,8 +57,10 @@ namespace WinYourDesktopLibrary
         /// Interpret a Desktop file.
         /// </summary>
         /// <param name="pPath">Path of the Desktop file.</param>
-        static public int Run(string pPath)
+        public static int Run(string pPath)
         {
+            //TODO: pVerboise (debug)
+
             Console.WriteLine($"Started debugging {Path.GetFileName(pPath)}...");
 
             if (pPath == null || pPath == string.Empty)
@@ -69,7 +70,7 @@ namespace WinYourDesktopLibrary
             }
 
             if (!File.Exists(pPath))
-                Console.WriteLine($"Specified file doesn't exist.{Environment.NewLine}Path: {pPath}");
+                Console.WriteLine($"Error: Specified file doesn't exist.{Environment.NewLine}Path: {pPath}");
             else
                 Console.WriteLine("File found");
 
@@ -79,7 +80,7 @@ namespace WinYourDesktopLibrary
 
             if (text.Length == 0 || !text.Contains("\n"))
             {
-                Console.WriteLine("Specified desktop file is empty, or contains no new lines.");
+                Console.WriteLine("Error: Specified desktop file is empty, or contains no new lines.");
                 return 3;
             }
 
@@ -91,16 +92,18 @@ namespace WinYourDesktopLibrary
 
             if (lines[0] != "[Desktop Entry]")
             {
-                Console.WriteLine("First line must be [Desktop Entry].");
+                Console.WriteLine("Error: First line must be [Desktop Entry].");
                 return 5;
             }
 
-            string[] line = new string[0];
+            // Defaults
             DesktopFileType type = DesktopFileType.Unknown;
+            string[] line;
             string exec = string.Empty;
             string url = string.Empty;
             string path = string.Empty;
             bool terminal = false;
+
             // Starts at 1 to skip "[Desktop Entry]"
             for (int i = 1; i < lines.Length; i++)
             {
@@ -110,7 +113,7 @@ namespace WinYourDesktopLibrary
                 {
                     if (!lines[i].Contains("="))
                     {
-                        Console.WriteLine($"Failed to split key and value at line {i + 1}.");
+                        Console.WriteLine($"Error: Failed to split key and value at line #{i + 1}.");
                         Console.WriteLine("Missing '=' operator?");
                         return 7;
                     }
@@ -118,8 +121,6 @@ namespace WinYourDesktopLibrary
                     line =
                         lines[i].Split(new char[] { '=' },
                         StringSplitOptions.RemoveEmptyEntries);
-
-                    Console.WriteLine($"Line #{i + 1}: {lines[i]}");
 
                     switch (line[0])
                     {
@@ -133,10 +134,10 @@ namespace WinYourDesktopLibrary
                                 case "Directory":
                                     type = DesktopFileType.Directory; break;
                                 default:
-                                    Console.WriteLine("Error: Unknown type.");
-                                    return 18;
+                                    Console.WriteLine($"Error: Unknown Type value!");
+                                    return 9;
                             }
-                            Console.WriteLine($"Type SET AS {type}");
+                            Console.WriteLine($"TYPE SET AS {type}");
                             break;
 
                         case "Exec":
@@ -158,7 +159,7 @@ namespace WinYourDesktopLibrary
                             if (line[1].ToLower() == "true")
                                 terminal = true;
 
-                            Console.WriteLine($"Terminal mode enabled");
+                            Console.WriteLine($"Terminal mode enabled!");
                             break;
                     }
                 }
@@ -166,7 +167,8 @@ namespace WinYourDesktopLibrary
 
             if (type == DesktopFileType.Unknown)
             {
-                Console.WriteLine($"Unknown or missing Type value! ({type})");
+                // Because the "unknown" part is checked in earlier switch()
+                Console.WriteLine($"Error: Missing Type value!");
                 return 9;
             }
 
@@ -175,50 +177,42 @@ namespace WinYourDesktopLibrary
             {
                 // Launch an application.
                 case DesktopFileType.Application:
-                    string[] execs = new string[0];
-
-                    // Split application (e.g. ping) with arguments (-t ::1) if possible
-                    if (exec.Contains(" ") && !terminal)
-                        execs = exec.Split(new char[] { ' ', '\t' }, 2);
-
-                    //TODO: Fix Terminal key usage. ("start cmd")
-                    string args = execs.Length > 0 ? execs[1] : string.Empty;
-                    Console.WriteLine($"Program: {execs[0]}");
-                    Console.WriteLine($"Arguments: {args}");
+                    Console.WriteLine($"EXEC: {exec}");
                     try
                     {
-                        System.Diagnostics.Process.Start(terminal ? "start cmd" : execs[0], args);
-                        Console.WriteLine("Started");
+                        System.Diagnostics.Process.Start(terminal ? "start cmd" : exec, exec.Contains(" ") ?
+                        exec.Substring(exec.IndexOf(" ") + 1) :
+                        string.Empty);
                     }
                     catch (Exception ex)
                     {
-                        Console.WriteLine($"Error: {ex.GetType()} ({ex.HResult:X8})");
+                        Console.WriteLine($"Error: {ex.GetType()} (0x{ex.HResult:X8})");
                         return ex.HResult;
                     }
                     break;
 
                 // Launch the user's default application that handles URLs.
                 case DesktopFileType.Link:
+                    Console.WriteLine($"URL: {url}");
                     try
                     {
                         System.Diagnostics.Process.Start(url);
-                        Console.WriteLine("Started");
                     }
                     catch (Exception ex)
                     {
                         Console.WriteLine("Could not start with the provided link.");
-                        Console.WriteLine($"Error: {ex.GetType()} ({ex.HResult:X8})");
+                        Console.WriteLine($"Error: {ex.GetType()} (0x{ex.HResult:X8})");
                         return 12;
                     }
                     break;
 
                 // Open File Explorer with a specific path/directory.
                 case DesktopFileType.Directory:
-
+                    Console.WriteLine($"DIR: {path}");
                     if (Directory.Exists(path))
                     {
-                        System.Diagnostics.Process.Start($"{Utils.ExplorerPath}", $"{path}");
-                        Console.WriteLine("Started");
+                        System.Diagnostics.Process.Start($"{Utils.ExplorerPath}",
+                            $"{path.Replace("/", @"\")}");
                     }
                     else
                     { 
@@ -227,6 +221,8 @@ namespace WinYourDesktopLibrary
                     }
                     break;
             } // End of switch()
+
+            Console.WriteLine("Started successfully.");
 
             return 0;
         }
@@ -240,10 +236,9 @@ namespace WinYourDesktopLibrary
             {
                 tw.WriteLine("[Desktop Entry]");
                 tw.WriteLine("# This is a simple generated dummy desktop file.");
-                tw.WriteLine("Type=Application");
+                tw.WriteLine("Type=Directory");
                 tw.WriteLine("Name=Dummy Desktop File");
-                tw.WriteLine("Exec=echo hi & pause");
-                tw.WriteLine("Terminal=true");
+                tw.WriteLine(@"Path=C:\Windows");
             }
         }
         #endregion Public Methods
