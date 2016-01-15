@@ -23,10 +23,7 @@ No installers are available for the moment.
 
 You will need at least Visual Studio 2015 or the latest version of Xamarin Studio (you will need to do some tweaks in the project file, also I'm not sure if it's entirely compatible with the extensions).
 
-Please note that I'm writing C# 6.0 for .NET 4.5.2.
-
-## Debugging
----
+Please note that I'm writing C# 6.0 for .NET 4.5.2, although this is .NET 4.5 compatible.
 
 This solution consists of three projects
 

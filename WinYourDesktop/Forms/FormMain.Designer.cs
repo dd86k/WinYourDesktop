@@ -223,8 +223,8 @@
             // sslblStatus
             // 
             this.sslblStatus.Name = "sslblStatus";
-            this.sslblStatus.Size = new System.Drawing.Size(42, 17);
-            this.sslblStatus.Text = "Hello!";
+            this.sslblStatus.Size = new System.Drawing.Size(69, 17);
+            this.sslblStatus.Text = "sslblStatus";
             // 
             // btnRun
             // 
