@@ -164,6 +164,7 @@ namespace WinYourDesktopLibrary
                 return 9;
             }
 
+            Console.WriteLine("Starting...");
             switch (type)
             {
                 // Launch an application.
@@ -178,7 +179,6 @@ namespace WinYourDesktopLibrary
                     string args = execs.Length > 0 ? execs[1] : string.Empty;
                     Console.WriteLine($"Program: {execs[0]}");
                     Console.WriteLine($"Arguments: {args}");
-                    Console.WriteLine("Starting...");
                     try
                     {
                         System.Diagnostics.Process.Start(terminal ? "start cmd" : execs[0], args);
@@ -193,7 +193,6 @@ namespace WinYourDesktopLibrary
 
                 // Launch the user's default application that handles URLs.
                 case DesktopFileType.Link:
-                    Console.WriteLine("Starting...");
                     try
                     {
                         System.Diagnostics.Process.Start(url);
@@ -209,7 +208,7 @@ namespace WinYourDesktopLibrary
 
                 // Open File Explorer with a specific path/directory.
                 case DesktopFileType.Directory:
-                    //FormMain.dbgWrite("Starting...");
+
                     if (Directory.Exists(path))
                     {
                         System.Diagnostics.Process.Start($"{Utils.ExplorerPath}", $"{path}");

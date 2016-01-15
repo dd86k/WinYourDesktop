@@ -13,22 +13,20 @@ _WinYourDesktop_ is a loose (not strict by standard) and simple Desktop Entry fi
 
 # Installing (binaries)
 
-Note:
-- You need at least the .NET 4.0 Framework.
-
----
-
 1. Simply put the executable file somewhere on your computer that you will remember.
 
 2. Then make WinYourDesktop the default application to open Desktop Entry files.
 
+No installers are available for the moment.
+
 # Installing (source)
 
-You will need at least Visual Studio 2015 or the latest version of Xamarin Studio (you will need to do some tweaks in the project file, also I'm not sure if it's entirely compatible).
+You will need at least Visual Studio 2015 or the latest version of Xamarin Studio (you will need to do some tweaks in the project file, also I'm not sure if it's entirely compatible with the extensions).
 
-Please note that I'm writing C# 6.0 on .NET 4.0.
+Please note that I'm writing C# 6.0 for .NET 4.5.2.
 
-# Debugging
+## Debugging
+---
 
 This solution consists of three projects
 
@@ -39,17 +37,11 @@ This solution consists of three projects
 - wyd-lib
   - .NET Library, Interpreter
 
-Make sure Costura.Fody and SharpShell are installed and referenced.
-
-Since WinYourDesktop and WinYourDesktopConsole, Visual Studio generates wyd-lib first.
+Make sure Costura.Fody and SharpShell are installed and referenced (In `References`).
 
 Then you can just debug right away.
 
-Fody takes care of embedding the DLLs.
-
-# Ideas?
-
-Just toss them in the ticket system ("Issues")!
+Costura.Fody takes care of embedding the DLLs into the UI and console solutions.
 
 # FAQ
 

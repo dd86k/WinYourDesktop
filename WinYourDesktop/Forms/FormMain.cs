@@ -254,7 +254,8 @@ namespace WinYourDesktop
         // Run file
         private void btnRunWithDebugger_Click(object sender, System.EventArgs e)
         {
-            Interpreter.Run(CurrentFile.Path);
+            int r = Interpreter.Run(CurrentFile.Path);
+            txtRunOutput.AppendText($"Return code: {r:X8} ({r})");
         }
 
         private void btnRunWithDebugger_MouseEnter(object sender, System.EventArgs e)
