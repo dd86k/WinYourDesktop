@@ -30,16 +30,32 @@ namespace WinYourDesktop
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main(string[] args)
+        static int Main(string[] args)
         {
             // No arguments
             if (args.Length == 0)
             {
                 ShowForm();
-                return;
+                return 0;
             }
 
             //TODO: CLI (UI)
+            for (int i = 0; i < args.Length; i++)
+            {
+                switch (args[i])
+                {
+                    case "/dummy":
+                        Interpreter.CreateDummy();
+                        return 0;
+                }
+            }
+
+            string file = args[args.Length - 1];
+
+            if (System.IO.File.Exists(file))
+                return Interpreter.Run(file);
+
+            return 0;
         }
 
         static void ShowForm()
