@@ -11,6 +11,13 @@ namespace WinYourDesktop
 {
     partial class FormMain
     {
+        #region Properties
+        FileInfo CurrentFile;
+        NotificationHandler NotificationHandler;
+        ResourceManager RM;
+        readonly string nl = Environment.NewLine;
+        #endregion
+
         /// <summary>
         /// Relocate the panels, resize <see cref="FormMain"/>,
         /// and prepare language.
@@ -25,13 +32,16 @@ namespace WinYourDesktop
             SuspendLayout();
 
             panelDebugger.Location =
-            panelEditor.Location =
-            panelSettings.Location =
-            panelMain.Location = new Point(0, msMain.Size.Height);
+                panelEditor.Location =
+                panelSettings.Location =
+                panelMain.Location =
+                new Point(0, msMain.Height);
 
             AdjustClientSize(panelMain);
 
             Console.SetOut(new ConStreamWriter(txtRunOutput));
+
+            NotificationHandler = new NotificationHandler(tsmNotifications, ImageListNotification);
 
             ChangeCulture();
 
@@ -39,7 +49,6 @@ namespace WinYourDesktop
         }
 
         #region Language
-        ResourceManager RM;
 
         void ChangeCulture()
         {
@@ -102,7 +111,7 @@ namespace WinYourDesktop
 
             // === panelDebugger
             btnOpen.Text = RM.GetString("btnOpen");
-            btnRunClear.Text = RM.GetString("btnRunClear");
+            btnRunCopy.Text = RM.GetString("btnRunCopy");
             btnRunWithDebugger.Text = RM.GetString("btnRun");
 
             // === panelSettings
@@ -190,10 +199,10 @@ namespace WinYourDesktop
         /// <param name="pPanel">Panel</param>
         void AdjustClientSize(Panel pPanel)
         {
-            ClientSize = new Size(pPanel.Size.Width,
-                msMain.Size.Height +
-                pPanel.Size.Height +
-                ssMain.Size.Height
+            ClientSize = new Size(pPanel.Width,
+                msMain.Height +
+                pPanel.Height +
+                ssMain.Height
             );
         }
 
@@ -204,11 +213,10 @@ namespace WinYourDesktop
         void AdjustClientSize(int pPanelWidth, int pPanelHeight)
         {
             ClientSize = new Size(pPanelWidth,
-                msMain.Size.Height +
+                msMain.Height +
                 pPanelHeight +
-                ssMain.Size.Height
+                ssMain.Height
             );
-            Refresh();
         }
 
         /// <summary>

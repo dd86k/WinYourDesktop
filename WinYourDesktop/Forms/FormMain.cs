@@ -12,12 +12,6 @@ namespace WinYourDesktop
 {
     internal partial class FormMain : Form
     {
-        #region Properties
-        FileInfo CurrentFile;
-
-        readonly string nl = System.Environment.NewLine;
-        #endregion
-
         #region Constructors
         internal FormMain()
         {
@@ -230,18 +224,18 @@ namespace WinYourDesktop
             sslblStatus.Text = string.Empty;
         }
 
-        // Clear output
-        private void btnRunClearOutput_Click(object sender, System.EventArgs e)
+        // Copy output
+        private void btnRunCopyOutput_Click(object sender, System.EventArgs e)
         {
-            txtRunOutput.Clear();
+            Clipboard.SetText(txtRunOutput.Text, TextDataFormat.UnicodeText);
         }
 
-        private void btnRunClear_MouseEnter(object sender, System.EventArgs e)
+        private void btnRunCopy_MouseEnter(object sender, System.EventArgs e)
         {
-            sslblStatus.Text = RM.GetString("btnRunClear_MouseEnter");
+            sslblStatus.Text = RM.GetString("btnRunCopy_MouseEnter");
         }
 
-        private void btnRunClear_MouseLeave(object sender, System.EventArgs e)
+        private void btnRunCopy_MouseLeave(object sender, System.EventArgs e)
         {
             sslblStatus.Text = string.Empty;
         }
@@ -249,6 +243,7 @@ namespace WinYourDesktop
         // Run file
         private void btnRunWithDebugger_Click(object sender, System.EventArgs e)
         {
+            txtRunOutput.Clear();
             int r = Interpreter.Run(CurrentFile.FullName);
             txtRunOutput.AppendText($"Return code: 0x{r:X8} ({r})");
         }

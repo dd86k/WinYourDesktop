@@ -151,20 +151,20 @@ namespace WinYourDesktop.Culture {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to DESTROY.
+        ///   Looks up a localized string similar to GET LOOT.
         /// </summary>
-        internal static string btnRunClear {
+        internal static string btnRunCopy {
             get {
-                return ResourceManager.GetString("btnRunClear", resourceCulture);
+                return ResourceManager.GetString("btnRunCopy", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to remove traces boys!!!.
+        ///   Looks up a localized string similar to Gets loot into board!!!.
         /// </summary>
-        internal static string btnRunClear_MouseEnter {
+        internal static string btnRunCopy_MouseEnter {
             get {
-                return ResourceManager.GetString("btnRunClear_MouseEnter", resourceCulture);
+                return ResourceManager.GetString("btnRunCopy_MouseEnter", resourceCulture);
             }
         }
         

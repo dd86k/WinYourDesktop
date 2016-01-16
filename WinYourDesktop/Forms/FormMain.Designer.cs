@@ -27,6 +27,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
             this.msMain = new System.Windows.Forms.MenuStrip();
             this.tsmApplication = new System.Windows.Forms.ToolStripMenuItem();
@@ -45,7 +46,7 @@
             this.tsmiHelp = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.tsmiAbout = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmNotifications = new System.Windows.Forms.ToolStripMenuItem();
             this.ssMain = new System.Windows.Forms.StatusStrip();
             this.sslblStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.sslblSpacer = new System.Windows.Forms.ToolStripStatusLabel();
@@ -57,7 +58,7 @@
             this.panelMain = new System.Windows.Forms.Panel();
             this.panelEditor = new System.Windows.Forms.Panel();
             this.panelDebugger = new System.Windows.Forms.Panel();
-            this.btnRunClear = new System.Windows.Forms.Button();
+            this.btnRunCopy = new System.Windows.Forms.Button();
             this.btnOpen = new System.Windows.Forms.Button();
             this.btnRunWithDebugger = new System.Windows.Forms.Button();
             this.lblRunCurrentFile = new System.Windows.Forms.Label();
@@ -67,6 +68,7 @@
             this.lblSettingsLanguage = new System.Windows.Forms.Label();
             this.cboSettingsLanguage = new System.Windows.Forms.ComboBox();
             this.ofdMain = new System.Windows.Forms.OpenFileDialog();
+            this.ImageListNotification = new System.Windows.Forms.ImageList(this.components);
             this.msMain.SuspendLayout();
             this.ssMain.SuspendLayout();
             this.panelMain.SuspendLayout();
@@ -82,7 +84,7 @@
             this.tsmView,
             this.tsmTools,
             this.tsmiSupport,
-            this.toolStripMenuItem1});
+            this.tsmNotifications});
             this.msMain.Location = new System.Drawing.Point(0, 0);
             this.msMain.Name = "msMain";
             this.msMain.Padding = new System.Windows.Forms.Padding(8, 2, 0, 2);
@@ -220,14 +222,14 @@
             this.tsmiAbout.Text = "About";
             this.tsmiAbout.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
-            // toolStripMenuItem1
+            // tsmNotifications
             // 
-            this.toolStripMenuItem1.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.toolStripMenuItem1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripMenuItem1.Image")));
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(43, 21);
-            this.toolStripMenuItem1.Text = "0";
-            this.toolStripMenuItem1.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
+            this.tsmNotifications.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.tsmNotifications.Image = ((System.Drawing.Image)(resources.GetObject("tsmNotifications.Image")));
+            this.tsmNotifications.Name = "tsmNotifications";
+            this.tsmNotifications.Size = new System.Drawing.Size(43, 21);
+            this.tsmNotifications.Text = "0";
+            this.tsmNotifications.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
             // 
             // ssMain
             // 
@@ -269,7 +271,7 @@
             // 
             this.btnRun.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnRun.BackgroundImage")));
             this.btnRun.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRun.Location = new System.Drawing.Point(8, 8);
+            this.btnRun.Location = new System.Drawing.Point(10, 10);
             this.btnRun.Margin = new System.Windows.Forms.Padding(8);
             this.btnRun.Name = "btnRun";
             this.btnRun.Size = new System.Drawing.Size(128, 96);
@@ -285,7 +287,7 @@
             // 
             this.btnEdit.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnEdit.BackgroundImage")));
             this.btnEdit.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnEdit.Location = new System.Drawing.Point(152, 120);
+            this.btnEdit.Location = new System.Drawing.Point(150, 118);
             this.btnEdit.Margin = new System.Windows.Forms.Padding(8);
             this.btnEdit.Name = "btnEdit";
             this.btnEdit.Size = new System.Drawing.Size(128, 96);
@@ -301,7 +303,7 @@
             // 
             this.btnDebug.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnDebug.BackgroundImage")));
             this.btnDebug.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDebug.Location = new System.Drawing.Point(8, 120);
+            this.btnDebug.Location = new System.Drawing.Point(10, 118);
             this.btnDebug.Margin = new System.Windows.Forms.Padding(8);
             this.btnDebug.Name = "btnDebug";
             this.btnDebug.Size = new System.Drawing.Size(128, 96);
@@ -317,7 +319,7 @@
             // 
             this.btnCreate.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnCreate.BackgroundImage")));
             this.btnCreate.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCreate.Location = new System.Drawing.Point(152, 8);
+            this.btnCreate.Location = new System.Drawing.Point(150, 10);
             this.btnCreate.Margin = new System.Windows.Forms.Padding(8);
             this.btnCreate.Name = "btnCreate";
             this.btnCreate.Size = new System.Drawing.Size(128, 96);
@@ -338,7 +340,7 @@
             this.panelMain.Location = new System.Drawing.Point(12, 30);
             this.panelMain.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.panelMain.Name = "panelMain";
-            this.panelMain.Size = new System.Drawing.Size(292, 225);
+            this.panelMain.Size = new System.Drawing.Size(288, 224);
             this.panelMain.TabIndex = 6;
             // 
             // panelEditor
@@ -353,7 +355,7 @@
             // panelDebugger
             // 
             this.panelDebugger.AllowDrop = true;
-            this.panelDebugger.Controls.Add(this.btnRunClear);
+            this.panelDebugger.Controls.Add(this.btnRunCopy);
             this.panelDebugger.Controls.Add(this.btnOpen);
             this.panelDebugger.Controls.Add(this.btnRunWithDebugger);
             this.panelDebugger.Controls.Add(this.lblRunCurrentFile);
@@ -367,18 +369,18 @@
             this.panelDebugger.DragDrop += new System.Windows.Forms.DragEventHandler(this.panelDebugger_DragDrop);
             this.panelDebugger.DragEnter += new System.Windows.Forms.DragEventHandler(this.panelDebugger_DragEnter);
             // 
-            // btnRunClear
+            // btnRunCopy
             // 
-            this.btnRunClear.Location = new System.Drawing.Point(151, 28);
-            this.btnRunClear.Margin = new System.Windows.Forms.Padding(3, 3, 0, 3);
-            this.btnRunClear.Name = "btnRunClear";
-            this.btnRunClear.Size = new System.Drawing.Size(145, 35);
-            this.btnRunClear.TabIndex = 6;
-            this.btnRunClear.Text = "Clear";
-            this.btnRunClear.UseVisualStyleBackColor = true;
-            this.btnRunClear.Click += new System.EventHandler(this.btnRunClearOutput_Click);
-            this.btnRunClear.MouseEnter += new System.EventHandler(this.btnRunClear_MouseEnter);
-            this.btnRunClear.MouseLeave += new System.EventHandler(this.btnRunClear_MouseLeave);
+            this.btnRunCopy.Location = new System.Drawing.Point(151, 28);
+            this.btnRunCopy.Margin = new System.Windows.Forms.Padding(3, 3, 0, 3);
+            this.btnRunCopy.Name = "btnRunCopy";
+            this.btnRunCopy.Size = new System.Drawing.Size(145, 35);
+            this.btnRunCopy.TabIndex = 6;
+            this.btnRunCopy.Text = "Copy";
+            this.btnRunCopy.UseVisualStyleBackColor = true;
+            this.btnRunCopy.Click += new System.EventHandler(this.btnRunCopyOutput_Click);
+            this.btnRunCopy.MouseEnter += new System.EventHandler(this.btnRunCopy_MouseEnter);
+            this.btnRunCopy.MouseLeave += new System.EventHandler(this.btnRunCopy_MouseLeave);
             // 
             // btnOpen
             // 
@@ -481,6 +483,14 @@
             // 
             this.ofdMain.Filter = "Desktop files|*.desktop|All file|*.*";
             // 
+            // ImageListNotification
+            // 
+            this.ImageListNotification.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("ImageListNotification.ImageStream")));
+            this.ImageListNotification.TransparentColor = System.Drawing.Color.Transparent;
+            this.ImageListNotification.Images.SetKeyName(0, "NotificationLow.png");
+            this.ImageListNotification.Images.SetKeyName(1, "NotificationHigh.png");
+            this.ImageListNotification.Images.SetKeyName(2, "NotificationCrucial.png");
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
@@ -527,7 +537,7 @@
         private System.Windows.Forms.ToolStripMenuItem tsmiQuit;
         private System.Windows.Forms.ToolStripMenuItem tsmiAbout;
         private System.Windows.Forms.Panel panelMain;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem tsmNotifications;
         private System.Windows.Forms.ToolStripMenuItem tsmTools;
         private System.Windows.Forms.Panel panelEditor;
         private System.Windows.Forms.Panel panelDebugger;
@@ -547,12 +557,13 @@
         private System.Windows.Forms.Label lblRunCurrentFile;
         private System.Windows.Forms.TextBox txtRunOutput;
         private System.Windows.Forms.OpenFileDialog ofdMain;
-        private System.Windows.Forms.Button btnRunClear;
+        private System.Windows.Forms.Button btnRunCopy;
         private System.Windows.Forms.Button btnSettingsSave;
         private System.Windows.Forms.ToolStripMenuItem tsmiCreationWizard;
         private System.Windows.Forms.ToolStripMenuItem tsmiHelp;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripProgressBar ssProgressBar;
         private System.Windows.Forms.ToolStripStatusLabel sslblSpacer;
+        private System.Windows.Forms.ImageList ImageListNotification;
     }
 }

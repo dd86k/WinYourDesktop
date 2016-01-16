@@ -151,20 +151,20 @@ namespace WinYourDesktop.Culture {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Clear.
+        ///   Looks up a localized string similar to Copy.
         /// </summary>
-        internal static string btnRunClear {
+        internal static string btnRunCopy {
             get {
-                return ResourceManager.GetString("btnRunClear", resourceCulture);
+                return ResourceManager.GetString("btnRunCopy", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Clear the output.
+        ///   Looks up a localized string similar to Copy the output to the clipboard.
         /// </summary>
-        internal static string btnRunClear_MouseEnter {
+        internal static string btnRunCopy_MouseEnter {
             get {
-                return ResourceManager.GetString("btnRunClear_MouseEnter", resourceCulture);
+                return ResourceManager.GetString("btnRunCopy_MouseEnter", resourceCulture);
             }
         }
         

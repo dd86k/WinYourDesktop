@@ -151,20 +151,20 @@ namespace WinYourDesktop.Culture {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Effacer.
+        ///   Looks up a localized string similar to Copier.
         /// </summary>
-        internal static string btnRunClear {
+        internal static string btnRunCopy {
             get {
-                return ResourceManager.GetString("btnRunClear", resourceCulture);
+                return ResourceManager.GetString("btnRunCopy", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Effacer la sortie.
+        ///   Looks up a localized string similar to Copier la sortie au presse-papier.
         /// </summary>
-        internal static string btnRunClear_MouseEnter {
+        internal static string btnRunCopy_MouseEnter {
             get {
-                return ResourceManager.GetString("btnRunClear_MouseEnter", resourceCulture);
+                return ResourceManager.GetString("btnRunCopy_MouseEnter", resourceCulture);
             }
         }
         
@@ -223,7 +223,7 @@ namespace WinYourDesktop.Culture {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Affiche l&apos;assistant de création de fichier DESKTOP.
+        ///   Looks up a localized string similar to Affiche l&apos;assistant de création de fichier desktop.
         /// </summary>
         internal static string tsmiCreationWizard_MouseEnter {
             get {

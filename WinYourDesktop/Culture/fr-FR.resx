@@ -185,11 +185,11 @@
   <data name="btnOpen_MouseEnter" xml:space="preserve">
     <value>Ouvrir un fichier</value>
   </data>
-  <data name="btnRunClear" xml:space="preserve">
-    <value>Effacer</value>
+  <data name="btnRunCopy" xml:space="preserve">
+    <value>Copier</value>
   </data>
-  <data name="btnRunClear_MouseEnter" xml:space="preserve">
-    <value>Effacer la sortie</value>
+  <data name="btnRunCopy_MouseEnter" xml:space="preserve">
+    <value>Copier la sortie au presse-papier</value>
   </data>
   <data name="btnRunWithDebugger" xml:space="preserve">
     <value>Éxecuter</value>
@@ -204,6 +204,6 @@
     <value>Assistant de création</value>
   </data>
   <data name="tsmiCreationWizard_MouseEnter" xml:space="preserve">
-    <value>Affiche l'assistant de création de fichier DESKTOP</value>
+    <value>Affiche l'assistant de création de fichier desktop</value>
   </data>
 </root>

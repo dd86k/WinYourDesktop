@@ -183,11 +183,11 @@
   <data name="btnOpen_MouseEnter" xml:space="preserve">
     <value>Open the file to run</value>
   </data>
-  <data name="btnRunClear" xml:space="preserve">
-    <value>Clear</value>
+  <data name="btnRunCopy" xml:space="preserve">
+    <value>Copy</value>
   </data>
-  <data name="btnRunClear_MouseEnter" xml:space="preserve">
-    <value>Clear the output</value>
+  <data name="btnRunCopy_MouseEnter" xml:space="preserve">
+    <value>Copy the output to the clipboard</value>
   </data>
   <data name="btnRunWithDebugger" xml:space="preserve">
     <value>Run</value>
