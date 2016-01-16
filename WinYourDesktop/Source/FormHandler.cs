@@ -49,11 +49,12 @@ namespace WinYourDesktop
         }
 
         #region Language
-
+        /// <summary>
+        /// Change to system's local.
+        /// </summary>
         void ChangeCulture()
         {
-            CultureInfo ci = Thread.CurrentThread.CurrentCulture;
-            ChangeCulture(ci);
+            ChangeCulture(Thread.CurrentThread.CurrentCulture);
         }
 
         void ChangeCulture(CultureInfo pLanguage)
@@ -76,9 +77,7 @@ namespace WinYourDesktop
                              typeof(FormMain).Assembly);
                     break;
 
-                case "en":
-                case "en-US":
-                case "en-UK":
+                // Default: English
                 default:
                     RM = new ResourceManager("WinYourDesktop.Culture.en-US",
                              typeof(FormMain).Assembly);
