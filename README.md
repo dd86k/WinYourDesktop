@@ -1,13 +1,7 @@
 # WinYourDesktop
 ## A Desktop Entry file interpreter
 
-You know what I don't like on Windows?
-
-__Windows File Shortcut (.lnk) files.__
-
-You know what I loved when I stayed on Linux Mint?
-
-__Desktop Entry (.desktop) files.__
+![Screenshot](http://didi.wcantin.ca/p/wyd1.png)
 
 _WinYourDesktop_ is a simple Desktop Entry file interpreter for Windows.
 
