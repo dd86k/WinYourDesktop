@@ -187,6 +187,24 @@ namespace WinYourDesktop.Culture {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to SAVE LIFE.
+        /// </summary>
+        internal static string btnSettingsSave {
+            get {
+                return ResourceManager.GetString("btnSettingsSave", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to English (en-Pirate).
+        /// </summary>
+        internal static string cboSettingsLanguage {
+            get {
+                return ResourceManager.GetString("cboSettingsLanguage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Me ABC&apos;s!.
         /// </summary>
         internal static string lblSettingsLanguage {

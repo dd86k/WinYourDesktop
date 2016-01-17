@@ -204,4 +204,10 @@
   <data name="tsmiCreationWizard_MouseEnter" xml:space="preserve">
     <value>Shows the file creation wizard for DESKTOP files</value>
   </data>
+  <data name="cboSettingsLanguage" xml:space="preserve">
+    <value>English (en-US)</value>
+  </data>
+  <data name="btnSettingsSave" xml:space="preserve">
+    <value>Save</value>
+  </data>
 </root>

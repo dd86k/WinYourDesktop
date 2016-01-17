@@ -87,8 +87,8 @@
             this.tsmNotifications});
             this.msMain.Location = new System.Drawing.Point(0, 0);
             this.msMain.Name = "msMain";
-            this.msMain.Padding = new System.Windows.Forms.Padding(8, 2, 0, 2);
-            this.msMain.Size = new System.Drawing.Size(794, 25);
+            this.msMain.Padding = new System.Windows.Forms.Padding(7, 2, 0, 2);
+            this.msMain.Size = new System.Drawing.Size(786, 25);
             this.msMain.TabIndex = 0;
             this.msMain.Text = "menuStrip1";
             // 
@@ -238,10 +238,10 @@
             this.sslblStatus,
             this.sslblSpacer,
             this.ssProgressBar});
-            this.ssMain.Location = new System.Drawing.Point(0, 564);
+            this.ssMain.Location = new System.Drawing.Point(0, 581);
             this.ssMain.Name = "ssMain";
-            this.ssMain.Padding = new System.Windows.Forms.Padding(1, 0, 18, 0);
-            this.ssMain.Size = new System.Drawing.Size(794, 22);
+            this.ssMain.Padding = new System.Windows.Forms.Padding(1, 0, 16, 0);
+            this.ssMain.Size = new System.Drawing.Size(786, 22);
             this.ssMain.SizingGrip = false;
             this.ssMain.TabIndex = 1;
             this.ssMain.Text = "statusStrip1";
@@ -255,7 +255,7 @@
             // sslblSpacer
             // 
             this.sslblSpacer.Name = "sslblSpacer";
-            this.sslblSpacer.Size = new System.Drawing.Size(604, 17);
+            this.sslblSpacer.Size = new System.Drawing.Size(610, 17);
             this.sslblSpacer.Spring = true;
             this.sslblSpacer.Text = "sslblSpacer";
             this.sslblSpacer.Visible = false;
@@ -263,18 +263,19 @@
             // ssProgressBar
             // 
             this.ssProgressBar.Name = "ssProgressBar";
-            this.ssProgressBar.Size = new System.Drawing.Size(100, 16);
+            this.ssProgressBar.Size = new System.Drawing.Size(88, 16);
             this.ssProgressBar.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
             this.ssProgressBar.Visible = false;
             // 
             // btnRun
             // 
             this.btnRun.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnRun.BackgroundImage")));
+            this.btnRun.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.btnRun.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRun.Location = new System.Drawing.Point(10, 10);
-            this.btnRun.Margin = new System.Windows.Forms.Padding(8);
+            this.btnRun.Location = new System.Drawing.Point(4, 4);
+            this.btnRun.Margin = new System.Windows.Forms.Padding(4);
             this.btnRun.Name = "btnRun";
-            this.btnRun.Size = new System.Drawing.Size(128, 96);
+            this.btnRun.Size = new System.Drawing.Size(120, 100);
             this.btnRun.TabIndex = 1;
             this.btnRun.Text = "Run";
             this.btnRun.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
@@ -286,11 +287,12 @@
             // btnEdit
             // 
             this.btnEdit.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnEdit.BackgroundImage")));
+            this.btnEdit.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.btnEdit.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnEdit.Location = new System.Drawing.Point(150, 118);
-            this.btnEdit.Margin = new System.Windows.Forms.Padding(8);
+            this.btnEdit.Location = new System.Drawing.Point(132, 112);
+            this.btnEdit.Margin = new System.Windows.Forms.Padding(4);
             this.btnEdit.Name = "btnEdit";
-            this.btnEdit.Size = new System.Drawing.Size(128, 96);
+            this.btnEdit.Size = new System.Drawing.Size(120, 100);
             this.btnEdit.TabIndex = 4;
             this.btnEdit.Text = "Edit";
             this.btnEdit.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
@@ -302,11 +304,12 @@
             // btnDebug
             // 
             this.btnDebug.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnDebug.BackgroundImage")));
+            this.btnDebug.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.btnDebug.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDebug.Location = new System.Drawing.Point(10, 118);
-            this.btnDebug.Margin = new System.Windows.Forms.Padding(8);
+            this.btnDebug.Location = new System.Drawing.Point(4, 112);
+            this.btnDebug.Margin = new System.Windows.Forms.Padding(4);
             this.btnDebug.Name = "btnDebug";
-            this.btnDebug.Size = new System.Drawing.Size(128, 96);
+            this.btnDebug.Size = new System.Drawing.Size(120, 100);
             this.btnDebug.TabIndex = 3;
             this.btnDebug.Text = "Debug";
             this.btnDebug.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
@@ -318,11 +321,12 @@
             // btnCreate
             // 
             this.btnCreate.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnCreate.BackgroundImage")));
+            this.btnCreate.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.btnCreate.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCreate.Location = new System.Drawing.Point(150, 10);
-            this.btnCreate.Margin = new System.Windows.Forms.Padding(8);
+            this.btnCreate.Location = new System.Drawing.Point(132, 4);
+            this.btnCreate.Margin = new System.Windows.Forms.Padding(4);
             this.btnCreate.Name = "btnCreate";
-            this.btnCreate.Size = new System.Drawing.Size(128, 96);
+            this.btnCreate.Size = new System.Drawing.Size(120, 100);
             this.btnCreate.TabIndex = 2;
             this.btnCreate.Text = "Create";
             this.btnCreate.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
@@ -337,18 +341,16 @@
             this.panelMain.Controls.Add(this.btnCreate);
             this.panelMain.Controls.Add(this.btnEdit);
             this.panelMain.Controls.Add(this.btnDebug);
-            this.panelMain.Location = new System.Drawing.Point(12, 30);
-            this.panelMain.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.panelMain.Location = new System.Drawing.Point(10, 25);
             this.panelMain.Name = "panelMain";
-            this.panelMain.Size = new System.Drawing.Size(288, 224);
+            this.panelMain.Size = new System.Drawing.Size(256, 216);
             this.panelMain.TabIndex = 6;
             // 
             // panelEditor
             // 
-            this.panelEditor.Location = new System.Drawing.Point(506, 44);
-            this.panelEditor.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.panelEditor.Location = new System.Drawing.Point(443, 37);
             this.panelEditor.Name = "panelEditor";
-            this.panelEditor.Size = new System.Drawing.Size(279, 282);
+            this.panelEditor.Size = new System.Drawing.Size(244, 240);
             this.panelEditor.TabIndex = 7;
             this.panelEditor.Visible = false;
             // 
@@ -360,10 +362,9 @@
             this.panelDebugger.Controls.Add(this.btnRunWithDebugger);
             this.panelDebugger.Controls.Add(this.lblRunCurrentFile);
             this.panelDebugger.Controls.Add(this.txtRunOutput);
-            this.panelDebugger.Location = new System.Drawing.Point(12, 263);
-            this.panelDebugger.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.panelDebugger.Location = new System.Drawing.Point(10, 323);
             this.panelDebugger.Name = "panelDebugger";
-            this.panelDebugger.Size = new System.Drawing.Size(447, 289);
+            this.panelDebugger.Size = new System.Drawing.Size(391, 246);
             this.panelDebugger.TabIndex = 8;
             this.panelDebugger.Visible = false;
             this.panelDebugger.DragDrop += new System.Windows.Forms.DragEventHandler(this.panelDebugger_DragDrop);
@@ -371,10 +372,10 @@
             // 
             // btnRunCopy
             // 
-            this.btnRunCopy.Location = new System.Drawing.Point(151, 28);
-            this.btnRunCopy.Margin = new System.Windows.Forms.Padding(3, 3, 0, 3);
+            this.btnRunCopy.Location = new System.Drawing.Point(132, 24);
+            this.btnRunCopy.Margin = new System.Windows.Forms.Padding(3, 2, 0, 2);
             this.btnRunCopy.Name = "btnRunCopy";
-            this.btnRunCopy.Size = new System.Drawing.Size(145, 35);
+            this.btnRunCopy.Size = new System.Drawing.Size(127, 29);
             this.btnRunCopy.TabIndex = 6;
             this.btnRunCopy.Text = "Copy";
             this.btnRunCopy.UseVisualStyleBackColor = true;
@@ -384,10 +385,10 @@
             // 
             // btnOpen
             // 
-            this.btnOpen.Location = new System.Drawing.Point(3, 28);
-            this.btnOpen.Margin = new System.Windows.Forms.Padding(3, 3, 0, 3);
+            this.btnOpen.Location = new System.Drawing.Point(3, 24);
+            this.btnOpen.Margin = new System.Windows.Forms.Padding(3, 2, 0, 2);
             this.btnOpen.Name = "btnOpen";
-            this.btnOpen.Size = new System.Drawing.Size(145, 35);
+            this.btnOpen.Size = new System.Drawing.Size(127, 29);
             this.btnOpen.TabIndex = 5;
             this.btnOpen.Text = "Open";
             this.btnOpen.UseVisualStyleBackColor = true;
@@ -398,10 +399,10 @@
             // btnRunWithDebugger
             // 
             this.btnRunWithDebugger.Enabled = false;
-            this.btnRunWithDebugger.Location = new System.Drawing.Point(299, 28);
-            this.btnRunWithDebugger.Margin = new System.Windows.Forms.Padding(3, 3, 0, 3);
+            this.btnRunWithDebugger.Location = new System.Drawing.Point(262, 24);
+            this.btnRunWithDebugger.Margin = new System.Windows.Forms.Padding(3, 2, 0, 2);
             this.btnRunWithDebugger.Name = "btnRunWithDebugger";
-            this.btnRunWithDebugger.Size = new System.Drawing.Size(145, 35);
+            this.btnRunWithDebugger.Size = new System.Drawing.Size(127, 29);
             this.btnRunWithDebugger.TabIndex = 7;
             this.btnRunWithDebugger.Text = "Run";
             this.btnRunWithDebugger.UseVisualStyleBackColor = true;
@@ -412,10 +413,10 @@
             // lblRunCurrentFile
             // 
             this.lblRunCurrentFile.AutoSize = true;
-            this.lblRunCurrentFile.Location = new System.Drawing.Point(5, 5);
-            this.lblRunCurrentFile.Margin = new System.Windows.Forms.Padding(5);
+            this.lblRunCurrentFile.Location = new System.Drawing.Point(4, 5);
+            this.lblRunCurrentFile.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.lblRunCurrentFile.Name = "lblRunCurrentFile";
-            this.lblRunCurrentFile.Size = new System.Drawing.Size(0, 20);
+            this.lblRunCurrentFile.Size = new System.Drawing.Size(0, 17);
             this.lblRunCurrentFile.TabIndex = 1;
             // 
             // txtRunOutput
@@ -425,12 +426,13 @@
             this.txtRunOutput.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.txtRunOutput.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtRunOutput.ForeColor = System.Drawing.Color.White;
-            this.txtRunOutput.Location = new System.Drawing.Point(0, 69);
+            this.txtRunOutput.Location = new System.Drawing.Point(0, 59);
+            this.txtRunOutput.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtRunOutput.Multiline = true;
             this.txtRunOutput.Name = "txtRunOutput";
             this.txtRunOutput.ReadOnly = true;
             this.txtRunOutput.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtRunOutput.Size = new System.Drawing.Size(447, 220);
+            this.txtRunOutput.Size = new System.Drawing.Size(391, 187);
             this.txtRunOutput.TabIndex = 8;
             // 
             // panelSettings
@@ -438,29 +440,30 @@
             this.panelSettings.Controls.Add(this.btnSettingsSave);
             this.panelSettings.Controls.Add(this.lblSettingsLanguage);
             this.panelSettings.Controls.Add(this.cboSettingsLanguage);
-            this.panelSettings.Location = new System.Drawing.Point(521, 334);
-            this.panelSettings.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.panelSettings.Location = new System.Drawing.Point(423, 292);
             this.panelSettings.Name = "panelSettings";
-            this.panelSettings.Size = new System.Drawing.Size(264, 200);
+            this.panelSettings.Size = new System.Drawing.Size(300, 277);
             this.panelSettings.TabIndex = 9;
             this.panelSettings.Visible = false;
             // 
             // btnSettingsSave
             // 
-            this.btnSettingsSave.Location = new System.Drawing.Point(3, 158);
+            this.btnSettingsSave.Location = new System.Drawing.Point(4, 243);
+            this.btnSettingsSave.Margin = new System.Windows.Forms.Padding(4);
             this.btnSettingsSave.Name = "btnSettingsSave";
-            this.btnSettingsSave.Size = new System.Drawing.Size(98, 39);
+            this.btnSettingsSave.Size = new System.Drawing.Size(100, 30);
             this.btnSettingsSave.TabIndex = 2;
             this.btnSettingsSave.Text = "Save";
             this.btnSettingsSave.UseVisualStyleBackColor = true;
+            this.btnSettingsSave.Click += new System.EventHandler(this.btnSettingsSave_Click);
             // 
             // lblSettingsLanguage
             // 
             this.lblSettingsLanguage.AutoSize = true;
-            this.lblSettingsLanguage.Location = new System.Drawing.Point(3, 4);
-            this.lblSettingsLanguage.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.lblSettingsLanguage.Location = new System.Drawing.Point(3, 3);
+            this.lblSettingsLanguage.Margin = new System.Windows.Forms.Padding(3);
             this.lblSettingsLanguage.Name = "lblSettingsLanguage";
-            this.lblSettingsLanguage.Size = new System.Drawing.Size(74, 20);
+            this.lblSettingsLanguage.Size = new System.Drawing.Size(65, 17);
             this.lblSettingsLanguage.TabIndex = 1;
             this.lblSettingsLanguage.Text = "Language";
             // 
@@ -472,12 +475,11 @@
             "English (English)",
             "English (Pirate)",
             "Français (French)"});
-            this.cboSettingsLanguage.Location = new System.Drawing.Point(6, 31);
-            this.cboSettingsLanguage.Margin = new System.Windows.Forms.Padding(6, 4, 6, 4);
+            this.cboSettingsLanguage.Location = new System.Drawing.Point(5, 26);
+            this.cboSettingsLanguage.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
             this.cboSettingsLanguage.Name = "cboSettingsLanguage";
-            this.cboSettingsLanguage.Size = new System.Drawing.Size(252, 28);
+            this.cboSettingsLanguage.Size = new System.Drawing.Size(290, 25);
             this.cboSettingsLanguage.TabIndex = 0;
-            this.cboSettingsLanguage.SelectedValueChanged += new System.EventHandler(this.cboSettingsLanguage_SelectedValueChanged);
             // 
             // ofdMain
             // 
@@ -493,18 +495,17 @@
             // 
             // FormMain
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(794, 586);
+            this.ClientSize = new System.Drawing.Size(786, 603);
             this.Controls.Add(this.ssMain);
             this.Controls.Add(this.panelSettings);
             this.Controls.Add(this.panelDebugger);
             this.Controls.Add(this.panelEditor);
             this.Controls.Add(this.panelMain);
             this.Controls.Add(this.msMain);
-            this.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.MaximizeBox = false;
             this.Name = "FormMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

@@ -3,8 +3,8 @@ using System.IO;
 using System.Windows.Forms;
 using WinYourDesktopLibrary;
 
-//TODO:View: Execute -> OpenFileDialog
-//TODO:View: Create -> SaveFileDialog -> Edit
+//TODO:View: Execute -> OpenFileDialog -> Interpreter
+//TODO:View: Create -> SaveFileDialog -> Edit mode
 
 // Tip: In VS, you can fold all #regions with CTRL+M+O.
 
@@ -284,36 +284,9 @@ namespace WinYourDesktop
         #endregion
 
         #region Settings view
-        private void cboSettingsLanguage_SelectedValueChanged(object sender, System.EventArgs e)
+        private void btnSettingsSave_Click(object sender, System.EventArgs e)
         {
-            //TODO: Refacter cboSettingsLanguage_SelectedValueChanged
-            string culture = string.Empty;
-            try
-            {
-                // I felt like doing a crazy one liner.
-                culture =
-                    cboSettingsLanguage.Items[cboSettingsLanguage.SelectedIndex]
-                    .ToString()
-                    .Split(new char[] { '(', ')' }, System.StringSplitOptions.None)[1];
-            }
-            catch
-            { }
-            
-            switch (culture)
-            {
-                case "Pirate":
-                    ChangeCulture("en-Pirate");
-                    break;
 
-                case "French":
-                    ChangeCulture("fr-FR");
-                    break;
-
-                // English and fallbacks fall into this categorie.
-                default:
-                    ChangeCulture("en-US");
-                    break;
-            }
         }
         #endregion
     }

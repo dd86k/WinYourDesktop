@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
-using WinYourDesktopLibrary;
-using static WinYourDesktopLibrary.Interpreter;
 using static System.Environment;
+using static WinYourDesktopLibrary.Interpreter;
 
 namespace WinYourDesktop
 {

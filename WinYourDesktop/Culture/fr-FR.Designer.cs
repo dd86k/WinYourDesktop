@@ -187,6 +187,24 @@ namespace WinYourDesktop.Culture {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Sauvegarder.
+        /// </summary>
+        internal static string btnSettingsSave {
+            get {
+                return ResourceManager.GetString("btnSettingsSave", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Français (fr-FR).
+        /// </summary>
+        internal static string cboSettingsLanguage {
+            get {
+                return ResourceManager.GetString("cboSettingsLanguage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Langage.
         /// </summary>
         internal static string lblSettingsLanguage {

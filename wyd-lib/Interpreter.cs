@@ -117,7 +117,8 @@ namespace WinYourDesktopLibrary
             if (string.IsNullOrEmpty(pPath))
             {
                 Console.WriteLine("Error: Specified path is null or empty.");
-                return pPath == null ? (int)ErrorCode.NullPath : (int)ErrorCode.EmptyPath;
+                return pPath == null ?
+                    (int)ErrorCode.NullPath : (int)ErrorCode.EmptyPath;
             }
 
             if (!File.Exists(pPath))

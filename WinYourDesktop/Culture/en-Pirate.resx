@@ -204,4 +204,10 @@
   <data name="tsmiCreationWizard_MouseEnter" xml:space="preserve">
     <value>Helpin' me make new ship!</value>
   </data>
+  <data name="cboSettingsLanguage" xml:space="preserve">
+    <value>English (en-Pirate)</value>
+  </data>
+  <data name="btnSettingsSave" xml:space="preserve">
+    <value>SAVE LIFE</value>
+  </data>
 </root>

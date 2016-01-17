@@ -85,7 +85,7 @@ namespace WinYourDesktop
                              typeof(FormMain).Assembly);
                     break;
 
-                // Default: English
+                // Default: English (fallback)
                 default:
                     RM = new ResourceManager("WinYourDesktop.Culture.en-US",
                              typeof(FormMain).Assembly);
@@ -123,6 +123,9 @@ namespace WinYourDesktop
 
             // === panelSettings
             lblSettingsLanguage.Text = RM.GetString("lblSettingsLanguage");
+            //TODO: Fix cboSettingsLanguage set text
+            cboSettingsLanguage.Text = RM.GetString("cboSettingsLanguage");
+            btnSettingsSave.Text = RM.GetString("btnSettingsSave");
 
             // === ssMain
             sslblStatus.Text = RM.GetString("Welcome");
