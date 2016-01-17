@@ -17,10 +17,9 @@ namespace WinYourDesktop
         ResourceManager RM;
         readonly string nl = Environment.NewLine;
         #endregion
-
+        
         /// <summary>
-        /// Relocate the panels, resize <see cref="FormMain"/>,
-        /// and prepare language.
+        /// Prepares the application.
         /// </summary>
         /// <remarks>
         /// This is not in the Designer code because VS will 
@@ -50,18 +49,27 @@ namespace WinYourDesktop
 
         #region Language
         /// <summary>
-        /// Change to system's local.
+        /// Change to the system's current culture.
         /// </summary>
         void ChangeCulture()
         {
             ChangeCulture(Thread.CurrentThread.CurrentCulture);
         }
 
+        /// <summary>
+        /// Change the current culture (locale) with a
+        /// <see cref="CultureInfo"/>.
+        /// </summary>
+        /// <param name="pLanguage"></param>
         void ChangeCulture(CultureInfo pLanguage)
         {
             ChangeCulture(pLanguage.Name);
         }
 
+        /// <summary>
+        /// Change the current culture (locale) with a string name.
+        /// </summary>
+        /// <param name="pLanguage">Culture name.</param>
         void ChangeCulture(string pLanguage)
         {
             switch (pLanguage)
@@ -133,6 +141,8 @@ namespace WinYourDesktop
             Settings
         }
 
+        ViewingMode CurrentView = ViewingMode.Home;
+
         void ToggleMode(ViewingMode pNewViewingMode)
         {
             SuspendLayout();
@@ -149,6 +159,7 @@ namespace WinYourDesktop
                         panelDebugger.Visible =
                         panelSettings.Visible = false;
                     AdjustClientSize(panelMain);
+                    CurrentView = ViewingMode.Home;
                     break;
 
                 case ViewingMode.Editor:
@@ -161,6 +172,7 @@ namespace WinYourDesktop
                         panelDebugger.Visible =
                         panelSettings.Visible = false;
                     AdjustClientSize(panelEditor);
+                    CurrentView = ViewingMode.Editor;
                     break;
 
                 case ViewingMode.Debugger:
@@ -173,6 +185,7 @@ namespace WinYourDesktop
                         panelEditor.Visible =
                         panelSettings.Visible = false;
                     AdjustClientSize(panelDebugger);
+                    CurrentView = ViewingMode.Debugger;
                     break;
 
                 case ViewingMode.Settings:
@@ -185,6 +198,7 @@ namespace WinYourDesktop
                         panelEditor.Visible =
                         panelDebugger.Visible = false;
                     AdjustClientSize(panelSettings);
+                    CurrentView = ViewingMode.Settings;
                     break;
             }
 
@@ -219,14 +233,29 @@ namespace WinYourDesktop
         }
 
         /// <summary>
-        /// Set current file for the debugger or edit view.
+        /// Sets current file.
         /// </summary>
         /// <param name="pPath">File path.</param>
         void SetCurrentFile(string pPath)
         {
-            CurrentFile = new FileInfo(pPath);
-            lblRunCurrentFile.Text = CurrentFile.Name;
-            btnRunWithDebugger.Enabled = true;
+            if (File.Exists(pPath))
+            {
+                CurrentFile = new FileInfo(pPath);
+
+                switch (CurrentView)
+                {
+                    case ViewingMode.Home:
+                        break;
+                    case ViewingMode.Editor:
+                        break;
+                    case ViewingMode.Debugger:
+                        lblRunCurrentFile.Text = CurrentFile.Name;
+                        btnRunWithDebugger.Enabled = true;
+                        break;
+                    case ViewingMode.Settings:
+                        break;
+                }
+            }
         }
     }
 
@@ -242,14 +271,24 @@ namespace WinYourDesktop
             t = output;
         }
 
-        public override void Write(char value)
+        public override void Write(char c)
         {
-            t.AppendText($"{value}");
+            Append($"{c}");
         }
 
-        public override void Write(string value)
+        public override void Write(string c)
         {
-            t.AppendText(value);
+            Append(c);
+        }
+
+        delegate void AppendCallback(string text);
+
+        void Append(string s)
+        {
+            if (t.InvokeRequired)
+                t.Invoke(new AppendCallback(Append), s);
+            else
+                t.AppendText(s);
         }
 
         public override Encoding Encoding

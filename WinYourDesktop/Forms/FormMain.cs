@@ -136,7 +136,7 @@ namespace WinYourDesktop
         #endregion
         #endregion
 
-        #region Main buttons (Home view)
+        #region Home view
         // Run
         private void btnRun_Click(object sender, System.EventArgs e)
         {
@@ -200,6 +200,10 @@ namespace WinYourDesktop
         {
             sslblStatus.Text = string.Empty;
         }
+        #endregion
+
+        #region Edit view
+
         #endregion
 
         #region Debug view

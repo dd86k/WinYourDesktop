@@ -3,6 +3,9 @@ using System.IO;
 
 namespace WinYourDesktopLibrary
 {
+    /// <summary>
+    /// Desktop entry file interpreter.
+    /// </summary>
     /// <remarks>
     /// Standard used:
     /// http://standards.freedesktop.org/desktop-entry-spec/latest/index.html
@@ -54,7 +57,7 @@ namespace WinYourDesktopLibrary
             Unknown
         }
 
-        enum ErrorCodes : ushort
+        public enum ErrorCode : ushort
         {
             // -- Path related errors --
 
@@ -82,7 +85,7 @@ namespace WinYourDesktopLibrary
             /// <summary>
             /// Generic Value error.
             /// </summary>
-            ValueError = 0x32,
+            ExecError = 0x32,
 
             // -- Link type related errors --
 
@@ -114,13 +117,13 @@ namespace WinYourDesktopLibrary
             if (string.IsNullOrEmpty(pPath))
             {
                 Console.WriteLine("Error: Specified path is null or empty.");
-                return pPath == null ? (int)ErrorCodes.NullPath : (int)ErrorCodes.EmptyPath;
+                return pPath == null ? (int)ErrorCode.NullPath : (int)ErrorCode.EmptyPath;
             }
 
             if (!File.Exists(pPath))
                 Console.WriteLine($"Error: Specified file doesn't exist.{Environment.NewLine}Path: {pPath}");
             else
-                Console.WriteLine("File found");
+                Console.WriteLine("File found.");
             
             // Defaults
             DesktopFileType type = DesktopFileType.Unknown;
@@ -130,31 +133,33 @@ namespace WinYourDesktopLibrary
             string Value = string.Empty;
             bool TerminalMode = false;
 
-            Console.WriteLine($"Started {Path.GetFileName(pPath)}...");
+            char[] DELIM = new char[] { DELIMITER };
+
+            Console.WriteLine($"Starting {Path.GetFileName(pPath)}...");
 
             using (StreamReader sr = new StreamReader(pPath))
             {
                 if (sr.ReadLine() != "[Desktop Entry]")
                 {
                     Console.WriteLine("Error: First line must be [Desktop Entry]");
-                    return (int)ErrorCodes.NoDesktopEntry;
+                    return (int)ErrorCode.NoDesktopEntry;
                 }
 
                 while (!sr.EndOfStream)
                 {
                     CurrentLine = sr.ReadLine();
 
-                    // line[0] == '[' // Group header
+                    // line[0] == '[' // Group header (Soon?)
                     if (CurrentLine[0] != '#') // Avoid comments.
                     {
                         if (!CurrentLine.Contains("="))
                         {
                             Console.WriteLine($"Error: Failed to split key and value at line #{CurrentLineIndex + 1}.");
                             Console.WriteLine($"Missing '{DELIMITER}' delimiter?");
-                            return (int)ErrorCodes.MissingDelimiter;
+                            return (int)ErrorCode.MissingDelimiter;
                         }
 
-                        LineValues = CurrentLine.Split(new char[] { DELIMITER },
+                        LineValues = CurrentLine.Split(DELIM,
                             StringSplitOptions.RemoveEmptyEntries);
 
                         switch (LineValues[0])
@@ -173,29 +178,29 @@ namespace WinYourDesktopLibrary
                                         break;
                                     // Skip/Ignore by default
                                 }
-                                Console.WriteLine($"TYPE SET AS {type}");
+                                Console.WriteLine($"TYPE SET {type}");
                                 break;
-
+                                
                             case "Exec":
                             case "TryExec":
                                 Value = LineValues[1];
                                 break;
-
-                            case "Link":
+                                
+                            case "Url":
                                 Value = LineValues[1];
-                                Console.WriteLine($"Value SET AS {Value}");
+                                Console.WriteLine($"URL SET {Value}");
                                 break;
-
+                                
                             case "Path":
                                 Value = LineValues[1];
-                                Console.WriteLine($"PATH SET AS {Value}");
+                                Console.WriteLine($"PATH SET {Value}");
                                 break;
-
+                                
                             case "Terminal":
-                                if (LineValues[1].ToLower() == "true")
+                                if (LineValues[1].ToUpper() == "TRUE")
                                     TerminalMode = true;
 
-                                Console.WriteLine($"Terminal mode enabled!");
+                                Console.WriteLine($"TERMINAL SET TRUE");
                                 break;
                         }
                     }
@@ -208,7 +213,7 @@ namespace WinYourDesktopLibrary
             {
                 // Because the "unknown" part is checked in the earlier switch()
                 Console.WriteLine($"Error: Missing Type value!");
-                return (int)ErrorCodes.MissingTypeValue;
+                return (int)ErrorCode.MissingTypeValue;
             }
 
             Console.WriteLine("Starting...");
@@ -232,13 +237,13 @@ namespace WinYourDesktopLibrary
                         {
                             Console.WriteLine($"Error: Could not start the application.");
                             Console.WriteLine($"{ex.GetType()} (0x{ex.HResult:X8})");
-                            return (int)ErrorCodes.ValueError;
+                            return (int)ErrorCode.ExecError;
                         }
                     }
                     else
                     {
                         Console.WriteLine("Error: Missing Exec value, while Type is set to Application.");
-                        return (int)ErrorCodes.MissingExecValue;
+                        return (int)ErrorCode.MissingExecValue;
                     }
                     break;
 
@@ -255,13 +260,13 @@ namespace WinYourDesktopLibrary
                         {
                             Console.WriteLine("Could not start with the provided link.");
                             Console.WriteLine($"Error: {ex.GetType()} (0x{ex.HResult:X8})");
-                            return (int)ErrorCodes.LinkError;
+                            return (int)ErrorCode.LinkError;
                         }
                     }
                     else
                     {
                         Console.WriteLine("Error: Missing Url value, while Type is set to Link.");
-                        return (int)ErrorCodes.MissingUrlValue;
+                        return (int)ErrorCode.MissingUrlValue;
                     }
                     break;
 
@@ -274,26 +279,26 @@ namespace WinYourDesktopLibrary
                         {
                             try
                             {
-                                System.Diagnostics.Process.Start($"{Utils.ExplorerPath}",
-                                    $"{Value.Replace("/", @"\")}");
+                                System.Diagnostics.Process.Start(Utils.ExplorerPath,
+                                    Value.Replace("/", @"\"));
                             }
                             catch (Exception ex)
                             {
                                 Console.WriteLine("Error: Could not open the directory.");
                                 Console.WriteLine($"{ex.GetType()} (0x{ex.HResult:X8})");
-                                return (int)ErrorCodes.LinkError;
+                                return (int)ErrorCode.LinkError;
                             }
                         }
                         else
                         {
                             Console.WriteLine($"Error: Directory \"{Value}\" could not be found.");
-                            return (int)ErrorCodes.DirectoryNotFound;
+                            return (int)ErrorCode.DirectoryNotFound;
                         }
                     }
                     else
                     {
                         Console.WriteLine("Error: Missing Path value, while Type is set to Directory.");
-                        return (int)ErrorCodes.MissingPathValue;
+                        return (int)ErrorCode.MissingPathValue;
                     }
                     break;
             } // End of switch()
@@ -314,8 +319,8 @@ namespace WinYourDesktopLibrary
                 tw.WriteLine("# This is a simple generated dummy desktop file.");
                 tw.WriteLine($"# Interpreter version: {ProjectVersion}");
                 tw.WriteLine("Type=Directory");
-                tw.WriteLine("Name=Dummy Desktop File");
-                tw.WriteLine(@"Path=C:\Windows");
+                tw.WriteLine("Name=Open Windows Directory");
+                tw.WriteLine(@"Path=%WinDir%");
             }
         }
         #endregion Public Methods

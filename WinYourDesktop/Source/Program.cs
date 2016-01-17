@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Windows.Forms;
 using WinYourDesktopLibrary;
+using static WinYourDesktopLibrary.Interpreter;
+using static System.Environment;
 
 namespace WinYourDesktop
 {
@@ -45,7 +47,7 @@ namespace WinYourDesktop
                 switch (args[i])
                 {
                     case "/dummy":
-                        Interpreter.CreateDummy();
+                        CreateDummy();
                         return 0;
                 }
             }
@@ -53,7 +55,62 @@ namespace WinYourDesktop
             string file = args[args.Length - 1];
 
             if (System.IO.File.Exists(file))
-                return Interpreter.Run(file);
+            {
+                ErrorCode err = (ErrorCode)Run(file);
+                string msg = $"Error: {err}{NewLine}";
+                switch (err)
+                {
+                    case ErrorCode.NullPath:
+                        msg += "The specified path is null.";
+                        break;
+                    case ErrorCode.EmptyPath:
+                        msg += "The specified path is empty.";
+                        break;
+                    case ErrorCode.EmptyFile:
+                        msg += "The file is empty.";
+                        break;
+                    case ErrorCode.NoDesktopEntry:
+                        msg += "Missing \"[Desktop Entry\".";
+                        break;
+                    case ErrorCode.MissingDelimiter:
+                        msg += "Missing \"=\" delimiter.";
+                        break;
+                    case ErrorCode.MissingTypeValue:
+                        msg += "Missing Type value.";
+                        break;
+                    case ErrorCode.MissingExecValue:
+                        msg += "Missing Exec or TryExec value.";
+                        break;
+                    case ErrorCode.MissingUrlValue:
+                        msg += "Missing URL value.";
+                        break;
+                    case ErrorCode.MissingPathValue:
+                        msg += "Missing Path value.";
+                        break;
+                    case ErrorCode.ExecError:
+                        msg += "The specified value for Exec or TryExec caused an error.";
+                        break;
+                    case ErrorCode.LinkError:
+                        msg += "The specified value for URL caused an error.";
+                        break;
+                    case ErrorCode.DirectoryError:
+                        msg += "The specified value for Path caused an error.";
+                        break;
+                    case ErrorCode.DirectoryNotFound:
+                        msg += "The directory specified at Path could not be found.";
+                        break;
+                }
+
+                if ((int)err != 0)
+                {
+                    Application.EnableVisualStyles();
+                    MessageBox.Show(msg,
+                        $"WinYourDesktop - {err}",
+                        MessageBoxButtons.OK);
+                }
+
+                return (int)err;
+            }
 
             return 0;
         }
