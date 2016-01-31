@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Diagnostics;
 
 namespace WinYourDesktopLibrary
 {
@@ -256,17 +257,19 @@ namespace WinYourDesktopLibrary
                     {
                         try
                         {
-                            //TODO: [Soon as possible, messy] if (TerminalMode) =>
-                            // StartProcessInfo (UseShellExecude = true), add "/c"
-                            // If implemented and works, bump Minor version
+                            if (TerminalMode)
+                            {
+                                //TODO: Seperate command from arguments
+                                ProcessStartInfo ps = new ProcessStartInfo(Value);
 
-                            System.Diagnostics.Process.Start(
-                                TerminalMode ?
-                                $"start cmd {Value}" :
-                                Value,
-                                Value.Contains(" ") ?
-                                Value.Substring(Value.IndexOf(" ") + 1) :
-                                string.Empty);
+                                ps.UseShellExecute = true;
+
+                                Process.Start(ps);
+                            }
+                            else
+                            {
+                                Process.Start(Value);
+                            }
                         }
                         catch (InvalidOperationException)
                         {
@@ -300,7 +303,7 @@ namespace WinYourDesktopLibrary
                     {
                         try
                         {
-                            System.Diagnostics.Process.Start(Value);
+                            Process.Start(Value);
                         }
                         catch (Exception ex)
                         {
@@ -326,7 +329,7 @@ namespace WinYourDesktopLibrary
                         {
                             try
                             {
-                                System.Diagnostics.Process.Start(Utils.ExplorerPath,
+                                Process.Start(Utils.ExplorerPath,
                                     Value.Replace("/", @"\"));
                             }
                             catch (Exception ex)
