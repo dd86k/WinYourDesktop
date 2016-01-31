@@ -31,6 +31,19 @@ namespace WinYourDesktopLibrary
                     .GetExecutingAssembly().GetName().Version.ToString();
             }
         }
+
+        /// <summary>
+        /// Get the name of the library (assembly name).
+        /// </summary>
+        public static string ProjectName
+        {
+            get
+            {
+                return
+                    System.Reflection.Assembly
+                    .GetExecutingAssembly().GetName().Name;
+            }
+        }
         #endregion
 
         #region Enumerations
@@ -40,15 +53,15 @@ namespace WinYourDesktopLibrary
         enum DesktopFileType : byte
         {
             /// <summary>
-            /// Application type. (UI and CLI apps)
+            /// Application type.
             /// </summary>
             Application,
             /// <summary>
-            /// Link type. (Values)
+            /// Link type. (URL)
             /// </summary>
             Link,
             /// <summary>
-            /// Directory type. (File Explorer)
+            /// Directory type.
             /// </summary>
             Directory,
             /// <summary>
@@ -57,28 +70,32 @@ namespace WinYourDesktopLibrary
             Unknown
         }
 
-        public enum ErrorCode : ushort
+        public enum ErrorCode : byte
         {
+            // -- Generic errors --
+            
+            
             // -- Path related errors --
 
             NullPath = 0x8,
             EmptyPath = 0x9,
 
-            // -- Desktop files related errors --
+            // -- Desktop File related errors --
 
-            EmptyFile = 0x16,
             /// <summary>
-            /// Generic Desktop Entry error.
+            /// Desktop file not found.
             /// </summary>
+            FileNotFound = 0x16,
+            FileEmpty = 0x17,
             /// <remarks>
-            /// Includes [Desktop Entry]
+            /// Missing "[Desktop Entry]"
             /// </remarks>
-            NoDesktopEntry = 0x17,
-            MissingDelimiter = 0x18,
-            MissingTypeValue = 0x20,
-            MissingExecValue = 0x21,
-            MissingUrlValue = 0x22,
-            MissingPathValue = 0x23,
+            FileNoDesktopEntry = 0x18,
+            FileMissingDelimiter = 0x19,
+            FileMissingTypeValue = 0x20,
+            FileMissingExecValue = 0x21,
+            FileMissingUrlValue = 0x22,
+            FileMissingPathValue = 0x23,
 
             // -- Value/TryValue related errors --
 
@@ -86,6 +103,10 @@ namespace WinYourDesktopLibrary
             /// Generic Value error.
             /// </summary>
             ExecError = 0x32,
+            ExecInvalidOperation = 0x33,
+            ExecWin32Error = 0x34,
+            ExecFileNotFound = 0x35, // Sorry if it's not 0x404!
+
 
             // -- Link type related errors --
 
@@ -116,13 +137,18 @@ namespace WinYourDesktopLibrary
             
             if (string.IsNullOrEmpty(pPath))
             {
-                Console.WriteLine("Error: Specified path is null or empty.");
-                return pPath == null ?
+                bool isNull = pPath == null;
+                Console.WriteLine($"Error: Specified path is null or empty. ({(isNull ? H(ErrorCode.NullPath) : H(ErrorCode.EmptyPath))})");
+                return isNull ?
                     (int)ErrorCode.NullPath : (int)ErrorCode.EmptyPath;
             }
 
             if (!File.Exists(pPath))
-                Console.WriteLine($"Error: Specified file doesn't exist.{Environment.NewLine}Path: {pPath}");
+            {
+                Console.WriteLine($"Error: Specified file doesn't exist. ({H(ErrorCode.FileNotFound)})");
+                Console.WriteLine($"Path: {pPath}");
+                return (int)ErrorCode.FileNotFound;
+            }
             else
                 Console.WriteLine("File found.");
             
@@ -142,8 +168,8 @@ namespace WinYourDesktopLibrary
             {
                 if (sr.ReadLine() != "[Desktop Entry]")
                 {
-                    Console.WriteLine("Error: First line must be [Desktop Entry]");
-                    return (int)ErrorCode.NoDesktopEntry;
+                    Console.WriteLine($"Error: First line must be [Desktop Entry]. ({H(ErrorCode.FileNoDesktopEntry)})");
+                    return (int)ErrorCode.FileNoDesktopEntry;
                 }
 
                 while (!sr.EndOfStream)
@@ -155,9 +181,9 @@ namespace WinYourDesktopLibrary
                     {
                         if (!CurrentLine.Contains("="))
                         {
-                            Console.WriteLine($"Error: Failed to split key and value at line #{CurrentLineIndex + 1}.");
-                            Console.WriteLine($"Missing '{DELIMITER}' delimiter?");
-                            return (int)ErrorCode.MissingDelimiter;
+                            Console.WriteLine($"Error: Failed to split key and value at line #{CurrentLineIndex + 1}. ({H(ErrorCode.FileMissingDelimiter)})");
+                            Console.WriteLine($"Missing '{DELIMITER}' delimiter.");
+                            return (int)ErrorCode.FileMissingDelimiter;
                         }
 
                         LineValues = CurrentLine.Split(DELIM,
@@ -186,8 +212,9 @@ namespace WinYourDesktopLibrary
                             case "TryExec":
                                 Value = LineValues[1];
                                 break;
-                                
+
                             case "Url":
+                            case "URL":
                                 Value = LineValues[1];
                                 Console.WriteLine($"URL SET {Value}");
                                 break;
@@ -213,69 +240,88 @@ namespace WinYourDesktopLibrary
             if (type == DesktopFileType.Unknown)
             {
                 // Because the "unknown" part is checked in the earlier switch()
-                Console.WriteLine($"Error: Missing Type value!");
-                return (int)ErrorCode.MissingTypeValue;
+                // So.. It's missing.
+                Console.WriteLine($"Error: Missing Type value! ({H(ErrorCode.FileMissingTypeValue)})");
+                return (int)ErrorCode.FileMissingTypeValue;
             }
 
             Console.WriteLine("Starting...");
+            Console.WriteLine($"Value: {Value}");
             switch (type)
             {
+                #region App
                 // Launch an application.
                 case DesktopFileType.Application:
                     if (Value.Length > 0)
                     {
-                        Console.WriteLine($"Value: {Value}");
                         try
                         {
-                            System.Diagnostics.Process.Start(TerminalMode ?
+                            //TODO: [Soon as possible, messy] if (TerminalMode) =>
+                            // StartProcessInfo (UseShellExecude = true), add "/c"
+                            // If implemented and works, bump Minor version
+
+                            System.Diagnostics.Process.Start(
+                                TerminalMode ?
                                 $"start cmd {Value}" :
                                 Value,
                                 Value.Contains(" ") ?
                                 Value.Substring(Value.IndexOf(" ") + 1) :
                                 string.Empty);
                         }
+                        catch (InvalidOperationException)
+                        {
+                            Console.WriteLine($"Error: Invalid operation. ({H(ErrorCode.ExecInvalidOperation)})");
+                            return (int)ErrorCode.ExecInvalidOperation;
+                        }
+                        catch (System.ComponentModel.Win32Exception)
+                        {
+                            Console.WriteLine($"Error: A Win32 error occurred. ({H(ErrorCode.ExecWin32Error)})");
+                            return (int)ErrorCode.ExecWin32Error;
+                        }
                         catch (Exception ex)
                         {
-                            Console.WriteLine($"Error: Could not start the application.");
-                            Console.WriteLine($"{ex.GetType()} (0x{ex.HResult:X8})");
+                            Console.WriteLine($"Error: Could not start the application. ({H(ErrorCode.ExecError)}");
+                            Console.WriteLine($"{Ex(ex)}");
                             return (int)ErrorCode.ExecError;
                         }
                     }
                     else
                     {
-                        Console.WriteLine("Error: Missing Exec value, while Type is set to Application.");
-                        return (int)ErrorCode.MissingExecValue;
+                        Console.WriteLine($"Error: Missing Exec value, while Type is set to Application. ({H(ErrorCode.FileMissingExecValue)})");
+                        return (int)ErrorCode.FileMissingExecValue;
                     }
                     break;
+                #endregion App
 
-                // Launch the user's default application that handles Values.
+                #region Link
+                // Launch the user's default application that handles URLs.
                 case DesktopFileType.Link:
                     if (Value.Length > 0)
                     {
-                        Console.WriteLine($"Value: {Value}");
                         try
                         {
                             System.Diagnostics.Process.Start(Value);
                         }
                         catch (Exception ex)
                         {
-                            Console.WriteLine("Could not start with the provided link.");
-                            Console.WriteLine($"Error: {ex.GetType()} (0x{ex.HResult:X8})");
+                            Console.WriteLine($"Error: Could not start with the provided URL. ({H(ErrorCode.LinkError)})");
+                            Console.WriteLine($"{Ex(ex)}");
                             return (int)ErrorCode.LinkError;
                         }
                     }
                     else
                     {
-                        Console.WriteLine("Error: Missing Url value, while Type is set to Link.");
-                        return (int)ErrorCode.MissingUrlValue;
+                        Console.WriteLine($"Error: Missing Url value, while Type is set to Link. ({H(ErrorCode.FileMissingUrlValue)})");
+                        return (int)ErrorCode.FileMissingUrlValue;
                     }
                     break;
+                #endregion Link
 
-                // Open File Explorer with a specific path/directory.
+                #region Directory
+                // Open File Explorer with a specific path/directory with Explorer.
                 case DesktopFileType.Directory:
                     if (Value.Length > 0)
                     {
-                        Console.WriteLine($"DIR: {Value}");
                         if (Directory.Exists(Value))
                         {
                             try
@@ -285,29 +331,45 @@ namespace WinYourDesktopLibrary
                             }
                             catch (Exception ex)
                             {
-                                Console.WriteLine("Error: Could not open the directory.");
-                                Console.WriteLine($"{ex.GetType()} (0x{ex.HResult:X8})");
-                                return (int)ErrorCode.LinkError;
+                                Console.WriteLine($"Error: Could not open the directory. ({H(ErrorCode.DirectoryError)})");
+                                Console.WriteLine($"{Ex(ex)}");
+                                return (int)ErrorCode.DirectoryError;
                             }
                         }
                         else
                         {
-                            Console.WriteLine($"Error: Directory \"{Value}\" could not be found.");
+                            Console.WriteLine($"Error: Directory \"{Value}\" could not be found. ({H(ErrorCode.DirectoryNotFound)})");
                             return (int)ErrorCode.DirectoryNotFound;
                         }
                     }
                     else
                     {
-                        Console.WriteLine("Error: Missing Path value, while Type is set to Directory.");
-                        return (int)ErrorCode.MissingPathValue;
+                        Console.WriteLine($"Error: Missing Path value, while Type is set to Directory. ({H(ErrorCode.FileMissingPathValue)})");
+                        return (int)ErrorCode.FileMissingPathValue;
                     }
                     break;
+                #endregion Directory
             } // End of switch()
 
             Console.WriteLine("Started successfully.");
 
             return 0;
         }
+
+        /// <summary>
+        /// Quickly get a hexadecimal number from a number with a leading zero
+        /// from an <see cref="ErrorCode"/>.
+        /// </summary>
+        /// <param name="i">Number</param>
+        /// <returns>Formatted number</returns>
+        static string H(ErrorCode i) => $"0x{i:X8}";
+
+        /// <summary>
+        /// Quickly get a formatted string with an <see cref="Exception"/>.
+        /// </summary>
+        /// <param name="e"><see cref="Exception"/></param>
+        /// <returns>Formatted information</returns>
+        static string Ex(Exception ex) => $"{ex.GetType()} (0x{ex.HResult:X8})";
 
         /// <summary>
         /// Creates a dummy/example file in the current directory.

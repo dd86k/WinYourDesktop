@@ -65,25 +65,25 @@ namespace WinYourDesktop
                     case ErrorCode.EmptyPath:
                         msg += "The specified path is empty.";
                         break;
-                    case ErrorCode.EmptyFile:
+                    case ErrorCode.FileEmpty:
                         msg += "The file is empty.";
                         break;
-                    case ErrorCode.NoDesktopEntry:
+                    case ErrorCode.FileNoDesktopEntry:
                         msg += "Missing \"[Desktop Entry\".";
                         break;
-                    case ErrorCode.MissingDelimiter:
+                    case ErrorCode.FileMissingDelimiter:
                         msg += "Missing \"=\" delimiter.";
                         break;
-                    case ErrorCode.MissingTypeValue:
+                    case ErrorCode.FileMissingTypeValue:
                         msg += "Missing Type value.";
                         break;
-                    case ErrorCode.MissingExecValue:
+                    case ErrorCode.FileMissingExecValue:
                         msg += "Missing Exec or TryExec value.";
                         break;
-                    case ErrorCode.MissingUrlValue:
+                    case ErrorCode.FileMissingUrlValue:
                         msg += "Missing URL value.";
                         break;
-                    case ErrorCode.MissingPathValue:
+                    case ErrorCode.FileMissingPathValue:
                         msg += "Missing Path value.";
                         break;
                     case ErrorCode.ExecError:
