@@ -40,6 +40,13 @@ namespace WinYourDesktop
                 return 0;
             }
 
+            string file = args[args.Length - 1];
+
+            if (args.Length == 1)
+            {
+
+            }
+
             //TODO: CLI (UI)
             for (int i = 0; i < args.Length; i++)
             {
@@ -50,9 +57,7 @@ namespace WinYourDesktop
                         return 0;
                 }
             }
-
-            string file = args[args.Length - 1];
-
+            
             if (System.IO.File.Exists(file))
             {
                 ErrorCode err = (ErrorCode)Run(file);
@@ -72,7 +77,7 @@ namespace WinYourDesktop
                         msg += "Missing \"[Desktop Entry\".";
                         break;
                     case ErrorCode.FileMissingDelimiter:
-                        msg += "Missing \"=\" delimiter.";
+                        msg += @"Missing ""="" delimiter.";
                         break;
                     case ErrorCode.FileMissingTypeValue:
                         msg += "Missing Type value.";
@@ -103,15 +108,18 @@ namespace WinYourDesktop
                 if ((int)err != 0)
                 {
                     Application.EnableVisualStyles();
-                    MessageBox.Show(msg,
+                    MessageBox.Show($"{msg} (0x{err:X8})",
                         $"WinYourDesktop - {err}",
                         MessageBoxButtons.OK);
                 }
 
                 return (int)err;
             }
+            else
+            {
 
-            return 0;
+                return (int)ErrorCode.FileNotFound;
+            }
         }
 
         static void ShowForm()

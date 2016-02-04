@@ -29,6 +29,7 @@ namespace WinYourDesktop
         void PostInitialize()
         {
             SuspendLayout();
+            Application.Run(new SystemTrayApp());
 
             panelDebugger.Location =
                 panelEditor.Location =

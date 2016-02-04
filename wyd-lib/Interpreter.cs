@@ -372,7 +372,7 @@ namespace WinYourDesktopLibrary
         /// </summary>
         /// <param name="e"><see cref="Exception"/></param>
         /// <returns>Formatted information</returns>
-        static string Ex(Exception ex) => $"{ex.GetType()} (0x{ex.HResult:X8})";
+        static string Ex(Exception ex) => $"{ex} (0x{ex.HResult:X8})";
 
         /// <summary>
         /// Creates a dummy/example file in the current directory.

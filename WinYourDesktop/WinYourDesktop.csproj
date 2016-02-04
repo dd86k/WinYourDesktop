@@ -130,6 +130,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Source\TypeExtension.cs" />
     <Compile Include="Source\UserSettings.cs" />
+    <Compile Include="Source\SystemTrayApp.cs">
+      <SubType>Form</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Application.ico" />
