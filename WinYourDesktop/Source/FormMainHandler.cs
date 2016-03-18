@@ -73,6 +73,10 @@ namespace WinYourDesktop
         /// <param name="pLanguage">Culture name.</param>
         void ChangeCulture(string pLanguage)
         {
+#if DEBUG && EN
+            pLanguage = "en";
+#endif
+
             switch (pLanguage)
             {
                 case "en-Pirate":
@@ -131,9 +135,9 @@ namespace WinYourDesktop
             // === ssMain
             sslblStatus.Text = RM.GetString("Welcome");
         }
-        #endregion
+#endregion
 
-        #region Viewing modes
+#region Viewing modes
         /// <summary>
         /// Viewing modes.
         /// </summary>
@@ -208,7 +212,7 @@ namespace WinYourDesktop
 
             ResumeLayout(true);
         }
-        #endregion
+#endregion
 
         /// <summary>
         /// Adjusts the size of the client.
