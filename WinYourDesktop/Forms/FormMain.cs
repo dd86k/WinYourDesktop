@@ -248,8 +248,15 @@ namespace WinYourDesktop
         private void btnRunWithDebugger_Click(object sender, System.EventArgs e)
         {
             txtRunOutput.Clear();
-            int r = Interpreter.Run(CurrentFile.FullName);
-            txtRunOutput.AppendText($"Return code: 0x{r:X8} ({r})");
+            ErrorCode r = Interpreter.Run(CurrentFile.FullName, true);
+
+            if (r != ErrorCode.Success)
+            {
+                txtRunOutput.AppendText($"Return code: 0x{r:X8} ({r})");
+                txtRunOutput.AppendText($"Message: {r.GetErrorMessage()}");
+            }
+            else
+                txtRunOutput.AppendText("OK!");
         }
 
         private void btnRunWithDebugger_MouseEnter(object sender, System.EventArgs e)
@@ -265,10 +272,10 @@ namespace WinYourDesktop
         // DragDrop
         private void panelDebugger_DragEnter(object sender, DragEventArgs e)
         {
-            if (e.Data.GetDataPresent(DataFormats.FileDrop))
-                e.Effect = DragDropEffects.Move;
-            else
-                e.Effect = DragDropEffects.None;
+            e.Effect =
+                e.Data.GetDataPresent(DataFormats.FileDrop) ?
+                DragDropEffects.Move :
+                DragDropEffects.None;
         }
 
         private void panelDebugger_DragDrop(object sender, DragEventArgs e)

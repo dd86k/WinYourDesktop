@@ -1,9 +1,12 @@
 ﻿using System;
 using System.IO;
 using System.Diagnostics;
+using static System.Reflection.Assembly;
+using static System.Console;
 
 namespace WinYourDesktopLibrary
 {
+    #region Interpreter
     /// <summary>
     /// Desktop entry file interpreter.
     /// </summary>
@@ -15,6 +18,31 @@ namespace WinYourDesktopLibrary
     /// </remarks>
     static public class Interpreter
     {
+        #region Enums
+        /// <summary>
+        /// Desktop Entry header type.
+        /// </summary>
+        enum DesktopFileType : byte
+        {
+            /// <summary>
+            /// Application type. (Exec)
+            /// </summary>
+            Application,
+            /// <summary>
+            /// Link type. (URL)
+            /// </summary>
+            Link,
+            /// <summary>
+            /// Directory type. (Path)
+            /// </summary>
+            Directory,
+            /// <summary>
+            /// Unknown header type. Default.
+            /// </summary>
+            Unknown
+        }
+        #endregion
+
         #region Constants
         const char DELIMITER = '=';
         #endregion
@@ -28,8 +56,7 @@ namespace WinYourDesktopLibrary
             get
             {
                 return
-                    System.Reflection.Assembly
-                    .GetExecutingAssembly().GetName().Version.ToString();
+                    GetExecutingAssembly().GetName().Version.ToString();
             }
         }
 
@@ -41,88 +68,8 @@ namespace WinYourDesktopLibrary
             get
             {
                 return
-                    System.Reflection.Assembly
-                    .GetExecutingAssembly().GetName().Name;
+                    GetExecutingAssembly().GetName().Name;
             }
-        }
-        #endregion
-
-        #region Enumerations
-        /// <summary>
-        /// Desktop Entry header type.
-        /// </summary>
-        enum DesktopFileType : byte
-        {
-            /// <summary>
-            /// Application type.
-            /// </summary>
-            Application,
-            /// <summary>
-            /// Link type. (URL)
-            /// </summary>
-            Link,
-            /// <summary>
-            /// Directory type.
-            /// </summary>
-            Directory,
-            /// <summary>
-            /// Unknown header type. Default.
-            /// </summary>
-            Unknown
-        }
-
-        public enum ErrorCode : byte
-        {
-            // -- Generic errors --
-            
-            
-            // -- Path related errors --
-
-            NullPath = 0x8,
-            EmptyPath = 0x9,
-
-            // -- Desktop File related errors --
-
-            /// <summary>
-            /// Desktop file not found.
-            /// </summary>
-            FileNotFound = 0x16,
-            FileEmpty = 0x17,
-            /// <remarks>
-            /// Missing "[Desktop Entry]"
-            /// </remarks>
-            FileNoDesktopEntry = 0x18,
-            FileMissingDelimiter = 0x19,
-            FileMissingTypeValue = 0x20,
-            FileMissingExecValue = 0x21,
-            FileMissingUrlValue = 0x22,
-            FileMissingPathValue = 0x23,
-
-            // -- Value/TryValue related errors --
-
-            /// <summary>
-            /// Generic Value error.
-            /// </summary>
-            ExecError = 0x32,
-            ExecInvalidOperation = 0x33,
-            ExecWin32Error = 0x34,
-            ExecFileNotFound = 0x35, // Sorry if it's not 0x404!
-
-
-            // -- Link type related errors --
-
-            /// <summary>
-            /// Generic Link error.
-            /// </summary>
-            LinkError = 0x40,
-
-            // -- Directory type related errors --
-
-            /// <summary>
-            /// Generic Directory error.
-            /// </summary>
-            DirectoryError = 0x48,
-            DirectoryNotFound = 0x49,
         }
         #endregion
 
@@ -132,26 +79,26 @@ namespace WinYourDesktopLibrary
         /// </summary>
         /// <param name="pPath">Path of the Desktop file.</param>
         /// <returns>ErrorCode.</returns>
-        public static int Run(string pPath)
+        public static ErrorCode Run(string pPath, bool pVerboise = false)
         {
-            //TODO: pVerboise (debug)
-            
             if (string.IsNullOrEmpty(pPath))
             {
-                bool isNull = pPath == null;
-                Console.WriteLine($"Error: Specified path is null or empty. ({(isNull ? H(ErrorCode.NullPath) : H(ErrorCode.EmptyPath))})");
-                return isNull ?
-                    (int)ErrorCode.NullPath : (int)ErrorCode.EmptyPath;
+                if (pVerboise)
+                    WriteLine($"Path is {(pPath == null ? "null" : "empty")}.");
+
+                return pPath == null ?
+                    ErrorCode.NullPath : ErrorCode.EmptyPath;
             }
 
             if (!File.Exists(pPath))
             {
-                Console.WriteLine($"Error: Specified file doesn't exist. ({H(ErrorCode.FileNotFound)})");
-                Console.WriteLine($"Path: {pPath}");
-                return (int)ErrorCode.FileNotFound;
+                if (pVerboise)
+                    WriteLine($"Error: Specified file doesn't exist at {pPath})");
+
+                return ErrorCode.FileNotFound;
             }
-            else
-                Console.WriteLine("File found.");
+            else if (pVerboise)
+                WriteLine("File found.");
             
             // Defaults
             DesktopFileType type = DesktopFileType.Unknown;
@@ -163,14 +110,14 @@ namespace WinYourDesktopLibrary
 
             char[] DELIM = new char[] { DELIMITER };
 
-            Console.WriteLine($"Starting {Path.GetFileName(pPath)}...");
+            if (pVerboise)
+                WriteLine($"Starting {Path.GetFileName(pPath)}...");
 
             using (StreamReader sr = new StreamReader(pPath))
             {
                 if (sr.ReadLine() != "[Desktop Entry]")
                 {
-                    Console.WriteLine($"Error: First line must be [Desktop Entry]. ({H(ErrorCode.FileNoDesktopEntry)})");
-                    return (int)ErrorCode.FileNoDesktopEntry;
+                    return ErrorCode.FileNoSignature;
                 }
 
                 while (!sr.EndOfStream)
@@ -182,9 +129,10 @@ namespace WinYourDesktopLibrary
                     {
                         if (!CurrentLine.Contains("="))
                         {
-                            Console.WriteLine($"Error: Failed to split key and value at line #{CurrentLineIndex + 1}. ({H(ErrorCode.FileMissingDelimiter)})");
-                            Console.WriteLine($"Missing '{DELIMITER}' delimiter.");
-                            return (int)ErrorCode.FileMissingDelimiter;
+                            if (pVerboise)
+                                WriteLine($"Error: Line {CurrentLineIndex + 1} missing the '=' delimiter.");
+
+                            return ErrorCode.FileMissingDelimiter;
                         }
 
                         LineValues = CurrentLine.Split(DELIM,
@@ -206,7 +154,9 @@ namespace WinYourDesktopLibrary
                                         break;
                                     // Skip/Ignore by default
                                 }
-                                Console.WriteLine($"TYPE SET {type}");
+
+                                if (pVerboise)
+                                    WriteLine($"TYPE SET {type}");
                                 break;
                                 
                             case "Exec":
@@ -217,19 +167,24 @@ namespace WinYourDesktopLibrary
                             case "Url":
                             case "URL":
                                 Value = LineValues[1];
-                                Console.WriteLine($"URL SET {Value}");
+
+                                if (pVerboise)
+                                    WriteLine($"URL SET {Value}");
                                 break;
                                 
                             case "Path":
                                 Value = LineValues[1];
-                                Console.WriteLine($"PATH SET {Value}");
+
+                                if (pVerboise)
+                                    WriteLine($"PATH SET {Value}");
                                 break;
                                 
                             case "Terminal":
                                 if (LineValues[1].ToUpper() == "TRUE")
                                     TerminalMode = true;
 
-                                Console.WriteLine($"TERMINAL SET TRUE");
+                                if (pVerboise)
+                                    WriteLine($"TERMINAL SET TRUE");
                                 break;
                         }
                     }
@@ -238,16 +193,18 @@ namespace WinYourDesktopLibrary
                 }
             }
             
+            // Unknown is default, if unchanged, it's missing.
             if (type == DesktopFileType.Unknown)
             {
-                // Because the "unknown" part is checked in the earlier switch()
-                // So.. It's missing.
-                Console.WriteLine($"Error: Missing Type value! ({H(ErrorCode.FileMissingTypeValue)})");
-                return (int)ErrorCode.FileMissingTypeValue;
+                return ErrorCode.FileMissingTypeValue;
             }
 
-            Console.WriteLine("Starting...");
-            Console.WriteLine($"Value: {Value}");
+            if (pVerboise)
+            {
+                WriteLine("Starting...");
+                WriteLine($"Value: {Value}");
+            }
+
             switch (type)
             {
                 #region App
@@ -273,25 +230,23 @@ namespace WinYourDesktopLibrary
                         }
                         catch (InvalidOperationException)
                         {
-                            Console.WriteLine($"Error: Invalid operation. ({H(ErrorCode.ExecInvalidOperation)})");
-                            return (int)ErrorCode.ExecInvalidOperation;
+                            return ErrorCode.ExecInvalidOperation;
                         }
                         catch (System.ComponentModel.Win32Exception)
                         {
-                            Console.WriteLine($"Error: A Win32 error occurred. ({H(ErrorCode.ExecWin32Error)})");
-                            return (int)ErrorCode.ExecWin32Error;
+                            return ErrorCode.ExecWin32Error;
                         }
                         catch (Exception ex)
                         {
-                            Console.WriteLine($"Error: Could not start the application. ({H(ErrorCode.ExecError)}");
-                            Console.WriteLine($"{Ex(ex)}");
-                            return (int)ErrorCode.ExecError;
+                            if (pVerboise)
+                                WriteLine($"{Ex(ex)}");
+
+                            return ErrorCode.ExecError;
                         }
                     }
                     else
                     {
-                        Console.WriteLine($"Error: Missing Exec value, while Type is set to Application. ({H(ErrorCode.FileMissingExecValue)})");
-                        return (int)ErrorCode.FileMissingExecValue;
+                        return ErrorCode.FileMissingExecValue;
                     }
                     break;
                 #endregion App
@@ -307,15 +262,15 @@ namespace WinYourDesktopLibrary
                         }
                         catch (Exception ex)
                         {
-                            Console.WriteLine($"Error: Could not start with the provided URL. ({H(ErrorCode.LinkError)})");
-                            Console.WriteLine($"{Ex(ex)}");
-                            return (int)ErrorCode.LinkError;
+                            if (pVerboise)
+                                WriteLine($"{Ex(ex)}");
+
+                            return ErrorCode.LinkError;
                         }
                     }
                     else
                     {
-                        Console.WriteLine($"Error: Missing Url value, while Type is set to Link. ({H(ErrorCode.FileMissingUrlValue)})");
-                        return (int)ErrorCode.FileMissingUrlValue;
+                        return ErrorCode.FileMissingUrlValue;
                     }
                     break;
                 #endregion Link
@@ -334,38 +289,31 @@ namespace WinYourDesktopLibrary
                             }
                             catch (Exception ex)
                             {
-                                Console.WriteLine($"Error: Could not open the directory. ({H(ErrorCode.DirectoryError)})");
-                                Console.WriteLine($"{Ex(ex)}");
-                                return (int)ErrorCode.DirectoryError;
+                                if (pVerboise)
+                                    WriteLine($"{Ex(ex)}");
+
+                                return ErrorCode.DirectoryError;
                             }
                         }
                         else
                         {
-                            Console.WriteLine($"Error: Directory \"{Value}\" could not be found. ({H(ErrorCode.DirectoryNotFound)})");
-                            return (int)ErrorCode.DirectoryNotFound;
+                            if (pVerboise)
+                                WriteLine($"Error: Directory \"{Value}\" could not be found.");
+                            return ErrorCode.DirectoryNotFound;
                         }
                     }
                     else
                     {
-                        Console.WriteLine($"Error: Missing Path value, while Type is set to Directory. ({H(ErrorCode.FileMissingPathValue)})");
-                        return (int)ErrorCode.FileMissingPathValue;
+                        return ErrorCode.FileMissingPathValue;
                     }
                     break;
                 #endregion Directory
             } // End of switch()
 
-            Console.WriteLine("Started successfully.");
+            WriteLine("Started successfully.");
 
             return 0;
         }
-
-        /// <summary>
-        /// Quickly get a hexadecimal number from a number with a leading zero
-        /// from an <see cref="ErrorCode"/>.
-        /// </summary>
-        /// <param name="i">Number</param>
-        /// <returns>Formatted number</returns>
-        static string H(ErrorCode i) => $"0x{i:X8}";
 
         /// <summary>
         /// Quickly get a formatted string with an <see cref="Exception"/>.
@@ -391,4 +339,110 @@ namespace WinYourDesktopLibrary
         }
         #endregion Public Methods
     }
+    #endregion
+    
+    #region Enumerations
+    public enum ErrorCode : byte
+    {
+        // -- Generic errors --
+        Success,
+
+        // -- Path related errors --
+
+        NullPath = 0x8,
+        EmptyPath = 0x9,
+
+        // -- Desktop File related errors --
+
+        /// <summary>
+        /// Desktop file not found.
+        /// </summary>
+        FileNotFound = 0x16,
+        FileEmpty = 0x17,
+        /// <remarks>
+        /// Missing "[Desktop Entry]"
+        /// </remarks>
+        FileNoSignature = 0x18,
+        FileMissingDelimiter = 0x19,
+        FileMissingTypeValue = 0x20,
+        FileMissingExecValue = 0x21,
+        FileMissingUrlValue = 0x22,
+        FileMissingPathValue = 0x23,
+
+        /// <summary>
+        /// Generic Exec error.
+        /// </summary>
+        ExecError = 0x32,
+        ExecInvalidOperation = 0x33,
+        ExecWin32Error = 0x34,
+        ExecFileNotFound = 0x35,
+
+        /// <summary>
+        /// Generic Link error.
+        /// </summary>
+        LinkError = 0x40,
+
+        /// <summary>
+        /// Generic Directory error.
+        /// </summary>
+        DirectoryError = 0x48,
+        DirectoryNotFound = 0x49,
+    }
+
+    public static class Extensions
+    {
+        public static int S(this ErrorCode e) => (int)e;
+        public static string Hex(this ErrorCode i) => $"0x{i:X8}";
+        public static string GetErrorMessage(this ErrorCode e)
+        {
+            switch (e)
+            {
+                case ErrorCode.NullPath:
+                    return "Entry path was null.";
+                case ErrorCode.EmptyPath:
+                    return "Entry path was empty.";
+
+                    // Desktop File
+                case ErrorCode.FileNotFound:
+                    return "The file could not be found.";
+                case ErrorCode.FileEmpty:
+                    return "The desktop file is empty.";
+                case ErrorCode.FileNoSignature:
+                    return "Missing [Desktop Entry] at the first line.";
+                case ErrorCode.FileMissingDelimiter:
+                    return "Missing \"=\" delimiter.";
+                case ErrorCode.FileMissingTypeValue:
+                    return "Missing Type value.";
+                case ErrorCode.FileMissingExecValue:
+                    return "Missing Exec value.";
+                case ErrorCode.FileMissingUrlValue:
+                    return "Missing URL value.";
+                case ErrorCode.FileMissingPathValue:
+                    return "Missing Path value.";
+
+                    // Exec
+                case ErrorCode.ExecError:
+                    return "Exec error.";
+                case ErrorCode.ExecInvalidOperation:
+                    return "Invalid operation at Exec.";
+                case ErrorCode.ExecWin32Error:
+                    return "Could not start the application (Win32 error).";
+                case ErrorCode.ExecFileNotFound:
+                    return "File not found (Exec).";
+
+                    // Link (URL)
+                case ErrorCode.LinkError:
+                    return "Link error. (URL)";
+
+                    // Directory (Path)
+                case ErrorCode.DirectoryError:
+                    return "Directory error. (Path)";
+                case ErrorCode.DirectoryNotFound:
+                    return "Directory not found (invalid path).";
+            }
+
+            return $"Unknown error. - {e}";
+        }
+    }
+    #endregion
 }

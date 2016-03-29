@@ -1,12 +1,17 @@
 ﻿using System;
-using static System.Console;
 using WinYourDesktopLibrary;
+using static System.Console;
+using static System.Diagnostics.Process;
+using static System.Reflection.Assembly;
 
 /*
 Windows console error codes:
 http://www.symantec.com/connect/articles/windows-system-error-codes-exit-codes-description
 */
 
+/// <summary>
+/// Console solution.
+/// </summary>
 namespace WinYourDesktopConsole
 {
     class Program
@@ -19,27 +24,23 @@ namespace WinYourDesktopConsole
             get
             {
                 return
-                    System.Reflection.Assembly
-                    .GetExecutingAssembly().GetName().Version.ToString();
+                    GetExecutingAssembly().GetName().Version.ToString();
             }
         }
 
         /// <summary>
         /// Get the current filename without extension of the executable.
         /// </summary>
-        static string CurrentFilenameWithoutExtension
+        static string FilenameWithoutExtension
         {
             get
             {
                 return
                     System.IO.Path.GetFileNameWithoutExtension(
-                        System.Diagnostics.Process
-                        .GetCurrentProcess().MainModule.FileName
+                        GetCurrentProcess().MainModule.FileName
                     );
             }
         }
-
-        static ConsoleColor OriginalForegroundColor = ForegroundColor;
 
         static string filepath;
         static int Main(string[] args)
@@ -49,6 +50,8 @@ namespace WinYourDesktopConsole
                 ShowHelp();
                 return 0;
             }
+
+            bool verboise = false;
 
             for (int i = 0; i < args.Length; i++)
             {
@@ -65,28 +68,36 @@ namespace WinYourDesktopConsole
                         ShowHelp();
                         return 0;
 
+                    case "-V":
+                    case "--verboise":
+                        verboise = true;
+                        break;
+
                     default:
                         filepath = args[i];
                         break;
-
                 }
             }
 
             try
             {
-                Interpreter.Run(filepath);
+                // Interpreter already checks if the file exists
+                ErrorCode r = Interpreter.Run(filepath, verboise);
+
+                if (r != ErrorCode.Success)
+                    WriteLine($"ERROR: {r.GetErrorMessage()} - {r}, 0x{r.S():X8}");
+
+                return r.S();
             }
             catch (Exception ex)
             {
                 ForegroundColor = ConsoleColor.Red;
                 WriteLine("[ ERROR ]");
-                ForegroundColor = OriginalForegroundColor;
-                WriteLine($"Exception: {ex.GetType()}");
+                ResetColor();
+                WriteLine($"Exception: {ex.GetType()} - 0x{ex.HResult:X8}");
                 WriteLine($"  Message: {ex.Message}");
-                return 1;
+                return ex.HResult;
             }
-
-            return 0;
         }
         
         static void ShowHelp()
@@ -94,14 +105,14 @@ namespace WinYourDesktopConsole
             //         1       10        20        30        40        50        60        70        80
             //         |--------|---------|---------|---------|---------|---------|---------|---------|
             WriteLine(" Usage:");
-            WriteLine($"  {CurrentFilenameWithoutExtension} [options] <file>");
+            WriteLine($"  {FilenameWithoutExtension} [options] <file>");
             /*
             WriteLine("  /createdummy, /C   Create a dummy desktop file.");
             WriteLine("  /debug, /D         Show debugging information in console.");
             */
             WriteLine();
-            WriteLine("  /help, /?   Shows this screen and exits.");
-            WriteLine("  /version    Shows version and exits.");
+            WriteLine("  /?        Shows this screen and exits.");
+            WriteLine("  /version  Shows version and exits.");
         }
 
         static void ShowVersion()
@@ -109,7 +120,7 @@ namespace WinYourDesktopConsole
             //         1       10        20        30        40        50        60        70        80
             //         |--------|---------|---------|---------|---------|---------|---------|---------|
             WriteLine();
-            WriteLine($"{CurrentFilenameWithoutExtension} - {ProjectVersion}");
+            WriteLine($"{FilenameWithoutExtension} - {ProjectVersion}");
             WriteLine($"WinYourDesktopLibrary - {Interpreter.ProjectVersion}");
             WriteLine("Copyright (c) 2015 DD~!/guitarxhero");
             WriteLine("License: MIT License <http://opensource.org/licenses/MIT>");
