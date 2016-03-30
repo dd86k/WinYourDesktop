@@ -4,6 +4,8 @@
 # All object files
 *\obj
 
+packages
+
 # Temporary Visual Studio (hidden) directory
 .vs
 

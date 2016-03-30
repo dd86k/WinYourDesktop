@@ -252,7 +252,7 @@ namespace WinYourDesktop
 
             if (r != ErrorCode.Success)
             {
-                txtRunOutput.AppendText($"Return code: 0x{r:X8} ({r})");
+                txtRunOutput.AppendText($"Return code: 0x{r:X4} ({r})");
                 txtRunOutput.AppendText($"Message: {r.GetErrorMessage()}");
             }
             else
@@ -293,7 +293,24 @@ namespace WinYourDesktop
         #region Settings view
         private void btnSettingsSave_Click(object sender, System.EventArgs e)
         {
+            string language = cboSettingsLanguage.SelectedItem.ToString();
+            language = language.Substring(language.IndexOf('(') + 1);
+            switch (language.TrimEnd(')'))
+            {
+                case "French":
+                    ChangeCulture("fr-FR");
+                    break;
 
+                case "Pirate":
+                    ChangeCulture("en-Pirate");
+                    break;
+
+                default:
+                    ChangeCulture("en");
+                    break;
+            }
+
+            //TODO: Don't forget to save with the SettingsManager!
         }
         #endregion
     }

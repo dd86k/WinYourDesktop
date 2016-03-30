@@ -49,8 +49,6 @@
             this.tsmNotifications = new System.Windows.Forms.ToolStripMenuItem();
             this.ssMain = new System.Windows.Forms.StatusStrip();
             this.sslblStatus = new System.Windows.Forms.ToolStripStatusLabel();
-            this.sslblSpacer = new System.Windows.Forms.ToolStripStatusLabel();
-            this.ssProgressBar = new System.Windows.Forms.ToolStripProgressBar();
             this.btnRun = new System.Windows.Forms.Button();
             this.btnEdit = new System.Windows.Forms.Button();
             this.btnDebug = new System.Windows.Forms.Button();
@@ -69,6 +67,8 @@
             this.cboSettingsLanguage = new System.Windows.Forms.ComboBox();
             this.ofdMain = new System.Windows.Forms.OpenFileDialog();
             this.ImageListNotification = new System.Windows.Forms.ImageList(this.components);
+            this.chkSettingsDarkTheme = new System.Windows.Forms.CheckBox();
+            this.chkSettingsEnableVistualStyles = new System.Windows.Forms.CheckBox();
             this.msMain.SuspendLayout();
             this.ssMain.SuspendLayout();
             this.panelMain.SuspendLayout();
@@ -206,19 +206,19 @@
             // 
             this.tsmiHelp.Enabled = false;
             this.tsmiHelp.Name = "tsmiHelp";
-            this.tsmiHelp.Size = new System.Drawing.Size(111, 22);
+            this.tsmiHelp.Size = new System.Drawing.Size(152, 22);
             this.tsmiHelp.Text = "Help";
             this.tsmiHelp.Click += new System.EventHandler(this.tsmiHelp_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(108, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
             // 
             // tsmiAbout
             // 
             this.tsmiAbout.Name = "tsmiAbout";
-            this.tsmiAbout.Size = new System.Drawing.Size(111, 22);
+            this.tsmiAbout.Size = new System.Drawing.Size(152, 22);
             this.tsmiAbout.Text = "About";
             this.tsmiAbout.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
@@ -235,9 +235,7 @@
             // 
             this.ssMain.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ssMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.sslblStatus,
-            this.sslblSpacer,
-            this.ssProgressBar});
+            this.sslblStatus});
             this.ssMain.Location = new System.Drawing.Point(0, 581);
             this.ssMain.Name = "ssMain";
             this.ssMain.Padding = new System.Windows.Forms.Padding(1, 0, 16, 0);
@@ -251,21 +249,6 @@
             this.sslblStatus.Name = "sslblStatus";
             this.sslblStatus.Size = new System.Drawing.Size(69, 17);
             this.sslblStatus.Text = "sslblStatus";
-            // 
-            // sslblSpacer
-            // 
-            this.sslblSpacer.Name = "sslblSpacer";
-            this.sslblSpacer.Size = new System.Drawing.Size(610, 17);
-            this.sslblSpacer.Spring = true;
-            this.sslblSpacer.Text = "sslblSpacer";
-            this.sslblSpacer.Visible = false;
-            // 
-            // ssProgressBar
-            // 
-            this.ssProgressBar.Name = "ssProgressBar";
-            this.ssProgressBar.Size = new System.Drawing.Size(88, 16);
-            this.ssProgressBar.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
-            this.ssProgressBar.Visible = false;
             // 
             // btnRun
             // 
@@ -437,6 +420,8 @@
             // 
             // panelSettings
             // 
+            this.panelSettings.Controls.Add(this.chkSettingsEnableVistualStyles);
+            this.panelSettings.Controls.Add(this.chkSettingsDarkTheme);
             this.panelSettings.Controls.Add(this.btnSettingsSave);
             this.panelSettings.Controls.Add(this.lblSettingsLanguage);
             this.panelSettings.Controls.Add(this.cboSettingsLanguage);
@@ -492,6 +477,28 @@
             this.ImageListNotification.Images.SetKeyName(0, "NotificationLow.png");
             this.ImageListNotification.Images.SetKeyName(1, "NotificationHigh.png");
             this.ImageListNotification.Images.SetKeyName(2, "NotificationCrucial.png");
+            // 
+            // chkSettingsDarkTheme
+            // 
+            this.chkSettingsDarkTheme.AutoSize = true;
+            this.chkSettingsDarkTheme.Location = new System.Drawing.Point(5, 57);
+            this.chkSettingsDarkTheme.Name = "chkSettingsDarkTheme";
+            this.chkSettingsDarkTheme.Size = new System.Drawing.Size(94, 21);
+            this.chkSettingsDarkTheme.TabIndex = 3;
+            this.chkSettingsDarkTheme.Text = "Dark theme";
+            this.chkSettingsDarkTheme.UseVisualStyleBackColor = true;
+            // 
+            // chkSettingsEnableVistualStyles
+            // 
+            this.chkSettingsEnableVistualStyles.AutoSize = true;
+            this.chkSettingsEnableVistualStyles.Checked = true;
+            this.chkSettingsEnableVistualStyles.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkSettingsEnableVistualStyles.Location = new System.Drawing.Point(5, 84);
+            this.chkSettingsEnableVistualStyles.Name = "chkSettingsEnableVistualStyles";
+            this.chkSettingsEnableVistualStyles.Size = new System.Drawing.Size(138, 21);
+            this.chkSettingsEnableVistualStyles.TabIndex = 4;
+            this.chkSettingsEnableVistualStyles.Text = "Enable visual styles";
+            this.chkSettingsEnableVistualStyles.UseVisualStyleBackColor = true;
             // 
             // FormMain
             // 
@@ -563,8 +570,8 @@
         private System.Windows.Forms.ToolStripMenuItem tsmiCreationWizard;
         private System.Windows.Forms.ToolStripMenuItem tsmiHelp;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripProgressBar ssProgressBar;
-        private System.Windows.Forms.ToolStripStatusLabel sslblSpacer;
         private System.Windows.Forms.ImageList ImageListNotification;
+        private System.Windows.Forms.CheckBox chkSettingsEnableVistualStyles;
+        private System.Windows.Forms.CheckBox chkSettingsDarkTheme;
     }
 }

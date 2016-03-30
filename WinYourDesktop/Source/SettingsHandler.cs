@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace WinYourDesktop
 {
-    class UserSettings
+    class SettingsHandler
     {
+
     }
 }

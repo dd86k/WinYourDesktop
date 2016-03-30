@@ -33,32 +33,34 @@ namespace WinYourDesktop
         [STAThread]
         static int Main(string[] args)
         {
+            int len = args.Length;
+
             // No arguments
-            if (args.Length == 0)
+            if (len == 0)
             {
-                ShowForm();
-                return 0;
+                ShowForm(); return 0;
             }
 
             string file = args[args.Length - 1];
 
-            //TODO: CLI (UI)
-            for (int i = 0; i < args.Length; i++)
+            if (len > 1)
             {
-                switch (args[i])
+                for (int i = 0; i < args.Length; i++)
                 {
-                    case "/dummy":
-                        CreateDummy();
-                        return 0;
+                    switch (args [i])
+                    {
+                        case "/edit":
+                            ShowForm(file);
+                            return 0;
+                    }
                 }
             }
-            
+
             ErrorCode err = Run(file);
 
             if (err != ErrorCode.Success)
             {
                 Application.EnableVisualStyles();
-
                 MessageBox.Show($"{err.GetErrorMessage()} ({err})",
                     $"WinYourDesktop - 0x{err.S():X8}",
                     MessageBoxButtons.OK);
@@ -67,16 +69,14 @@ namespace WinYourDesktop
             return err.S();
         }
 
-        static void ShowForm()
+        static void ShowForm(string pPath = null)
         {
             Application.EnableVisualStyles();
-            Application.Run(new FormMain());
-        }
 
-        static void ShowForm(string pPath)
-        {
-            Application.EnableVisualStyles();
-            Application.Run(new FormMain(pPath));
+            if (pPath == null)
+                Application.Run(new FormMain());
+            else
+                Application.Run(new FormMain(pPath));
         }
     }
 }

@@ -28,7 +28,10 @@ This solution consists of three projects (also, build order):
 - WinYourDesktopConsole
   - Console front-end
 
-Costura.Fody takes care of embedding the library into the UI and console executables.
+I am using these packages:
+- Costura.Fody v2.0.0-beta001
+- Fody v1.3.0-beta01
+- SharpShell (Unused for now)
 
 # FAQ
 
@@ -40,14 +43,14 @@ Costura.Fody takes care of embedding the library into the UI and console executa
 ## Visual Studio
 
 - Why does FormHandler shows up with a form icon?
-  - `FormHandler` is a partial class of `FormMain`, which is a form.
+  - `FormHandler` is a partial class of `FormMain`, which is a form, thus VS thinks that it's UI code.
   
 ## Source code
 
+Nothing here yet.
+
 # Notes
 
-I am using these packages:
-- Costura.Fody.1.3.5.0
-- SharpShell
+Nothing here yet.
 
 I'm looking forward to finish this!

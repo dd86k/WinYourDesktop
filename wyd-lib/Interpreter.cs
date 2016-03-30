@@ -276,7 +276,7 @@ namespace WinYourDesktopLibrary
                 #endregion Link
 
                 #region Directory
-                // Open File Explorer with a specific path/directory with Explorer.
+                // Open File Explorer with a specific path/directory with File Explorer.
                 case DesktopFileType.Directory:
                     if (Value.Length > 0)
                     {
@@ -310,7 +310,8 @@ namespace WinYourDesktopLibrary
                 #endregion Directory
             } // End of switch()
 
-            WriteLine("Started successfully.");
+            if (pVerboise)
+                WriteLine("Started successfully.");
 
             return 0;
         }
@@ -344,21 +345,17 @@ namespace WinYourDesktopLibrary
     #region Enumerations
     public enum ErrorCode : byte
     {
-        // -- Generic errors --
-        Success,
-
-        // -- Path related errors --
+        Success = 0,
 
         NullPath = 0x8,
         EmptyPath = 0x9,
-
-        // -- Desktop File related errors --
 
         /// <summary>
         /// Desktop file not found.
         /// </summary>
         FileNotFound = 0x16,
         FileEmpty = 0x17,
+
         /// <remarks>
         /// Missing "[Desktop Entry]"
         /// </remarks>
@@ -392,17 +389,18 @@ namespace WinYourDesktopLibrary
     public static class Extensions
     {
         public static int S(this ErrorCode e) => (int)e;
-        public static string Hex(this ErrorCode i) => $"0x{i:X8}";
+        public static string Hex(this ErrorCode e) => $"0x{e:X4}";
         public static string GetErrorMessage(this ErrorCode e)
         {
             switch (e)
             {
+                // Path
                 case ErrorCode.NullPath:
                     return "Entry path was null.";
                 case ErrorCode.EmptyPath:
                     return "Entry path was empty.";
 
-                    // Desktop File
+                // Desktop File
                 case ErrorCode.FileNotFound:
                     return "The file could not be found.";
                 case ErrorCode.FileEmpty:

@@ -39,7 +39,7 @@ namespace WinYourDesktop
 
             AdjustClientSize(panelMain);
 
-            Console.SetOut(new ConStreamWriter(txtRunOutput));
+            Console.SetOut(new ConReader(txtRunOutput));
 
             NotificationHandler = new NotificationHandler(tsmNotifications, ImageListNotification);
 
@@ -128,7 +128,6 @@ namespace WinYourDesktop
 
             // === panelSettings
             lblSettingsLanguage.Text = RM.GetString("lblSettingsLanguage");
-            //TODO: Fix cboSettingsLanguage set text
             cboSettingsLanguage.Text = RM.GetString("cboSettingsLanguage");
             btnSettingsSave.Text = RM.GetString("btnSettingsSave");
 
@@ -143,10 +142,7 @@ namespace WinYourDesktop
         /// </summary>
         enum ViewingMode : byte
         {
-            Home,
-            Editor,
-            Debugger,
-            Settings
+            Home, Editor, Debugger, Settings
         }
 
         ViewingMode CurrentView = ViewingMode.Home;
@@ -248,8 +244,6 @@ namespace WinYourDesktop
         {
             if (File.Exists(pPath))
             {
-                CurrentFile = new FileInfo(pPath);
-
                 switch (CurrentView)
                 {
                     case ViewingMode.Home:
@@ -257,7 +251,7 @@ namespace WinYourDesktop
                     case ViewingMode.Editor:
                         break;
                     case ViewingMode.Debugger:
-                        lblRunCurrentFile.Text = CurrentFile.Name;
+                        lblRunCurrentFile.Text = Path.GetFileName(pPath);
                         btnRunWithDebugger.Enabled = true;
                         break;
                     case ViewingMode.Settings:
@@ -267,21 +261,22 @@ namespace WinYourDesktop
         }
     }
 
+    #region Console wrapper UI implementation
     /// <summary>
     /// Console Reader
     /// </summary>
-    public class ConStreamWriter : TextWriter
+    public class ConReader : TextWriter
     {
         TextBox t = null;
 
-        public ConStreamWriter(TextBox output)
+        public ConReader(TextBox output)
         {
             t = output;
         }
 
         public override void Write(char c)
         {
-            Append($"{c}");
+            Append(c.ToString());
         }
 
         public override void Write(string c)
@@ -304,4 +299,5 @@ namespace WinYourDesktop
             get { return Encoding.UTF8; }
         }
     }
+    #endregion
 }
