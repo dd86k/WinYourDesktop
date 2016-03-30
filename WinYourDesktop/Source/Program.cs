@@ -41,11 +41,11 @@ namespace WinYourDesktop
                 ShowForm(); return 0;
             }
 
-            string file = args[args.Length - 1];
+            string file = args[len - 1];
 
             if (len > 1)
             {
-                for (int i = 0; i < args.Length; i++)
+                for (int i = 0; i < len; i++)
                 {
                     switch (args [i])
                     {
