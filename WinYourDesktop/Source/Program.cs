@@ -2,6 +2,7 @@
 using System.Windows.Forms;
 using WinYourDesktopLibrary;
 using static WinYourDesktopLibrary.Interpreter;
+using static System.Reflection.Assembly;
 
 namespace WinYourDesktop
 {
@@ -12,8 +13,7 @@ namespace WinYourDesktop
             get
             {
                 return
-                    System.Reflection.Assembly
-                    .GetExecutingAssembly().GetName().Version.ToString();
+                    GetExecutingAssembly().GetName().Version.ToString();
             }
         }
 
@@ -22,8 +22,7 @@ namespace WinYourDesktop
             get
             {
                 return
-                    System.Reflection.Assembly
-                    .GetExecutingAssembly().GetName().Name;
+                    GetExecutingAssembly().GetName().Name;
             }
         }
 
@@ -61,8 +60,8 @@ namespace WinYourDesktop
             if (err != ErrorCode.Success)
             {
                 Application.EnableVisualStyles();
-                MessageBox.Show($"{err.GetErrorMessage()} ({err})",
-                    $"WinYourDesktop - 0x{err.S():X8}",
+                MessageBox.Show($"{err} - {err.GetErrorMessage()} (0x{err:X4})",
+                    $"WinYourDesktop - {err}",
                     MessageBoxButtons.OK);
             }
 

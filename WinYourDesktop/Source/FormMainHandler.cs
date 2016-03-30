@@ -39,7 +39,7 @@ namespace WinYourDesktop
 
             AdjustClientSize(panelMain);
 
-            Console.SetOut(new ConReader(txtRunOutput));
+            Console.SetOut(new ConReader(txtDebuggerOutput));
 
             NotificationHandler = new NotificationHandler(tsmNotifications, ImageListNotification);
 
@@ -97,6 +97,11 @@ namespace WinYourDesktop
                     break;
             }
 
+            // ==== panelMain
+            btnRun.Text = RM.GetString("btnRun");
+            btnCreate.Text = RM.GetString("btnCreate");
+            btnEdit.Text = RM.GetString("btnEdit");
+            btnDebug.Text = RM.GetString("btnDebug");
             // === msMain
             // == App
             tsmApplication.Text = RM.GetString("tsmApplication");
@@ -115,28 +120,19 @@ namespace WinYourDesktop
             tsmiHelp.Text = RM.GetString("tsmiHelp");
             tsmiAbout.Text = RM.GetString("tsmiAbout");
 
-            // === panelMain
-            btnRun.Text = RM.GetString("btnRun");
-            btnCreate.Text = RM.GetString("btnCreate");
-            btnEdit.Text = RM.GetString("btnEdit");
-            btnDebug.Text = RM.GetString("btnDebug");
+            // ==== panelDebugger
 
-            // === panelDebugger
-            btnOpen.Text = RM.GetString("btnOpen");
-            btnRunCopy.Text = RM.GetString("btnRunCopy");
-            btnRunWithDebugger.Text = RM.GetString("btnRun");
-
-            // === panelSettings
+            // ==== panelSettings
             lblSettingsLanguage.Text = RM.GetString("lblSettingsLanguage");
             cboSettingsLanguage.Text = RM.GetString("cboSettingsLanguage");
             btnSettingsSave.Text = RM.GetString("btnSettingsSave");
 
-            // === ssMain
+            // ==== ssMain
             sslblStatus.Text = RM.GetString("Welcome");
         }
 #endregion
 
-#region Viewing modes
+        #region Viewing modes
         /// <summary>
         /// Viewing modes.
         /// </summary>
@@ -208,7 +204,6 @@ namespace WinYourDesktop
 
             ResumeLayout(true);
         }
-#endregion
 
         /// <summary>
         /// Adjusts the size of the client.
@@ -235,33 +230,46 @@ namespace WinYourDesktop
                 ssMain.Height
             );
         }
+        #endregion
 
-        /// <summary>
-        /// Sets current file.
-        /// </summary>
-        /// <param name="pPath">File path.</param>
-        void SetCurrentFile(string pPath)
+        #region Open and save current file
+        void PromptOpenFile()
         {
-            if (File.Exists(pPath))
+            DialogResult r = ofdMain.ShowDialog();
+
+            if (r == DialogResult.OK)
             {
-                switch (CurrentView)
-                {
-                    case ViewingMode.Home:
-                        break;
-                    case ViewingMode.Editor:
-                        break;
-                    case ViewingMode.Debugger:
-                        lblRunCurrentFile.Text = Path.GetFileName(pPath);
-                        btnRunWithDebugger.Enabled = true;
-                        break;
-                    case ViewingMode.Settings:
-                        break;
-                }
+                OpenFile(ofdMain.FileName);
             }
         }
+
+        void OpenFile(bool pEditor = true)
+        {
+            OpenFile(CurrentFile, pEditor);
+        }
+
+        void OpenFile(string pPath, bool pEditor = false)
+        {
+            OpenFile(new FileInfo(pPath), pEditor);
+        }
+
+        void OpenFile(FileInfo pFileInfo, bool pEditor = false)
+        {
+            if (pFileInfo.Exists)
+            {
+                string file = pFileInfo.Name;
+
+                lblDebuggerFile.Text =
+                    lblEditorFile.Text = file;
+
+                if (pEditor)
+                    ToggleMode(ViewingMode.Editor);
+            }
+        }
+        #endregion
     }
 
-    #region Console wrapper UI implementation
+    #region ConReader
     /// <summary>
     /// Console Reader
     /// </summary>

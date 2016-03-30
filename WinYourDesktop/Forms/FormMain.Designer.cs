@@ -55,24 +55,52 @@
             this.btnCreate = new System.Windows.Forms.Button();
             this.panelMain = new System.Windows.Forms.Panel();
             this.panelEditor = new System.Windows.Forms.Panel();
+            this.lblEditorFile = new System.Windows.Forms.Label();
+            this.btnEditorRefresh = new System.Windows.Forms.Button();
+            this.btnEditorMoveUp = new System.Windows.Forms.Button();
+            this.btnEditorRemove = new System.Windows.Forms.Button();
+            this.btnEditorModify = new System.Windows.Forms.Button();
+            this.btnEditorAdd = new System.Windows.Forms.Button();
+            this.btnEditorMoveDown = new System.Windows.Forms.Button();
+            this.msEditor = new System.Windows.Forms.MenuStrip();
+            this.tsmEditorFile = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiEditorOpen = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
+            this.tsmiEditorSave = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiEditorSaveAs = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+            this.tsmiEditorDebug = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiEditorRun = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmEditor = new System.Windows.Forms.ToolStripMenuItem();
             this.panelDebugger = new System.Windows.Forms.Panel();
-            this.btnRunCopy = new System.Windows.Forms.Button();
-            this.btnOpen = new System.Windows.Forms.Button();
-            this.btnRunWithDebugger = new System.Windows.Forms.Button();
-            this.lblRunCurrentFile = new System.Windows.Forms.Label();
-            this.txtRunOutput = new System.Windows.Forms.TextBox();
+            this.btnDebuggerRun = new System.Windows.Forms.Button();
+            this.lblDebuggerFile = new System.Windows.Forms.Label();
+            this.txtDebuggerOutput = new System.Windows.Forms.TextBox();
+            this.msDebugger = new System.Windows.Forms.MenuStrip();
+            this.tsmDebuggerFile = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiDebuggerOpen = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
+            this.tsmiDebuggerEdit = new System.Windows.Forms.ToolStripMenuItem();
+            this.runToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmDebugger = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiDebuggerClear = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
+            this.tsmiDebuggerCopyToClipboard = new System.Windows.Forms.ToolStripMenuItem();
             this.panelSettings = new System.Windows.Forms.Panel();
+            this.chkSettingsEnableVistualStyles = new System.Windows.Forms.CheckBox();
+            this.chkSettingsDarkTheme = new System.Windows.Forms.CheckBox();
             this.btnSettingsSave = new System.Windows.Forms.Button();
             this.lblSettingsLanguage = new System.Windows.Forms.Label();
             this.cboSettingsLanguage = new System.Windows.Forms.ComboBox();
             this.ofdMain = new System.Windows.Forms.OpenFileDialog();
             this.ImageListNotification = new System.Windows.Forms.ImageList(this.components);
-            this.chkSettingsDarkTheme = new System.Windows.Forms.CheckBox();
-            this.chkSettingsEnableVistualStyles = new System.Windows.Forms.CheckBox();
             this.msMain.SuspendLayout();
             this.ssMain.SuspendLayout();
             this.panelMain.SuspendLayout();
+            this.panelEditor.SuspendLayout();
+            this.msEditor.SuspendLayout();
             this.panelDebugger.SuspendLayout();
+            this.msDebugger.SuspendLayout();
             this.panelSettings.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -88,7 +116,7 @@
             this.msMain.Location = new System.Drawing.Point(0, 0);
             this.msMain.Name = "msMain";
             this.msMain.Padding = new System.Windows.Forms.Padding(7, 2, 0, 2);
-            this.msMain.Size = new System.Drawing.Size(786, 25);
+            this.msMain.Size = new System.Drawing.Size(811, 25);
             this.msMain.TabIndex = 0;
             this.msMain.Text = "menuStrip1";
             // 
@@ -206,19 +234,20 @@
             // 
             this.tsmiHelp.Enabled = false;
             this.tsmiHelp.Name = "tsmiHelp";
-            this.tsmiHelp.Size = new System.Drawing.Size(152, 22);
+            this.tsmiHelp.ShortcutKeys = System.Windows.Forms.Keys.F1;
+            this.tsmiHelp.Size = new System.Drawing.Size(124, 22);
             this.tsmiHelp.Text = "Help";
             this.tsmiHelp.Click += new System.EventHandler(this.tsmiHelp_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(121, 6);
             // 
             // tsmiAbout
             // 
             this.tsmiAbout.Name = "tsmiAbout";
-            this.tsmiAbout.Size = new System.Drawing.Size(152, 22);
+            this.tsmiAbout.Size = new System.Drawing.Size(124, 22);
             this.tsmiAbout.Text = "About";
             this.tsmiAbout.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
@@ -236,10 +265,10 @@
             this.ssMain.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ssMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.sslblStatus});
-            this.ssMain.Location = new System.Drawing.Point(0, 581);
+            this.ssMain.Location = new System.Drawing.Point(0, 649);
             this.ssMain.Name = "ssMain";
             this.ssMain.Padding = new System.Windows.Forms.Padding(1, 0, 16, 0);
-            this.ssMain.Size = new System.Drawing.Size(786, 22);
+            this.ssMain.Size = new System.Drawing.Size(811, 22);
             this.ssMain.SizingGrip = false;
             this.ssMain.TabIndex = 1;
             this.ssMain.Text = "statusStrip1";
@@ -331,92 +360,334 @@
             // 
             // panelEditor
             // 
-            this.panelEditor.Location = new System.Drawing.Point(443, 37);
+            this.panelEditor.Controls.Add(this.lblEditorFile);
+            this.panelEditor.Controls.Add(this.btnEditorRefresh);
+            this.panelEditor.Controls.Add(this.btnEditorMoveUp);
+            this.panelEditor.Controls.Add(this.btnEditorRemove);
+            this.panelEditor.Controls.Add(this.btnEditorModify);
+            this.panelEditor.Controls.Add(this.btnEditorAdd);
+            this.panelEditor.Controls.Add(this.btnEditorMoveDown);
+            this.panelEditor.Controls.Add(this.msEditor);
+            this.panelEditor.Enabled = false;
+            this.panelEditor.Location = new System.Drawing.Point(289, 29);
             this.panelEditor.Name = "panelEditor";
-            this.panelEditor.Size = new System.Drawing.Size(244, 240);
+            this.panelEditor.Size = new System.Drawing.Size(500, 324);
             this.panelEditor.TabIndex = 7;
             this.panelEditor.Visible = false;
+            // 
+            // lblEditorFile
+            // 
+            this.lblEditorFile.AutoSize = true;
+            this.lblEditorFile.Location = new System.Drawing.Point(3, 27);
+            this.lblEditorFile.Name = "lblEditorFile";
+            this.lblEditorFile.Size = new System.Drawing.Size(96, 17);
+            this.lblEditorFile.TabIndex = 6;
+            this.lblEditorFile.Text = "No opened file";
+            // 
+            // btnEditorRefresh
+            // 
+            this.btnEditorRefresh.Enabled = false;
+            this.btnEditorRefresh.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnEditorRefresh.Location = new System.Drawing.Point(454, 47);
+            this.btnEditorRefresh.Name = "btnEditorRefresh";
+            this.btnEditorRefresh.Size = new System.Drawing.Size(40, 40);
+            this.btnEditorRefresh.TabIndex = 3;
+            this.btnEditorRefresh.Text = "🔃";
+            this.btnEditorRefresh.UseVisualStyleBackColor = true;
+            this.btnEditorRefresh.Click += new System.EventHandler(this.btnEditorRefresh_Click);
+            this.btnEditorRefresh.MouseEnter += new System.EventHandler(this.btnEditorRefresh_MouseEnter);
+            this.btnEditorRefresh.MouseLeave += new System.EventHandler(this.btnEditorRefresh_MouseLeave);
+            // 
+            // btnEditorMoveUp
+            // 
+            this.btnEditorMoveUp.Enabled = false;
+            this.btnEditorMoveUp.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnEditorMoveUp.Location = new System.Drawing.Point(454, 93);
+            this.btnEditorMoveUp.Name = "btnEditorMoveUp";
+            this.btnEditorMoveUp.Size = new System.Drawing.Size(40, 40);
+            this.btnEditorMoveUp.TabIndex = 3;
+            this.btnEditorMoveUp.Text = "⬆️";
+            this.btnEditorMoveUp.UseVisualStyleBackColor = true;
+            this.btnEditorMoveUp.Click += new System.EventHandler(this.btnEditorMoveUp_Click);
+            this.btnEditorMoveUp.MouseEnter += new System.EventHandler(this.btnEditorMoveUp_MouseEnter);
+            this.btnEditorMoveUp.MouseLeave += new System.EventHandler(this.btnEditorMoveUp_MouseLeave);
+            // 
+            // btnEditorRemove
+            // 
+            this.btnEditorRemove.Enabled = false;
+            this.btnEditorRemove.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnEditorRemove.Location = new System.Drawing.Point(215, 291);
+            this.btnEditorRemove.Name = "btnEditorRemove";
+            this.btnEditorRemove.Size = new System.Drawing.Size(100, 30);
+            this.btnEditorRemove.TabIndex = 3;
+            this.btnEditorRemove.Text = "Delete";
+            this.btnEditorRemove.UseVisualStyleBackColor = true;
+            this.btnEditorRemove.Click += new System.EventHandler(this.btnEditorRemove_Click);
+            this.btnEditorRemove.MouseEnter += new System.EventHandler(this.btnEditorRemove_MouseEnter);
+            this.btnEditorRemove.MouseLeave += new System.EventHandler(this.btnEditorRemove_MouseLeave);
+            // 
+            // btnEditorModify
+            // 
+            this.btnEditorModify.Enabled = false;
+            this.btnEditorModify.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnEditorModify.Location = new System.Drawing.Point(109, 291);
+            this.btnEditorModify.Name = "btnEditorModify";
+            this.btnEditorModify.Size = new System.Drawing.Size(100, 30);
+            this.btnEditorModify.TabIndex = 3;
+            this.btnEditorModify.Text = "Modify";
+            this.btnEditorModify.UseVisualStyleBackColor = true;
+            this.btnEditorModify.Click += new System.EventHandler(this.btnEditorModify_Click);
+            this.btnEditorModify.MouseEnter += new System.EventHandler(this.btnEditorModify_MouseEnter);
+            this.btnEditorModify.MouseLeave += new System.EventHandler(this.btnEditorModify_MouseLeave);
+            // 
+            // btnEditorAdd
+            // 
+            this.btnEditorAdd.Enabled = false;
+            this.btnEditorAdd.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnEditorAdd.Location = new System.Drawing.Point(3, 291);
+            this.btnEditorAdd.Name = "btnEditorAdd";
+            this.btnEditorAdd.Size = new System.Drawing.Size(100, 30);
+            this.btnEditorAdd.TabIndex = 3;
+            this.btnEditorAdd.Text = "Add";
+            this.btnEditorAdd.UseVisualStyleBackColor = true;
+            this.btnEditorAdd.Click += new System.EventHandler(this.btnEditorAdd_Click);
+            this.btnEditorAdd.MouseEnter += new System.EventHandler(this.btnEditorAdd_MouseEnter);
+            this.btnEditorAdd.MouseLeave += new System.EventHandler(this.btnEditorAdd_MouseLeave);
+            // 
+            // btnEditorMoveDown
+            // 
+            this.btnEditorMoveDown.Enabled = false;
+            this.btnEditorMoveDown.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnEditorMoveDown.Location = new System.Drawing.Point(454, 139);
+            this.btnEditorMoveDown.Name = "btnEditorMoveDown";
+            this.btnEditorMoveDown.Size = new System.Drawing.Size(40, 40);
+            this.btnEditorMoveDown.TabIndex = 3;
+            this.btnEditorMoveDown.Text = "⬇️";
+            this.btnEditorMoveDown.UseVisualStyleBackColor = true;
+            this.btnEditorMoveDown.Click += new System.EventHandler(this.btnEditorMoveDown_Click);
+            this.btnEditorMoveDown.MouseEnter += new System.EventHandler(this.btnEditorMoveDown_MouseEnter);
+            this.btnEditorMoveDown.MouseLeave += new System.EventHandler(this.btnEditorMoveDown_MouseLeave);
+            // 
+            // msEditor
+            // 
+            this.msEditor.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmEditorFile,
+            this.tsmEditor});
+            this.msEditor.Location = new System.Drawing.Point(0, 0);
+            this.msEditor.Name = "msEditor";
+            this.msEditor.Size = new System.Drawing.Size(500, 24);
+            this.msEditor.TabIndex = 5;
+            this.msEditor.Text = "menuStrip1";
+            // 
+            // tsmEditorFile
+            // 
+            this.tsmEditorFile.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmiEditorOpen,
+            this.toolStripSeparator5,
+            this.tsmiEditorSave,
+            this.tsmiEditorSaveAs,
+            this.toolStripSeparator4,
+            this.tsmiEditorDebug,
+            this.tsmiEditorRun});
+            this.tsmEditorFile.Name = "tsmEditorFile";
+            this.tsmEditorFile.Size = new System.Drawing.Size(37, 20);
+            this.tsmEditorFile.Text = "File";
+            // 
+            // tsmiEditorOpen
+            // 
+            this.tsmiEditorOpen.Name = "tsmiEditorOpen";
+            this.tsmiEditorOpen.Size = new System.Drawing.Size(152, 22);
+            this.tsmiEditorOpen.Text = "Open";
+            this.tsmiEditorOpen.Click += new System.EventHandler(this.tsmiEditorOpen_Click);
+            this.tsmiEditorOpen.MouseEnter += new System.EventHandler(this.tsmiEditorOpen_MouseEnter);
+            this.tsmiEditorOpen.MouseLeave += new System.EventHandler(this.tsmiEditorOpen_MouseLeave);
+            // 
+            // toolStripSeparator5
+            // 
+            this.toolStripSeparator5.Name = "toolStripSeparator5";
+            this.toolStripSeparator5.Size = new System.Drawing.Size(118, 6);
+            // 
+            // tsmiEditorSave
+            // 
+            this.tsmiEditorSave.Name = "tsmiEditorSave";
+            this.tsmiEditorSave.Size = new System.Drawing.Size(152, 22);
+            this.tsmiEditorSave.Text = "Save";
+            this.tsmiEditorSave.Click += new System.EventHandler(this.tsmiEditorSave_Click);
+            this.tsmiEditorSave.MouseEnter += new System.EventHandler(this.tsmiEditorSave_MouseEnter);
+            this.tsmiEditorSave.MouseLeave += new System.EventHandler(this.tsmiEditorSave_MouseLeave);
+            // 
+            // tsmiEditorSaveAs
+            // 
+            this.tsmiEditorSaveAs.Name = "tsmiEditorSaveAs";
+            this.tsmiEditorSaveAs.Size = new System.Drawing.Size(152, 22);
+            this.tsmiEditorSaveAs.Text = "Save as...";
+            this.tsmiEditorSaveAs.Click += new System.EventHandler(this.tsmiEditorSaveAs_Click);
+            this.tsmiEditorSaveAs.MouseEnter += new System.EventHandler(this.tsmiEditorSaveAs_MouseEnter);
+            this.tsmiEditorSaveAs.MouseLeave += new System.EventHandler(this.tsmiEditorSaveAs_MouseLeave);
+            // 
+            // toolStripSeparator4
+            // 
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            this.toolStripSeparator4.Size = new System.Drawing.Size(118, 6);
+            // 
+            // tsmiEditorDebug
+            // 
+            this.tsmiEditorDebug.Name = "tsmiEditorDebug";
+            this.tsmiEditorDebug.Size = new System.Drawing.Size(152, 22);
+            this.tsmiEditorDebug.Text = "Debug";
+            this.tsmiEditorDebug.Click += new System.EventHandler(this.tsmiEditorDebug_Click);
+            this.tsmiEditorDebug.MouseEnter += new System.EventHandler(this.tsmiEditorDebug_MouseEnter);
+            this.tsmiEditorDebug.MouseLeave += new System.EventHandler(this.tsmiEditorDebug_MouseLeave);
+            // 
+            // tsmiEditorRun
+            // 
+            this.tsmiEditorRun.Name = "tsmiEditorRun";
+            this.tsmiEditorRun.Size = new System.Drawing.Size(152, 22);
+            this.tsmiEditorRun.Text = "Run";
+            this.tsmiEditorRun.Click += new System.EventHandler(this.tsmiEditorRun_Click);
+            this.tsmiEditorRun.MouseEnter += new System.EventHandler(this.tsmiEditorRun_MouseEnter);
+            this.tsmiEditorRun.MouseLeave += new System.EventHandler(this.tsmiEditorRun_MouseLeave);
+            // 
+            // tsmEditor
+            // 
+            this.tsmEditor.Name = "tsmEditor";
+            this.tsmEditor.Size = new System.Drawing.Size(50, 20);
+            this.tsmEditor.Text = "Editor";
             // 
             // panelDebugger
             // 
             this.panelDebugger.AllowDrop = true;
-            this.panelDebugger.Controls.Add(this.btnRunCopy);
-            this.panelDebugger.Controls.Add(this.btnOpen);
-            this.panelDebugger.Controls.Add(this.btnRunWithDebugger);
-            this.panelDebugger.Controls.Add(this.lblRunCurrentFile);
-            this.panelDebugger.Controls.Add(this.txtRunOutput);
-            this.panelDebugger.Location = new System.Drawing.Point(10, 323);
+            this.panelDebugger.Controls.Add(this.btnDebuggerRun);
+            this.panelDebugger.Controls.Add(this.lblDebuggerFile);
+            this.panelDebugger.Controls.Add(this.txtDebuggerOutput);
+            this.panelDebugger.Controls.Add(this.msDebugger);
+            this.panelDebugger.Location = new System.Drawing.Point(10, 359);
             this.panelDebugger.Name = "panelDebugger";
-            this.panelDebugger.Size = new System.Drawing.Size(391, 246);
+            this.panelDebugger.Size = new System.Drawing.Size(390, 283);
             this.panelDebugger.TabIndex = 8;
             this.panelDebugger.Visible = false;
             this.panelDebugger.DragDrop += new System.Windows.Forms.DragEventHandler(this.panelDebugger_DragDrop);
             this.panelDebugger.DragEnter += new System.Windows.Forms.DragEventHandler(this.panelDebugger_DragEnter);
             // 
-            // btnRunCopy
+            // btnDebuggerRun
             // 
-            this.btnRunCopy.Location = new System.Drawing.Point(132, 24);
-            this.btnRunCopy.Margin = new System.Windows.Forms.Padding(3, 2, 0, 2);
-            this.btnRunCopy.Name = "btnRunCopy";
-            this.btnRunCopy.Size = new System.Drawing.Size(127, 29);
-            this.btnRunCopy.TabIndex = 6;
-            this.btnRunCopy.Text = "Copy";
-            this.btnRunCopy.UseVisualStyleBackColor = true;
-            this.btnRunCopy.Click += new System.EventHandler(this.btnRunCopyOutput_Click);
-            this.btnRunCopy.MouseEnter += new System.EventHandler(this.btnRunCopy_MouseEnter);
-            this.btnRunCopy.MouseLeave += new System.EventHandler(this.btnRunCopy_MouseLeave);
+            this.btnDebuggerRun.Enabled = false;
+            this.btnDebuggerRun.Location = new System.Drawing.Point(341, 26);
+            this.btnDebuggerRun.Name = "btnDebuggerRun";
+            this.btnDebuggerRun.Size = new System.Drawing.Size(46, 31);
+            this.btnDebuggerRun.TabIndex = 10;
+            this.btnDebuggerRun.Text = "▶️";
+            this.btnDebuggerRun.UseVisualStyleBackColor = true;
+            this.btnDebuggerRun.Click += new System.EventHandler(this.btnDebuggerRun_Click);
+            this.btnDebuggerRun.MouseEnter += new System.EventHandler(this.btnDebuggerRun_MouseEnter);
+            this.btnDebuggerRun.MouseLeave += new System.EventHandler(this.btnDebuggerRun_MouseLeave);
             // 
-            // btnOpen
+            // lblDebuggerFile
             // 
-            this.btnOpen.Location = new System.Drawing.Point(3, 24);
-            this.btnOpen.Margin = new System.Windows.Forms.Padding(3, 2, 0, 2);
-            this.btnOpen.Name = "btnOpen";
-            this.btnOpen.Size = new System.Drawing.Size(127, 29);
-            this.btnOpen.TabIndex = 5;
-            this.btnOpen.Text = "Open";
-            this.btnOpen.UseVisualStyleBackColor = true;
-            this.btnOpen.Click += new System.EventHandler(this.btnOpen_Click);
-            this.btnOpen.MouseEnter += new System.EventHandler(this.btnOpen_MouseEnter);
-            this.btnOpen.MouseLeave += new System.EventHandler(this.btnOpen_MouseLeave);
+            this.lblDebuggerFile.AutoSize = true;
+            this.lblDebuggerFile.Location = new System.Drawing.Point(4, 33);
+            this.lblDebuggerFile.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.lblDebuggerFile.Name = "lblDebuggerFile";
+            this.lblDebuggerFile.Size = new System.Drawing.Size(96, 17);
+            this.lblDebuggerFile.TabIndex = 1;
+            this.lblDebuggerFile.Text = "No opened file";
             // 
-            // btnRunWithDebugger
+            // txtDebuggerOutput
             // 
-            this.btnRunWithDebugger.Enabled = false;
-            this.btnRunWithDebugger.Location = new System.Drawing.Point(262, 24);
-            this.btnRunWithDebugger.Margin = new System.Windows.Forms.Padding(3, 2, 0, 2);
-            this.btnRunWithDebugger.Name = "btnRunWithDebugger";
-            this.btnRunWithDebugger.Size = new System.Drawing.Size(127, 29);
-            this.btnRunWithDebugger.TabIndex = 7;
-            this.btnRunWithDebugger.Text = "Run";
-            this.btnRunWithDebugger.UseVisualStyleBackColor = true;
-            this.btnRunWithDebugger.Click += new System.EventHandler(this.btnRunWithDebugger_Click);
-            this.btnRunWithDebugger.MouseEnter += new System.EventHandler(this.btnRunWithDebugger_MouseEnter);
-            this.btnRunWithDebugger.MouseLeave += new System.EventHandler(this.btnRunWithDebugger_MouseLeave);
+            this.txtDebuggerOutput.BackColor = System.Drawing.Color.Black;
+            this.txtDebuggerOutput.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtDebuggerOutput.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.txtDebuggerOutput.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtDebuggerOutput.ForeColor = System.Drawing.Color.White;
+            this.txtDebuggerOutput.Location = new System.Drawing.Point(0, 62);
+            this.txtDebuggerOutput.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.txtDebuggerOutput.Multiline = true;
+            this.txtDebuggerOutput.Name = "txtDebuggerOutput";
+            this.txtDebuggerOutput.ReadOnly = true;
+            this.txtDebuggerOutput.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtDebuggerOutput.Size = new System.Drawing.Size(390, 221);
+            this.txtDebuggerOutput.TabIndex = 8;
             // 
-            // lblRunCurrentFile
+            // msDebugger
             // 
-            this.lblRunCurrentFile.AutoSize = true;
-            this.lblRunCurrentFile.Location = new System.Drawing.Point(4, 5);
-            this.lblRunCurrentFile.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.lblRunCurrentFile.Name = "lblRunCurrentFile";
-            this.lblRunCurrentFile.Size = new System.Drawing.Size(0, 17);
-            this.lblRunCurrentFile.TabIndex = 1;
+            this.msDebugger.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmDebuggerFile,
+            this.tsmDebugger});
+            this.msDebugger.Location = new System.Drawing.Point(0, 0);
+            this.msDebugger.Name = "msDebugger";
+            this.msDebugger.Size = new System.Drawing.Size(390, 24);
+            this.msDebugger.TabIndex = 9;
+            this.msDebugger.Text = "menuStrip1";
             // 
-            // txtRunOutput
+            // tsmDebuggerFile
             // 
-            this.txtRunOutput.BackColor = System.Drawing.Color.Black;
-            this.txtRunOutput.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtRunOutput.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.txtRunOutput.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtRunOutput.ForeColor = System.Drawing.Color.White;
-            this.txtRunOutput.Location = new System.Drawing.Point(0, 59);
-            this.txtRunOutput.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.txtRunOutput.Multiline = true;
-            this.txtRunOutput.Name = "txtRunOutput";
-            this.txtRunOutput.ReadOnly = true;
-            this.txtRunOutput.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtRunOutput.Size = new System.Drawing.Size(391, 187);
-            this.txtRunOutput.TabIndex = 8;
+            this.tsmDebuggerFile.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmiDebuggerOpen,
+            this.toolStripSeparator6,
+            this.tsmiDebuggerEdit,
+            this.runToolStripMenuItem});
+            this.tsmDebuggerFile.Name = "tsmDebuggerFile";
+            this.tsmDebuggerFile.Size = new System.Drawing.Size(37, 20);
+            this.tsmDebuggerFile.Text = "File";
+            // 
+            // tsmiDebuggerOpen
+            // 
+            this.tsmiDebuggerOpen.Name = "tsmiDebuggerOpen";
+            this.tsmiDebuggerOpen.Size = new System.Drawing.Size(103, 22);
+            this.tsmiDebuggerOpen.Text = "Open";
+            this.tsmiDebuggerOpen.Click += new System.EventHandler(this.tsmiDebuggerOpen_Click);
+            this.tsmiDebuggerOpen.MouseEnter += new System.EventHandler(this.tsmiDebuggerOpen_MouseEnter);
+            this.tsmiDebuggerOpen.MouseLeave += new System.EventHandler(this.tsmiDebuggerOpen_MouseLeave);
+            // 
+            // toolStripSeparator6
+            // 
+            this.toolStripSeparator6.Name = "toolStripSeparator6";
+            this.toolStripSeparator6.Size = new System.Drawing.Size(100, 6);
+            // 
+            // tsmiDebuggerEdit
+            // 
+            this.tsmiDebuggerEdit.Name = "tsmiDebuggerEdit";
+            this.tsmiDebuggerEdit.Size = new System.Drawing.Size(103, 22);
+            this.tsmiDebuggerEdit.Text = "Edit";
+            // 
+            // runToolStripMenuItem
+            // 
+            this.runToolStripMenuItem.Name = "runToolStripMenuItem";
+            this.runToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
+            this.runToolStripMenuItem.Text = "Run";
+            // 
+            // tsmDebugger
+            // 
+            this.tsmDebugger.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmiDebuggerClear,
+            this.toolStripSeparator7,
+            this.tsmiDebuggerCopyToClipboard});
+            this.tsmDebugger.Name = "tsmDebugger";
+            this.tsmDebugger.Size = new System.Drawing.Size(71, 20);
+            this.tsmDebugger.Text = "Debugger";
+            // 
+            // tsmiDebuggerClear
+            // 
+            this.tsmiDebuggerClear.Name = "tsmiDebuggerClear";
+            this.tsmiDebuggerClear.Size = new System.Drawing.Size(169, 22);
+            this.tsmiDebuggerClear.Text = "Clear";
+            this.tsmiDebuggerClear.Click += new System.EventHandler(this.tsmiDebuggerClear_Click);
+            this.tsmiDebuggerClear.MouseEnter += new System.EventHandler(this.tsmiDebuggerClear_MouseEnter);
+            this.tsmiDebuggerClear.MouseLeave += new System.EventHandler(this.tsmiDebuggerClear_MouseLeave);
+            // 
+            // toolStripSeparator7
+            // 
+            this.toolStripSeparator7.Name = "toolStripSeparator7";
+            this.toolStripSeparator7.Size = new System.Drawing.Size(166, 6);
+            // 
+            // tsmiDebuggerCopyToClipboard
+            // 
+            this.tsmiDebuggerCopyToClipboard.Name = "tsmiDebuggerCopyToClipboard";
+            this.tsmiDebuggerCopyToClipboard.Size = new System.Drawing.Size(169, 22);
+            this.tsmiDebuggerCopyToClipboard.Text = "Copy to clipboard";
+            this.tsmiDebuggerCopyToClipboard.Click += new System.EventHandler(this.tsmiDebuggerCopyToClipboard_Click);
+            this.tsmiDebuggerCopyToClipboard.MouseEnter += new System.EventHandler(this.tsmiDebuggerCopyToClipboard_MouseEnter);
+            this.tsmiDebuggerCopyToClipboard.MouseLeave += new System.EventHandler(this.tsmiDebuggerCopyToClipboard_MouseLeave);
             // 
             // panelSettings
             // 
@@ -425,15 +696,39 @@
             this.panelSettings.Controls.Add(this.btnSettingsSave);
             this.panelSettings.Controls.Add(this.lblSettingsLanguage);
             this.panelSettings.Controls.Add(this.cboSettingsLanguage);
-            this.panelSettings.Location = new System.Drawing.Point(423, 292);
+            this.panelSettings.Location = new System.Drawing.Point(494, 396);
             this.panelSettings.Name = "panelSettings";
-            this.panelSettings.Size = new System.Drawing.Size(300, 277);
+            this.panelSettings.Size = new System.Drawing.Size(300, 250);
             this.panelSettings.TabIndex = 9;
             this.panelSettings.Visible = false;
             // 
+            // chkSettingsEnableVistualStyles
+            // 
+            this.chkSettingsEnableVistualStyles.AutoSize = true;
+            this.chkSettingsEnableVistualStyles.Checked = true;
+            this.chkSettingsEnableVistualStyles.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkSettingsEnableVistualStyles.Enabled = false;
+            this.chkSettingsEnableVistualStyles.Location = new System.Drawing.Point(5, 80);
+            this.chkSettingsEnableVistualStyles.Name = "chkSettingsEnableVistualStyles";
+            this.chkSettingsEnableVistualStyles.Size = new System.Drawing.Size(138, 21);
+            this.chkSettingsEnableVistualStyles.TabIndex = 4;
+            this.chkSettingsEnableVistualStyles.Text = "Enable visual styles";
+            this.chkSettingsEnableVistualStyles.UseVisualStyleBackColor = true;
+            // 
+            // chkSettingsDarkTheme
+            // 
+            this.chkSettingsDarkTheme.AutoSize = true;
+            this.chkSettingsDarkTheme.Enabled = false;
+            this.chkSettingsDarkTheme.Location = new System.Drawing.Point(5, 57);
+            this.chkSettingsDarkTheme.Name = "chkSettingsDarkTheme";
+            this.chkSettingsDarkTheme.Size = new System.Drawing.Size(94, 21);
+            this.chkSettingsDarkTheme.TabIndex = 3;
+            this.chkSettingsDarkTheme.Text = "Dark theme";
+            this.chkSettingsDarkTheme.UseVisualStyleBackColor = true;
+            // 
             // btnSettingsSave
             // 
-            this.btnSettingsSave.Location = new System.Drawing.Point(4, 243);
+            this.btnSettingsSave.Location = new System.Drawing.Point(196, 216);
             this.btnSettingsSave.Margin = new System.Windows.Forms.Padding(4);
             this.btnSettingsSave.Name = "btnSettingsSave";
             this.btnSettingsSave.Size = new System.Drawing.Size(100, 30);
@@ -468,7 +763,8 @@
             // 
             // ofdMain
             // 
-            this.ofdMain.Filter = "Desktop files|*.desktop|All file|*.*";
+            this.ofdMain.Filter = "Desktop entry files|*.desktop|All file|*.*";
+            this.ofdMain.RestoreDirectory = true;
             // 
             // ImageListNotification
             // 
@@ -478,33 +774,11 @@
             this.ImageListNotification.Images.SetKeyName(1, "NotificationHigh.png");
             this.ImageListNotification.Images.SetKeyName(2, "NotificationCrucial.png");
             // 
-            // chkSettingsDarkTheme
-            // 
-            this.chkSettingsDarkTheme.AutoSize = true;
-            this.chkSettingsDarkTheme.Location = new System.Drawing.Point(5, 57);
-            this.chkSettingsDarkTheme.Name = "chkSettingsDarkTheme";
-            this.chkSettingsDarkTheme.Size = new System.Drawing.Size(94, 21);
-            this.chkSettingsDarkTheme.TabIndex = 3;
-            this.chkSettingsDarkTheme.Text = "Dark theme";
-            this.chkSettingsDarkTheme.UseVisualStyleBackColor = true;
-            // 
-            // chkSettingsEnableVistualStyles
-            // 
-            this.chkSettingsEnableVistualStyles.AutoSize = true;
-            this.chkSettingsEnableVistualStyles.Checked = true;
-            this.chkSettingsEnableVistualStyles.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkSettingsEnableVistualStyles.Location = new System.Drawing.Point(5, 84);
-            this.chkSettingsEnableVistualStyles.Name = "chkSettingsEnableVistualStyles";
-            this.chkSettingsEnableVistualStyles.Size = new System.Drawing.Size(138, 21);
-            this.chkSettingsEnableVistualStyles.TabIndex = 4;
-            this.chkSettingsEnableVistualStyles.Text = "Enable visual styles";
-            this.chkSettingsEnableVistualStyles.UseVisualStyleBackColor = true;
-            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(786, 603);
+            this.ClientSize = new System.Drawing.Size(811, 671);
             this.Controls.Add(this.ssMain);
             this.Controls.Add(this.panelSettings);
             this.Controls.Add(this.panelDebugger);
@@ -513,6 +787,7 @@
             this.Controls.Add(this.msMain);
             this.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.MainMenuStrip = this.msEditor;
             this.MaximizeBox = false;
             this.Name = "FormMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -522,8 +797,14 @@
             this.ssMain.ResumeLayout(false);
             this.ssMain.PerformLayout();
             this.panelMain.ResumeLayout(false);
+            this.panelEditor.ResumeLayout(false);
+            this.panelEditor.PerformLayout();
+            this.msEditor.ResumeLayout(false);
+            this.msEditor.PerformLayout();
             this.panelDebugger.ResumeLayout(false);
             this.panelDebugger.PerformLayout();
+            this.msDebugger.ResumeLayout(false);
+            this.msDebugger.PerformLayout();
             this.panelSettings.ResumeLayout(false);
             this.panelSettings.PerformLayout();
             this.ResumeLayout(false);
@@ -560,12 +841,9 @@
         private System.Windows.Forms.ComboBox cboSettingsLanguage;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
-        private System.Windows.Forms.Button btnOpen;
-        private System.Windows.Forms.Button btnRunWithDebugger;
-        private System.Windows.Forms.Label lblRunCurrentFile;
-        private System.Windows.Forms.TextBox txtRunOutput;
+        private System.Windows.Forms.Label lblDebuggerFile;
+        private System.Windows.Forms.TextBox txtDebuggerOutput;
         private System.Windows.Forms.OpenFileDialog ofdMain;
-        private System.Windows.Forms.Button btnRunCopy;
         private System.Windows.Forms.Button btnSettingsSave;
         private System.Windows.Forms.ToolStripMenuItem tsmiCreationWizard;
         private System.Windows.Forms.ToolStripMenuItem tsmiHelp;
@@ -573,5 +851,33 @@
         private System.Windows.Forms.ImageList ImageListNotification;
         private System.Windows.Forms.CheckBox chkSettingsEnableVistualStyles;
         private System.Windows.Forms.CheckBox chkSettingsDarkTheme;
+        private System.Windows.Forms.MenuStrip msEditor;
+        private System.Windows.Forms.Button btnEditorRefresh;
+        private System.Windows.Forms.Button btnEditorMoveUp;
+        private System.Windows.Forms.Button btnEditorRemove;
+        private System.Windows.Forms.Button btnEditorModify;
+        private System.Windows.Forms.Button btnEditorAdd;
+        private System.Windows.Forms.Button btnEditorMoveDown;
+        private System.Windows.Forms.ToolStripMenuItem tsmEditorFile;
+        private System.Windows.Forms.ToolStripMenuItem tsmiEditorOpen;
+        private System.Windows.Forms.Label lblEditorFile;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
+        private System.Windows.Forms.ToolStripMenuItem tsmiEditorSave;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
+        private System.Windows.Forms.ToolStripMenuItem tsmiEditorDebug;
+        private System.Windows.Forms.ToolStripMenuItem tsmiEditorRun;
+        private System.Windows.Forms.MenuStrip msDebugger;
+        private System.Windows.Forms.ToolStripMenuItem tsmDebuggerFile;
+        private System.Windows.Forms.Button btnDebuggerRun;
+        private System.Windows.Forms.ToolStripMenuItem tsmiEditorSaveAs;
+        private System.Windows.Forms.ToolStripMenuItem tsmDebugger;
+        private System.Windows.Forms.ToolStripMenuItem tsmiDebuggerClear;
+        private System.Windows.Forms.ToolStripMenuItem tsmiDebuggerCopyToClipboard;
+        private System.Windows.Forms.ToolStripMenuItem tsmEditor;
+        private System.Windows.Forms.ToolStripMenuItem tsmiDebuggerOpen;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
+        private System.Windows.Forms.ToolStripMenuItem tsmiDebuggerEdit;
+        private System.Windows.Forms.ToolStripMenuItem runToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator7;
     }
 }
