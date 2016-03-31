@@ -130,6 +130,8 @@ namespace WinYourDesktop
             btnEditorRemove.Text = RM.GetString("btnEditorRemove");
 
             // ==== panelDebugger
+            lblEditorFile.Text =
+            lblDebuggerFile.Text = RM.GetString("MiscNoFile");
             // === msDebugger
             tsmDebuggerFile.Text = RM.GetString("tsmDebuggerFile");
             tsmiDebuggerOpen.Text = RM.GetString("tsmiDebuggerOpen");

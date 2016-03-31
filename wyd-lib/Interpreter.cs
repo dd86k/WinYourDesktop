@@ -1,8 +1,11 @@
 ﻿using System;
-using System.IO;
+using System.Collections;
+using System.Collections.Generic;
 using System.Diagnostics;
-using static System.Reflection.Assembly;
+using System.IO;
+using System.Text.RegularExpressions;
 using static System.Console;
+using static System.Reflection.Assembly;
 
 namespace WinYourDesktopLibrary
 {
@@ -79,11 +82,11 @@ namespace WinYourDesktopLibrary
         /// </summary>
         /// <param name="pPath">Path of the Desktop file.</param>
         /// <returns>ErrorCode.</returns>
-        public static ErrorCode Run(string pPath, bool pVerboise = false)
+        public static ErrorCode Run(string pPath, bool pVerbose = false)
         {
             if (string.IsNullOrEmpty(pPath))
             {
-                if (pVerboise)
+                if (pVerbose)
                     WriteLine($"Path is {(pPath == null ? "null" : "empty")}.");
 
                 return pPath == null ?
@@ -92,12 +95,12 @@ namespace WinYourDesktopLibrary
 
             if (!File.Exists(pPath))
             {
-                if (pVerboise)
+                if (pVerbose)
                     WriteLine($"Error: Specified file doesn't exist at {pPath})");
 
                 return ErrorCode.FileNotFound;
             }
-            else if (pVerboise)
+            else if (pVerbose)
                 WriteLine("File found.");
             
             // Defaults
@@ -110,8 +113,8 @@ namespace WinYourDesktopLibrary
 
             char[] DELIM = new char[] { DELIMITER };
 
-            if (pVerboise)
-                WriteLine($"Starting {Path.GetFileName(pPath)}...");
+            if (pVerbose)
+                WriteLine($"Reading {Path.GetFileName(pPath)}...");
 
             using (StreamReader sr = new StreamReader(pPath))
             {
@@ -129,7 +132,7 @@ namespace WinYourDesktopLibrary
                     {
                         if (!CurrentLine.Contains("="))
                         {
-                            if (pVerboise)
+                            if (pVerbose)
                                 WriteLine($"Error: Line {CurrentLineIndex + 1} missing the '=' delimiter.");
 
                             return ErrorCode.FileMissingDelimiter;
@@ -155,27 +158,30 @@ namespace WinYourDesktopLibrary
                                     // Skip/Ignore by default
                                 }
 
-                                if (pVerboise)
-                                    WriteLine($"TYPE SET {type}");
+                                if (pVerbose)
+                                    WriteLine($"TYPE SET AS {type}");
                                 break;
                                 
                             case "Exec":
                             case "TryExec":
                                 Value = LineValues[1];
+
+                                if (pVerbose)
+                                    WriteLine($"EXEC SET {Value}");
                                 break;
 
                             case "Url":
                             case "URL":
                                 Value = LineValues[1];
 
-                                if (pVerboise)
+                                if (pVerbose)
                                     WriteLine($"URL SET {Value}");
                                 break;
                                 
                             case "Path":
                                 Value = LineValues[1];
 
-                                if (pVerboise)
+                                if (pVerbose)
                                     WriteLine($"PATH SET {Value}");
                                 break;
                                 
@@ -183,7 +189,7 @@ namespace WinYourDesktopLibrary
                                 if (LineValues[1].ToUpper() == "TRUE")
                                     TerminalMode = true;
 
-                                if (pVerboise)
+                                if (pVerbose)
                                     WriteLine($"TERMINAL SET TRUE");
                                 break;
                         }
@@ -199,21 +205,25 @@ namespace WinYourDesktopLibrary
                 return ErrorCode.FileMissingTypeValue;
             }
 
-            if (pVerboise)
+            if (pVerbose)
             {
-                WriteLine("Starting...");
-                WriteLine($"Value: {Value}");
+                WriteLine($"Starting {Value}...");
             }
+
+            bool hasVars = Value.Contains("%") || Value.Contains("$");
 
             switch (type)
             {
-                #region App
+                #region Application
                 // Launch an application.
                 case DesktopFileType.Application:
-                    if (Value.Length > 0)
+                    if (!string.IsNullOrWhiteSpace(Value))
                     {
                         try
                         {
+                            if (hasVars)
+                                ReplaceVars(ref Value, pVerbose);
+
                             if (TerminalMode)
                             {
                                 //TODO: Seperate command from arguments
@@ -238,7 +248,7 @@ namespace WinYourDesktopLibrary
                         }
                         catch (Exception ex)
                         {
-                            if (pVerboise)
+                            if (pVerbose)
                                 WriteLine($"{Ex(ex)}");
 
                             return ErrorCode.ExecError;
@@ -254,15 +264,18 @@ namespace WinYourDesktopLibrary
                 #region Link
                 // Launch the user's default application that handles URLs.
                 case DesktopFileType.Link:
-                    if (Value.Length > 0)
+                    if (!string.IsNullOrWhiteSpace(Value))
                     {
+                        if (hasVars)
+                            ReplaceVars(ref Value, pVerbose);
+
                         try
                         {
                             Process.Start(Value);
                         }
                         catch (Exception ex)
                         {
-                            if (pVerboise)
+                            if (pVerbose)
                                 WriteLine($"{Ex(ex)}");
 
                             return ErrorCode.LinkError;
@@ -278,18 +291,23 @@ namespace WinYourDesktopLibrary
                 #region Directory
                 // Open File Explorer with a specific path/directory with File Explorer.
                 case DesktopFileType.Directory:
-                    if (Value.Length > 0)
+                    if (!string.IsNullOrWhiteSpace(Value))
                     {
-                        if (Directory.Exists(Value))
+                        if (Directory.Exists(Value) || hasVars)
                         {
                             try
                             {
+                                if (hasVars)
+                                {
+                                    ReplaceVars(ref Value, pVerbose);
+                                }
+
                                 Process.Start(Utils.ExplorerPath,
                                     Value.Replace("/", @"\"));
                             }
                             catch (Exception ex)
                             {
-                                if (pVerboise)
+                                if (pVerbose)
                                     WriteLine($"{Ex(ex)}");
 
                                 return ErrorCode.DirectoryError;
@@ -297,7 +315,7 @@ namespace WinYourDesktopLibrary
                         }
                         else
                         {
-                            if (pVerboise)
+                            if (pVerbose)
                                 WriteLine($"Error: Directory \"{Value}\" could not be found.");
                             return ErrorCode.DirectoryNotFound;
                         }
@@ -310,10 +328,66 @@ namespace WinYourDesktopLibrary
                 #endregion Directory
             } // End of switch()
 
-            if (pVerboise)
+            if (pVerbose)
                 WriteLine("Started successfully.");
 
             return 0;
+        }
+
+        static void ReplaceVars(ref string Value, bool pVerbose)
+        {
+            if (pVerbose)
+                WriteLine("Variables detected! Running parser...");
+
+            MatchCollection Results =
+                new Regex(@"(\$\w+)|(%\w+%)", RegexOptions.ECMAScript).Matches(Value);
+
+            IDictionary machineEnvs = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+            IDictionary userEnvs = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+
+            foreach (DictionaryEntry i in
+                Environment.GetEnvironmentVariables(EnvironmentVariableTarget.Machine))
+            {
+                machineEnvs.Add(i.Key, i.Value);
+            }
+            foreach (DictionaryEntry i in
+                Environment.GetEnvironmentVariables(EnvironmentVariableTarget.User))
+            {
+                userEnvs.Add(i.Key, i.Value);
+            }
+
+            foreach (Match result in Results)
+            {
+                if (!string.IsNullOrWhiteSpace(result.Value))
+                {
+                    string t = result.Value.StartsWith("%") ?
+                        result.Value.Trim('%') :
+                        result.Value.TrimStart('$');
+
+                    if (pVerbose)
+                        WriteLine($"VAR: {result.Value} -> {t}");
+
+                    if (userEnvs.Contains(t))
+                    {
+                        if (pVerbose)
+                            WriteLine($"NEW VAR: {userEnvs [t]}");
+
+                        Value = Value.Replace(result.Value, userEnvs [t].ToString());
+                    }
+                    else if (machineEnvs.Contains(t))
+                    {
+                        if (pVerbose)
+                            WriteLine($"NEW VAR: {machineEnvs [t]}");
+
+                        Value = Value.Replace(result.Value, machineEnvs [t].ToString());
+                    }
+                    else
+                    {
+                        if (pVerbose)
+                            WriteLine($"ENV NOT FOUND: {result.Value}");
+                    }
+                }
+            }
         }
 
         /// <summary>
@@ -326,7 +400,7 @@ namespace WinYourDesktopLibrary
         /// <summary>
         /// Creates a dummy/example file in the current directory.
         /// </summary>
-        static public void CreateDummy()
+        static public void CreateExample()
         {
             using (TextWriter tw = new StreamWriter("Dummy.desktop", false))
             {
@@ -335,14 +409,32 @@ namespace WinYourDesktopLibrary
                 tw.WriteLine($"# Interpreter version: {ProjectVersion}");
                 tw.WriteLine("Type=Directory");
                 tw.WriteLine("Name=Open Windows Directory");
-                tw.WriteLine(@"Path=%WinDir%");
+                tw.WriteLine(@"Path=%WINDIR%");
+            }
+        }
+
+        static public void CreateNewBlank(string pPath = "New.desktop")
+        {
+            //TODO: if file exists (v0.6)
+            if (File.Exists(pPath))
+            {
+                while (File.Exists(pPath))
+                {
+
+                }
+            }
+
+            using (TextWriter tw = new StreamWriter(pPath, false))
+            {
+                tw.WriteLine("[Desktop Entry]");
+                tw.WriteLine($"# Interpreter version: {ProjectVersion}");
             }
         }
         #endregion Public Methods
     }
     #endregion
     
-    #region Enumerations
+    #region Public enumerations
     public enum ErrorCode : byte
     {
         Success = 0,

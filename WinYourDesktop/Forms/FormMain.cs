@@ -399,7 +399,7 @@ namespace WinYourDesktop
 
             if (r != ErrorCode.Success)
             {
-                txtDebuggerOutput.AppendText($"Return code: 0x{r:X4} ({r})\n");
+                txtDebuggerOutput.AppendText($"Return code: 0x{r.S():X4} ({r})\n");
                 txtDebuggerOutput.AppendText($"Message: {r.GetErrorMessage()}");
             }
             else

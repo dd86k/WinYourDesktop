@@ -236,19 +236,19 @@
             this.tsmiHelp.Enabled = false;
             this.tsmiHelp.Name = "tsmiHelp";
             this.tsmiHelp.ShortcutKeys = System.Windows.Forms.Keys.F1;
-            this.tsmiHelp.Size = new System.Drawing.Size(152, 22);
+            this.tsmiHelp.Size = new System.Drawing.Size(124, 22);
             this.tsmiHelp.Text = "Help";
             this.tsmiHelp.Click += new System.EventHandler(this.tsmiHelp_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(121, 6);
             // 
             // tsmiAbout
             // 
             this.tsmiAbout.Name = "tsmiAbout";
-            this.tsmiAbout.Size = new System.Drawing.Size(152, 22);
+            this.tsmiAbout.Size = new System.Drawing.Size(124, 22);
             this.tsmiAbout.Text = "About";
             this.tsmiAbout.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
@@ -416,7 +416,7 @@
             // 
             this.btnEditorRemove.Enabled = false;
             this.btnEditorRemove.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnEditorRemove.Location = new System.Drawing.Point(215, 291);
+            this.btnEditorRemove.Location = new System.Drawing.Point(217, 291);
             this.btnEditorRemove.Name = "btnEditorRemove";
             this.btnEditorRemove.Size = new System.Drawing.Size(100, 30);
             this.btnEditorRemove.TabIndex = 3;
@@ -430,7 +430,7 @@
             // 
             this.btnEditorModify.Enabled = false;
             this.btnEditorModify.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnEditorModify.Location = new System.Drawing.Point(109, 291);
+            this.btnEditorModify.Location = new System.Drawing.Point(111, 291);
             this.btnEditorModify.Name = "btnEditorModify";
             this.btnEditorModify.Size = new System.Drawing.Size(100, 30);
             this.btnEditorModify.TabIndex = 3;
@@ -444,7 +444,7 @@
             // 
             this.btnEditorAdd.Enabled = false;
             this.btnEditorAdd.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnEditorAdd.Location = new System.Drawing.Point(6, 291);
+            this.btnEditorAdd.Location = new System.Drawing.Point(5, 291);
             this.btnEditorAdd.Name = "btnEditorAdd";
             this.btnEditorAdd.Size = new System.Drawing.Size(100, 30);
             this.btnEditorAdd.TabIndex = 3;
@@ -554,7 +554,7 @@
             // toolStripSeparator5
             // 
             this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator5.Size = new System.Drawing.Size(100, 6);
             // 
             // toolStripSeparator4
             // 
@@ -639,7 +639,7 @@
             // tsmiDebuggerOpen
             // 
             this.tsmiDebuggerOpen.Name = "tsmiDebuggerOpen";
-            this.tsmiDebuggerOpen.Size = new System.Drawing.Size(152, 22);
+            this.tsmiDebuggerOpen.Size = new System.Drawing.Size(103, 22);
             this.tsmiDebuggerOpen.Text = "Open";
             this.tsmiDebuggerOpen.Click += new System.EventHandler(this.tsmiDebuggerOpen_Click);
             this.tsmiDebuggerOpen.MouseEnter += new System.EventHandler(this.tsmiDebuggerOpen_MouseEnter);
@@ -649,7 +649,7 @@
             // 
             this.tsmiDebuggerRun.Enabled = false;
             this.tsmiDebuggerRun.Name = "tsmiDebuggerRun";
-            this.tsmiDebuggerRun.Size = new System.Drawing.Size(152, 22);
+            this.tsmiDebuggerRun.Size = new System.Drawing.Size(103, 22);
             this.tsmiDebuggerRun.Text = "Run";
             this.tsmiDebuggerRun.Click += new System.EventHandler(this.tsmiDebuggerRun_Click);
             this.tsmiDebuggerRun.MouseEnter += new System.EventHandler(this.tsmiDebuggerRun_MouseEnter);
