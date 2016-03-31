@@ -387,7 +387,7 @@
             // btnEditorRefresh
             // 
             this.btnEditorRefresh.Enabled = false;
-            this.btnEditorRefresh.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnEditorRefresh.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnEditorRefresh.Location = new System.Drawing.Point(454, 47);
             this.btnEditorRefresh.Name = "btnEditorRefresh";
             this.btnEditorRefresh.Size = new System.Drawing.Size(40, 40);
