@@ -29,8 +29,7 @@ This solution consists of three projects (also, build order):
   - Console front-end
 
 I am using these packages:
-- Costura.Fody v2.0.0-beta001
-- Fody v1.3.0-beta01
+- Costura.Fody v1.3.3
 - SharpShell (Unused for now)
 
 # FAQ

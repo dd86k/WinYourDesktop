@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Drawing;
-using System.IO;
 using System.Windows.Forms;
 using WinYourDesktopLibrary;
 
 //TODO: Sizable form (v0.7)
 //TODO: Edit mode (v0.6)
+//TODO: Dark theme (v0.7)
 
-// Tip: In VS, you can fold everyscope with CTRL+M+O.
+// Tip: In VS, you can fold every scope with CTRL+M+O.
 
 namespace WinYourDesktop
 {
@@ -25,7 +25,7 @@ namespace WinYourDesktop
             InitializeComponent();
             PostInitialize();
 
-            OpenFile(pDesktopFilePath, true);
+            MakeCurrentFile(pDesktopFilePath, true);
         }
         #endregion
 
@@ -164,7 +164,7 @@ namespace WinYourDesktop
         // Create
         private void btnCreate_Click(object sender, EventArgs e)
         {
-
+            ToggleMode(ViewingMode.Editor);
         }
 
         private void btnCreate_MouseEnter(object sender, EventArgs e)
@@ -196,7 +196,7 @@ namespace WinYourDesktop
         // Edit
         private void btnEdit_Click(object sender, EventArgs e)
         {
-
+            ToggleMode(ViewingMode.Editor);
         }
 
         private void btnEdit_MouseEnter(object sender, EventArgs e)
@@ -219,12 +219,12 @@ namespace WinYourDesktop
 
         private void btnEditorRefresh_MouseEnter(object sender, EventArgs e)
         {
-
+            sslblStatus.Text = RM.GetString("btnEditorRefresh_MouseEnter");
         }
 
         private void btnEditorRefresh_MouseLeave(object sender, EventArgs e)
         {
-
+            sslblStatus.Text = string.Empty;
         }
 
         // Move up
@@ -240,7 +240,7 @@ namespace WinYourDesktop
 
         private void btnEditorMoveUp_MouseLeave(object sender, EventArgs e)
         {
-
+            sslblStatus.Text = string.Empty;
         }
 
         // Move down
@@ -256,7 +256,7 @@ namespace WinYourDesktop
 
         private void btnEditorMoveDown_MouseLeave(object sender, EventArgs e)
         {
-
+            sslblStatus.Text = string.Empty;
         }
 
         // Add
@@ -267,12 +267,12 @@ namespace WinYourDesktop
 
         private void btnEditorAdd_MouseEnter(object sender, EventArgs e)
         {
-
+            sslblStatus.Text = RM.GetString("btnEditorAdd_MouseEnter");
         }
 
         private void btnEditorAdd_MouseLeave(object sender, EventArgs e)
         {
-
+            sslblStatus.Text = string.Empty;
         }
 
         // Modify
@@ -282,12 +282,12 @@ namespace WinYourDesktop
         }
         private void btnEditorModify_MouseEnter(object sender, EventArgs e)
         {
-
+            sslblStatus.Text = RM.GetString("btnEditorModify_MouseEnter");
         }
 
         private void btnEditorModify_MouseLeave(object sender, EventArgs e)
         {
-
+            sslblStatus.Text = string.Empty;
         }
 
         // Remove
@@ -298,12 +298,12 @@ namespace WinYourDesktop
 
         private void btnEditorRemove_MouseEnter(object sender, EventArgs e)
         {
-
+            sslblStatus.Text = RM.GetString("btnEditorRemove_MouseEnter");
         }
 
         private void btnEditorRemove_MouseLeave(object sender, EventArgs e)
         {
-
+            sslblStatus.Text = string.Empty;
         }
 
         // == msEditor
@@ -312,17 +312,17 @@ namespace WinYourDesktop
         // Open
         private void tsmiEditorOpen_Click(object sender, EventArgs e)
         {
-
+            PromptToMakeCurrentFile();
         }
 
         private void tsmiEditorOpen_MouseEnter(object sender, EventArgs e)
         {
-
+            sslblStatus.Text = RM.GetString("tsmiEditorOpen_MouseEnter");
         }
 
         private void tsmiEditorOpen_MouseLeave(object sender, EventArgs e)
         {
-
+            sslblStatus.Text = string.Empty;
         }
         
         // Save
@@ -333,12 +333,12 @@ namespace WinYourDesktop
 
         private void tsmiEditorSave_MouseEnter(object sender, EventArgs e)
         {
-
+            sslblStatus.Text = RM.GetString("tsmiEditorSave_MouseEnter");
         }
 
         private void tsmiEditorSave_MouseLeave(object sender, EventArgs e)
         {
-
+            sslblStatus.Text = string.Empty;
         }
 
         // Save as...
@@ -349,12 +349,12 @@ namespace WinYourDesktop
 
         private void tsmiEditorSaveAs_MouseEnter(object sender, EventArgs e)
         {
-
+            sslblStatus.Text = RM.GetString("tsmiEditorSaveAs_MouseEnter");
         }
 
         private void tsmiEditorSaveAs_MouseLeave(object sender, EventArgs e)
         {
-
+            sslblStatus.Text = string.Empty;
         }
 
         // Debug
@@ -370,7 +370,7 @@ namespace WinYourDesktop
 
         private void tsmiEditorDebug_MouseLeave(object sender, EventArgs e)
         {
-
+            sslblStatus.Text = string.Empty;
         }
 
         // Run
@@ -381,12 +381,12 @@ namespace WinYourDesktop
 
         private void tsmiEditorRun_MouseEnter(object sender, EventArgs e)
         {
-
+            sslblStatus.Text = RM.GetString("tsmiEditorRun_MouseEnter");
         }
 
         private void tsmiEditorRun_MouseLeave(object sender, EventArgs e)
         {
-
+            sslblStatus.Text = string.Empty;
         }
         #endregion
 
@@ -408,12 +408,12 @@ namespace WinYourDesktop
 
         private void btnDebuggerRun_MouseEnter(object sender, EventArgs e)
         {
-
+            sslblStatus.Text = RM.GetString("btnDebuggerRun_MouseEnter");
         }
 
         private void btnDebuggerRun_MouseLeave(object sender, EventArgs e)
         {
-
+            sslblStatus.Text = string.Empty;
         }
 
         // == msDebugger
@@ -421,17 +421,49 @@ namespace WinYourDesktop
         // Open
         private void tsmiDebuggerOpen_Click(object sender, EventArgs e)
         {
-
+            PromptToMakeCurrentFile();
         }
 
         private void tsmiDebuggerOpen_MouseEnter(object sender, EventArgs e)
         {
-
+            sslblStatus.Text = RM.GetString("tsmiDebuggerOpen_MouseEnter");
         }
 
         private void tsmiDebuggerOpen_MouseLeave(object sender, EventArgs e)
         {
+            sslblStatus.Text = string.Empty;
+        }
 
+        // Edit
+        private void tsmiDebuggerEdit_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tsmiDebuggerEdit_MouseEnter(object sender, EventArgs e)
+        {
+            sslblStatus.Text = RM.GetString("tsmiDebuggerEdit_MouseEnter");
+        }
+
+        private void tsmiDebuggerEdit_MouseLeave(object sender, EventArgs e)
+        {
+            sslblStatus.Text = string.Empty;
+        }
+
+        // Run
+        private void tsmiDebuggerRun_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tsmiDebuggerRun_MouseEnter(object sender, EventArgs e)
+        {
+            sslblStatus.Text = RM.GetString("tsmiDebuggerRun_MouseEnter");
+        }
+
+        private void tsmiDebuggerRun_MouseLeave(object sender, EventArgs e)
+        {
+            sslblStatus.Text = string.Empty;
         }
 
         // Clear
@@ -442,12 +474,12 @@ namespace WinYourDesktop
 
         private void tsmiDebuggerClear_MouseEnter(object sender, EventArgs e)
         {
-
+            sslblStatus.Text = RM.GetString("tsmiDebuggerClear_MouseEnter");
         }
 
         private void tsmiDebuggerClear_MouseLeave(object sender, EventArgs e)
         {
-
+            sslblStatus.Text = string.Empty;
         }
 
         // Copy to clipboard
@@ -458,12 +490,12 @@ namespace WinYourDesktop
 
         private void tsmiDebuggerCopyToClipboard_MouseEnter(object sender, EventArgs e)
         {
-
+            sslblStatus.Text = RM.GetString("tsmiDebuggerCopyToClipboard_MouseEnter");
         }
 
         private void tsmiDebuggerCopyToClipboard_MouseLeave(object sender, EventArgs e)
         {
-
+            sslblStatus.Text = string.Empty;
         }
         
         // DragDrop
@@ -482,7 +514,7 @@ namespace WinYourDesktop
                 string[] list = (string[])(e.Data.GetData(DataFormats.FileDrop));
 
                 if (list[0].ToLower().Contains(".desktop"))
-                    OpenFile(list[0], false);
+                    MakeCurrentFile(list[0], false);
             }
         }
         #endregion
@@ -503,11 +535,11 @@ namespace WinYourDesktop
                     break;
 
                 default:
-                    ChangeCulture("en");
+                    ChangeCulture("en-US");
                     break;
             }
 
-            //TODO: Don't forget to save with the SettingsManager!
+            //TODO: Don't forget to save with the SettingsManager! (v0.8)
         }
         #endregion
     }

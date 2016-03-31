@@ -70,7 +70,7 @@ namespace WinYourDesktop.Culture {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Créer une entrée.
+        ///   Looks up a localized string similar to Créer un nouveau fichier.
         /// </summary>
         internal static string btnCreate_MouseEnter {
             get {
@@ -79,7 +79,7 @@ namespace WinYourDesktop.Culture {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Débugger.
+        ///   Looks up a localized string similar to Débuggeur.
         /// </summary>
         internal static string btnDebug {
             get {
@@ -88,7 +88,7 @@ namespace WinYourDesktop.Culture {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Débugger une entrée.
+        ///   Looks up a localized string similar to Débugger un fichier.
         /// </summary>
         internal static string btnDebug_MouseEnter {
             get {
@@ -97,7 +97,16 @@ namespace WinYourDesktop.Culture {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Modifier.
+        ///   Looks up a localized string similar to Éxecute le fichier.
+        /// </summary>
+        internal static string btnDebuggerRun_MouseEnter {
+            get {
+                return ResourceManager.GetString("btnDebuggerRun_MouseEnter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Éditeur.
         /// </summary>
         internal static string btnEdit {
             get {
@@ -106,7 +115,7 @@ namespace WinYourDesktop.Culture {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Modifier une entrée.
+        ///   Looks up a localized string similar to Éditeur de fichier desktop.
         /// </summary>
         internal static string btnEdit_MouseEnter {
             get {
@@ -115,20 +124,56 @@ namespace WinYourDesktop.Culture {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ouvrir.
+        ///   Looks up a localized string similar to Ajouter.
         /// </summary>
-        internal static string btnOpen {
+        internal static string btnEditorAdd {
             get {
-                return ResourceManager.GetString("btnOpen", resourceCulture);
+                return ResourceManager.GetString("btnEditorAdd", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ouvrir un fichier.
+        ///   Looks up a localized string similar to Ajouter une entrée.
         /// </summary>
-        internal static string btnOpen_MouseEnter {
+        internal static string btnEditorAdd_MouseEnter {
             get {
-                return ResourceManager.GetString("btnOpen_MouseEnter", resourceCulture);
+                return ResourceManager.GetString("btnEditorAdd_MouseEnter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Modifié.
+        /// </summary>
+        internal static string btnEditorModify {
+            get {
+                return ResourceManager.GetString("btnEditorModify", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Modifié l&apos;entrée.
+        /// </summary>
+        internal static string btnEditorModify_MouseEnter {
+            get {
+                return ResourceManager.GetString("btnEditorModify_MouseEnter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Supprimer.
+        /// </summary>
+        internal static string btnEditorRemove {
+            get {
+                return ResourceManager.GetString("btnEditorRemove", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Supprimer l&apos;entrée.
+        /// </summary>
+        internal static string btnEditorRemove_MouseEnter {
+            get {
+                return ResourceManager.GetString("btnEditorRemove_MouseEnter", resourceCulture);
             }
         }
         
@@ -142,47 +187,11 @@ namespace WinYourDesktop.Culture {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Éxecuter une entrée.
+        ///   Looks up a localized string similar to Éxecuter un fichier.
         /// </summary>
         internal static string btnRun_MouseEnter {
             get {
                 return ResourceManager.GetString("btnRun_MouseEnter", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Copier.
-        /// </summary>
-        internal static string btnRunCopy {
-            get {
-                return ResourceManager.GetString("btnRunCopy", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Copier la sortie au presse-papier.
-        /// </summary>
-        internal static string btnRunCopy_MouseEnter {
-            get {
-                return ResourceManager.GetString("btnRunCopy_MouseEnter", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Éxecuter.
-        /// </summary>
-        internal static string btnRunWithDebugger {
-            get {
-                return ResourceManager.GetString("btnRunWithDebugger", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Éxecuter l&apos;entrée.
-        /// </summary>
-        internal static string btnRunWithDebugger_MouseEnter {
-            get {
-                return ResourceManager.GetString("btnRunWithDebugger_MouseEnter", resourceCulture);
             }
         }
         
@@ -196,7 +205,7 @@ namespace WinYourDesktop.Culture {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Français (fr-FR).
+        ///   Looks up a localized string similar to Français (French).
         /// </summary>
         internal static string cboSettingsLanguage {
             get {
@@ -205,11 +214,65 @@ namespace WinYourDesktop.Culture {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Langage.
+        ///   Looks up a localized string similar to Détecter la langue automatiquement.
+        /// </summary>
+        internal static string chkSettingsAutoDetectLanguage {
+            get {
+                return ResourceManager.GetString("chkSettingsAutoDetectLanguage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Thème sombre.
+        /// </summary>
+        internal static string chkSettingsDarkTheme {
+            get {
+                return ResourceManager.GetString("chkSettingsDarkTheme", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Activer les styles visuels*.
+        /// </summary>
+        internal static string chkSettingsEnableVisualStyles {
+            get {
+                return ResourceManager.GetString("chkSettingsEnableVisualStyles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Langue.
         /// </summary>
         internal static string lblSettingsLanguage {
             get {
                 return ResourceManager.GetString("lblSettingsLanguage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to * Besoin de redémarrer l&apos;application.
+        /// </summary>
+        internal static string lblSettingsRequireRestart {
+            get {
+                return ResourceManager.GetString("lblSettingsRequireRestart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Aucun fichier d&apos;ouvert.
+        /// </summary>
+        internal static string MiscNoFile {
+            get {
+                return ResourceManager.GetString("MiscNoFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bonjour!.
+        /// </summary>
+        internal static string MiscWelcome {
+            get {
+                return ResourceManager.GetString("MiscWelcome", resourceCulture);
             }
         }
         
@@ -223,11 +286,56 @@ namespace WinYourDesktop.Culture {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Débuggeur.
+        /// </summary>
+        internal static string tsmDebugger {
+            get {
+                return ResourceManager.GetString("tsmDebugger", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fichier.
+        /// </summary>
+        internal static string tsmDebuggerFile {
+            get {
+                return ResourceManager.GetString("tsmDebuggerFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Éditeur.
+        /// </summary>
+        internal static string tsmEditor {
+            get {
+                return ResourceManager.GetString("tsmEditor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fichier.
+        /// </summary>
+        internal static string tsmEditorFile {
+            get {
+                return ResourceManager.GetString("tsmEditorFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to À propos.
         /// </summary>
         internal static string tsmiAbout {
             get {
                 return ResourceManager.GetString("tsmiAbout", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to À propos de WinYourDesktop!.
+        /// </summary>
+        internal static string tsmiAbout_MouseEnter {
+            get {
+                return ResourceManager.GetString("tsmiAbout_MouseEnter", resourceCulture);
             }
         }
         
@@ -259,6 +367,78 @@ namespace WinYourDesktop.Culture {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Effacer.
+        /// </summary>
+        internal static string tsmiDebuggerClear {
+            get {
+                return ResourceManager.GetString("tsmiDebuggerClear", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Effacer la sortie.
+        /// </summary>
+        internal static string tsmiDebuggerClear_MouseEnter {
+            get {
+                return ResourceManager.GetString("tsmiDebuggerClear_MouseEnter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Copier au presse-papier.
+        /// </summary>
+        internal static string tsmiDebuggerCopyToClipboard {
+            get {
+                return ResourceManager.GetString("tsmiDebuggerCopyToClipboard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Copier la sortie au presse-papier.
+        /// </summary>
+        internal static string tsmiDebuggerCopyToClipboard_MouseEnter {
+            get {
+                return ResourceManager.GetString("tsmiDebuggerCopyToClipboard_MouseEnter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ouvrir.
+        /// </summary>
+        internal static string tsmiDebuggerOpen {
+            get {
+                return ResourceManager.GetString("tsmiDebuggerOpen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ouvrir un fichier.
+        /// </summary>
+        internal static string tsmiDebuggerOpen_MouseEnter {
+            get {
+                return ResourceManager.GetString("tsmiDebuggerOpen_MouseEnter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Éxecuter.
+        /// </summary>
+        internal static string tsmiDebuggerRun {
+            get {
+                return ResourceManager.GetString("tsmiDebuggerRun", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Éxecute le fichier.
+        /// </summary>
+        internal static string tsmiDebuggerRun_MouseEnter {
+            get {
+                return ResourceManager.GetString("tsmiDebuggerRun_MouseEnter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Éditeur.
         /// </summary>
         internal static string tsmiEditor {
@@ -268,7 +448,106 @@ namespace WinYourDesktop.Culture {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Aide (Anglais).
+        ///   Looks up a localized string similar to Débuggeur.
+        /// </summary>
+        internal static string tsmiEditorDebug {
+            get {
+                return ResourceManager.GetString("tsmiEditorDebug", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nouveau.
+        /// </summary>
+        internal static string tsmiEditorNew {
+            get {
+                return ResourceManager.GetString("tsmiEditorNew", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nouveau fichier.
+        /// </summary>
+        internal static string tsmiEditorNew_MouseEnter {
+            get {
+                return ResourceManager.GetString("tsmiEditorNew_MouseEnter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ouvrir.
+        /// </summary>
+        internal static string tsmiEditorOpen {
+            get {
+                return ResourceManager.GetString("tsmiEditorOpen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ouvrir le fichier.
+        /// </summary>
+        internal static string tsmiEditorOpen_MouseEnter {
+            get {
+                return ResourceManager.GetString("tsmiEditorOpen_MouseEnter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Éxecuter.
+        /// </summary>
+        internal static string tsmiEditorRun {
+            get {
+                return ResourceManager.GetString("tsmiEditorRun", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Éxecuter le fichier desktop.
+        /// </summary>
+        internal static string tsmiEditorRun_MouseEnter {
+            get {
+                return ResourceManager.GetString("tsmiEditorRun_MouseEnter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sauvegarder.
+        /// </summary>
+        internal static string tsmiEditorSave {
+            get {
+                return ResourceManager.GetString("tsmiEditorSave", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sauvegarder le fichier courant.
+        /// </summary>
+        internal static string tsmiEditorSave_MouseEnter {
+            get {
+                return ResourceManager.GetString("tsmiEditorSave_MouseEnter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sauvegarder sous....
+        /// </summary>
+        internal static string tsmiEditorSaveAs {
+            get {
+                return ResourceManager.GetString("tsmiEditorSaveAs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sauvegarder le fichier courant en tant qu&apos;un autre.
+        /// </summary>
+        internal static string tsmiEditorSaveAs_MouseEnter {
+            get {
+                return ResourceManager.GetString("tsmiEditorSaveAs_MouseEnter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Aide.
         /// </summary>
         internal static string tsmiHelp {
             get {
@@ -327,15 +606,6 @@ namespace WinYourDesktop.Culture {
         internal static string tsmView {
             get {
                 return ResourceManager.GetString("tsmView", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Salut!.
-        /// </summary>
-        internal static string Welcome {
-            get {
-                return ResourceManager.GetString("Welcome", resourceCulture);
             }
         }
     }

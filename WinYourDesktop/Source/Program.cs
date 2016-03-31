@@ -4,6 +4,11 @@ using WinYourDesktopLibrary;
 using static WinYourDesktopLibrary.Interpreter;
 using static System.Reflection.Assembly;
 
+/*
+    Program
+    Main entry point
+*/
+
 namespace WinYourDesktop
 {
     static class Program

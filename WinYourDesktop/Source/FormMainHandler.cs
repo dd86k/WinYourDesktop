@@ -15,7 +15,6 @@ namespace WinYourDesktop
         FileInfo CurrentFile;
         NotificationHandler NotificationHandler;
         ResourceManager RM;
-        readonly string nl = Environment.NewLine;
         #endregion
         
         /// <summary>
@@ -79,11 +78,6 @@ namespace WinYourDesktop
 
             switch (pLanguage)
             {
-                case "en-Pirate":
-                    RM = new ResourceManager("WinYourDesktop.Culture.en-Pirate",
-                             typeof(FormMain).Assembly);
-                    break;
-
                 case "fr-FR":
                 case "fr-CA":
                     RM = new ResourceManager("WinYourDesktop.Culture.fr-FR",
@@ -97,17 +91,12 @@ namespace WinYourDesktop
                     break;
             }
 
-            // ==== panelMain
-            btnRun.Text = RM.GetString("btnRun");
-            btnCreate.Text = RM.GetString("btnCreate");
-            btnEdit.Text = RM.GetString("btnEdit");
-            btnDebug.Text = RM.GetString("btnDebug");
             // === msMain
             // == App
             tsmApplication.Text = RM.GetString("tsmApplication");
             tsmiRestart.Text = RM.GetString("tsmiRestart");
             tsmiQuit.Text = RM.GetString("tsmiQuit");
-            // == View
+            // == Mode
             tsmView.Text = RM.GetString("tsmView");
             tsmiHome.Text = RM.GetString("tsmiHome");
             tsmiEditor.Text = RM.GetString("tsmiEditor");
@@ -119,18 +108,49 @@ namespace WinYourDesktop
             // == ?
             tsmiHelp.Text = RM.GetString("tsmiHelp");
             tsmiAbout.Text = RM.GetString("tsmiAbout");
+            
+            // ==== panelMain
+            btnRun.Text = RM.GetString("btnRun");
+            btnCreate.Text = RM.GetString("btnCreate");
+            btnEdit.Text = RM.GetString("btnEdit");
+            btnDebug.Text = RM.GetString("btnDebug");
+
+            // ==== panelEditor
+            // === msEditor
+            tsmEditorFile.Text = RM.GetString("tsmEditorFile");
+            tsmiEditorNew.Text = RM.GetString("tsmiEditorNew");
+            tsmiEditorOpen.Text = RM.GetString("tsmiEditorOpen");
+            tsmiEditorSave.Text = RM.GetString("tsmiEditorSave");
+            tsmiEditorSaveAs.Text = RM.GetString("tsmiEditorSaveAs");
+            tsmiEditorRun.Text = RM.GetString("tsmiEditorRun");
+            tsmEditor.Text = RM.GetString("tsmEditor");
+            // === Buttons
+            btnEditorAdd.Text = RM.GetString("btnEditorAdd");
+            btnEditorModify.Text = RM.GetString("btnEditorModify");
+            btnEditorRemove.Text = RM.GetString("btnEditorRemove");
 
             // ==== panelDebugger
+            // === msDebugger
+            tsmDebuggerFile.Text = RM.GetString("tsmDebuggerFile");
+            tsmiDebuggerOpen.Text = RM.GetString("tsmiDebuggerOpen");
+            tsmiDebuggerRun.Text = RM.GetString("tsmiDebuggerRun");
+            tsmDebugger.Text = RM.GetString("tsmDebugger");
+            tsmiDebuggerClear.Text = RM.GetString("tsmiDebuggerClear");
+            tsmiDebuggerCopyToClipboard.Text = RM.GetString("tsmiDebuggerCopyToClipboard");
 
             // ==== panelSettings
             lblSettingsLanguage.Text = RM.GetString("lblSettingsLanguage");
             cboSettingsLanguage.Text = RM.GetString("cboSettingsLanguage");
             btnSettingsSave.Text = RM.GetString("btnSettingsSave");
+            chkSettingsDarkTheme.Text = RM.GetString("chkSettingsDarkTheme");
+            chkSettingsEnableVisualStyles.Text = RM.GetString("chkSettingsEnableVisualStyles");
+            chkSettingsAutoDetectLanguage.Text = RM.GetString("chkSettingsAutoDetectLanguage");
+            lblSettingsRequireRestart.Text = RM.GetString("lblSettingsRequireRestart");
 
             // ==== ssMain
-            sslblStatus.Text = RM.GetString("Welcome");
+            sslblStatus.Text = RM.GetString("MiscWelcome");
         }
-#endregion
+        #endregion
 
         #region Viewing modes
         /// <summary>
@@ -232,39 +252,63 @@ namespace WinYourDesktop
         }
         #endregion
 
-        #region Open and save current file
-        void PromptOpenFile()
+        #region Open/Save current file
+        void NewFile()
+        {
+            //TODO: NewFile (v0.6)
+        }
+
+        void PromptToMakeCurrentFile()
         {
             DialogResult r = ofdMain.ShowDialog();
 
             if (r == DialogResult.OK)
             {
-                OpenFile(ofdMain.FileName);
+                MakeCurrentFile(ofdMain.FileName);
             }
         }
 
-        void OpenFile(bool pEditor = true)
+        void MakeCurrentFile(bool pEditor = true)
         {
-            OpenFile(CurrentFile, pEditor);
+            MakeCurrentFile(CurrentFile, pEditor);
         }
 
-        void OpenFile(string pPath, bool pEditor = false)
+        void MakeCurrentFile(string pPath, bool pEditor = false)
         {
-            OpenFile(new FileInfo(pPath), pEditor);
+            MakeCurrentFile(new FileInfo(pPath), pEditor);
         }
 
-        void OpenFile(FileInfo pFileInfo, bool pEditor = false)
+        void MakeCurrentFile(FileInfo pFileInfo, bool pEditor = false)
         {
             if (pFileInfo.Exists)
             {
-                string file = pFileInfo.Name;
+                CurrentFile = pFileInfo;
 
                 lblDebuggerFile.Text =
-                    lblEditorFile.Text = file;
-
+                    lblEditorFile.Text = CurrentFile.Name;
+                
+                // Debugger
+                btnDebuggerRun.Enabled = 
+                    tsmiDebuggerRun.Enabled =
+                    // Editor - buttons
+                    btnEditorRefresh.Enabled =
+                    btnEditorMoveUp.Enabled =
+                    btnEditorMoveDown.Enabled =
+                    btnEditorAdd.Enabled =
+                    btnEditorModify.Enabled =
+                    btnEditorRemove.Enabled =
+                    // Editor - menustrip
+                    tsmiEditorSave.Enabled =
+                    tsmiEditorSaveAs.Enabled =
+                    tsmiEditorRun.Enabled =
+                    true;
+                
                 if (pEditor)
                     ToggleMode(ViewingMode.Editor);
             }
+            else
+                lblDebuggerFile.Text =
+                    lblEditorFile.Text = "Not found.";
         }
         #endregion
     }
