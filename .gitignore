@@ -5,6 +5,7 @@
 *\obj
 
 packages\*
+packages
 
 # Temporary Visual Studio (hidden) directory
 .vs
@@ -58,3 +59,4 @@ Network Trash Folder
 Temporary Items
 .apdisk
 *.pfx
+*.nupkg
