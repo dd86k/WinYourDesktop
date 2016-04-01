@@ -5,7 +5,7 @@ using WinYourDesktopLibrary;
 
 //TODO: Sizable form (v0.7)
 //TODO: Edit mode (v0.6)
-//TODO: Dark theme (v0.7)
+//TODO: Dark theme (v0.8)
 
 // Tip: In VS, you can fold every scope with CTRL+M+O.
 
@@ -402,8 +402,6 @@ namespace WinYourDesktop
                 txtDebuggerOutput.AppendText($"Return code: 0x{r.S():X4} ({r})\n");
                 txtDebuggerOutput.AppendText($"Message: {r.GetErrorMessage()}");
             }
-            else
-                txtDebuggerOutput.AppendText("OK!");
         }
 
         private void btnDebuggerRun_MouseEnter(object sender, EventArgs e)
@@ -539,7 +537,7 @@ namespace WinYourDesktop
                     break;
             }
 
-            //TODO: Don't forget to save with the SettingsManager! (v0.8)
+            //TODO: Don't forget to save with the SettingsManager! (v0.7)
         }
         #endregion
     }

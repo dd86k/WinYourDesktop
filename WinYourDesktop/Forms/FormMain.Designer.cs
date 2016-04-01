@@ -95,6 +95,10 @@
             this.cboSettingsLanguage = new System.Windows.Forms.ComboBox();
             this.ofdMain = new System.Windows.Forms.OpenFileDialog();
             this.ImageListNotification = new System.Windows.Forms.ImageList(this.components);
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.grpEditorEntries = new System.Windows.Forms.GroupBox();
+            this.grpEditorProperties = new System.Windows.Forms.GroupBox();
+            this.lstEditorEntries = new System.Windows.Forms.ListBox();
             this.msMain.SuspendLayout();
             this.ssMain.SuspendLayout();
             this.panelMain.SuspendLayout();
@@ -103,6 +107,11 @@
             this.panelDebugger.SuspendLayout();
             this.msDebugger.SuspendLayout();
             this.panelSettings.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
+            this.splitContainer1.Panel1.SuspendLayout();
+            this.splitContainer1.Panel2.SuspendLayout();
+            this.splitContainer1.SuspendLayout();
+            this.grpEditorEntries.SuspendLayout();
             this.SuspendLayout();
             // 
             // msMain
@@ -361,6 +370,7 @@
             // 
             // panelEditor
             // 
+            this.panelEditor.Controls.Add(this.splitContainer1);
             this.panelEditor.Controls.Add(this.lblEditorFile);
             this.panelEditor.Controls.Add(this.btnEditorRefresh);
             this.panelEditor.Controls.Add(this.btnEditorMoveUp);
@@ -790,6 +800,53 @@
             this.ImageListNotification.Images.SetKeyName(1, "NotificationHigh.png");
             this.ImageListNotification.Images.SetKeyName(2, "NotificationCrucial.png");
             // 
+            // splitContainer1
+            // 
+            this.splitContainer1.Location = new System.Drawing.Point(3, 47);
+            this.splitContainer1.Name = "splitContainer1";
+            // 
+            // splitContainer1.Panel1
+            // 
+            this.splitContainer1.Panel1.Controls.Add(this.grpEditorEntries);
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.Controls.Add(this.grpEditorProperties);
+            this.splitContainer1.Size = new System.Drawing.Size(445, 238);
+            this.splitContainer1.SplitterDistance = 228;
+            this.splitContainer1.TabIndex = 7;
+            // 
+            // grpEditorEntries
+            // 
+            this.grpEditorEntries.Controls.Add(this.lstEditorEntries);
+            this.grpEditorEntries.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grpEditorEntries.Location = new System.Drawing.Point(0, 0);
+            this.grpEditorEntries.Name = "grpEditorEntries";
+            this.grpEditorEntries.Size = new System.Drawing.Size(228, 238);
+            this.grpEditorEntries.TabIndex = 0;
+            this.grpEditorEntries.TabStop = false;
+            this.grpEditorEntries.Text = "Entries";
+            // 
+            // grpEditorProperties
+            // 
+            this.grpEditorProperties.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grpEditorProperties.Location = new System.Drawing.Point(0, 0);
+            this.grpEditorProperties.Name = "grpEditorProperties";
+            this.grpEditorProperties.Size = new System.Drawing.Size(213, 238);
+            this.grpEditorProperties.TabIndex = 0;
+            this.grpEditorProperties.TabStop = false;
+            this.grpEditorProperties.Text = "Properties";
+            // 
+            // lstEditorEntries
+            // 
+            this.lstEditorEntries.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lstEditorEntries.FormattingEnabled = true;
+            this.lstEditorEntries.ItemHeight = 17;
+            this.lstEditorEntries.Location = new System.Drawing.Point(3, 21);
+            this.lstEditorEntries.Name = "lstEditorEntries";
+            this.lstEditorEntries.Size = new System.Drawing.Size(222, 214);
+            this.lstEditorEntries.TabIndex = 0;
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
@@ -823,6 +880,11 @@
             this.msDebugger.PerformLayout();
             this.panelSettings.ResumeLayout(false);
             this.panelSettings.PerformLayout();
+            this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
+            this.splitContainer1.ResumeLayout(false);
+            this.grpEditorEntries.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -896,5 +958,9 @@
         private System.Windows.Forms.ToolStripMenuItem tsmiEditorNew;
         private System.Windows.Forms.CheckBox chkSettingsAutoDetectLanguage;
         private System.Windows.Forms.Label lblSettingsRequireRestart;
+        private System.Windows.Forms.SplitContainer splitContainer1;
+        private System.Windows.Forms.GroupBox grpEditorEntries;
+        private System.Windows.Forms.ListBox lstEditorEntries;
+        private System.Windows.Forms.GroupBox grpEditorProperties;
     }
 }

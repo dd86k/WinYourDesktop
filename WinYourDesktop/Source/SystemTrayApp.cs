@@ -2,7 +2,7 @@
 using System.Drawing;
 using System.Windows.Forms;
 
-//TODO: SystemTrayApp
+//TODO: SystemTrayApp (v0.9)
 
 namespace WinYourDesktop
 {

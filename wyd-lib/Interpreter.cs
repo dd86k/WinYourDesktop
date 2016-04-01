@@ -78,10 +78,11 @@ namespace WinYourDesktopLibrary
 
         #region Public methods
         /// <summary>
-        /// Interpret a Desktop file.
+        /// Runs a desktop file.
         /// </summary>
-        /// <param name="pPath">Path of the Desktop file.</param>
-        /// <returns>ErrorCode.</returns>
+        /// <param name="pPath">Path to the desktop file.</param>
+        /// <param name="pVerbose"></param>
+        /// <returns></returns>
         public static ErrorCode Run(string pPath, bool pVerbose = false)
         {
             if (string.IsNullOrEmpty(pPath))
@@ -206,16 +207,14 @@ namespace WinYourDesktopLibrary
                 return ErrorCode.FileMissingTypeValue;
             }
 
-            if (pVerbose)
-            {
-                WriteLine($"Starting {value}...");
-            }
-
             if (value.Contains("%") || value.Contains("$"))
                 ReplaceVars(ref value, pVerbose);
 
             if (value.Contains("~"))
                 ReplaceHome(ref value, pVerbose);
+
+            if (pVerbose)
+                WriteLine($"Starting {value}...");
 
             switch (type)
             {
@@ -296,7 +295,10 @@ namespace WinYourDesktopLibrary
                         {
                             try
                             {
-                                Process.Start(Utils.ExplorerPath,
+                                string explorer =
+                                    $"{Environment.GetFolderPath(Environment.SpecialFolder.Windows)}\\explorer";
+
+                                Process.Start(explorer,
                                     value.Replace("/", @"\"));
                             }
                             catch (Exception ex)
@@ -311,6 +313,7 @@ namespace WinYourDesktopLibrary
                         {
                             if (pVerbose)
                                 WriteLine($"Error: Directory \"{value}\" could not be found.");
+
                             return ErrorCode.DirectoryNotFound;
                         }
                     }
@@ -352,35 +355,29 @@ namespace WinYourDesktopLibrary
             
             foreach (Match result in Results)
             {
-                if (!string.IsNullOrWhiteSpace(result.Value))
+                string t = result.Value.StartsWith("%") ?
+                    result.Value.Trim('%') :
+                    result.Value.TrimStart('$');
+
+                if (pVerbose)
+                    WriteLine($"VAR: {result.Value} -> {t}");
+
+                if (userEnvs.Contains(t))
                 {
-                    string t = result.Value.StartsWith("%") ?
-                        result.Value.Trim('%') :
-                        result.Value.TrimStart('$');
-
                     if (pVerbose)
-                        WriteLine($"VAR: {result.Value} -> {t}");
+                        WriteLine($"NEW VAR: {userEnvs [t]}");
 
-                    if (userEnvs.Contains(t))
-                    {
-                        if (pVerbose)
-                            WriteLine($"NEW VAR: {userEnvs [t]}");
-
-                        value = value.Replace(result.Value, userEnvs [t].ToString());
-                    }
-                    else if (machineEnvs.Contains(t))
-                    {
-                        if (pVerbose)
-                            WriteLine($"NEW VAR: {machineEnvs [t]}");
-
-                        value = value.Replace(result.Value, machineEnvs [t].ToString());
-                    }
-                    else
-                    {
-                        if (pVerbose)
-                            WriteLine($"ENV NOT FOUND: {result.Value}");
-                    }
+                    value = value.Replace(result.Value, userEnvs [t].ToString());
                 }
+                else if (machineEnvs.Contains(t))
+                {
+                    if (pVerbose)
+                        WriteLine($"NEW VAR: {machineEnvs [t]}");
+
+                    value = value.Replace(result.Value, machineEnvs [t].ToString());
+                }
+                else if (pVerbose)
+                    WriteLine($"ENV NOT FOUND: {result.Value}");
             }
         }
 

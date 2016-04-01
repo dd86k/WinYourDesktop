@@ -23,7 +23,7 @@ using System.ComponentModel;
 
 // SharpShell Project Home
 // http://www.codeproject.com/Articles/522665/NET-Shell-Extensions-Shell-Icon-Handlers
-//TODO: SharpShell Server (ugh)
+//TODO: SharpShell Server (?) (v0.9)
 
 // Icon handling in Windows:
 // Also why this will be pretty hard to implement.
@@ -46,7 +46,7 @@ namespace WinYourDesktop
         /// <param name="pPathIcon">Icon path.</param>
         internal static void ChangeIcon(string pPathDesktopFile, string pPathIcon)
         {
-            //TODO: IconHandler
+            //TODO: IconHandler (v0.9)
             if (!File.Exists(pPathIcon))
                 throw new FileNotFoundException("File not found.", pPathDesktopFile);
 
