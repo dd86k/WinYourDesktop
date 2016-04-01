@@ -108,8 +108,9 @@ namespace WinYourDesktopLibrary
             string CurrentLine;
             ushort CurrentLineIndex = 0;
             string[] LineValues;
-            string Value = string.Empty;
-            bool TerminalMode = false;
+            // User set
+            string value = string.Empty;
+            bool terminal = false;
 
             char[] DELIM = new char[] { DELIMITER };
 
@@ -164,30 +165,30 @@ namespace WinYourDesktopLibrary
                                 
                             case "Exec":
                             case "TryExec":
-                                Value = LineValues[1];
+                                value = LineValues[1];
 
                                 if (pVerbose)
-                                    WriteLine($"EXEC SET {Value}");
+                                    WriteLine($"EXEC SET {value}");
                                 break;
 
                             case "Url":
                             case "URL":
-                                Value = LineValues[1];
+                                value = LineValues[1];
 
                                 if (pVerbose)
-                                    WriteLine($"URL SET {Value}");
+                                    WriteLine($"URL SET {value}");
                                 break;
                                 
                             case "Path":
-                                Value = LineValues[1];
+                                value = LineValues[1];
 
                                 if (pVerbose)
-                                    WriteLine($"PATH SET {Value}");
+                                    WriteLine($"PATH SET {value}");
                                 break;
                                 
                             case "Terminal":
                                 if (LineValues[1].ToUpper() == "TRUE")
-                                    TerminalMode = true;
+                                    terminal = true;
 
                                 if (pVerbose)
                                     WriteLine($"TERMINAL SET TRUE");
@@ -207,27 +208,28 @@ namespace WinYourDesktopLibrary
 
             if (pVerbose)
             {
-                WriteLine($"Starting {Value}...");
+                WriteLine($"Starting {value}...");
             }
 
-            bool hasVars = Value.Contains("%") || Value.Contains("$");
+            if (value.Contains("%") || value.Contains("$"))
+                ReplaceVars(ref value, pVerbose);
+
+            if (value.Contains("~"))
+                ReplaceHome(ref value, pVerbose);
 
             switch (type)
             {
                 #region Application
                 // Launch an application.
                 case DesktopFileType.Application:
-                    if (!string.IsNullOrWhiteSpace(Value))
+                    if (!string.IsNullOrWhiteSpace(value))
                     {
                         try
                         {
-                            if (hasVars)
-                                ReplaceVars(ref Value, pVerbose);
-
-                            if (TerminalMode)
+                            if (terminal)
                             {
                                 //TODO: Seperate command from arguments
-                                ProcessStartInfo ps = new ProcessStartInfo(Value);
+                                ProcessStartInfo ps = new ProcessStartInfo(value);
 
                                 ps.UseShellExecute = true;
 
@@ -235,7 +237,7 @@ namespace WinYourDesktopLibrary
                             }
                             else
                             {
-                                Process.Start(Value);
+                                Process.Start(value);
                             }
                         }
                         catch (InvalidOperationException)
@@ -264,14 +266,11 @@ namespace WinYourDesktopLibrary
                 #region Link
                 // Launch the user's default application that handles URLs.
                 case DesktopFileType.Link:
-                    if (!string.IsNullOrWhiteSpace(Value))
+                    if (!string.IsNullOrWhiteSpace(value))
                     {
-                        if (hasVars)
-                            ReplaceVars(ref Value, pVerbose);
-
                         try
                         {
-                            Process.Start(Value);
+                            Process.Start(value);
                         }
                         catch (Exception ex)
                         {
@@ -291,19 +290,14 @@ namespace WinYourDesktopLibrary
                 #region Directory
                 // Open File Explorer with a specific path/directory with File Explorer.
                 case DesktopFileType.Directory:
-                    if (!string.IsNullOrWhiteSpace(Value))
+                    if (!string.IsNullOrWhiteSpace(value))
                     {
-                        if (Directory.Exists(Value) || hasVars)
+                        if (Directory.Exists(value))
                         {
                             try
                             {
-                                if (hasVars)
-                                {
-                                    ReplaceVars(ref Value, pVerbose);
-                                }
-
                                 Process.Start(Utils.ExplorerPath,
-                                    Value.Replace("/", @"\"));
+                                    value.Replace("/", @"\"));
                             }
                             catch (Exception ex)
                             {
@@ -316,7 +310,7 @@ namespace WinYourDesktopLibrary
                         else
                         {
                             if (pVerbose)
-                                WriteLine($"Error: Directory \"{Value}\" could not be found.");
+                                WriteLine($"Error: Directory \"{value}\" could not be found.");
                             return ErrorCode.DirectoryNotFound;
                         }
                     }
@@ -334,13 +328,13 @@ namespace WinYourDesktopLibrary
             return 0;
         }
 
-        static void ReplaceVars(ref string Value, bool pVerbose)
+        static void ReplaceVars(ref string value, bool pVerbose)
         {
             if (pVerbose)
                 WriteLine("Variables detected! Running parser...");
 
             MatchCollection Results =
-                new Regex(@"(\$\w+)|(%\w+%)", RegexOptions.ECMAScript).Matches(Value);
+                new Regex(@"(\$\w+)|(%\w+%)", RegexOptions.ECMAScript).Matches(value);
 
             IDictionary machineEnvs = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
             IDictionary userEnvs = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
@@ -355,7 +349,7 @@ namespace WinYourDesktopLibrary
             {
                 userEnvs.Add(i.Key, i.Value);
             }
-
+            
             foreach (Match result in Results)
             {
                 if (!string.IsNullOrWhiteSpace(result.Value))
@@ -372,14 +366,14 @@ namespace WinYourDesktopLibrary
                         if (pVerbose)
                             WriteLine($"NEW VAR: {userEnvs [t]}");
 
-                        Value = Value.Replace(result.Value, userEnvs [t].ToString());
+                        value = value.Replace(result.Value, userEnvs [t].ToString());
                     }
                     else if (machineEnvs.Contains(t))
                     {
                         if (pVerbose)
                             WriteLine($"NEW VAR: {machineEnvs [t]}");
 
-                        Value = Value.Replace(result.Value, machineEnvs [t].ToString());
+                        value = value.Replace(result.Value, machineEnvs [t].ToString());
                     }
                     else
                     {
@@ -388,6 +382,16 @@ namespace WinYourDesktopLibrary
                     }
                 }
             }
+        }
+
+        static void ReplaceHome(ref string value, bool pVerbose)
+        {
+            string home = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+
+            if (pVerbose)
+                WriteLine($"HOME: ~ -> {home}");
+
+            value = value.Replace("~", home);
         }
 
         /// <summary>
@@ -418,9 +422,13 @@ namespace WinYourDesktopLibrary
             //TODO: if file exists (v0.6)
             if (File.Exists(pPath))
             {
+                string name = Path.GetFileNameWithoutExtension(pPath);
+                //string path = Path.
+                int i = 1;
+
                 while (File.Exists(pPath))
                 {
-
+                    name = $"{name}-{i++}.desktop";
                 }
             }
 
