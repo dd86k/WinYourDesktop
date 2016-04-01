@@ -413,28 +413,6 @@ namespace WinYourDesktopLibrary
                 tw.WriteLine(@"Path=%WINDIR%");
             }
         }
-
-        static public void CreateNewBlank(string pPath = "New.desktop")
-        {
-            //TODO: if file exists (v0.6)
-            if (File.Exists(pPath))
-            {
-                string name = Path.GetFileNameWithoutExtension(pPath);
-                //string path = Path.
-                int i = 1;
-
-                while (File.Exists(pPath))
-                {
-                    name = $"{name}-{i++}.desktop";
-                }
-            }
-
-            using (TextWriter tw = new StreamWriter(pPath, false))
-            {
-                tw.WriteLine("[Desktop Entry]");
-                tw.WriteLine($"# Interpreter version: {ProjectVersion}");
-            }
-        }
         #endregion Public Methods
     }
     #endregion

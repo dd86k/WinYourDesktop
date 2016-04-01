@@ -258,6 +258,17 @@ namespace WinYourDesktop
         void NewFile()
         {
             //TODO: NewFile (v0.6)
+
+            string filename = "New";
+            int i = 1;
+            filename = $"{filename}-{i++}.desktop";
+            
+            while (File.Exists($"{filename}"))
+            {
+                filename = $"{filename}-{i++}.desktop";
+            }
+
+            MakeCurrentFile(filename);
         }
 
         void PromptToMakeCurrentFile()
@@ -304,6 +315,8 @@ namespace WinYourDesktop
                     tsmiEditorSaveAs.Enabled =
                     tsmiEditorRun.Enabled =
                     true;
+
+                RefreshEditorInfo(CurrentFile);
                 
                 if (pEditor)
                     ToggleMode(ViewingMode.Editor);
@@ -311,6 +324,19 @@ namespace WinYourDesktop
             else
                 lblDebuggerFile.Text =
                     lblEditorFile.Text = "Not found.";
+        }
+
+        void RefreshEditorInfo(FileInfo pFile)
+        {
+            using (StreamReader sr = CurrentFile.OpenText())
+            {
+                while (!sr.EndOfStream)
+                {
+                    string l = sr.ReadLine();
+
+                    lstEditorEntries.Items.Add(l);
+                }
+            }
         }
         #endregion
     }
