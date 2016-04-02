@@ -9,13 +9,14 @@ It is not a parser. However, I could do a parser (dedicated library) if there is
 
 # Features
 
-- Interprets Windows (`%windir%`) and Linux (`$windir`) variables, including ~
+- Can start Terminal (cmd) sessions
+- Translates Windows (`%windir%`) and Linux (`$windir`) variables, including ~ (User path)
 - Simple debugger
 - Available in French and English
 
 # Installing (executable)
 
-1. Place the executable file where you will remember.
+1. Place the executable file at a permanent spot where you will remember.
 2. Then make WinYourDesktop the default application to open Desktop Entry files.
 
 No installers are available for the moment.

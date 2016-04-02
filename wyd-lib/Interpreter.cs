@@ -198,14 +198,28 @@ namespace WinYourDesktopLibrary
                     }
 
                     CurrentLineIndex++;
-                }
-            }
+                } // End while
+            } // End using
             
             // Unknown is default, if unchanged, it's missing.
             if (type == DesktopFileType.Unknown)
             {
-                return ErrorCode.FileMissingTypeValue;
+                return ErrorCode.FileMissingType;
             }
+
+            if (pVerbose)
+                WriteLine($"Starting {value}...");
+            
+            if (string.IsNullOrWhiteSpace(value))
+                switch (type)
+                {
+                    case DesktopFileType.Application:
+                        return ErrorCode.FileMissingExecValue;
+                    case DesktopFileType.Link:
+                        return ErrorCode.FileMissingUrlValue;
+                    case DesktopFileType.Directory:
+                        return ErrorCode.FileMissingPathValue;
+                }
 
             if (value.Contains("%") || value.Contains("$"))
                 ReplaceVars(ref value, pVerbose);
@@ -213,13 +227,7 @@ namespace WinYourDesktopLibrary
             if (value.Contains("~"))
                 ReplaceHome(ref value, pVerbose);
 
-            if (pVerbose)
-                WriteLine($"Starting {value}...");
-
-            if (string.IsNullOrWhiteSpace(value))
-                return ErrorCode.FileMissingValue;
-
-                switch (type)
+            switch (type)
             {
                 #region Application
                 // Launch an application.
@@ -416,11 +424,10 @@ namespace WinYourDesktopLibrary
         /// </remarks>
         FileNoSignature = 0x18,
         FileMissingDelimiter = 0x19,
-        FileMissingTypeValue = 0x20,
+        FileMissingType = 0x20,
         FileMissingExecValue = 0x21,
         FileMissingUrlValue = 0x22,
         FileMissingPathValue = 0x23,
-        FileMissingValue = 0x24,
 
         /// <summary>
         /// Generic Exec error.
@@ -465,8 +472,8 @@ namespace WinYourDesktopLibrary
                     return "Missing [Desktop Entry] at the first line.";
                 case ErrorCode.FileMissingDelimiter:
                     return "Missing \"=\" delimiter.";
-                case ErrorCode.FileMissingTypeValue:
-                    return "Missing Type value.";
+                case ErrorCode.FileMissingType:
+                    return "Missing Type.";
                 case ErrorCode.FileMissingExecValue:
                     return "Missing Exec value.";
                 case ErrorCode.FileMissingUrlValue:

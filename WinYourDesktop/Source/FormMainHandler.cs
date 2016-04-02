@@ -16,7 +16,8 @@ namespace WinYourDesktop
         NotificationHandler NotificationHandler;
         ResourceManager RM;
         #endregion
-        
+
+        #region Post initialize
         /// <summary>
         /// Prepares the application.
         /// </summary>
@@ -45,8 +46,9 @@ namespace WinYourDesktop
 
             ResumeLayout();
         }
+        #endregion
 
-        #region Language
+        #region Culture
         /// <summary>
         /// Change to the system's current culture.
         /// </summary>

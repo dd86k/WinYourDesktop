@@ -4,11 +4,6 @@ using static System.Console;
 using static System.Diagnostics.Process;
 using static System.Reflection.Assembly;
 
-/*
-Windows console error codes:
-http://www.symantec.com/connect/articles/windows-system-error-codes-exit-codes-description
-*/
-
 /// <summary>
 /// Console solution.
 /// </summary>
@@ -68,8 +63,10 @@ namespace WinYourDesktopConsole
                         ShowHelp();
                         return 0;
 
+                    case "/v":
+                    case "/verbose":
                     case "-V":
-                    case "--verboise":
+                    case "--verbose":
                         verboise = true;
                         break;
 
@@ -85,7 +82,7 @@ namespace WinYourDesktopConsole
                 ErrorCode r = Interpreter.Run(filepath, verboise);
 
                 if (r != ErrorCode.Success)
-                    WriteLine($"ERROR: {r.GetErrorMessage()} - {r}, 0x{r.S():X8}");
+                    WriteLine($"ERROR: {r} - {r.GetErrorMessage()} ({r.Hex()})");
 
                 return r.S();
             }
@@ -106,10 +103,8 @@ namespace WinYourDesktopConsole
             //         |--------|---------|---------|---------|---------|---------|---------|---------|
             WriteLine(" Usage:");
             WriteLine($"  {FilenameWithoutExtension} [options] <file>");
-            /*
-            WriteLine("  /createdummy, /C   Create a dummy desktop file.");
-            WriteLine("  /debug, /D         Show debugging information in console.");
-            */
+            WriteLine();
+            WriteLine("  /v, -V    Verbose.");
             WriteLine();
             WriteLine("  /?        Shows this screen and exits.");
             WriteLine("  /version  Shows version and exits.");
