@@ -42,7 +42,7 @@
     <CodeAnalysisRuleSet />
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Application.ico</ApplicationIcon>
+    <ApplicationIcon>Icons\Application_32x.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>false</SignAssembly>
@@ -104,12 +104,6 @@
     <Compile Include="Forms\FormHelp.Designer.cs">
       <DependentUpon>FormHelp.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\FormCreationWizard.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\FormCreationWizard.Designer.cs">
-      <DependentUpon>FormCreationWizard.cs</DependentUpon>
-    </Compile>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -141,7 +135,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Application.ico" />
+    <Content Include="Icons\Application.ico" />
+    <Content Include="Icons\Application_32x.ico" />
     <Content Include="FodyWeavers.xml" />
     <Content Include="Icons\Application.png" />
     <Content Include="Icons\Flag.png" />

@@ -198,14 +198,28 @@ namespace WinYourDesktopLibrary
                     }
 
                     CurrentLineIndex++;
-                }
-            }
+                } // End while
+            } // End using
             
             // Unknown is default, if unchanged, it's missing.
             if (type == DesktopFileType.Unknown)
             {
-                return ErrorCode.FileMissingTypeValue;
+                return ErrorCode.FileMissingType;
             }
+
+            if (pVerbose)
+                WriteLine($"Starting {value}...");
+            
+            if (string.IsNullOrWhiteSpace(value))
+                switch (type)
+                {
+                    case DesktopFileType.Application:
+                        return ErrorCode.FileMissingExecValue;
+                    case DesktopFileType.Link:
+                        return ErrorCode.FileMissingUrlValue;
+                    case DesktopFileType.Directory:
+                        return ErrorCode.FileMissingPathValue;
+                }
 
             if (value.Contains("%") || value.Contains("$"))
                 ReplaceVars(ref value, pVerbose);
@@ -213,51 +227,39 @@ namespace WinYourDesktopLibrary
             if (value.Contains("~"))
                 ReplaceHome(ref value, pVerbose);
 
-            if (pVerbose)
-                WriteLine($"Starting {value}...");
-
             switch (type)
             {
                 #region Application
                 // Launch an application.
                 case DesktopFileType.Application:
-                    if (!string.IsNullOrWhiteSpace(value))
+                    try
                     {
-                        try
+                        if (terminal)
                         {
-                            if (terminal)
-                            {
-                                //TODO: Seperate command from arguments
-                                ProcessStartInfo ps = new ProcessStartInfo(value);
-
-                                ps.UseShellExecute = true;
-
-                                Process.Start(ps);
-                            }
-                            else
-                            {
-                                Process.Start(value);
-                            }
+                            Process.Start("cmd", $"/c {value}");
                         }
-                        catch (InvalidOperationException)
+                        else
                         {
-                            return ErrorCode.ExecInvalidOperation;
-                        }
-                        catch (System.ComponentModel.Win32Exception)
-                        {
-                            return ErrorCode.ExecWin32Error;
-                        }
-                        catch (Exception ex)
-                        {
-                            if (pVerbose)
-                                WriteLine($"{Ex(ex)}");
-
-                            return ErrorCode.ExecError;
+                            Process.Start(value);
                         }
                     }
-                    else
+                    catch (InvalidOperationException)
                     {
-                        return ErrorCode.FileMissingExecValue;
+                        return ErrorCode.ExecInvalidOperation;
+                    }
+                    catch (System.ComponentModel.Win32Exception ex)
+                    {
+                        if (pVerbose)
+                            WriteLine($"Exception: {Ex(ex.InnerException ?? ex)}");
+
+                        return ErrorCode.ExecWin32Error;
+                    }
+                    catch (Exception ex)
+                    {
+                        if (pVerbose)
+                            WriteLine($"Exception: {Ex(ex)}");
+
+                        return ErrorCode.ExecError;
                     }
                     break;
                 #endregion App
@@ -265,23 +267,16 @@ namespace WinYourDesktopLibrary
                 #region Link
                 // Launch the user's default application that handles URLs.
                 case DesktopFileType.Link:
-                    if (!string.IsNullOrWhiteSpace(value))
+                    try
                     {
-                        try
-                        {
-                            Process.Start(value);
-                        }
-                        catch (Exception ex)
-                        {
-                            if (pVerbose)
-                                WriteLine($"{Ex(ex)}");
-
-                            return ErrorCode.LinkError;
-                        }
+                        Process.Start(value);
                     }
-                    else
+                    catch (Exception ex)
                     {
-                        return ErrorCode.FileMissingUrlValue;
+                        if (pVerbose)
+                            WriteLine($"Exception: {Ex(ex)}");
+
+                        return ErrorCode.LinkError;
                     }
                     break;
                 #endregion Link
@@ -289,46 +284,39 @@ namespace WinYourDesktopLibrary
                 #region Directory
                 // Open File Explorer with a specific path/directory with File Explorer.
                 case DesktopFileType.Directory:
-                    if (!string.IsNullOrWhiteSpace(value))
+                    if (Directory.Exists(value))
                     {
-                        if (Directory.Exists(value))
+                        try
                         {
-                            try
-                            {
-                                string explorer =
-                                    $"{Environment.GetFolderPath(Environment.SpecialFolder.Windows)}\\explorer";
+                            string explorer =
+                                $"{Environment.GetFolderPath(Environment.SpecialFolder.Windows)}\\explorer";
 
-                                Process.Start(explorer,
-                                    value.Replace("/", @"\"));
-                            }
-                            catch (Exception ex)
-                            {
-                                if (pVerbose)
-                                    WriteLine($"{Ex(ex)}");
-
-                                return ErrorCode.DirectoryError;
-                            }
+                            Process.Start(explorer,
+                                value.Replace("/", @"\"));
                         }
-                        else
+                        catch (Exception ex)
                         {
                             if (pVerbose)
-                                WriteLine($"Error: Directory \"{value}\" could not be found.");
+                                WriteLine($"{Ex(ex)}");
 
-                            return ErrorCode.DirectoryNotFound;
+                            return ErrorCode.DirectoryError;
                         }
                     }
                     else
                     {
-                        return ErrorCode.FileMissingPathValue;
+                        if (pVerbose)
+                            WriteLine($"Error: Directory \"{value}\" could not be found.");
+
+                        return ErrorCode.DirectoryNotFound;
                     }
                     break;
                 #endregion Directory
-            } // End of switch()
+            } // End switch
 
             if (pVerbose)
                 WriteLine("Started successfully.");
 
-            return 0;
+            return 0; /// 0 is <see cref="ErrorCode.Success"/>
         }
 
         static void ReplaceVars(ref string value, bool pVerbose)
@@ -396,7 +384,7 @@ namespace WinYourDesktopLibrary
         /// </summary>
         /// <param name="e"><see cref="Exception"/></param>
         /// <returns>Formatted information</returns>
-        static string Ex(Exception ex) => $"{ex} (0x{ex.HResult:X8})";
+        static string Ex(Exception ex) => $"{ex.GetType()} (0x{ex.HResult:X8})";
 
         /// <summary>
         /// Creates a dummy/example file in the current directory.
@@ -411,28 +399,6 @@ namespace WinYourDesktopLibrary
                 tw.WriteLine("Type=Directory");
                 tw.WriteLine("Name=Open Windows Directory");
                 tw.WriteLine(@"Path=%WINDIR%");
-            }
-        }
-
-        static public void CreateNewBlank(string pPath = "New.desktop")
-        {
-            //TODO: if file exists (v0.6)
-            if (File.Exists(pPath))
-            {
-                string name = Path.GetFileNameWithoutExtension(pPath);
-                //string path = Path.
-                int i = 1;
-
-                while (File.Exists(pPath))
-                {
-                    name = $"{name}-{i++}.desktop";
-                }
-            }
-
-            using (TextWriter tw = new StreamWriter(pPath, false))
-            {
-                tw.WriteLine("[Desktop Entry]");
-                tw.WriteLine($"# Interpreter version: {ProjectVersion}");
             }
         }
         #endregion Public Methods
@@ -458,7 +424,7 @@ namespace WinYourDesktopLibrary
         /// </remarks>
         FileNoSignature = 0x18,
         FileMissingDelimiter = 0x19,
-        FileMissingTypeValue = 0x20,
+        FileMissingType = 0x20,
         FileMissingExecValue = 0x21,
         FileMissingUrlValue = 0x22,
         FileMissingPathValue = 0x23,
@@ -506,8 +472,8 @@ namespace WinYourDesktopLibrary
                     return "Missing [Desktop Entry] at the first line.";
                 case ErrorCode.FileMissingDelimiter:
                     return "Missing \"=\" delimiter.";
-                case ErrorCode.FileMissingTypeValue:
-                    return "Missing Type value.";
+                case ErrorCode.FileMissingType:
+                    return "Missing Type.";
                 case ErrorCode.FileMissingExecValue:
                     return "Missing Exec value.";
                 case ErrorCode.FileMissingUrlValue:

@@ -3,9 +3,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using WinYourDesktopLibrary;
 
-//TODO: Sizable form (v0.7)
-//TODO: Edit mode (v0.6)
-//TODO: Dark theme (v0.8)
+//TODO: Dark theme (v0.7)
 
 // Tip: In VS, you can fold every scope with CTRL+M+O.
 
@@ -54,15 +52,6 @@ namespace WinYourDesktop
             }
         }
 
-        // Editor view
-        private void tsmiEditor_Click(object sender, EventArgs e)
-        {
-            if (!tsmiEditor.Checked)
-            {
-                ToggleMode(ViewingMode.Editor);
-            }
-        }
-
         // Debugger view
         private void tsmiDebugger_Click(object sender, EventArgs e)
         {
@@ -83,20 +72,7 @@ namespace WinYourDesktop
         #endregion
 
         #region Tools
-        private void tsmiCreationWizard_Click(object sender, EventArgs e)
-        {
 
-        }
-
-        private void tsmiCreationWizard_MouseEnter(object sender, EventArgs e)
-        {
-            sslblStatus.Text = RM.GetString("tsmiCreationWizard_MouseEnter");
-        }
-
-        private void tsmiCreationWizard_MouseLeave(object sender, EventArgs e)
-        {
-            sslblStatus.Text = string.Empty;
-        }
         #endregion
 
         #region ?
@@ -142,11 +118,11 @@ namespace WinYourDesktop
 
             if (r == DialogResult.OK)
             {
+                sslblStatus.Text = "...";
+
                 ErrorCode c = Interpreter.Run(ofdMain.FileName);
 
-                if (c == ErrorCode.Success)
-                    Application.Exit();
-                else
+                if (c != ErrorCode.Success)
                     sslblStatus.Text = c.ToString();
             }
         }
@@ -157,22 +133,6 @@ namespace WinYourDesktop
         }
 
         private void btnRun_MouseLeave(object sender, EventArgs e)
-        {
-            sslblStatus.Text = string.Empty;
-        }
-
-        // Create
-        private void btnCreate_Click(object sender, EventArgs e)
-        {
-            ToggleMode(ViewingMode.Editor);
-        }
-
-        private void btnCreate_MouseEnter(object sender, EventArgs e)
-        {
-            sslblStatus.Text = RM.GetString("btnCreate_MouseEnter");
-        }
-
-        private void btnCreate_MouseLeave(object sender, EventArgs e)
         {
             sslblStatus.Text = string.Empty;
         }
@@ -192,202 +152,6 @@ namespace WinYourDesktop
         {
             sslblStatus.Text = string.Empty;
         }
-
-        // Edit
-        private void btnEdit_Click(object sender, EventArgs e)
-        {
-            ToggleMode(ViewingMode.Editor);
-        }
-
-        private void btnEdit_MouseEnter(object sender, EventArgs e)
-        {
-            sslblStatus.Text = RM.GetString("btnEdit_MouseEnter");
-        }
-
-        private void btnEdit_MouseLeave(object sender, EventArgs e)
-        {
-            sslblStatus.Text = string.Empty;
-        }
-        #endregion
-
-        #region Editor view
-        // Refresh
-        private void btnEditorRefresh_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnEditorRefresh_MouseEnter(object sender, EventArgs e)
-        {
-            sslblStatus.Text = RM.GetString("btnEditorRefresh_MouseEnter");
-        }
-
-        private void btnEditorRefresh_MouseLeave(object sender, EventArgs e)
-        {
-            sslblStatus.Text = string.Empty;
-        }
-
-        // Move up
-        private void btnEditorMoveUp_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnEditorMoveUp_MouseEnter(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnEditorMoveUp_MouseLeave(object sender, EventArgs e)
-        {
-            sslblStatus.Text = string.Empty;
-        }
-
-        // Move down
-        private void btnEditorMoveDown_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnEditorMoveDown_MouseEnter(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnEditorMoveDown_MouseLeave(object sender, EventArgs e)
-        {
-            sslblStatus.Text = string.Empty;
-        }
-
-        // Add
-        private void btnEditorAdd_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnEditorAdd_MouseEnter(object sender, EventArgs e)
-        {
-            sslblStatus.Text = RM.GetString("btnEditorAdd_MouseEnter");
-        }
-
-        private void btnEditorAdd_MouseLeave(object sender, EventArgs e)
-        {
-            sslblStatus.Text = string.Empty;
-        }
-
-        // Modify
-        private void btnEditorModify_Click(object sender, EventArgs e)
-        {
-
-        }
-        private void btnEditorModify_MouseEnter(object sender, EventArgs e)
-        {
-            sslblStatus.Text = RM.GetString("btnEditorModify_MouseEnter");
-        }
-
-        private void btnEditorModify_MouseLeave(object sender, EventArgs e)
-        {
-            sslblStatus.Text = string.Empty;
-        }
-
-        // Remove
-        private void btnEditorRemove_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnEditorRemove_MouseEnter(object sender, EventArgs e)
-        {
-            sslblStatus.Text = RM.GetString("btnEditorRemove_MouseEnter");
-        }
-
-        private void btnEditorRemove_MouseLeave(object sender, EventArgs e)
-        {
-            sslblStatus.Text = string.Empty;
-        }
-
-        // == msEditor
-        // = tsmFile
-
-        // Open
-        private void tsmiEditorOpen_Click(object sender, EventArgs e)
-        {
-            PromptToMakeCurrentFile();
-        }
-
-        private void tsmiEditorOpen_MouseEnter(object sender, EventArgs e)
-        {
-            sslblStatus.Text = RM.GetString("tsmiEditorOpen_MouseEnter");
-        }
-
-        private void tsmiEditorOpen_MouseLeave(object sender, EventArgs e)
-        {
-            sslblStatus.Text = string.Empty;
-        }
-        
-        // Save
-        private void tsmiEditorSave_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void tsmiEditorSave_MouseEnter(object sender, EventArgs e)
-        {
-            sslblStatus.Text = RM.GetString("tsmiEditorSave_MouseEnter");
-        }
-
-        private void tsmiEditorSave_MouseLeave(object sender, EventArgs e)
-        {
-            sslblStatus.Text = string.Empty;
-        }
-
-        // Save as...
-        private void tsmiEditorSaveAs_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void tsmiEditorSaveAs_MouseEnter(object sender, EventArgs e)
-        {
-            sslblStatus.Text = RM.GetString("tsmiEditorSaveAs_MouseEnter");
-        }
-
-        private void tsmiEditorSaveAs_MouseLeave(object sender, EventArgs e)
-        {
-            sslblStatus.Text = string.Empty;
-        }
-
-        // Debug
-        private void tsmiEditorDebug_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void tsmiEditorDebug_MouseEnter(object sender, EventArgs e)
-        {
-
-        }
-
-        private void tsmiEditorDebug_MouseLeave(object sender, EventArgs e)
-        {
-            sslblStatus.Text = string.Empty;
-        }
-
-        // Run
-        private void tsmiEditorRun_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void tsmiEditorRun_MouseEnter(object sender, EventArgs e)
-        {
-            sslblStatus.Text = RM.GetString("tsmiEditorRun_MouseEnter");
-        }
-
-        private void tsmiEditorRun_MouseLeave(object sender, EventArgs e)
-        {
-            sslblStatus.Text = string.Empty;
-        }
         #endregion
 
         #region Debug view
@@ -399,7 +163,7 @@ namespace WinYourDesktop
 
             if (r != ErrorCode.Success)
             {
-                txtDebuggerOutput.AppendText($"Return code: 0x{r.S():X4} ({r})\n");
+                txtDebuggerOutput.AppendText($"Return code: {r} ({r.Hex()})\n");
                 txtDebuggerOutput.AppendText($"Message: {r.GetErrorMessage()}");
             }
         }

@@ -123,9 +123,6 @@
   <data name="btnDebug" xml:space="preserve">
     <value>Debug</value>
   </data>
-  <data name="btnEdit" xml:space="preserve">
-    <value>Edit</value>
-  </data>
   <data name="btnRun" xml:space="preserve">
     <value>Run</value>
   </data>
@@ -134,9 +131,6 @@
   </data>
   <data name="btnDebug_MouseEnter" xml:space="preserve">
     <value>Debug an entry</value>
-  </data>
-  <data name="btnEdit_MouseEnter" xml:space="preserve">
-    <value>Edit an entry</value>
   </data>
   <data name="btnRun_MouseEnter" xml:space="preserve">
     <value>Run an entry</value>
@@ -149,9 +143,6 @@
   </data>
   <data name="tsmiDebugger" xml:space="preserve">
     <value>Debugger</value>
-  </data>
-  <data name="tsmiEditor" xml:space="preserve">
-    <value>Editor</value>
   </data>
   <data name="tsmiHelp" xml:space="preserve">
     <value>Help</value>
@@ -195,15 +186,6 @@
   <data name="btnSettingsSave" xml:space="preserve">
     <value>Save</value>
   </data>
-  <data name="btnEditorAdd" xml:space="preserve">
-    <value>Add</value>
-  </data>
-  <data name="btnEditorModify" xml:space="preserve">
-    <value>Modify</value>
-  </data>
-  <data name="btnEditorRemove" xml:space="preserve">
-    <value>Remove</value>
-  </data>
   <data name="MiscNoFile" xml:space="preserve">
     <value>No opened file</value>
   </data>
@@ -211,12 +193,6 @@
     <value>Debugger</value>
   </data>
   <data name="tsmDebuggerFile" xml:space="preserve">
-    <value>File</value>
-  </data>
-  <data name="tsmEditor" xml:space="preserve">
-    <value>Editor</value>
-  </data>
-  <data name="tsmEditorFile" xml:space="preserve">
     <value>File</value>
   </data>
   <data name="tsmiDebuggerClear" xml:space="preserve">
@@ -230,33 +206,6 @@
   </data>
   <data name="tsmiDebuggerRun" xml:space="preserve">
     <value>Run</value>
-  </data>
-  <data name="tsmiEditorDebug" xml:space="preserve">
-    <value>Debug</value>
-  </data>
-  <data name="tsmiEditorNew" xml:space="preserve">
-    <value>New</value>
-  </data>
-  <data name="tsmiEditorOpen" xml:space="preserve">
-    <value>Open</value>
-  </data>
-  <data name="tsmiEditorRun" xml:space="preserve">
-    <value>Run</value>
-  </data>
-  <data name="tsmiEditorSave" xml:space="preserve">
-    <value>Save</value>
-  </data>
-  <data name="tsmiEditorSaveAs" xml:space="preserve">
-    <value>Save as...</value>
-  </data>
-  <data name="btnEditorAdd_MouseEnter" xml:space="preserve">
-    <value>Add an entry</value>
-  </data>
-  <data name="btnEditorModify_MouseEnter" xml:space="preserve">
-    <value>Modify the entry</value>
-  </data>
-  <data name="btnEditorRemove_MouseEnter" xml:space="preserve">
-    <value>Remove the entry</value>
   </data>
   <data name="chkSettingsAutoDetectLanguage" xml:space="preserve">
     <value>Automatically detect language</value>
@@ -284,20 +233,5 @@
   </data>
   <data name="tsmiDebuggerRun_MouseEnter" xml:space="preserve">
     <value>Run desktop file</value>
-  </data>
-  <data name="tsmiEditorNew_MouseEnter" xml:space="preserve">
-    <value>New file</value>
-  </data>
-  <data name="tsmiEditorOpen_MouseEnter" xml:space="preserve">
-    <value>Open file</value>
-  </data>
-  <data name="tsmiEditorRun_MouseEnter" xml:space="preserve">
-    <value>Run desktop file</value>
-  </data>
-  <data name="tsmiEditorSaveAs_MouseEnter" xml:space="preserve">
-    <value>Save current file as...</value>
-  </data>
-  <data name="tsmiEditorSave_MouseEnter" xml:space="preserve">
-    <value>Save current file</value>
   </data>
 </root>

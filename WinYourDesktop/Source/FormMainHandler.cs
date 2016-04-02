@@ -16,7 +16,8 @@ namespace WinYourDesktop
         NotificationHandler NotificationHandler;
         ResourceManager RM;
         #endregion
-        
+
+        #region Post initialize
         /// <summary>
         /// Prepares the application.
         /// </summary>
@@ -31,7 +32,6 @@ namespace WinYourDesktop
             //Application.Run(new SystemTrayApp());
 
             panelDebugger.Location =
-                panelEditor.Location =
                 panelSettings.Location =
                 panelMain.Location =
                 new Point(0, msMain.Height);
@@ -46,8 +46,9 @@ namespace WinYourDesktop
 
             ResumeLayout();
         }
+        #endregion
 
-        #region Language
+        #region Culture
         /// <summary>
         /// Change to the system's current culture.
         /// </summary>
@@ -99,38 +100,17 @@ namespace WinYourDesktop
             // == Mode
             tsmView.Text = RM.GetString("tsmView");
             tsmiHome.Text = RM.GetString("tsmiHome");
-            tsmiEditor.Text = RM.GetString("tsmiEditor");
             tsmiDebugger.Text = RM.GetString("tsmiDebugger");
             tsmiSettings.Text = RM.GetString("tsmiSettings");
-            // == Tools
-            tsmTools.Text = RM.GetString("tsmTools");
-            tsmiCreationWizard.Text = RM.GetString("tsmiCreationWizard");
             // == ?
             tsmiHelp.Text = RM.GetString("tsmiHelp");
             tsmiAbout.Text = RM.GetString("tsmiAbout");
             
             // ==== panelMain
             btnRun.Text = RM.GetString("btnRun");
-            btnCreate.Text = RM.GetString("btnCreate");
-            btnEdit.Text = RM.GetString("btnEdit");
             btnDebug.Text = RM.GetString("btnDebug");
 
-            // ==== panelEditor
-            // === msEditor
-            tsmEditorFile.Text = RM.GetString("tsmEditorFile");
-            tsmiEditorNew.Text = RM.GetString("tsmiEditorNew");
-            tsmiEditorOpen.Text = RM.GetString("tsmiEditorOpen");
-            tsmiEditorSave.Text = RM.GetString("tsmiEditorSave");
-            tsmiEditorSaveAs.Text = RM.GetString("tsmiEditorSaveAs");
-            tsmiEditorRun.Text = RM.GetString("tsmiEditorRun");
-            tsmEditor.Text = RM.GetString("tsmEditor");
-            // === Buttons
-            btnEditorAdd.Text = RM.GetString("btnEditorAdd");
-            btnEditorModify.Text = RM.GetString("btnEditorModify");
-            btnEditorRemove.Text = RM.GetString("btnEditorRemove");
-
             // ==== panelDebugger
-            lblEditorFile.Text =
             lblDebuggerFile.Text = RM.GetString("MiscNoFile");
             // === msDebugger
             tsmDebuggerFile.Text = RM.GetString("tsmDebuggerFile");
@@ -160,10 +140,8 @@ namespace WinYourDesktop
         /// </summary>
         enum ViewingMode : byte
         {
-            Home, Editor, Debugger, Settings
+            Home, Debugger, Settings
         }
-
-        ViewingMode CurrentView = ViewingMode.Home;
 
         void ToggleMode(ViewingMode pNewViewingMode)
         {
@@ -174,53 +152,31 @@ namespace WinYourDesktop
                 case ViewingMode.Home:
                     tsmiHome.Checked =
                         panelMain.Visible = true;
-                    tsmiEditor.Checked =
-                        tsmiDebugger.Checked =
+                    tsmiDebugger.Checked =
                         tsmiSettings.Checked =
-                        panelEditor.Visible =
                         panelDebugger.Visible =
                         panelSettings.Visible = false;
                     AdjustClientSize(panelMain);
-                    CurrentView = ViewingMode.Home;
-                    break;
-
-                case ViewingMode.Editor:
-                    tsmiEditor.Checked =
-                        panelEditor.Visible = true;
-                    tsmiHome.Checked =
-                        tsmiDebugger.Checked =
-                        tsmiSettings.Checked =
-                        panelMain.Visible =
-                        panelDebugger.Visible =
-                        panelSettings.Visible = false;
-                    AdjustClientSize(panelEditor);
-                    CurrentView = ViewingMode.Editor;
                     break;
 
                 case ViewingMode.Debugger:
                     tsmiDebugger.Checked =
                         panelDebugger.Visible = true;
                     tsmiHome.Checked =
-                        tsmiEditor.Checked =
                         tsmiSettings.Checked =
                         panelMain.Visible =
-                        panelEditor.Visible =
                         panelSettings.Visible = false;
                     AdjustClientSize(panelDebugger);
-                    CurrentView = ViewingMode.Debugger;
                     break;
 
                 case ViewingMode.Settings:
                     tsmiSettings.Checked =
                         panelSettings.Visible = true;
                     tsmiHome.Checked =
-                        tsmiEditor.Checked =
                         tsmiDebugger.Checked =
                         panelMain.Visible =
-                        panelEditor.Visible =
                         panelDebugger.Visible = false;
                     AdjustClientSize(panelSettings);
-                    CurrentView = ViewingMode.Settings;
                     break;
             }
 
@@ -255,11 +211,6 @@ namespace WinYourDesktop
         #endregion
 
         #region Open/Save current file
-        void NewFile()
-        {
-            //TODO: NewFile (v0.6)
-        }
-
         void PromptToMakeCurrentFile()
         {
             DialogResult r = ofdMain.ShowDialog();
@@ -282,35 +233,14 @@ namespace WinYourDesktop
 
         void MakeCurrentFile(FileInfo pFileInfo, bool pEditor = false)
         {
-            if (pFileInfo.Exists)
-            {
-                CurrentFile = pFileInfo;
+            CurrentFile = pFileInfo;
 
-                lblDebuggerFile.Text =
-                    lblEditorFile.Text = CurrentFile.Name;
-                
-                // Debugger
-                btnDebuggerRun.Enabled = 
-                    tsmiDebuggerRun.Enabled =
-                    // Editor - buttons
-                    btnEditorRefresh.Enabled =
-                    btnEditorMoveUp.Enabled =
-                    btnEditorMoveDown.Enabled =
-                    btnEditorAdd.Enabled =
-                    btnEditorModify.Enabled =
-                    btnEditorRemove.Enabled =
-                    // Editor - menustrip
-                    tsmiEditorSave.Enabled =
-                    tsmiEditorSaveAs.Enabled =
-                    tsmiEditorRun.Enabled =
-                    true;
-                
-                if (pEditor)
-                    ToggleMode(ViewingMode.Editor);
-            }
-            else
-                lblDebuggerFile.Text =
-                    lblEditorFile.Text = "Not found.";
+            lblDebuggerFile.Text = CurrentFile.Name;
+
+            // Debugger
+            btnDebuggerRun.Enabled =
+                tsmiDebuggerRun.Enabled =
+                true;
         }
         #endregion
     }
