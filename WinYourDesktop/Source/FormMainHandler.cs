@@ -257,16 +257,17 @@ namespace WinYourDesktop
         #region Open/Save current file
         void NewFile()
         {
-            //TODO: NewFile (v0.6)
-
             string filename = "New";
             int i = 1;
-            filename = $"{filename}-{i++}.desktop";
+            filename = $"{filename}-{i}.desktop";
             
-            while (File.Exists($"{filename}"))
+            while (File.Exists(filename))
             {
                 filename = $"{filename}-{i++}.desktop";
             }
+
+            lstEditorEntries.Items.Clear();
+            lstEditorEntries.Items.Add("[Desktop Entry]");
 
             MakeCurrentFile(filename);
         }
@@ -293,48 +294,43 @@ namespace WinYourDesktop
 
         void MakeCurrentFile(FileInfo pFileInfo, bool pEditor = false)
         {
-            if (pFileInfo.Exists)
-            {
-                CurrentFile = pFileInfo;
+            CurrentFile = pFileInfo;
 
-                lblDebuggerFile.Text =
-                    lblEditorFile.Text = CurrentFile.Name;
+            lblDebuggerFile.Text =
+                lblEditorFile.Text = CurrentFile.Name;
                 
-                // Debugger
-                btnDebuggerRun.Enabled = 
-                    tsmiDebuggerRun.Enabled =
-                    // Editor - buttons
-                    btnEditorRefresh.Enabled =
-                    btnEditorMoveUp.Enabled =
-                    btnEditorMoveDown.Enabled =
-                    btnEditorAdd.Enabled =
-                    btnEditorModify.Enabled =
-                    btnEditorRemove.Enabled =
-                    // Editor - menustrip
-                    tsmiEditorSave.Enabled =
-                    tsmiEditorSaveAs.Enabled =
-                    tsmiEditorRun.Enabled =
-                    true;
+            // Debugger
+            btnDebuggerRun.Enabled = 
+                tsmiDebuggerRun.Enabled =
+                // Editor - buttons
+                btnEditorRefresh.Enabled =
+                btnEditorMoveUp.Enabled =
+                btnEditorMoveDown.Enabled =
+                btnEditorAdd.Enabled =
+                btnEditorModify.Enabled =
+                btnEditorRemove.Enabled =
+                // Editor - menustrip
+                tsmiEditorSave.Enabled =
+                tsmiEditorSaveAs.Enabled =
+                tsmiEditorRun.Enabled =
+                true;
 
+            if (pFileInfo.Exists)
                 RefreshEditorInfo(CurrentFile);
                 
-                if (pEditor)
-                    ToggleMode(ViewingMode.Editor);
-            }
-            else
-                lblDebuggerFile.Text =
-                    lblEditorFile.Text = "Not found.";
+            if (pEditor)
+                ToggleMode(ViewingMode.Editor);
         }
 
         void RefreshEditorInfo(FileInfo pFile)
         {
             using (StreamReader sr = CurrentFile.OpenText())
             {
+                lstEditorEntries.Items.Clear();
+
                 while (!sr.EndOfStream)
                 {
-                    string l = sr.ReadLine();
-
-                    lstEditorEntries.Items.Add(l);
+                    lstEditorEntries.Items.Add(sr.ReadLine());
                 }
             }
         }

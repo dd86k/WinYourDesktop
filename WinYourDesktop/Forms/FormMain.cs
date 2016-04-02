@@ -309,6 +309,12 @@ namespace WinYourDesktop
         // == msEditor
         // = tsmFile
 
+        // New
+        private void tsmiEditorNew_Click(object sender, EventArgs e)
+        {
+            NewFile();
+        }
+
         // Open
         private void tsmiEditorOpen_Click(object sender, EventArgs e)
         {

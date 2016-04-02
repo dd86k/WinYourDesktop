@@ -55,6 +55,10 @@
             this.btnCreate = new System.Windows.Forms.Button();
             this.panelMain = new System.Windows.Forms.Panel();
             this.panelEditor = new System.Windows.Forms.Panel();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.grpEditorEntries = new System.Windows.Forms.GroupBox();
+            this.lstEditorEntries = new System.Windows.Forms.ListBox();
+            this.grpEditorProperties = new System.Windows.Forms.GroupBox();
             this.lblEditorFile = new System.Windows.Forms.Label();
             this.btnEditorRefresh = new System.Windows.Forms.Button();
             this.btnEditorMoveUp = new System.Windows.Forms.Button();
@@ -95,23 +99,22 @@
             this.cboSettingsLanguage = new System.Windows.Forms.ComboBox();
             this.ofdMain = new System.Windows.Forms.OpenFileDialog();
             this.ImageListNotification = new System.Windows.Forms.ImageList(this.components);
-            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.grpEditorEntries = new System.Windows.Forms.GroupBox();
-            this.grpEditorProperties = new System.Windows.Forms.GroupBox();
-            this.lstEditorEntries = new System.Windows.Forms.ListBox();
+            this.cboEditorEntryProperty = new System.Windows.Forms.ComboBox();
+            this.txtEditorEntryValue = new System.Windows.Forms.TextBox();
             this.msMain.SuspendLayout();
             this.ssMain.SuspendLayout();
             this.panelMain.SuspendLayout();
             this.panelEditor.SuspendLayout();
-            this.msEditor.SuspendLayout();
-            this.panelDebugger.SuspendLayout();
-            this.msDebugger.SuspendLayout();
-            this.panelSettings.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             this.grpEditorEntries.SuspendLayout();
+            this.grpEditorProperties.SuspendLayout();
+            this.msEditor.SuspendLayout();
+            this.panelDebugger.SuspendLayout();
+            this.msDebugger.SuspendLayout();
+            this.panelSettings.SuspendLayout();
             this.SuspendLayout();
             // 
             // msMain
@@ -385,6 +388,55 @@
             this.panelEditor.TabIndex = 7;
             this.panelEditor.Visible = false;
             // 
+            // splitContainer1
+            // 
+            this.splitContainer1.Location = new System.Drawing.Point(3, 47);
+            this.splitContainer1.Name = "splitContainer1";
+            // 
+            // splitContainer1.Panel1
+            // 
+            this.splitContainer1.Panel1.Controls.Add(this.grpEditorEntries);
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.Controls.Add(this.grpEditorProperties);
+            this.splitContainer1.Size = new System.Drawing.Size(445, 238);
+            this.splitContainer1.SplitterDistance = 228;
+            this.splitContainer1.TabIndex = 7;
+            // 
+            // grpEditorEntries
+            // 
+            this.grpEditorEntries.Controls.Add(this.lstEditorEntries);
+            this.grpEditorEntries.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grpEditorEntries.Location = new System.Drawing.Point(0, 0);
+            this.grpEditorEntries.Name = "grpEditorEntries";
+            this.grpEditorEntries.Size = new System.Drawing.Size(228, 238);
+            this.grpEditorEntries.TabIndex = 0;
+            this.grpEditorEntries.TabStop = false;
+            this.grpEditorEntries.Text = "Entries";
+            // 
+            // lstEditorEntries
+            // 
+            this.lstEditorEntries.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lstEditorEntries.FormattingEnabled = true;
+            this.lstEditorEntries.ItemHeight = 17;
+            this.lstEditorEntries.Location = new System.Drawing.Point(3, 21);
+            this.lstEditorEntries.Name = "lstEditorEntries";
+            this.lstEditorEntries.Size = new System.Drawing.Size(222, 214);
+            this.lstEditorEntries.TabIndex = 0;
+            // 
+            // grpEditorProperties
+            // 
+            this.grpEditorProperties.Controls.Add(this.txtEditorEntryValue);
+            this.grpEditorProperties.Controls.Add(this.cboEditorEntryProperty);
+            this.grpEditorProperties.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grpEditorProperties.Location = new System.Drawing.Point(0, 0);
+            this.grpEditorProperties.Name = "grpEditorProperties";
+            this.grpEditorProperties.Size = new System.Drawing.Size(213, 238);
+            this.grpEditorProperties.TabIndex = 0;
+            this.grpEditorProperties.TabStop = false;
+            this.grpEditorProperties.Text = "Properties";
+            // 
             // lblEditorFile
             // 
             this.lblEditorFile.AutoSize = true;
@@ -506,13 +558,14 @@
             // tsmiEditorNew
             // 
             this.tsmiEditorNew.Name = "tsmiEditorNew";
-            this.tsmiEditorNew.Size = new System.Drawing.Size(121, 22);
+            this.tsmiEditorNew.Size = new System.Drawing.Size(152, 22);
             this.tsmiEditorNew.Text = "New";
+            this.tsmiEditorNew.Click += new System.EventHandler(this.tsmiEditorNew_Click);
             // 
             // tsmiEditorOpen
             // 
             this.tsmiEditorOpen.Name = "tsmiEditorOpen";
-            this.tsmiEditorOpen.Size = new System.Drawing.Size(121, 22);
+            this.tsmiEditorOpen.Size = new System.Drawing.Size(152, 22);
             this.tsmiEditorOpen.Text = "Open";
             this.tsmiEditorOpen.Click += new System.EventHandler(this.tsmiEditorOpen_Click);
             this.tsmiEditorOpen.MouseEnter += new System.EventHandler(this.tsmiEditorOpen_MouseEnter);
@@ -521,12 +574,12 @@
             // toolStripSeparator6
             // 
             this.toolStripSeparator6.Name = "toolStripSeparator6";
-            this.toolStripSeparator6.Size = new System.Drawing.Size(118, 6);
+            this.toolStripSeparator6.Size = new System.Drawing.Size(149, 6);
             // 
             // tsmiEditorSave
             // 
             this.tsmiEditorSave.Name = "tsmiEditorSave";
-            this.tsmiEditorSave.Size = new System.Drawing.Size(121, 22);
+            this.tsmiEditorSave.Size = new System.Drawing.Size(152, 22);
             this.tsmiEditorSave.Text = "Save";
             this.tsmiEditorSave.Click += new System.EventHandler(this.tsmiEditorSave_Click);
             this.tsmiEditorSave.MouseEnter += new System.EventHandler(this.tsmiEditorSave_MouseEnter);
@@ -535,7 +588,7 @@
             // tsmiEditorSaveAs
             // 
             this.tsmiEditorSaveAs.Name = "tsmiEditorSaveAs";
-            this.tsmiEditorSaveAs.Size = new System.Drawing.Size(121, 22);
+            this.tsmiEditorSaveAs.Size = new System.Drawing.Size(152, 22);
             this.tsmiEditorSaveAs.Text = "Save as...";
             this.tsmiEditorSaveAs.Click += new System.EventHandler(this.tsmiEditorSaveAs_Click);
             this.tsmiEditorSaveAs.MouseEnter += new System.EventHandler(this.tsmiEditorSaveAs_MouseEnter);
@@ -544,12 +597,12 @@
             // toolStripSeparator7
             // 
             this.toolStripSeparator7.Name = "toolStripSeparator7";
-            this.toolStripSeparator7.Size = new System.Drawing.Size(118, 6);
+            this.toolStripSeparator7.Size = new System.Drawing.Size(149, 6);
             // 
             // tsmiEditorRun
             // 
             this.tsmiEditorRun.Name = "tsmiEditorRun";
-            this.tsmiEditorRun.Size = new System.Drawing.Size(121, 22);
+            this.tsmiEditorRun.Size = new System.Drawing.Size(152, 22);
             this.tsmiEditorRun.Text = "Run";
             this.tsmiEditorRun.Click += new System.EventHandler(this.tsmiEditorRun_Click);
             this.tsmiEditorRun.MouseEnter += new System.EventHandler(this.tsmiEditorRun_MouseEnter);
@@ -800,52 +853,21 @@
             this.ImageListNotification.Images.SetKeyName(1, "NotificationHigh.png");
             this.ImageListNotification.Images.SetKeyName(2, "NotificationCrucial.png");
             // 
-            // splitContainer1
+            // cboEditorEntryProperty
             // 
-            this.splitContainer1.Location = new System.Drawing.Point(3, 47);
-            this.splitContainer1.Name = "splitContainer1";
+            this.cboEditorEntryProperty.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboEditorEntryProperty.FormattingEnabled = true;
+            this.cboEditorEntryProperty.Location = new System.Drawing.Point(6, 24);
+            this.cboEditorEntryProperty.Name = "cboEditorEntryProperty";
+            this.cboEditorEntryProperty.Size = new System.Drawing.Size(201, 25);
+            this.cboEditorEntryProperty.TabIndex = 0;
             // 
-            // splitContainer1.Panel1
+            // txtEditorEntryValue
             // 
-            this.splitContainer1.Panel1.Controls.Add(this.grpEditorEntries);
-            // 
-            // splitContainer1.Panel2
-            // 
-            this.splitContainer1.Panel2.Controls.Add(this.grpEditorProperties);
-            this.splitContainer1.Size = new System.Drawing.Size(445, 238);
-            this.splitContainer1.SplitterDistance = 228;
-            this.splitContainer1.TabIndex = 7;
-            // 
-            // grpEditorEntries
-            // 
-            this.grpEditorEntries.Controls.Add(this.lstEditorEntries);
-            this.grpEditorEntries.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.grpEditorEntries.Location = new System.Drawing.Point(0, 0);
-            this.grpEditorEntries.Name = "grpEditorEntries";
-            this.grpEditorEntries.Size = new System.Drawing.Size(228, 238);
-            this.grpEditorEntries.TabIndex = 0;
-            this.grpEditorEntries.TabStop = false;
-            this.grpEditorEntries.Text = "Entries";
-            // 
-            // grpEditorProperties
-            // 
-            this.grpEditorProperties.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.grpEditorProperties.Location = new System.Drawing.Point(0, 0);
-            this.grpEditorProperties.Name = "grpEditorProperties";
-            this.grpEditorProperties.Size = new System.Drawing.Size(213, 238);
-            this.grpEditorProperties.TabIndex = 0;
-            this.grpEditorProperties.TabStop = false;
-            this.grpEditorProperties.Text = "Properties";
-            // 
-            // lstEditorEntries
-            // 
-            this.lstEditorEntries.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lstEditorEntries.FormattingEnabled = true;
-            this.lstEditorEntries.ItemHeight = 17;
-            this.lstEditorEntries.Location = new System.Drawing.Point(3, 21);
-            this.lstEditorEntries.Name = "lstEditorEntries";
-            this.lstEditorEntries.Size = new System.Drawing.Size(222, 214);
-            this.lstEditorEntries.TabIndex = 0;
+            this.txtEditorEntryValue.Location = new System.Drawing.Point(6, 55);
+            this.txtEditorEntryValue.Name = "txtEditorEntryValue";
+            this.txtEditorEntryValue.Size = new System.Drawing.Size(201, 25);
+            this.txtEditorEntryValue.TabIndex = 1;
             // 
             // FormMain
             // 
@@ -872,6 +894,13 @@
             this.panelMain.ResumeLayout(false);
             this.panelEditor.ResumeLayout(false);
             this.panelEditor.PerformLayout();
+            this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
+            this.splitContainer1.ResumeLayout(false);
+            this.grpEditorEntries.ResumeLayout(false);
+            this.grpEditorProperties.ResumeLayout(false);
+            this.grpEditorProperties.PerformLayout();
             this.msEditor.ResumeLayout(false);
             this.msEditor.PerformLayout();
             this.panelDebugger.ResumeLayout(false);
@@ -880,11 +909,6 @@
             this.msDebugger.PerformLayout();
             this.panelSettings.ResumeLayout(false);
             this.panelSettings.PerformLayout();
-            this.splitContainer1.Panel1.ResumeLayout(false);
-            this.splitContainer1.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
-            this.splitContainer1.ResumeLayout(false);
-            this.grpEditorEntries.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -962,5 +986,7 @@
         private System.Windows.Forms.GroupBox grpEditorEntries;
         private System.Windows.Forms.ListBox lstEditorEntries;
         private System.Windows.Forms.GroupBox grpEditorProperties;
+        private System.Windows.Forms.ComboBox cboEditorEntryProperty;
+        private System.Windows.Forms.TextBox txtEditorEntryValue;
     }
 }
