@@ -5,7 +5,7 @@ VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinYourDesktop", "WinYourDesktop\WinYourDesktop.csproj", "{7E2DF908-5C90-4CFB-A1EA-A3ADC3835375}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinYourDesktopConsole", "WinYourDesktopConsole\WinYourDesktopConsole.csproj", "{82CC7D42-9FBA-4153-B813-64E894E75459}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "wydcon", "WinYourDesktopConsole\wydcon.csproj", "{82CC7D42-9FBA-4153-B813-64E894E75459}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "wyd-lib", "wyd-lib\wyd-lib.csproj", "{18A28EC1-DE0F-40C1-8F34-ECEF36CE67BC}"
 EndProject

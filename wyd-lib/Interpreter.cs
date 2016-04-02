@@ -311,12 +311,12 @@ namespace WinYourDesktopLibrary
                     }
                     break;
                 #endregion Directory
-            } // End of switch()
+            } // End switch
 
             if (pVerbose)
                 WriteLine("Started successfully.");
 
-            return 0;
+            return 0; /// 0 is <see cref="ErrorCode.Success"/>
         }
 
         static void ReplaceVars(ref string value, bool pVerbose)
