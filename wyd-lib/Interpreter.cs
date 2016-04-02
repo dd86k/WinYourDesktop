@@ -216,48 +216,42 @@ namespace WinYourDesktopLibrary
             if (pVerbose)
                 WriteLine($"Starting {value}...");
 
-            switch (type)
+            if (string.IsNullOrWhiteSpace(value))
+                return ErrorCode.FileMissingValue;
+
+                switch (type)
             {
                 #region Application
                 // Launch an application.
                 case DesktopFileType.Application:
-                    if (!string.IsNullOrWhiteSpace(value))
+                    try
                     {
-                        try
+                        if (terminal)
                         {
-                            if (terminal)
-                            {
-                                //TODO: Seperate command from arguments
-                                ProcessStartInfo ps = new ProcessStartInfo(value);
-
-                                ps.UseShellExecute = true;
-
-                                Process.Start(ps);
-                            }
-                            else
-                            {
-                                Process.Start(value);
-                            }
+                            Process.Start("cmd", $"/c {value}");
                         }
-                        catch (InvalidOperationException)
+                        else
                         {
-                            return ErrorCode.ExecInvalidOperation;
-                        }
-                        catch (System.ComponentModel.Win32Exception)
-                        {
-                            return ErrorCode.ExecWin32Error;
-                        }
-                        catch (Exception ex)
-                        {
-                            if (pVerbose)
-                                WriteLine($"{Ex(ex)}");
-
-                            return ErrorCode.ExecError;
+                            Process.Start(value);
                         }
                     }
-                    else
+                    catch (InvalidOperationException)
                     {
-                        return ErrorCode.FileMissingExecValue;
+                        return ErrorCode.ExecInvalidOperation;
+                    }
+                    catch (System.ComponentModel.Win32Exception ex)
+                    {
+                        if (pVerbose)
+                            WriteLine($"Exception: {Ex(ex.InnerException ?? ex)}");
+
+                        return ErrorCode.ExecWin32Error;
+                    }
+                    catch (Exception ex)
+                    {
+                        if (pVerbose)
+                            WriteLine($"Exception: {Ex(ex)}");
+
+                        return ErrorCode.ExecError;
                     }
                     break;
                 #endregion App
@@ -265,23 +259,16 @@ namespace WinYourDesktopLibrary
                 #region Link
                 // Launch the user's default application that handles URLs.
                 case DesktopFileType.Link:
-                    if (!string.IsNullOrWhiteSpace(value))
+                    try
                     {
-                        try
-                        {
-                            Process.Start(value);
-                        }
-                        catch (Exception ex)
-                        {
-                            if (pVerbose)
-                                WriteLine($"{Ex(ex)}");
-
-                            return ErrorCode.LinkError;
-                        }
+                        Process.Start(value);
                     }
-                    else
+                    catch (Exception ex)
                     {
-                        return ErrorCode.FileMissingUrlValue;
+                        if (pVerbose)
+                            WriteLine($"Exception: {Ex(ex)}");
+
+                        return ErrorCode.LinkError;
                     }
                     break;
                 #endregion Link
@@ -289,37 +276,30 @@ namespace WinYourDesktopLibrary
                 #region Directory
                 // Open File Explorer with a specific path/directory with File Explorer.
                 case DesktopFileType.Directory:
-                    if (!string.IsNullOrWhiteSpace(value))
+                    if (Directory.Exists(value))
                     {
-                        if (Directory.Exists(value))
+                        try
                         {
-                            try
-                            {
-                                string explorer =
-                                    $"{Environment.GetFolderPath(Environment.SpecialFolder.Windows)}\\explorer";
+                            string explorer =
+                                $"{Environment.GetFolderPath(Environment.SpecialFolder.Windows)}\\explorer";
 
-                                Process.Start(explorer,
-                                    value.Replace("/", @"\"));
-                            }
-                            catch (Exception ex)
-                            {
-                                if (pVerbose)
-                                    WriteLine($"{Ex(ex)}");
-
-                                return ErrorCode.DirectoryError;
-                            }
+                            Process.Start(explorer,
+                                value.Replace("/", @"\"));
                         }
-                        else
+                        catch (Exception ex)
                         {
                             if (pVerbose)
-                                WriteLine($"Error: Directory \"{value}\" could not be found.");
+                                WriteLine($"{Ex(ex)}");
 
-                            return ErrorCode.DirectoryNotFound;
+                            return ErrorCode.DirectoryError;
                         }
                     }
                     else
                     {
-                        return ErrorCode.FileMissingPathValue;
+                        if (pVerbose)
+                            WriteLine($"Error: Directory \"{value}\" could not be found.");
+
+                        return ErrorCode.DirectoryNotFound;
                     }
                     break;
                 #endregion Directory
@@ -396,7 +376,7 @@ namespace WinYourDesktopLibrary
         /// </summary>
         /// <param name="e"><see cref="Exception"/></param>
         /// <returns>Formatted information</returns>
-        static string Ex(Exception ex) => $"{ex} (0x{ex.HResult:X8})";
+        static string Ex(Exception ex) => $"{ex.GetType()} (0x{ex.HResult:X8})";
 
         /// <summary>
         /// Creates a dummy/example file in the current directory.
@@ -440,6 +420,7 @@ namespace WinYourDesktopLibrary
         FileMissingExecValue = 0x21,
         FileMissingUrlValue = 0x22,
         FileMissingPathValue = 0x23,
+        FileMissingValue = 0x24,
 
         /// <summary>
         /// Generic Exec error.

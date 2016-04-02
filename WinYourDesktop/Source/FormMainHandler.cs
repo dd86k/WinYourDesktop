@@ -100,9 +100,6 @@ namespace WinYourDesktop
             tsmiHome.Text = RM.GetString("tsmiHome");
             tsmiDebugger.Text = RM.GetString("tsmiDebugger");
             tsmiSettings.Text = RM.GetString("tsmiSettings");
-            // == Tools
-            tsmTools.Text = RM.GetString("tsmTools");
-            tsmiCreationWizard.Text = RM.GetString("tsmiCreationWizard");
             // == ?
             tsmiHelp.Text = RM.GetString("tsmiHelp");
             tsmiAbout.Text = RM.GetString("tsmiAbout");

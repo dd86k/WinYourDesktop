@@ -1,9 +1,11 @@
 # WinYourDesktop
 ## A Desktop Entry file interpreter
 
-![Screenshot](http://didi.wcantin.ca/p/wyd1.png)
+![Screenshot](http://guitarxhero.github.io/imgs/wyd2.png)
 
 _WinYourDesktop_ is a simple Desktop Entry file interpreter for Windows.
+
+It is not a parser. However, I could do a parser (dedicated library) if there is enough demand.
 
 # Features
 

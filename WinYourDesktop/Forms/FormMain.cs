@@ -3,8 +3,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using WinYourDesktopLibrary;
 
-//TODO: Sizable form (v0.6)
-//TODO: Dark theme (v0.8)
+//TODO: Dark theme (v0.7)
 
 // Tip: In VS, you can fold every scope with CTRL+M+O.
 
@@ -73,20 +72,7 @@ namespace WinYourDesktop
         #endregion
 
         #region Tools
-        private void tsmiCreationWizard_Click(object sender, EventArgs e)
-        {
 
-        }
-
-        private void tsmiCreationWizard_MouseEnter(object sender, EventArgs e)
-        {
-            sslblStatus.Text = RM.GetString("tsmiCreationWizard_MouseEnter");
-        }
-
-        private void tsmiCreationWizard_MouseLeave(object sender, EventArgs e)
-        {
-            sslblStatus.Text = string.Empty;
-        }
         #endregion
 
         #region ?

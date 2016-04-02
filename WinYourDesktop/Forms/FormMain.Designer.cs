@@ -39,8 +39,6 @@
             this.tsmiDebugger = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.tsmiSettings = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmTools = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiCreationWizard = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiSupport = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiHelp = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
@@ -88,7 +86,6 @@
             this.msMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsmApplication,
             this.tsmView,
-            this.tsmTools,
             this.tsmiSupport,
             this.tsmNotifications});
             this.msMain.Location = new System.Drawing.Point(0, 0);
@@ -170,24 +167,6 @@
             this.tsmiSettings.Size = new System.Drawing.Size(159, 22);
             this.tsmiSettings.Text = "Settings";
             this.tsmiSettings.Click += new System.EventHandler(this.tsmiSettings_Click);
-            // 
-            // tsmTools
-            // 
-            this.tsmTools.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsmiCreationWizard});
-            this.tsmTools.Name = "tsmTools";
-            this.tsmTools.Size = new System.Drawing.Size(51, 21);
-            this.tsmTools.Text = "Tools";
-            // 
-            // tsmiCreationWizard
-            // 
-            this.tsmiCreationWizard.Enabled = false;
-            this.tsmiCreationWizard.Name = "tsmiCreationWizard";
-            this.tsmiCreationWizard.Size = new System.Drawing.Size(170, 22);
-            this.tsmiCreationWizard.Text = "Creation Wizard";
-            this.tsmiCreationWizard.Click += new System.EventHandler(this.tsmiCreationWizard_Click);
-            this.tsmiCreationWizard.MouseEnter += new System.EventHandler(this.tsmiCreationWizard_MouseEnter);
-            this.tsmiCreationWizard.MouseLeave += new System.EventHandler(this.tsmiCreationWizard_MouseLeave);
             // 
             // tsmiSupport
             // 
@@ -318,6 +297,7 @@
             // 
             // btnDebuggerRun
             // 
+            this.btnDebuggerRun.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnDebuggerRun.Enabled = false;
             this.btnDebuggerRun.Location = new System.Drawing.Point(387, 27);
             this.btnDebuggerRun.Name = "btnDebuggerRun";
@@ -341,9 +321,10 @@
             // 
             // txtDebuggerOutput
             // 
+            this.txtDebuggerOutput.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.txtDebuggerOutput.BackColor = System.Drawing.Color.Black;
             this.txtDebuggerOutput.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtDebuggerOutput.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.txtDebuggerOutput.Font = new System.Drawing.Font("Consolas", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtDebuggerOutput.ForeColor = System.Drawing.Color.White;
             this.txtDebuggerOutput.Location = new System.Drawing.Point(0, 63);
@@ -440,6 +421,7 @@
             // 
             // lblSettingsRequireRestart
             // 
+            this.lblSettingsRequireRestart.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblSettingsRequireRestart.AutoSize = true;
             this.lblSettingsRequireRestart.Location = new System.Drawing.Point(3, 303);
             this.lblSettingsRequireRestart.Name = "lblSettingsRequireRestart";
@@ -486,6 +468,7 @@
             // 
             // btnSettingsSave
             // 
+            this.btnSettingsSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnSettingsSave.Location = new System.Drawing.Point(255, 326);
             this.btnSettingsSave.Margin = new System.Windows.Forms.Padding(4);
             this.btnSettingsSave.Name = "btnSettingsSave";
@@ -507,6 +490,8 @@
             // 
             // cboSettingsLanguage
             // 
+            this.cboSettingsLanguage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.cboSettingsLanguage.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboSettingsLanguage.FormattingEnabled = true;
             this.cboSettingsLanguage.Items.AddRange(new object[] {
@@ -542,7 +527,6 @@
             this.Controls.Add(this.panelMain);
             this.Controls.Add(this.msMain);
             this.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.Name = "FormMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -576,7 +560,6 @@
         private System.Windows.Forms.ToolStripMenuItem tsmiAbout;
         private System.Windows.Forms.Panel panelMain;
         private System.Windows.Forms.ToolStripMenuItem tsmNotifications;
-        private System.Windows.Forms.ToolStripMenuItem tsmTools;
         private System.Windows.Forms.Panel panelDebugger;
         private System.Windows.Forms.Panel panelSettings;
         private System.Windows.Forms.ToolStripMenuItem tsmView;
@@ -592,7 +575,6 @@
         private System.Windows.Forms.TextBox txtDebuggerOutput;
         private System.Windows.Forms.OpenFileDialog ofdMain;
         private System.Windows.Forms.Button btnSettingsSave;
-        private System.Windows.Forms.ToolStripMenuItem tsmiCreationWizard;
         private System.Windows.Forms.ToolStripMenuItem tsmiHelp;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ImageList ImageListNotification;
