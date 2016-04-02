@@ -42,7 +42,7 @@
     <CodeAnalysisRuleSet />
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Application.ico</ApplicationIcon>
+    <ApplicationIcon>Icons\Application_32x.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>false</SignAssembly>
@@ -135,7 +135,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Application.ico" />
+    <Content Include="Icons\Application.ico" />
+    <Content Include="Icons\Application_32x.ico" />
     <Content Include="FodyWeavers.xml" />
     <Content Include="Icons\Application.png" />
     <Content Include="Icons\Flag.png" />

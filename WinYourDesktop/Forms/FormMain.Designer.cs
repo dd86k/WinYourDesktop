@@ -263,6 +263,7 @@
             // 
             // panelMain
             // 
+            this.panelMain.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.panelMain.Controls.Add(this.btnRun);
             this.panelMain.Controls.Add(this.btnDebug);
             this.panelMain.Location = new System.Drawing.Point(10, 25);
@@ -283,6 +284,9 @@
             // panelDebugger
             // 
             this.panelDebugger.AllowDrop = true;
+            this.panelDebugger.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.panelDebugger.Controls.Add(this.btnDebuggerRun);
             this.panelDebugger.Controls.Add(this.lblDebuggerFile);
             this.panelDebugger.Controls.Add(this.txtDebuggerOutput);
@@ -406,6 +410,9 @@
             // 
             // panelSettings
             // 
+            this.panelSettings.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.panelSettings.Controls.Add(this.lblSettingsRequireRestart);
             this.panelSettings.Controls.Add(this.chkSettingsAutoDetectLanguage);
             this.panelSettings.Controls.Add(this.chkSettingsEnableVisualStyles);
@@ -527,6 +534,7 @@
             this.Controls.Add(this.panelMain);
             this.Controls.Add(this.msMain);
             this.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "FormMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
