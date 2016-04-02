@@ -5,12 +5,11 @@
 
 _WinYourDesktop_ is a simple Desktop Entry file interpreter for Windows.
 
-It is not a parser. However, I could do a parser (dedicated library) if there is enough demand.
-
 # Features
 
 - Can start Terminal (cmd) sessions
-- Translates Windows (`%windir%`) and Linux (`$windir`) variables, including ~ (User path)
+- Translate support for Windows and Linux-like variables
+- Translate support for ~ (User profile)
 - Simple debugger
 - Available in French and English
 
@@ -18,28 +17,29 @@ It is not a parser. However, I could do a parser (dedicated library) if there is
 
 1. Place the executable file at a permanent spot where you will remember.
 2. Then make WinYourDesktop the default application to open Desktop Entry files.
+3. (Optional) Add WinYourDesktop in your anti-virus trusted list.
+4. (Optional) Run it once so the .NET platform caches the app.
 
 No installers are available for the moment.
 
 # Installing (source)
 
-This solution is written in C# 6.0 for .NET 4.5.2 on Visual Studio 2015.
+Everything has been written in C# 6.0 for the .NET 4.5.2 platform with Visual Studio 2015.
 
-This solution consists of three projects (build order):
+The solution consists of three projects (build order respectively):
 
-- wyd-lib
-  - Interpreter library
+- wyd-lib (WinYourDesktopLibrary)
+  - Library
 - WinYourDesktop
-  - UI front-end
-- WinYourDesktopConsole
-  - Console front-end
+  - UI app
+- wydcon (WinYourDesktopConsole)
+  - Console app
 
 I am using these packages:
 - Costura.Fody v1.3.3
 - SharpShell (Unused for now)
 
 # FAQ
-
 ## General
 
 - What is a Desktop Entry file?
@@ -47,11 +47,5 @@ I am using these packages:
   
 ## Visual Studio / Source code
 
-- Why does FormHandler shows up with a form icon?
-  - `FormHandler` is a partial class of `FormMain`, which is a form, thus VS thinks that it's UI code.
-
-# Notes
-
-Nothing here yet.
-
-I'm looking forward to finish this!
+- Why does MainFormHandler.cs shows up with a form icon?
+  - `MainFormHandler.cs` is a partial class of `FormMain`, which is a form, thus Visual Studio thinks that it's form code.

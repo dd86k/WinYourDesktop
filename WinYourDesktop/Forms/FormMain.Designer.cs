@@ -263,10 +263,9 @@
             // 
             // panelMain
             // 
-            this.panelMain.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.panelMain.Controls.Add(this.btnRun);
             this.panelMain.Controls.Add(this.btnDebug);
-            this.panelMain.Location = new System.Drawing.Point(10, 25);
+            this.panelMain.Location = new System.Drawing.Point(20, 27);
             this.panelMain.Name = "panelMain";
             this.panelMain.Size = new System.Drawing.Size(256, 109);
             this.panelMain.TabIndex = 6;
