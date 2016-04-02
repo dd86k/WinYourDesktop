@@ -132,30 +132,6 @@
   <data name="btnDebug_MouseEnter" xml:space="preserve">
     <value>Débugger un fichier</value>
   </data>
-  <data name="btnEdit" xml:space="preserve">
-    <value>Éditeur</value>
-  </data>
-  <data name="btnEditorAdd" xml:space="preserve">
-    <value>Ajouter</value>
-  </data>
-  <data name="btnEditorAdd_MouseEnter" xml:space="preserve">
-    <value>Ajouter une entrée</value>
-  </data>
-  <data name="btnEditorModify" xml:space="preserve">
-    <value>Modifié</value>
-  </data>
-  <data name="btnEditorModify_MouseEnter" xml:space="preserve">
-    <value>Modifié l'entrée</value>
-  </data>
-  <data name="btnEditorRemove" xml:space="preserve">
-    <value>Supprimer</value>
-  </data>
-  <data name="btnEditorRemove_MouseEnter" xml:space="preserve">
-    <value>Supprimer l'entrée</value>
-  </data>
-  <data name="btnEdit_MouseEnter" xml:space="preserve">
-    <value>Éditeur de fichier desktop</value>
-  </data>
   <data name="btnRun" xml:space="preserve">
     <value>Éxecuter</value>
   </data>
@@ -198,12 +174,6 @@
   <data name="tsmDebuggerFile" xml:space="preserve">
     <value>Fichier</value>
   </data>
-  <data name="tsmEditor" xml:space="preserve">
-    <value>Éditeur</value>
-  </data>
-  <data name="tsmEditorFile" xml:space="preserve">
-    <value>Fichier</value>
-  </data>
   <data name="tsmiAbout" xml:space="preserve">
     <value>À propos</value>
   </data>
@@ -242,42 +212,6 @@
   </data>
   <data name="tsmiDebuggerRun_MouseEnter" xml:space="preserve">
     <value>Éxecute le fichier</value>
-  </data>
-  <data name="tsmiEditor" xml:space="preserve">
-    <value>Éditeur</value>
-  </data>
-  <data name="tsmiEditorDebug" xml:space="preserve">
-    <value>Débuggeur</value>
-  </data>
-  <data name="tsmiEditorNew" xml:space="preserve">
-    <value>Nouveau</value>
-  </data>
-  <data name="tsmiEditorNew_MouseEnter" xml:space="preserve">
-    <value>Nouveau fichier</value>
-  </data>
-  <data name="tsmiEditorOpen" xml:space="preserve">
-    <value>Ouvrir</value>
-  </data>
-  <data name="tsmiEditorOpen_MouseEnter" xml:space="preserve">
-    <value>Ouvrir le fichier</value>
-  </data>
-  <data name="tsmiEditorRun" xml:space="preserve">
-    <value>Éxecuter</value>
-  </data>
-  <data name="tsmiEditorRun_MouseEnter" xml:space="preserve">
-    <value>Éxecuter le fichier desktop</value>
-  </data>
-  <data name="tsmiEditorSave" xml:space="preserve">
-    <value>Sauvegarder</value>
-  </data>
-  <data name="tsmiEditorSaveAs" xml:space="preserve">
-    <value>Sauvegarder sous...</value>
-  </data>
-  <data name="tsmiEditorSaveAs_MouseEnter" xml:space="preserve">
-    <value>Sauvegarder le fichier courant en tant qu'un autre</value>
-  </data>
-  <data name="tsmiEditorSave_MouseEnter" xml:space="preserve">
-    <value>Sauvegarder le fichier courant</value>
   </data>
   <data name="tsmiHelp" xml:space="preserve">
     <value>Aide</value>

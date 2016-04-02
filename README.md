@@ -8,7 +8,6 @@ _WinYourDesktop_ is a simple Desktop Entry file interpreter for Windows.
 # Features
 
 - Interprets Windows (`%windir%`) and Linux (`$windir`) variables, including ~
-- Simple editor
 - Simple debugger
 - Available in French and English
 
