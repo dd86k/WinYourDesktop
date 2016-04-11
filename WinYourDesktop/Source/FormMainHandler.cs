@@ -77,6 +77,9 @@ namespace WinYourDesktop
 #if DEBUG && EN
             pLanguage = "en";
 #endif
+            if (pLanguage == null) return;
+
+            SettingsHandler.Language = pLanguage;
 
             switch (pLanguage)
             {

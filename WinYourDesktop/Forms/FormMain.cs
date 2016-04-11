@@ -14,12 +14,26 @@ namespace WinYourDesktop
         {
             InitializeComponent();
             PostInitialize();
+
+            if (SettingsHandler.SettingFileExists)
+            {
+                SettingsHandler.Load();
+
+                ChangeCulture(SettingsHandler.Language);
+            }
         }
         
         internal FormMain(string pDesktopFilePath)
         {
             InitializeComponent();
             PostInitialize();
+
+            if (SettingsHandler.SettingFileExists)
+            {
+                SettingsHandler.Load();
+
+                ChangeCulture(SettingsHandler.Language);
+            }
 
             MakeCurrentFile(pDesktopFilePath);
         }
@@ -275,9 +289,7 @@ namespace WinYourDesktop
 
         private void btnSettingsSave_Click(object sender, EventArgs e)
         {
-            //TODO: Don't forget to save with the SettingsManager! (v0.7)
-
-
+            SettingsHandler.Save();
         }
         #endregion
     }
