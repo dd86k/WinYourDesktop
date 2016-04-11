@@ -63,10 +63,6 @@
             this.tsmiDebuggerClear = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiDebuggerCopyToClipboard = new System.Windows.Forms.ToolStripMenuItem();
             this.panelSettings = new System.Windows.Forms.Panel();
-            this.lblSettingsRequireRestart = new System.Windows.Forms.Label();
-            this.chkSettingsAutoDetectLanguage = new System.Windows.Forms.CheckBox();
-            this.chkSettingsEnableVisualStyles = new System.Windows.Forms.CheckBox();
-            this.chkSettingsDarkTheme = new System.Windows.Forms.CheckBox();
             this.btnSettingsSave = new System.Windows.Forms.Button();
             this.lblSettingsLanguage = new System.Windows.Forms.Label();
             this.cboSettingsLanguage = new System.Windows.Forms.ComboBox();
@@ -417,70 +413,19 @@
             this.panelSettings.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelSettings.Controls.Add(this.lblSettingsRequireRestart);
-            this.panelSettings.Controls.Add(this.chkSettingsAutoDetectLanguage);
-            this.panelSettings.Controls.Add(this.chkSettingsEnableVisualStyles);
-            this.panelSettings.Controls.Add(this.chkSettingsDarkTheme);
             this.panelSettings.Controls.Add(this.btnSettingsSave);
             this.panelSettings.Controls.Add(this.lblSettingsLanguage);
             this.panelSettings.Controls.Add(this.cboSettingsLanguage);
             this.panelSettings.Location = new System.Drawing.Point(455, 29);
             this.panelSettings.Name = "panelSettings";
-            this.panelSettings.Size = new System.Drawing.Size(359, 360);
+            this.panelSettings.Size = new System.Drawing.Size(359, 229);
             this.panelSettings.TabIndex = 9;
             this.panelSettings.Visible = false;
-            // 
-            // lblSettingsRequireRestart
-            // 
-            this.lblSettingsRequireRestart.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.lblSettingsRequireRestart.AutoSize = true;
-            this.lblSettingsRequireRestart.Location = new System.Drawing.Point(3, 303);
-            this.lblSettingsRequireRestart.Name = "lblSettingsRequireRestart";
-            this.lblSettingsRequireRestart.Size = new System.Drawing.Size(196, 17);
-            this.lblSettingsRequireRestart.TabIndex = 6;
-            this.lblSettingsRequireRestart.Text = "* Requires an application restart";
-            // 
-            // chkSettingsAutoDetectLanguage
-            // 
-            this.chkSettingsAutoDetectLanguage.AutoSize = true;
-            this.chkSettingsAutoDetectLanguage.Checked = true;
-            this.chkSettingsAutoDetectLanguage.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkSettingsAutoDetectLanguage.Enabled = false;
-            this.chkSettingsAutoDetectLanguage.Location = new System.Drawing.Point(6, 104);
-            this.chkSettingsAutoDetectLanguage.Name = "chkSettingsAutoDetectLanguage";
-            this.chkSettingsAutoDetectLanguage.Size = new System.Drawing.Size(202, 21);
-            this.chkSettingsAutoDetectLanguage.TabIndex = 5;
-            this.chkSettingsAutoDetectLanguage.Text = "Automatically detect language";
-            this.chkSettingsAutoDetectLanguage.UseVisualStyleBackColor = true;
-            // 
-            // chkSettingsEnableVisualStyles
-            // 
-            this.chkSettingsEnableVisualStyles.AutoSize = true;
-            this.chkSettingsEnableVisualStyles.Checked = true;
-            this.chkSettingsEnableVisualStyles.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkSettingsEnableVisualStyles.Enabled = false;
-            this.chkSettingsEnableVisualStyles.Location = new System.Drawing.Point(6, 82);
-            this.chkSettingsEnableVisualStyles.Name = "chkSettingsEnableVisualStyles";
-            this.chkSettingsEnableVisualStyles.Size = new System.Drawing.Size(143, 21);
-            this.chkSettingsEnableVisualStyles.TabIndex = 4;
-            this.chkSettingsEnableVisualStyles.Text = "Enable visual styles*";
-            this.chkSettingsEnableVisualStyles.UseVisualStyleBackColor = true;
-            // 
-            // chkSettingsDarkTheme
-            // 
-            this.chkSettingsDarkTheme.AutoSize = true;
-            this.chkSettingsDarkTheme.Enabled = false;
-            this.chkSettingsDarkTheme.Location = new System.Drawing.Point(6, 60);
-            this.chkSettingsDarkTheme.Name = "chkSettingsDarkTheme";
-            this.chkSettingsDarkTheme.Size = new System.Drawing.Size(94, 21);
-            this.chkSettingsDarkTheme.TabIndex = 3;
-            this.chkSettingsDarkTheme.Text = "Dark theme";
-            this.chkSettingsDarkTheme.UseVisualStyleBackColor = true;
             // 
             // btnSettingsSave
             // 
             this.btnSettingsSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSettingsSave.Location = new System.Drawing.Point(255, 326);
+            this.btnSettingsSave.Location = new System.Drawing.Point(255, 195);
             this.btnSettingsSave.Margin = new System.Windows.Forms.Padding(4);
             this.btnSettingsSave.Name = "btnSettingsSave";
             this.btnSettingsSave.Size = new System.Drawing.Size(100, 30);
@@ -513,6 +458,7 @@
             this.cboSettingsLanguage.Name = "cboSettingsLanguage";
             this.cboSettingsLanguage.Size = new System.Drawing.Size(343, 25);
             this.cboSettingsLanguage.TabIndex = 0;
+            this.cboSettingsLanguage.SelectedIndexChanged += new System.EventHandler(this.cboSettingsLanguage_SelectedIndexChanged);
             // 
             // ofdMain
             // 
@@ -589,8 +535,6 @@
         private System.Windows.Forms.ToolStripMenuItem tsmiHelp;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ImageList ImageListNotification;
-        private System.Windows.Forms.CheckBox chkSettingsEnableVisualStyles;
-        private System.Windows.Forms.CheckBox chkSettingsDarkTheme;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
         private System.Windows.Forms.MenuStrip msDebugger;
@@ -601,7 +545,5 @@
         private System.Windows.Forms.ToolStripMenuItem tsmiDebuggerCopyToClipboard;
         private System.Windows.Forms.ToolStripMenuItem tsmiDebuggerOpen;
         private System.Windows.Forms.ToolStripMenuItem tsmiDebuggerRun;
-        private System.Windows.Forms.CheckBox chkSettingsAutoDetectLanguage;
-        private System.Windows.Forms.Label lblSettingsRequireRestart;
     }
 }

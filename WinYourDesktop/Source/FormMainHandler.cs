@@ -125,10 +125,6 @@ namespace WinYourDesktop
             lblSettingsLanguage.Text = RM.GetString("lblSettingsLanguage");
             cboSettingsLanguage.Text = RM.GetString("cboSettingsLanguage");
             btnSettingsSave.Text = RM.GetString("btnSettingsSave");
-            chkSettingsDarkTheme.Text = RM.GetString("chkSettingsDarkTheme");
-            chkSettingsEnableVisualStyles.Text = RM.GetString("chkSettingsEnableVisualStyles");
-            chkSettingsAutoDetectLanguage.Text = RM.GetString("chkSettingsAutoDetectLanguage");
-            lblSettingsRequireRestart.Text = RM.GetString("lblSettingsRequireRestart");
 
             // ==== ssMain
             sslblStatus.Text = RM.GetString("MiscWelcome");

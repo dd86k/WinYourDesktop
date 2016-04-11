@@ -3,7 +3,6 @@ using System.Drawing;
 using System.Windows.Forms;
 using WinYourDesktopLibrary;
 
-//TODO: Dark theme (v0.7)
 //TODO: Fix run button placement on resize (now)
 //TODO: Only resize client on first time (now)
 
@@ -261,7 +260,7 @@ namespace WinYourDesktop
         #endregion
 
         #region Settings view
-        private void btnSettingsSave_Click(object sender, EventArgs e)
+        private void cboSettingsLanguage_SelectedIndexChanged(object sender, EventArgs e)
         {
             string language = cboSettingsLanguage.SelectedItem.ToString();
             language = language.Substring(language.IndexOf('(') + 1);
@@ -271,16 +270,17 @@ namespace WinYourDesktop
                     ChangeCulture("fr-FR");
                     break;
 
-                case "Pirate":
-                    ChangeCulture("en-Pirate");
-                    break;
-
                 default:
                     ChangeCulture("en-US");
                     break;
             }
+        }
 
+        private void btnSettingsSave_Click(object sender, EventArgs e)
+        {
             //TODO: Don't forget to save with the SettingsManager! (v0.7)
+
+
         }
         #endregion
     }
