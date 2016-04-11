@@ -32,12 +32,12 @@ namespace WinYourDesktop
             SuspendLayout();
             //Application.Run(new SystemTrayApp());
 
-            AdjustClientSize(panelMain);
+            panelDebugger.Dock =
+                panelSettings.Dock =
+                panelMain.Dock =
+                    DockStyle.Fill;
 
-            panelDebugger.Location =
-                panelSettings.Location =
-                panelMain.Location =
-                new Point(0, msMain.Height);
+            ToggleMode(ViewingMode.Home);
 
             Console.SetOut(new ConReader(txtDebuggerOutput));
 
@@ -45,7 +45,7 @@ namespace WinYourDesktop
 
             ChangeCulture();
 
-            ResumeLayout();
+            ResumeLayout(true);
         }
         #endregion
 

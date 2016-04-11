@@ -3,9 +3,6 @@ using System.Drawing;
 using System.Windows.Forms;
 using WinYourDesktopLibrary;
 
-//TODO: Fix run button placement on resize (now)
-//TODO: Only resize client on first time (now)
-
 // Tip: In VS, you can fold every scope with CTRL+M+O.
 
 namespace WinYourDesktop

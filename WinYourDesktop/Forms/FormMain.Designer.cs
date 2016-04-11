@@ -301,8 +301,9 @@
             // 
             // btnDebuggerRun
             // 
+            this.btnDebuggerRun.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnDebuggerRun.Enabled = false;
-            this.btnDebuggerRun.Location = new System.Drawing.Point(376, 27);
+            this.btnDebuggerRun.Location = new System.Drawing.Point(376, 26);
             this.btnDebuggerRun.Name = "btnDebuggerRun";
             this.btnDebuggerRun.Size = new System.Drawing.Size(57, 31);
             this.btnDebuggerRun.TabIndex = 10;
@@ -478,10 +479,10 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(826, 536);
-            this.Controls.Add(this.ssMain);
             this.Controls.Add(this.panelSettings);
             this.Controls.Add(this.panelDebugger);
             this.Controls.Add(this.panelMain);
+            this.Controls.Add(this.ssMain);
             this.Controls.Add(this.msMain);
             this.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
