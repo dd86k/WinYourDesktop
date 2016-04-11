@@ -94,10 +94,12 @@ namespace WinYourDesktopLibrary
                     ErrorCode.NullPath : ErrorCode.EmptyPath;
             }
 
-            if (!File.Exists(pPath))
+            FileInfo file = new FileInfo(pPath);
+
+            if (!file.Exists)
             {
                 if (pVerbose)
-                    WriteLine($"Error: Specified file doesn't exist at {pPath})");
+                    WriteLine($"Error: \"{pPath}\" does not exist.");
 
                 return ErrorCode.FileNotFound;
             }
@@ -113,12 +115,12 @@ namespace WinYourDesktopLibrary
             string value = string.Empty;
             bool terminal = false;
 
-            char[] DELIM = new char[] { DELIMITER };
+            char[] SPLITTER = new char[] { DELIMITER };
 
             if (pVerbose)
-                WriteLine($"Reading {Path.GetFileName(pPath)}...");
+                WriteLine($"Reading {file.Name}...");
 
-            using (StreamReader sr = new StreamReader(pPath))
+            using (StreamReader sr = file.OpenText())
             {
                 if (sr.ReadLine() != "[Desktop Entry]")
                 {
@@ -140,7 +142,7 @@ namespace WinYourDesktopLibrary
                             return ErrorCode.FileMissingDelimiter;
                         }
 
-                        LineValues = CurrentLine.Split(DELIM,
+                        LineValues = CurrentLine.Split(SPLITTER,
                             StringSplitOptions.RemoveEmptyEntries);
 
                         switch (LineValues[0])
@@ -157,7 +159,8 @@ namespace WinYourDesktopLibrary
                                     case "Directory":
                                         type = DesktopFileType.Directory;
                                         break;
-                                    // Skip/Ignore by default
+                                    default:
+                                        return ErrorCode.FileMissingType;
                                 }
 
                                 if (pVerbose)
@@ -200,15 +203,9 @@ namespace WinYourDesktopLibrary
                     CurrentLineIndex++;
                 } // End while
             } // End using
-            
-            // Unknown is default, if unchanged, it's missing.
-            if (type == DesktopFileType.Unknown)
-            {
-                return ErrorCode.FileMissingType;
-            }
 
             if (pVerbose)
-                WriteLine($"Starting {value}...");
+                WriteLine($"Starting...");
             
             if (string.IsNullOrWhiteSpace(value))
                 switch (type)
@@ -235,13 +232,9 @@ namespace WinYourDesktopLibrary
                     try
                     {
                         if (terminal)
-                        {
                             Process.Start("cmd", $"/c {value}");
-                        }
                         else
-                        {
                             Process.Start(value);
-                        }
                     }
                     catch (InvalidOperationException)
                     {
@@ -288,11 +281,11 @@ namespace WinYourDesktopLibrary
                     {
                         try
                         {
-                            string explorer =
-                                $"{Environment.GetFolderPath(Environment.SpecialFolder.Windows)}\\explorer";
-
-                            Process.Start(explorer,
-                                value.Replace("/", @"\"));
+                            Process.Start(
+                                $@"{Environment.GetFolderPath(
+                                    Environment.SpecialFolder.Windows
+                                )}\explorer",
+                                value); // .Replace("/", @"\")
                         }
                         catch (Exception ex)
                         {
@@ -319,6 +312,24 @@ namespace WinYourDesktopLibrary
             return 0; /// 0 is <see cref="ErrorCode.Success"/>
         }
 
+        /// <summary>
+        /// Creates a dummy/example file in the current directory.
+        /// </summary>
+        static public void CreateExample()
+        {
+            using (TextWriter tw = new StreamWriter("Dummy.desktop", false))
+            {
+                tw.WriteLine("[Desktop Entry]");
+                tw.WriteLine("# This is a simple generated dummy desktop file.");
+                tw.WriteLine($"# Interpreter version: {ProjectVersion}");
+                tw.WriteLine("Type=Directory");
+                tw.WriteLine("Name=Open Windows Directory");
+                tw.WriteLine(@"Path=%WINDIR%");
+            }
+        }
+        #endregion
+
+        #region Private methods
         static void ReplaceVars(ref string value, bool pVerbose)
         {
             if (pVerbose)
@@ -384,23 +395,7 @@ namespace WinYourDesktopLibrary
         /// </summary>
         /// <param name="e"><see cref="Exception"/></param>
         /// <returns>Formatted information</returns>
-        static string Ex(Exception ex) => $"{ex.GetType()} (0x{ex.HResult:X8})";
-
-        /// <summary>
-        /// Creates a dummy/example file in the current directory.
-        /// </summary>
-        static public void CreateExample()
-        {
-            using (TextWriter tw = new StreamWriter("Dummy.desktop", false))
-            {
-                tw.WriteLine("[Desktop Entry]");
-                tw.WriteLine("# This is a simple generated dummy desktop file.");
-                tw.WriteLine($"# Interpreter version: {ProjectVersion}");
-                tw.WriteLine("Type=Directory");
-                tw.WriteLine("Name=Open Windows Directory");
-                tw.WriteLine(@"Path=%WINDIR%");
-            }
-        }
+        static string Ex(Exception e) => $"{e.GetType()} (0x{e.HResult:X8})";
         #endregion Public Methods
     }
     #endregion
@@ -451,7 +446,7 @@ namespace WinYourDesktopLibrary
 
     public static class Extensions
     {
-        public static int S(this ErrorCode e) => (int)e;
+        public static int ToInt(this ErrorCode e) => (int)e;
         public static string Hex(this ErrorCode e) => $"0x{e:X4}";
         public static string GetErrorMessage(this ErrorCode e)
         {
@@ -471,7 +466,7 @@ namespace WinYourDesktopLibrary
                 case ErrorCode.FileNoSignature:
                     return "Missing [Desktop Entry] at the first line.";
                 case ErrorCode.FileMissingDelimiter:
-                    return "Missing \"=\" delimiter.";
+                    return $"Missing \"=\" delimiter.";
                 case ErrorCode.FileMissingType:
                     return "Missing Type.";
                 case ErrorCode.FileMissingExecValue:
@@ -483,7 +478,7 @@ namespace WinYourDesktopLibrary
 
                     // Exec
                 case ErrorCode.ExecError:
-                    return "Exec error.";
+                    return "Generic Exec error.";
                 case ErrorCode.ExecInvalidOperation:
                     return "Invalid operation at Exec.";
                 case ErrorCode.ExecWin32Error:
@@ -493,11 +488,11 @@ namespace WinYourDesktopLibrary
 
                     // Link (URL)
                 case ErrorCode.LinkError:
-                    return "Link error. (URL)";
+                    return "Generic Link error. (URL)";
 
                     // Directory (Path)
                 case ErrorCode.DirectoryError:
-                    return "Directory error. (Path)";
+                    return "Generic Directory error. (Path)";
                 case ErrorCode.DirectoryNotFound:
                     return "Directory not found (invalid path).";
             }

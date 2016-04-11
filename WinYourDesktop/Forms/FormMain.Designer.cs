@@ -229,6 +229,7 @@
             // 
             // btnRun
             // 
+            this.btnRun.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnRun.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnRun.BackgroundImage")));
             this.btnRun.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.btnRun.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -246,6 +247,7 @@
             // 
             // btnDebug
             // 
+            this.btnDebug.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnDebug.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnDebug.BackgroundImage")));
             this.btnDebug.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.btnDebug.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -263,6 +265,9 @@
             // 
             // panelMain
             // 
+            this.panelMain.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.panelMain.Controls.Add(this.btnRun);
             this.panelMain.Controls.Add(this.btnDebug);
             this.panelMain.Location = new System.Drawing.Point(20, 27);
@@ -273,7 +278,7 @@
             // toolStripSeparator5
             // 
             this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(100, 6);
+            this.toolStripSeparator5.Size = new System.Drawing.Size(149, 6);
             // 
             // toolStripSeparator4
             // 
@@ -300,11 +305,10 @@
             // 
             // btnDebuggerRun
             // 
-            this.btnDebuggerRun.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnDebuggerRun.Enabled = false;
-            this.btnDebuggerRun.Location = new System.Drawing.Point(387, 27);
+            this.btnDebuggerRun.Location = new System.Drawing.Point(376, 27);
             this.btnDebuggerRun.Name = "btnDebuggerRun";
-            this.btnDebuggerRun.Size = new System.Drawing.Size(46, 31);
+            this.btnDebuggerRun.Size = new System.Drawing.Size(57, 31);
             this.btnDebuggerRun.TabIndex = 10;
             this.btnDebuggerRun.Text = "▶";
             this.btnDebuggerRun.UseVisualStyleBackColor = true;
@@ -324,8 +328,9 @@
             // 
             // txtDebuggerOutput
             // 
-            this.txtDebuggerOutput.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
+            this.txtDebuggerOutput.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtDebuggerOutput.BackColor = System.Drawing.Color.Black;
             this.txtDebuggerOutput.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtDebuggerOutput.Font = new System.Drawing.Font("Consolas", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -364,7 +369,7 @@
             // tsmiDebuggerOpen
             // 
             this.tsmiDebuggerOpen.Name = "tsmiDebuggerOpen";
-            this.tsmiDebuggerOpen.Size = new System.Drawing.Size(103, 22);
+            this.tsmiDebuggerOpen.Size = new System.Drawing.Size(152, 22);
             this.tsmiDebuggerOpen.Text = "Open";
             this.tsmiDebuggerOpen.Click += new System.EventHandler(this.tsmiDebuggerOpen_Click);
             this.tsmiDebuggerOpen.MouseEnter += new System.EventHandler(this.tsmiDebuggerOpen_MouseEnter);
@@ -374,7 +379,7 @@
             // 
             this.tsmiDebuggerRun.Enabled = false;
             this.tsmiDebuggerRun.Name = "tsmiDebuggerRun";
-            this.tsmiDebuggerRun.Size = new System.Drawing.Size(103, 22);
+            this.tsmiDebuggerRun.Size = new System.Drawing.Size(152, 22);
             this.tsmiDebuggerRun.Text = "Run";
             this.tsmiDebuggerRun.Click += new System.EventHandler(this.tsmiDebuggerRun_Click);
             this.tsmiDebuggerRun.MouseEnter += new System.EventHandler(this.tsmiDebuggerRun_MouseEnter);
@@ -511,7 +516,7 @@
             // 
             // ofdMain
             // 
-            this.ofdMain.Filter = "Desktop entry files|*.desktop|All file|*.*";
+            this.ofdMain.Filter = "Desktop entry files|*.desktop|All files|*.*";
             this.ofdMain.RestoreDirectory = true;
             // 
             // ImageListNotification
@@ -534,7 +539,6 @@
             this.Controls.Add(this.msMain);
             this.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MaximizeBox = false;
             this.Name = "FormMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "WinYourDesktop";

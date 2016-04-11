@@ -234,4 +234,7 @@
   <data name="tsmView" xml:space="preserve">
     <value>Mode</value>
   </data>
+  <data name="Misc_ErrNotDesktopFile" xml:space="preserve">
+    <value>Ceci n'est pas un fichier desktop!</value>
+  </data>
 </root>

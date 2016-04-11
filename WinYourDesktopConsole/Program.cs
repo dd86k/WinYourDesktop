@@ -84,7 +84,7 @@ namespace WinYourDesktopConsole
                 if (r != ErrorCode.Success)
                     WriteLine($"ERROR: {r} - {r.GetErrorMessage()} ({r.Hex()})");
 
-                return r.S();
+                return r.ToInt();
             }
             catch (Exception ex)
             {

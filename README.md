@@ -8,8 +8,8 @@ _WinYourDesktop_ is a simple Desktop Entry file interpreter for Windows.
 # Features
 
 - Can start Terminal (cmd) sessions
-- Translate support for Windows and Linux-like variables
-- Translate support for ~ (User profile)
+- Support for Windows and Linux-like variables
+- Support for ~ (User profile)
 - Simple debugger
 - Available in French and English
 
@@ -24,7 +24,7 @@ No installers are available for the moment.
 
 # Installing (source)
 
-Everything has been written in C# 6.0 for the .NET 4.5.2 platform with Visual Studio 2015.
+Everything has been written in C# 6.0 for the .NET 4.6.1 platform with Visual Studio 2015.
 
 The solution consists of three projects (build order respectively):
 

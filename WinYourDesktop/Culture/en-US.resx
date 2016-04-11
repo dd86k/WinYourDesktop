@@ -234,4 +234,7 @@
   <data name="tsmiDebuggerRun_MouseEnter" xml:space="preserve">
     <value>Run desktop file</value>
   </data>
+  <data name="Misc_ErrNotDesktopFile" xml:space="preserve">
+    <value>This is not a desktop file!</value>
+  </data>
 </root>

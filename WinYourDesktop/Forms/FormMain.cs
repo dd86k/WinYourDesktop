@@ -4,6 +4,8 @@ using System.Windows.Forms;
 using WinYourDesktopLibrary;
 
 //TODO: Dark theme (v0.7)
+//TODO: Fix run button placement on resize (now)
+//TODO: Only resize client on first time (now)
 
 // Tip: In VS, you can fold every scope with CTRL+M+O.
 
@@ -23,7 +25,7 @@ namespace WinYourDesktop
             InitializeComponent();
             PostInitialize();
 
-            MakeCurrentFile(pDesktopFilePath, true);
+            MakeCurrentFile(pDesktopFilePath);
         }
         #endregion
 
@@ -71,10 +73,6 @@ namespace WinYourDesktop
         }
         #endregion
 
-        #region Tools
-
-        #endregion
-
         #region ?
         // Help
         private void tsmiHelp_Click(object sender, EventArgs e)
@@ -114,16 +112,16 @@ namespace WinYourDesktop
         // Run
         private void btnRun_Click(object sender, EventArgs e)
         {
-            DialogResult r = ofdMain.ShowDialog();
-
-            if (r == DialogResult.OK)
+            if (ofdMain.ShowDialog() == DialogResult.OK)
             {
                 sslblStatus.Text = "...";
 
                 ErrorCode c = Interpreter.Run(ofdMain.FileName);
 
                 if (c != ErrorCode.Success)
-                    sslblStatus.Text = c.ToString();
+                    sslblStatus.Text = "❌ - " + c.Hex();
+                else
+                    sslblStatus.Text = "✔️";
             }
         }
 
@@ -158,14 +156,7 @@ namespace WinYourDesktop
         // Run
         private void btnDebuggerRun_Click(object sender, EventArgs e)
         {
-            txtDebuggerOutput.Clear();
-            ErrorCode r = Interpreter.Run(CurrentFile.FullName, true);
-
-            if (r != ErrorCode.Success)
-            {
-                txtDebuggerOutput.AppendText($"Return code: {r} ({r.Hex()})\n");
-                txtDebuggerOutput.AppendText($"Message: {r.GetErrorMessage()}");
-            }
+            RunFile();
         }
 
         private void btnDebuggerRun_MouseEnter(object sender, EventArgs e)
@@ -196,26 +187,10 @@ namespace WinYourDesktop
             sslblStatus.Text = string.Empty;
         }
 
-        // Edit
-        private void tsmiDebuggerEdit_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void tsmiDebuggerEdit_MouseEnter(object sender, EventArgs e)
-        {
-            sslblStatus.Text = RM.GetString("tsmiDebuggerEdit_MouseEnter");
-        }
-
-        private void tsmiDebuggerEdit_MouseLeave(object sender, EventArgs e)
-        {
-            sslblStatus.Text = string.Empty;
-        }
-
         // Run
         private void tsmiDebuggerRun_Click(object sender, EventArgs e)
         {
-
+            RunFile();
         }
 
         private void tsmiDebuggerRun_MouseEnter(object sender, EventArgs e)
@@ -265,7 +240,7 @@ namespace WinYourDesktop
         {
             e.Effect =
                 e.Data.GetDataPresent(DataFormats.FileDrop) ?
-                DragDropEffects.Move :
+                DragDropEffects.Link :
                 DragDropEffects.None;
         }
 
@@ -273,10 +248,14 @@ namespace WinYourDesktop
         {
             if (e.Data.GetDataPresent(DataFormats.FileDrop, false))
             {
-                string[] list = (string[])(e.Data.GetData(DataFormats.FileDrop));
+                string file = ((string[])(e.Data.GetData(DataFormats.FileDrop)))[0];
 
-                if (list[0].ToLower().Contains(".desktop"))
-                    MakeCurrentFile(list[0], false);
+                if (file.ToLower().EndsWith(".desktop"))
+                    MakeCurrentFile(file);
+                else
+                    MessageBox.Show("!",
+                        RM.GetString("Misc_ErrNotDesktopFile"),
+                        MessageBoxButtons.OK);
             }
         }
         #endregion

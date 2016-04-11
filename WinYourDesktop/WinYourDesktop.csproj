@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>WinYourDesktop</RootNamespace>
     <AssemblyName>WinYourDesktop</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <TargetFrameworkProfile />
@@ -42,7 +42,7 @@
     <CodeAnalysisRuleSet />
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Icons\Application_32x.ico</ApplicationIcon>
+    <ApplicationIcon>App_128x.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>false</SignAssembly>
@@ -104,11 +104,6 @@
     <Compile Include="Forms\FormHelp.Designer.cs">
       <DependentUpon>FormHelp.cs</DependentUpon>
     </Compile>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
     <Compile Include="Source\FormMainHandler.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -135,10 +130,14 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Icons\Application.ico" />
-    <Content Include="Icons\Application_32x.ico" />
+    <Content Include="App_128x.ico" />
     <Content Include="FodyWeavers.xml" />
-    <Content Include="Icons\Application.png" />
+    <Content Include="Icons\App_128x.ico" />
+    <Content Include="Icons\App_256x.png" />
+    <Content Include="Icons\CircleArrowRight.png" />
+    <Content Include="Icons\CircleLines.png" />
+    <Content Include="Icons\CirclePlus.png" />
+    <Content Include="Icons\CircleTerm.png" />
     <Content Include="Icons\Flag.png" />
     <Content Include="Icons\NotificationCrucial.png" />
     <Content Include="Icons\NotificationHigh.png" />
@@ -159,10 +158,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>fr-FR.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\wyd-lib\wyd-lib.csproj">
@@ -171,6 +166,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

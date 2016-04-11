@@ -9,6 +9,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "wydcon", "WinYourDesktopCon
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "wyd-lib", "wyd-lib\wyd-lib.csproj", "{18A28EC1-DE0F-40C1-8F34-ECEF36CE67BC}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{46512FB6-0351-4168-8594-EBB6D186DDA2}"
+	ProjectSection(SolutionItems) = preProject
+		LICENSE = LICENSE
+		README.md = README.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug - EN|Any CPU = Debug - EN|Any CPU

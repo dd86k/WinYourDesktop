@@ -187,6 +187,15 @@ namespace WinYourDesktop.Culture {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ceci n&apos;est pas un fichier desktop!.
+        /// </summary>
+        internal static string Misc_ErrNotDesktopFile {
+            get {
+                return ResourceManager.GetString("Misc_ErrNotDesktopFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Aucun fichier d&apos;ouvert.
         /// </summary>
         internal static string MiscNoFile {

@@ -42,7 +42,8 @@ namespace WinYourDesktop
             // No arguments
             if (len == 0)
             {
-                ShowForm(); return 0;
+                ShowForm();
+                return 0;
             }
 
             string file = args[len - 1];
@@ -53,7 +54,7 @@ namespace WinYourDesktop
                 {
                     switch (args [i])
                     {
-                        case "/edit":
+                        case "/debug":
                             ShowForm(file);
                             return 0;
                     }
@@ -70,7 +71,7 @@ namespace WinYourDesktop
                     MessageBoxButtons.OK);
             }
 
-            return err.S();
+            return err.ToInt();
         }
 
         static void ShowForm(string pPath = null)

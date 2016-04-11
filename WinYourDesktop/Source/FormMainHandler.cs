@@ -6,6 +6,7 @@ using System.Resources;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
+using WinYourDesktopLibrary;
 
 namespace WinYourDesktop
 {
@@ -31,12 +32,12 @@ namespace WinYourDesktop
             SuspendLayout();
             //Application.Run(new SystemTrayApp());
 
+            AdjustClientSize(panelMain);
+
             panelDebugger.Location =
                 panelSettings.Location =
                 panelMain.Location =
                 new Point(0, msMain.Height);
-
-            AdjustClientSize(panelMain);
 
             Console.SetOut(new ConReader(txtDebuggerOutput));
 
@@ -156,7 +157,8 @@ namespace WinYourDesktop
                         tsmiSettings.Checked =
                         panelDebugger.Visible =
                         panelSettings.Visible = false;
-                    AdjustClientSize(panelMain);
+                    
+                        AdjustClientSize(panelMain);
                     break;
 
                 case ViewingMode.Debugger:
@@ -166,7 +168,8 @@ namespace WinYourDesktop
                         tsmiSettings.Checked =
                         panelMain.Visible =
                         panelSettings.Visible = false;
-                    AdjustClientSize(panelDebugger);
+                    
+                        AdjustClientSize(panelDebugger);
                     break;
 
                 case ViewingMode.Settings:
@@ -176,7 +179,8 @@ namespace WinYourDesktop
                         tsmiDebugger.Checked =
                         panelMain.Visible =
                         panelDebugger.Visible = false;
-                    AdjustClientSize(panelSettings);
+                    
+                        AdjustClientSize(panelSettings);
                     break;
             }
 
@@ -189,11 +193,7 @@ namespace WinYourDesktop
         /// <param name="pPanel">Panel</param>
         void AdjustClientSize(Panel pPanel)
         {
-            ClientSize = new Size(pPanel.Width,
-                msMain.Height +
-                pPanel.Height +
-                ssMain.Height
-            );
+            AdjustClientSize(pPanel.Width, pPanel.Height);
         }
 
         /// <summary>
@@ -210,28 +210,21 @@ namespace WinYourDesktop
         }
         #endregion
 
-        #region Open/Save current file
+        #region File
         void PromptToMakeCurrentFile()
         {
-            DialogResult r = ofdMain.ShowDialog();
-
-            if (r == DialogResult.OK)
+            if (ofdMain.ShowDialog() == DialogResult.OK)
             {
                 MakeCurrentFile(ofdMain.FileName);
             }
         }
 
-        void MakeCurrentFile(bool pEditor = true)
+        void MakeCurrentFile(string pPath)
         {
-            MakeCurrentFile(CurrentFile, pEditor);
+            MakeCurrentFile(new FileInfo(pPath));
         }
 
-        void MakeCurrentFile(string pPath, bool pEditor = false)
-        {
-            MakeCurrentFile(new FileInfo(pPath), pEditor);
-        }
-
-        void MakeCurrentFile(FileInfo pFileInfo, bool pEditor = false)
+        void MakeCurrentFile(FileInfo pFileInfo)
         {
             CurrentFile = pFileInfo;
 
@@ -242,6 +235,18 @@ namespace WinYourDesktop
                 tsmiDebuggerRun.Enabled =
                 true;
         }
+
+        void RunFile()
+        {
+            txtDebuggerOutput.Clear();
+            ErrorCode r = Interpreter.Run(CurrentFile.FullName, true);
+
+            if (r != ErrorCode.Success)
+            {
+                txtDebuggerOutput.AppendText($"Return code: {r} ({r.Hex()})\n");
+                txtDebuggerOutput.AppendText($"Message: {r.GetErrorMessage()}");
+            }
+        }
         #endregion
     }
 
@@ -251,7 +256,7 @@ namespace WinYourDesktop
     /// </summary>
     public class ConReader : TextWriter
     {
-        TextBox t = null;
+        TextBox t;
 
         public ConReader(TextBox output)
         {
