@@ -2,7 +2,7 @@
 using System.Drawing;
 using System.Windows.Forms;
 
-//TODO: SystemTrayApp (v0.9)
+//TODO: SystemTrayApp (v?)
 
 namespace WinYourDesktop
 {
@@ -13,7 +13,6 @@ namespace WinYourDesktop
 
         public SystemTrayApp()
         {
-            // Create a simple tray menu with only one item.
             TrayMenu = new ContextMenu();
             TrayMenu.MenuItems.Add("Exit", OnExit);
             

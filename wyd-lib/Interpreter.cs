@@ -401,45 +401,33 @@ namespace WinYourDesktopLibrary
     #endregion
     
     #region Public enumerations
+    /// <remarks>
+    /// For error messages, see
+    /// <see cref="Extensions.GetErrorMessage(ErrorCode)"/>
+    /// </remarks>
     public enum ErrorCode : byte
     {
         Success = 0,
 
         NullPath = 0x8,
         EmptyPath = 0x9,
-
-        /// <summary>
-        /// Desktop file not found.
-        /// </summary>
+        
         FileNotFound = 0x16,
         FileEmpty = 0x17,
-
-        /// <remarks>
-        /// Missing "[Desktop Entry]"
-        /// </remarks>
         FileNoSignature = 0x18,
         FileMissingDelimiter = 0x19,
         FileMissingType = 0x20,
         FileMissingExecValue = 0x21,
         FileMissingUrlValue = 0x22,
         FileMissingPathValue = 0x23,
-
-        /// <summary>
-        /// Generic Exec error.
-        /// </summary>
+        
         ExecError = 0x32,
         ExecInvalidOperation = 0x33,
         ExecWin32Error = 0x34,
         ExecFileNotFound = 0x35,
-
-        /// <summary>
-        /// Generic Link error.
-        /// </summary>
+        
         LinkError = 0x40,
-
-        /// <summary>
-        /// Generic Directory error.
-        /// </summary>
+        
         DirectoryError = 0x48,
         DirectoryNotFound = 0x49,
     }

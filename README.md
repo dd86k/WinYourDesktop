@@ -3,7 +3,7 @@
 
 ![Screenshot](http://guitarxhero.github.io/imgs/wyd2.png)
 
-_WinYourDesktop_ is a simple Desktop Entry file interpreter for Windows.
+_WinYourDesktop_ is a small Desktop Entry file interpreter for Windows.
 
 # Features
 
@@ -37,13 +37,13 @@ The solution consists of three projects (build order respectively):
 
 I am using these packages:
 - Costura.Fody v1.3.3
-- SharpShell (Unused for now)
+- SharpShell (Future use)
 
 # FAQ
 ## General
 
 - What is a Desktop Entry file?
-  - Please see this [article](http://www.linuxtopia.org/online_books/linux_desktop_guides/gnome_2.14_admin_guide/menustructure-desktopentry.html).
+  - Please read this [article](http://www.linuxtopia.org/online_books/linux_desktop_guides/gnome_2.14_admin_guide/menustructure-desktopentry.html).
   
 ## Visual Studio / Source code
 
