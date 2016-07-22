@@ -237,4 +237,16 @@
   <data name="Misc_ErrNotDesktopFile" xml:space="preserve">
     <value>Ceci n'est pas un fichier desktop!</value>
   </data>
+  <data name="DialogAssignFile" xml:space="preserve">
+    <value>Est-vous sûre d'associer les fichiers desktop avec l'application au répertoire courrant?</value>
+  </data>
+  <data name="DialogAssignFileTitle" xml:space="preserve">
+    <value>Assigner les fichiers desktop</value>
+  </data>
+  <data name="DialogAssignFileSuccess" xml:space="preserve">
+    <value>Association enregistrée!</value>
+  </data>
+  <data name="tsmiAssignDesktopFiles" xml:space="preserve">
+    <value>Associer avec les fichiers desktop</value>
+  </data>
 </root>

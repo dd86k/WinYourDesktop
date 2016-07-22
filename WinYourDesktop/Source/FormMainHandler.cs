@@ -99,6 +99,7 @@ namespace WinYourDesktop
             // === msMain
             // == App
             tsmApplication.Text = RM.GetString("tsmApplication");
+            tsmiAssignDesktopFiles.Text = RM.GetString("tsmiAssignDesktopFiles");
             tsmiRestart.Text = RM.GetString("tsmiRestart");
             tsmiQuit.Text = RM.GetString("tsmiQuit");
             // == Mode

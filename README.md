@@ -7,9 +7,12 @@ _WinYourDesktop_ is a small Desktop Entry file interpreter for Windows.
 
 # Features
 
-- Can start Terminal (cmd) sessions
-- Support for Windows and Linux-like variables
-- Support for ~ (User profile)
+- Can start Terminal (cmd) sessions (Type=Terminal)
+- Support for Windows and UNIX-like variables
+  - Supports most Windows auto-generated variables
+  - Supports most UNIX-like variables
+    - e.g. `$HOME` _will_ return `C:\Users\DD`
+- Support for ~ (UNIX-like user profile path)
 - Simple debugger
 - Available in French and English
 

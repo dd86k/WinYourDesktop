@@ -1,7 +1,6 @@
 ﻿using System;
 using WinYourDesktopLibrary;
 using static System.Console;
-using static System.Diagnostics.Process;
 using static System.Reflection.Assembly;
 
 /// <summary>
@@ -20,20 +19,6 @@ namespace WinYourDesktopConsole
             {
                 return
                     GetExecutingAssembly().GetName().Version.ToString();
-            }
-        }
-
-        /// <summary>
-        /// Get the current filename without extension of the executable.
-        /// </summary>
-        static string FilenameWithoutExtension
-        {
-            get
-            {
-                return
-                    System.IO.Path.GetFileNameWithoutExtension(
-                        GetCurrentProcess().MainModule.FileName
-                    );
             }
         }
 
@@ -63,10 +48,8 @@ namespace WinYourDesktopConsole
                         ShowHelp();
                         return 0;
 
-                    case "/v":
-                    case "/verbose":
+                    case "/V":
                     case "-V":
-                    case "--verbose":
                         verboise = true;
                         break;
 
@@ -102,9 +85,9 @@ namespace WinYourDesktopConsole
             //         1       10        20        30        40        50        60        70        80
             //         |--------|---------|---------|---------|---------|---------|---------|---------|
             WriteLine(" Usage:");
-            WriteLine($"  {FilenameWithoutExtension} [options] <file>");
+            WriteLine($"  wydcon [options] <file>");
             WriteLine();
-            WriteLine("  /v, -V    Verbose.");
+            WriteLine("  /V, -V    Verbose.");
             WriteLine();
             WriteLine("  /?        Shows this screen and exits.");
             WriteLine("  /version  Shows version and exits.");
@@ -115,7 +98,7 @@ namespace WinYourDesktopConsole
             //         1       10        20        30        40        50        60        70        80
             //         |--------|---------|---------|---------|---------|---------|---------|---------|
             WriteLine();
-            WriteLine($"{FilenameWithoutExtension} - {ProjectVersion}");
+            WriteLine($"wydcon - {ProjectVersion}");
             WriteLine($"WinYourDesktopLibrary - {Interpreter.ProjectVersion}");
             WriteLine("Copyright (c) 2015 DD~!/guitarxhero");
             WriteLine("License: MIT License <http://opensource.org/licenses/MIT>");

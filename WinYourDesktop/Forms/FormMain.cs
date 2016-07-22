@@ -2,6 +2,8 @@
 using System.Drawing;
 using System.Windows.Forms;
 using WinYourDesktopLibrary;
+using Microsoft.Win32;
+using System.Security.Principal;
 
 // Tip: In VS, you can fold every scope with CTRL+M+O.
 
@@ -10,20 +12,7 @@ namespace WinYourDesktop
     internal partial class FormMain : Form
     {
         #region Constructors
-        internal FormMain()
-        {
-            InitializeComponent();
-            PostInitialize();
-
-            if (SettingsHandler.SettingFileExists)
-            {
-                SettingsHandler.Load();
-
-                ChangeCulture(SettingsHandler.Language);
-            }
-        }
-        
-        internal FormMain(string pDesktopFilePath)
+        internal FormMain(string pDesktopFilePath = null)
         {
             InitializeComponent();
             PostInitialize();
@@ -35,7 +24,10 @@ namespace WinYourDesktop
                 ChangeCulture(SettingsHandler.Language);
             }
 
-            MakeCurrentFile(pDesktopFilePath);
+            if (pDesktopFilePath != null)
+                MakeCurrentFile(pDesktopFilePath);
+
+            tsmiAssignDesktopFiles.Enabled = IsAdministrator;
         }
         #endregion
 
@@ -292,5 +284,44 @@ namespace WinYourDesktop
             SettingsHandler.Save();
         }
         #endregion
+
+        private void tsmiAssignDesktopFiles_Click(object sender, EventArgs e)
+        {//"C:\PATH\WinYourDesktop-optimized.exe" "%1"
+
+            if (MessageBox.Show(RM.GetString("DialogAssignFile"),
+                    RM.GetString("DialogAssignFileTitle"),
+                    MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                try
+                {
+                    string file = System.IO.Path.GetFileNameWithoutExtension(
+                        System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName
+                    );
+
+                    //TODO: Properly make default
+                    // https://msdn.microsoft.com/en-us/library/windows/desktop/cc144154(v=vs.85).aspx
+                    Registry.SetValue(
+                        @"HKEY_CLASSES_ROOT\desktop_auto_file\shell\open\command",
+                        "", // Default value name
+                        $@"""{file}"" ""%1""", // "C:\e.exe" "%1"
+                        RegistryValueKind.String);
+                    
+                    MessageBox.Show(RM.GetString("DialogAssignFileSuccess"),
+                        "OK!",
+                        MessageBoxButtons.OK);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message,
+                        ex.ToString(),
+                        MessageBoxButtons.OK);
+                }
+            }
+        }
+
+        // http://stackoverflow.com/a/11660205
+        public static bool IsAdministrator =>
+            new WindowsPrincipal(WindowsIdentity.GetCurrent())
+                .IsInRole(WindowsBuiltInRole.Administrator);
     }
 }

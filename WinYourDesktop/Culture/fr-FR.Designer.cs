@@ -169,6 +169,33 @@ namespace WinYourDesktop.Culture {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Est-vous sûre d&apos;associer les fichiers desktop avec l&apos;application au répertoire courrant?.
+        /// </summary>
+        internal static string DialogAssignFile {
+            get {
+                return ResourceManager.GetString("DialogAssignFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Association enregistrée!.
+        /// </summary>
+        internal static string DialogAssignFileSuccess {
+            get {
+                return ResourceManager.GetString("DialogAssignFileSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Assigner les fichiers desktop.
+        /// </summary>
+        internal static string DialogAssignFileTitle {
+            get {
+                return ResourceManager.GetString("DialogAssignFileTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Langue.
         /// </summary>
         internal static string lblSettingsLanguage {
@@ -255,6 +282,15 @@ namespace WinYourDesktop.Culture {
         internal static string tsmiAbout_MouseEnter {
             get {
                 return ResourceManager.GetString("tsmiAbout_MouseEnter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Associer avec les fichiers desktop.
+        /// </summary>
+        internal static string tsmiAssignDesktopFiles {
+            get {
+                return ResourceManager.GetString("tsmiAssignDesktopFiles", resourceCulture);
             }
         }
         

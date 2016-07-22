@@ -52,7 +52,7 @@ namespace WinYourDesktop
             {
                 for (int i = 0; i < len; i++)
                 {
-                    switch (args [i])
+                    switch (args[i])
                     {
                         case "/debug":
                             ShowForm(file);
@@ -66,7 +66,7 @@ namespace WinYourDesktop
             if (err != ErrorCode.Success)
             {
                 Application.EnableVisualStyles();
-                MessageBox.Show($"{err} - {err.GetErrorMessage()} (0x{err:X4})",
+                MessageBox.Show($"{err}\n\r{err.GetErrorMessage()} (0x{err:X4})",
                     $"WinYourDesktop - {err}",
                     MessageBoxButtons.OK);
             }

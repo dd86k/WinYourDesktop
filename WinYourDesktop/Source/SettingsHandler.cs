@@ -38,12 +38,7 @@ namespace WinYourDesktop
                     if (!l.StartsWith("[") && l.Length > 0)
                     {
                         if (l.StartsWith("Language"))
-                        {
-                            string v = Split(l);
-
-
-                            Language = v;
-                        }
+                            Language = Split(l);
                     }
                 }
             }

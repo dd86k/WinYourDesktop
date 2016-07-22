@@ -6,6 +6,7 @@ using System.IO;
 using System.Text.RegularExpressions;
 using static System.Console;
 using static System.Reflection.Assembly;
+using static System.Environment;
 
 namespace WinYourDesktopLibrary
 {
@@ -282,9 +283,7 @@ namespace WinYourDesktopLibrary
                         try
                         {
                             Process.Start(
-                                $@"{Environment.GetFolderPath(
-                                    Environment.SpecialFolder.Windows
-                                )}\explorer",
+                                $"{GetFolderPath(SpecialFolder.Windows)}\\explorer",
                                 value); // .Replace("/", @"\")
                         }
                         catch (Exception ex)
@@ -335,54 +334,97 @@ namespace WinYourDesktopLibrary
             if (pVerbose)
                 WriteLine("Variables detected! Running parser...");
 
+            /**
+             * A collection of regex results ("%USERNAME%", "$USER", etc.).
+             */
             MatchCollection Results =
-                new Regex(@"(\$\w+)|(%\w+%)", RegexOptions.ECMAScript).Matches(value);
+                new Regex(@"(\$\w+)|(%\w+%)",
+                    RegexOptions.ECMAScript | RegexOptions.CultureInvariant
+                ).Matches(value);
 
-            IDictionary machineEnvs = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
-            IDictionary userEnvs = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+            /**
+             * You may be wondering: Why one dictionary?
+             * If you spawn a cmd session (command prompt), and say, type in
+             * echo %TMP%
+             * You will get the user variable (C:\Users\DD\AppData\Local\Temp) rather than
+             * the system variable (C:\WINDOWS\TEMP).
+             */
+            IDictionary envs =
+                new Dictionary<string, string>(128, StringComparer.OrdinalIgnoreCase);
+
+            string userprofile = GetFolderPath(SpecialFolder.UserProfile);
+
+            /**
+             * Linux common examples
+                HOME=/home/dd
+                HOSTNAME=dd-vm
+                HOSTTYPE=x86_64
+                PWD=/home/dd/Desktop
+                SHELL=/bin/bash
+                UID=1000
+                USER=dd
+              * USERNAME=dd
+               
+                Notes:
+              * Windows already has that variable with the same value.
+             */
+            envs.Add("HOME", userprofile);
+            envs.Add("HOSTNAME", MachineName);
+            /*envs.Add("HOSTTYPE", Environment.Is64BitOperatingSystem ?
+                "x86_64" ? "");*/
+            envs.Add("USER", UserName);
+
+            /**
+             * Windows auto-generated variables
+             */
+            envs.Add("SYSTEMROOT", Path.GetDirectoryName(SystemDirectory));
+            envs.Add("SYSTEMDRIVE", Path.GetPathRoot(SystemDirectory));
+            //envs.Add("TMP", $@"{userprofile}\AppData\Local\Temp");  // Already a user variable
+            //envs.Add("TEMP", $@"{userprofile}\AppData\Local\Temp"); // Already a user variable
+            // HKEY_CURRENT_USER\Volatile Environment
+            envs.Add("APPDATA", $@"{userprofile}\AppData\Roaming");
+            envs.Add("HOMEDRIVE", Path.GetPathRoot(userprofile).Replace("\\", "")); // C:
+            envs.Add("HOMEPATH", userprofile.Replace(envs["HOMEDRIVE"].ToString(), "")); // \Users\DD
+            envs.Add("LOCALAPPDATA", $@"{userprofile}\AppData\Local");
+            envs.Add("LOGONSERVER", $@"\\{UserDomainName}"); // Unsure
+            envs.Add("USERDOMAIN", UserDomainName);
+            envs.Add("USERDOMAIN_ROAMINGPROFILE", UserDomainName); // Unsure
+            envs.Add("USERPROFILE", userprofile);
+            //envs.Add("", "");
 
             foreach (DictionaryEntry i in
-                Environment.GetEnvironmentVariables(EnvironmentVariableTarget.Machine))
-            {
-                machineEnvs.Add(i.Key, i.Value);
-            }
+                GetEnvironmentVariables(EnvironmentVariableTarget.User))
+                if (!envs.Contains(i.Key))
+                    envs.Add(i.Key, i.Value);
+
             foreach (DictionaryEntry i in
-                Environment.GetEnvironmentVariables(EnvironmentVariableTarget.User))
-            {
-                userEnvs.Add(i.Key, i.Value);
-            }
+                GetEnvironmentVariables(EnvironmentVariableTarget.Machine))
+                if (!envs.Contains(i.Key))
+                    envs.Add(i.Key, i.Value);
             
             foreach (Match result in Results)
             {
-                string t = result.Value.StartsWith("%") ?
-                    result.Value.Trim('%') :
-                    result.Value.TrimStart('$');
+                string t = result.Value.StartsWith("$") ?
+                    result.Value.TrimStart('$') :
+                    result.Value.Trim('%');
 
-                if (pVerbose)
-                    WriteLine($"VAR: {result.Value} -> {t}");
-
-                if (userEnvs.Contains(t))
+                if (envs.Contains(t))
                 {
                     if (pVerbose)
-                        WriteLine($"NEW VAR: {userEnvs [t]}");
+                        WriteLine($"Variable: {result.Value} -> {envs[t]}");
 
-                    value = value.Replace(result.Value, userEnvs [t].ToString());
-                }
-                else if (machineEnvs.Contains(t))
-                {
-                    if (pVerbose)
-                        WriteLine($"NEW VAR: {machineEnvs [t]}");
-
-                    value = value.Replace(result.Value, machineEnvs [t].ToString());
+                    value =
+                        value.Replace(result.Value, envs[t].ToString());
                 }
                 else if (pVerbose)
-                    WriteLine($"ENV NOT FOUND: {result.Value}");
+                    WriteLine($"ENV NOT FOUND: {t}");
             }
         }
 
         static void ReplaceHome(ref string value, bool pVerbose)
         {
-            string home = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+            string home =
+                GetFolderPath(SpecialFolder.UserProfile);
 
             if (pVerbose)
                 WriteLine($"HOME: ~ -> {home}");
@@ -396,7 +438,7 @@ namespace WinYourDesktopLibrary
         /// <param name="e"><see cref="Exception"/></param>
         /// <returns>Formatted information</returns>
         static string Ex(Exception e) => $"{e.GetType()} (0x{e.HResult:X8})";
-        #endregion Public Methods
+        #endregion Private Methods
     }
     #endregion
     
@@ -435,7 +477,7 @@ namespace WinYourDesktopLibrary
     public static class Extensions
     {
         public static int ToInt(this ErrorCode e) => (int)e;
-        public static string Hex(this ErrorCode e) => $"0x{e:X4}";
+        public static string Hex(this ErrorCode e) => $"0x{(int)e:X4}";
         public static string GetErrorMessage(this ErrorCode e)
         {
             switch (e)

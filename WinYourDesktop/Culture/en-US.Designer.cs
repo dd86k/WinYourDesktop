@@ -169,6 +169,33 @@ namespace WinYourDesktop.Culture {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Are you sure to assign the application at the current location with desktop files?.
+        /// </summary>
+        internal static string DialogAssignFile {
+            get {
+                return ResourceManager.GetString("DialogAssignFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Assignment saved!.
+        /// </summary>
+        internal static string DialogAssignFileSuccess {
+            get {
+                return ResourceManager.GetString("DialogAssignFileSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Assign desktop files.
+        /// </summary>
+        internal static string DialogAssignFileTitle {
+            get {
+                return ResourceManager.GetString("DialogAssignFileTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Language.
         /// </summary>
         internal static string lblSettingsLanguage {
@@ -255,6 +282,15 @@ namespace WinYourDesktop.Culture {
         internal static string tsmiAbout_MouseEnter {
             get {
                 return ResourceManager.GetString("tsmiAbout_MouseEnter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Assign to desktop files.
+        /// </summary>
+        internal static string tsmiAssignDesktopFiles {
+            get {
+                return ResourceManager.GetString("tsmiAssignDesktopFiles", resourceCulture);
             }
         }
         

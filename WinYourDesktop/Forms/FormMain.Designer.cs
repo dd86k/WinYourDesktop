@@ -31,6 +31,8 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
             this.msMain = new System.Windows.Forms.MenuStrip();
             this.tsmApplication = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiAssignDesktopFiles = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             this.tsmiRestart = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiQuit = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmView = new System.Windows.Forms.ToolStripMenuItem();
@@ -94,17 +96,34 @@
             // tsmApplication
             // 
             this.tsmApplication.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmiAssignDesktopFiles,
+            this.toolStripSeparator6,
             this.tsmiRestart,
             this.tsmiQuit});
             this.tsmApplication.Name = "tsmApplication";
             this.tsmApplication.Size = new System.Drawing.Size(44, 21);
             this.tsmApplication.Text = "App";
             // 
+            // tsmiAssignDesktopFiles
+            // 
+            this.tsmiAssignDesktopFiles.Enabled = false;
+            this.tsmiAssignDesktopFiles.Name = "tsmiAssignDesktopFiles";
+            this.tsmiAssignDesktopFiles.Size = new System.Drawing.Size(208, 22);
+            this.tsmiAssignDesktopFiles.Text = "Assign to desktop files";
+            this.tsmiAssignDesktopFiles.Visible = false;
+            this.tsmiAssignDesktopFiles.Click += new System.EventHandler(this.tsmiAssignDesktopFiles_Click);
+            // 
+            // toolStripSeparator6
+            // 
+            this.toolStripSeparator6.Name = "toolStripSeparator6";
+            this.toolStripSeparator6.Size = new System.Drawing.Size(205, 6);
+            this.toolStripSeparator6.Visible = false;
+            // 
             // tsmiRestart
             // 
             this.tsmiRestart.Name = "tsmiRestart";
             this.tsmiRestart.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.R)));
-            this.tsmiRestart.Size = new System.Drawing.Size(162, 22);
+            this.tsmiRestart.Size = new System.Drawing.Size(208, 22);
             this.tsmiRestart.Text = "Restart";
             this.tsmiRestart.Click += new System.EventHandler(this.restartToolStripMenuItem_Click);
             // 
@@ -112,7 +131,7 @@
             // 
             this.tsmiQuit.Name = "tsmiQuit";
             this.tsmiQuit.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Q)));
-            this.tsmiQuit.Size = new System.Drawing.Size(162, 22);
+            this.tsmiQuit.Size = new System.Drawing.Size(208, 22);
             this.tsmiQuit.Text = "Quit";
             this.tsmiQuit.Click += new System.EventHandler(this.quitToolStripMenuItem_Click);
             // 
@@ -274,7 +293,7 @@
             // toolStripSeparator5
             // 
             this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator5.Size = new System.Drawing.Size(100, 6);
             // 
             // toolStripSeparator4
             // 
@@ -303,11 +322,12 @@
             // 
             this.btnDebuggerRun.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnDebuggerRun.Enabled = false;
+            this.btnDebuggerRun.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDebuggerRun.Location = new System.Drawing.Point(376, 26);
             this.btnDebuggerRun.Name = "btnDebuggerRun";
             this.btnDebuggerRun.Size = new System.Drawing.Size(57, 31);
             this.btnDebuggerRun.TabIndex = 10;
-            this.btnDebuggerRun.Text = "▶";
+            this.btnDebuggerRun.Text = ">";
             this.btnDebuggerRun.UseVisualStyleBackColor = true;
             this.btnDebuggerRun.Click += new System.EventHandler(this.btnDebuggerRun_Click);
             this.btnDebuggerRun.MouseEnter += new System.EventHandler(this.btnDebuggerRun_MouseEnter);
@@ -366,7 +386,7 @@
             // tsmiDebuggerOpen
             // 
             this.tsmiDebuggerOpen.Name = "tsmiDebuggerOpen";
-            this.tsmiDebuggerOpen.Size = new System.Drawing.Size(152, 22);
+            this.tsmiDebuggerOpen.Size = new System.Drawing.Size(103, 22);
             this.tsmiDebuggerOpen.Text = "Open";
             this.tsmiDebuggerOpen.Click += new System.EventHandler(this.tsmiDebuggerOpen_Click);
             this.tsmiDebuggerOpen.MouseEnter += new System.EventHandler(this.tsmiDebuggerOpen_MouseEnter);
@@ -376,7 +396,7 @@
             // 
             this.tsmiDebuggerRun.Enabled = false;
             this.tsmiDebuggerRun.Name = "tsmiDebuggerRun";
-            this.tsmiDebuggerRun.Size = new System.Drawing.Size(152, 22);
+            this.tsmiDebuggerRun.Size = new System.Drawing.Size(103, 22);
             this.tsmiDebuggerRun.Text = "Run";
             this.tsmiDebuggerRun.Click += new System.EventHandler(this.tsmiDebuggerRun_Click);
             this.tsmiDebuggerRun.MouseEnter += new System.EventHandler(this.tsmiDebuggerRun_MouseEnter);
@@ -546,5 +566,7 @@
         private System.Windows.Forms.ToolStripMenuItem tsmiDebuggerCopyToClipboard;
         private System.Windows.Forms.ToolStripMenuItem tsmiDebuggerOpen;
         private System.Windows.Forms.ToolStripMenuItem tsmiDebuggerRun;
+        private System.Windows.Forms.ToolStripMenuItem tsmiAssignDesktopFiles;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
     }
 }

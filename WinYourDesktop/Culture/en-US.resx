@@ -237,4 +237,16 @@
   <data name="Misc_ErrNotDesktopFile" xml:space="preserve">
     <value>This is not a desktop file!</value>
   </data>
+  <data name="DialogAssignFile" xml:space="preserve">
+    <value>Are you sure to assign the application at the current location with desktop files?</value>
+  </data>
+  <data name="DialogAssignFileTitle" xml:space="preserve">
+    <value>Assign desktop files</value>
+  </data>
+  <data name="DialogAssignFileSuccess" xml:space="preserve">
+    <value>Assignment saved!</value>
+  </data>
+  <data name="tsmiAssignDesktopFiles" xml:space="preserve">
+    <value>Assign to desktop files</value>
+  </data>
 </root>
