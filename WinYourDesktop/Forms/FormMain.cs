@@ -12,7 +12,7 @@ namespace WinYourDesktop
     internal partial class FormMain : Form
     {
         #region Constructors
-        internal FormMain(string pDesktopFilePath = null)
+        internal FormMain(string path = null)
         {
             InitializeComponent();
             PostInitialize();
@@ -24,14 +24,14 @@ namespace WinYourDesktop
                 ChangeCulture(SettingsHandler.Language);
             }
 
-            if (pDesktopFilePath != null)
-                MakeCurrentFile(pDesktopFilePath);
+            if (path != null)
+                MakeCurrentFile(path);
 
             tsmiAssignDesktopFiles.Enabled = IsAdministrator;
         }
         #endregion
 
-        #region Main MenuStrip (ssMain)
+        #region ssMain events
         #region App
         // Restart
         private void restartToolStripMenuItem_Click(object sender, EventArgs e)
@@ -266,8 +266,9 @@ namespace WinYourDesktop
         private void cboSettingsLanguage_SelectedIndexChanged(object sender, EventArgs e)
         {
             string language = cboSettingsLanguage.SelectedItem.ToString();
-            language = language.Substring(language.IndexOf('(') + 1);
-            switch (language.TrimEnd(')'))
+
+            // Sorry about this horrible section.
+            switch (language.Substring(language.IndexOf('(') + 1).TrimEnd(')'))
             {
                 case "French":
                     ChangeCulture("fr-FR");
@@ -286,7 +287,7 @@ namespace WinYourDesktop
         #endregion
 
         private void tsmiAssignDesktopFiles_Click(object sender, EventArgs e)
-        {//"C:\PATH\WinYourDesktop-optimized.exe" "%1"
+        { //"C:\PATH\WinYourDesktop.exe" "%1"
 
             if (MessageBox.Show(RM.GetString("DialogAssignFile"),
                     RM.GetString("DialogAssignFileTitle"),

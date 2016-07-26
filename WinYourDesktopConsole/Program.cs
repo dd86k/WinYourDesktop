@@ -87,7 +87,7 @@ namespace WinYourDesktopConsole
             WriteLine(" Usage:");
             WriteLine($"  wydcon [options] <file>");
             WriteLine();
-            WriteLine("  /V, -V    Verbose.");
+            WriteLine("  /V, -V    Verbose output.");
             WriteLine();
             WriteLine("  /?        Shows this screen and exits.");
             WriteLine("  /version  Shows version and exits.");

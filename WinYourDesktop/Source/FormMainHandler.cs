@@ -62,26 +62,26 @@ namespace WinYourDesktop
         /// Change the current culture (locale) with a
         /// <see cref="CultureInfo"/>.
         /// </summary>
-        /// <param name="pLanguage"></param>
-        void ChangeCulture(CultureInfo pLanguage)
+        /// <param name="language"></param>
+        void ChangeCulture(CultureInfo language)
         {
-            ChangeCulture(pLanguage.Name);
+            ChangeCulture(language.Name);
         }
 
         /// <summary>
         /// Change the current culture (locale) with a string name.
         /// </summary>
-        /// <param name="pLanguage">Culture name.</param>
-        void ChangeCulture(string pLanguage)
+        /// <param name="language">Culture name.</param>
+        void ChangeCulture(string language)
         {
 #if DEBUG && EN
             pLanguage = "en";
 #endif
-            if (pLanguage == null) return;
+            if (language == null) return;
 
-            SettingsHandler.Language = pLanguage;
+            SettingsHandler.Language = language;
 
-            switch (pLanguage)
+            switch (language)
             {
                 case "fr-FR":
                 case "fr-CA":
@@ -190,22 +190,20 @@ namespace WinYourDesktop
         /// <summary>
         /// Adjusts the size of the client.
         /// </summary>
-        /// <param name="pPanel">Panel</param>
-        void AdjustClientSize(Panel pPanel)
+        /// <param name="panel">Panel</param>
+        void AdjustClientSize(Panel panel)
         {
-            AdjustClientSize(pPanel.Width, pPanel.Height);
+            AdjustClientSize(panel.Width, panel.Height);
         }
 
         /// <summary>
         /// Adjusts the size of the client.
         /// </summary>
-        /// <param name="pPanelHeight">Panel's height.</param>
-        void AdjustClientSize(int pPanelWidth, int pPanelHeight)
+        /// <param name="height">Panel's height.</param>
+        void AdjustClientSize(int width, int height)
         {
-            ClientSize = new Size(pPanelWidth,
-                msMain.Height +
-                pPanelHeight +
-                ssMain.Height
+            ClientSize = new Size(width,
+                msMain.Height + height + ssMain.Height
             );
         }
         #endregion
@@ -214,19 +212,17 @@ namespace WinYourDesktop
         void PromptToMakeCurrentFile()
         {
             if (ofdMain.ShowDialog() == DialogResult.OK)
-            {
                 MakeCurrentFile(ofdMain.FileName);
-            }
         }
 
-        void MakeCurrentFile(string pPath)
+        void MakeCurrentFile(string path)
         {
-            MakeCurrentFile(new FileInfo(pPath));
+            MakeCurrentFile(new FileInfo(path));
         }
 
-        void MakeCurrentFile(FileInfo pFileInfo)
+        void MakeCurrentFile(FileInfo file)
         {
-            CurrentFile = pFileInfo;
+            CurrentFile = file;
 
             lblDebuggerFile.Text = CurrentFile.Name;
 

@@ -476,8 +476,25 @@ namespace WinYourDesktopLibrary
 
     public static class Extensions
     {
+        /// <summary>
+        /// Gets the number representative of the <see cref="ErrorCode"/>.
+        /// </summary>
+        /// <param name="e">This <see cref="ErrorCode"/></param>
+        /// <returns>A number.</returns>
         public static int ToInt(this ErrorCode e) => (int)e;
+
+        /// <summary>
+        /// Generates a hexadecimal printable version of the error as 0xNNNN.
+        /// </summary>
+        /// <param name="e">This <see cref="ErrorCode"/></param>
+        /// <returns>A string.</returns>
         public static string Hex(this ErrorCode e) => $"0x{(int)e:X4}";
+
+        /// <summary>
+        /// Returns an error message associated with the <see cref="ErrorCode"/>.
+        /// </summary>
+        /// <param name="e">This <see cref="ErrorCode"/></param>
+        /// <returns>A message.</returns>
         public static string GetErrorMessage(this ErrorCode e)
         {
             switch (e)
@@ -496,7 +513,7 @@ namespace WinYourDesktopLibrary
                 case ErrorCode.FileNoSignature:
                     return "Missing [Desktop Entry] at the first line.";
                 case ErrorCode.FileMissingDelimiter:
-                    return $"Missing \"=\" delimiter.";
+                    return "Missing \"=\" delimiter.";
                 case ErrorCode.FileMissingType:
                     return "Missing Type.";
                 case ErrorCode.FileMissingExecValue:
@@ -508,23 +525,23 @@ namespace WinYourDesktopLibrary
 
                     // Exec
                 case ErrorCode.ExecError:
-                    return "Generic Exec error.";
+                    return "Generic Exec type error.";
                 case ErrorCode.ExecInvalidOperation:
                     return "Invalid operation at Exec.";
                 case ErrorCode.ExecWin32Error:
-                    return "Could not start the application (Win32 error).";
+                    return "Could not start the application (Win32Exception).";
                 case ErrorCode.ExecFileNotFound:
-                    return "File not found (Exec).";
+                    return "Executable file not found.";
 
                     // Link (URL)
                 case ErrorCode.LinkError:
-                    return "Generic Link error. (URL)";
+                    return "Generic Link type error.";
 
                     // Directory (Path)
                 case ErrorCode.DirectoryError:
-                    return "Generic Directory error. (Path)";
+                    return "Generic Directory type error.";
                 case ErrorCode.DirectoryNotFound:
-                    return "Directory not found (invalid path).";
+                    return "Directory not found.";
             }
 
             return $"Unknown error. - {e}";
