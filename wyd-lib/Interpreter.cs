@@ -81,30 +81,30 @@ namespace WinYourDesktopLibrary
         /// <summary>
         /// Runs a desktop file.
         /// </summary>
-        /// <param name="pPath">Path to the desktop file.</param>
-        /// <param name="pVerbose"></param>
+        /// <param name="path">Path to the desktop file.</param>
+        /// <param name="verbose"></param>
         /// <returns></returns>
-        public static ErrorCode Run(string pPath, bool pVerbose = false)
+        public static ErrorCode Run(string path, bool verbose = false)
         {
-            if (string.IsNullOrEmpty(pPath))
+            if (string.IsNullOrEmpty(path))
             {
-                if (pVerbose)
-                    WriteLine($"Path is {(pPath == null ? "null" : "empty")}.");
+                if (verbose)
+                    WriteLine($"Path is {(path == null ? "null" : "empty")}.");
 
-                return pPath == null ?
+                return path == null ?
                     ErrorCode.NullPath : ErrorCode.EmptyPath;
             }
 
-            FileInfo file = new FileInfo(pPath);
+            FileInfo file = new FileInfo(path);
 
             if (!file.Exists)
             {
-                if (pVerbose)
-                    WriteLine($"Error: \"{pPath}\" does not exist.");
+                if (verbose)
+                    WriteLine($"Error: \"{path}\" does not exist.");
 
                 return ErrorCode.FileNotFound;
             }
-            else if (pVerbose)
+            else if (verbose)
                 WriteLine("File found.");
             
             // Defaults
@@ -118,7 +118,7 @@ namespace WinYourDesktopLibrary
 
             char[] SPLITTER = new char[] { DELIMITER };
 
-            if (pVerbose)
+            if (verbose)
                 WriteLine($"Reading {file.Name}...");
 
             using (StreamReader sr = file.OpenText())
@@ -137,7 +137,7 @@ namespace WinYourDesktopLibrary
                     {
                         if (!CurrentLine.Contains("="))
                         {
-                            if (pVerbose)
+                            if (verbose)
                                 WriteLine($"Error: Line {CurrentLineIndex + 1} missing the '=' delimiter.");
 
                             return ErrorCode.FileMissingDelimiter;
@@ -164,7 +164,7 @@ namespace WinYourDesktopLibrary
                                         return ErrorCode.FileMissingType;
                                 }
 
-                                if (pVerbose)
+                                if (verbose)
                                     WriteLine($"TYPE SET AS {type}");
                                 break;
                                 
@@ -172,7 +172,7 @@ namespace WinYourDesktopLibrary
                             case "TryExec":
                                 value = LineValues[1];
 
-                                if (pVerbose)
+                                if (verbose)
                                     WriteLine($"EXEC SET {value}");
                                 break;
 
@@ -180,14 +180,14 @@ namespace WinYourDesktopLibrary
                             case "URL":
                                 value = LineValues[1];
 
-                                if (pVerbose)
+                                if (verbose)
                                     WriteLine($"URL SET {value}");
                                 break;
                                 
                             case "Path":
                                 value = LineValues[1];
 
-                                if (pVerbose)
+                                if (verbose)
                                     WriteLine($"PATH SET {value}");
                                 break;
                                 
@@ -195,7 +195,7 @@ namespace WinYourDesktopLibrary
                                 if (LineValues[1].ToUpper() == "TRUE")
                                     terminal = true;
 
-                                if (pVerbose)
+                                if (verbose)
                                     WriteLine($"TERMINAL SET TRUE");
                                 break;
                         }
@@ -205,7 +205,7 @@ namespace WinYourDesktopLibrary
                 } // End while
             } // End using
 
-            if (pVerbose)
+            if (verbose)
                 WriteLine($"Starting...");
             
             if (string.IsNullOrWhiteSpace(value))
@@ -220,10 +220,10 @@ namespace WinYourDesktopLibrary
                 }
 
             if (value.Contains("%") || value.Contains("$"))
-                ReplaceVars(ref value, pVerbose);
+                ReplaceVars(ref value, verbose);
 
             if (value.Contains("~"))
-                ReplaceHome(ref value, pVerbose);
+                ReplaceHome(ref value, verbose);
 
             switch (type)
             {
@@ -243,14 +243,14 @@ namespace WinYourDesktopLibrary
                     }
                     catch (System.ComponentModel.Win32Exception ex)
                     {
-                        if (pVerbose)
+                        if (verbose)
                             WriteLine($"Exception: {Ex(ex.InnerException ?? ex)}");
 
                         return ErrorCode.ExecWin32Error;
                     }
                     catch (Exception ex)
                     {
-                        if (pVerbose)
+                        if (verbose)
                             WriteLine($"Exception: {Ex(ex)}");
 
                         return ErrorCode.ExecError;
@@ -267,7 +267,7 @@ namespace WinYourDesktopLibrary
                     }
                     catch (Exception ex)
                     {
-                        if (pVerbose)
+                        if (verbose)
                             WriteLine($"Exception: {Ex(ex)}");
 
                         return ErrorCode.LinkError;
@@ -288,7 +288,7 @@ namespace WinYourDesktopLibrary
                         }
                         catch (Exception ex)
                         {
-                            if (pVerbose)
+                            if (verbose)
                                 WriteLine($"{Ex(ex)}");
 
                             return ErrorCode.DirectoryError;
@@ -296,7 +296,7 @@ namespace WinYourDesktopLibrary
                     }
                     else
                     {
-                        if (pVerbose)
+                        if (verbose)
                             WriteLine($"Error: Directory \"{value}\" could not be found.");
 
                         return ErrorCode.DirectoryNotFound;
@@ -305,7 +305,7 @@ namespace WinYourDesktopLibrary
                 #endregion Directory
             } // End switch
 
-            if (pVerbose)
+            if (verbose)
                 WriteLine("Started successfully.");
 
             return 0; /// 0 is <see cref="ErrorCode.Success"/>
@@ -334,28 +334,20 @@ namespace WinYourDesktopLibrary
             if (pVerbose)
                 WriteLine("Variables detected! Running parser...");
 
-            /**
-             * A collection of regex results ("%USERNAME%", "$USER", etc.).
-             */
+            // Get the variables such as %USERNAME%, $HOME, etc.
             MatchCollection Results =
-                new Regex(@"(\$\w+)|(%\w+%)",
-                    RegexOptions.ECMAScript | RegexOptions.CultureInvariant
-                ).Matches(value);
+                Regex.Matches(value, @"(\$\w+)|(%\w+%)", RegexOptions.ECMAScript);
 
-            /**
-             * You may be wondering: Why one dictionary?
-             * If you spawn a cmd session (command prompt), and say, type in
-             * echo %TMP%
-             * You will get the user variable (C:\Users\DD\AppData\Local\Temp) rather than
-             * the system variable (C:\WINDOWS\TEMP).
-             */
+            // A dictionary of environment variables, please note that user variables
+            // are acted upon first. Proof: Type in "set" in a cmd session.
             IDictionary envs =
                 new Dictionary<string, string>(128, StringComparer.OrdinalIgnoreCase);
 
             string userprofile = GetFolderPath(SpecialFolder.UserProfile);
 
-            /**
-             * Linux common examples
+            /*************************
+             * Linux common examples *
+             *************************
                 HOME=/home/dd
                 HOSTNAME=dd-vm
                 HOSTTYPE=x86_64
@@ -363,25 +355,24 @@ namespace WinYourDesktopLibrary
                 SHELL=/bin/bash
                 UID=1000
                 USER=dd
-              * USERNAME=dd
+               *USERNAME=dd
                
-                Notes:
-              * Windows already has that variable with the same value.
+               *Already in Windows.
              */
             envs.Add("HOME", userprofile);
             envs.Add("HOSTNAME", MachineName);
-            /*envs.Add("HOSTTYPE", Environment.Is64BitOperatingSystem ?
-                "x86_64" ? "");*/
+            envs.Add("HOSTTYPE", Is64BitOperatingSystem ? "x86_64" : "i686");
             envs.Add("USER", UserName);
+            envs.Add("PWD", GetFolderPath(SpecialFolder.Desktop));
 
             /**
              * Windows auto-generated variables
+             * TMP and TEMP are already user variables.
              */
-            envs.Add("SYSTEMROOT", Path.GetDirectoryName(SystemDirectory));
-            envs.Add("SYSTEMDRIVE", Path.GetPathRoot(SystemDirectory));
-            //envs.Add("TMP", $@"{userprofile}\AppData\Local\Temp");  // Already a user variable
-            //envs.Add("TEMP", $@"{userprofile}\AppData\Local\Temp"); // Already a user variable
-            // HKEY_CURRENT_USER\Volatile Environment
+            envs.Add("SYSTEMROOT", Path.GetDirectoryName(SystemDirectory)); // C:\Windows
+            envs.Add("SYSTEMDRIVE", Path.GetPathRoot(SystemDirectory)); // C:\
+
+            // <HKEY_CURRENT_USER\Volatile> Variables
             envs.Add("APPDATA", $@"{userprofile}\AppData\Roaming");
             envs.Add("HOMEDRIVE", Path.GetPathRoot(userprofile).Replace("\\", "")); // C:
             envs.Add("HOMEPATH", userprofile.Replace(envs["HOMEDRIVE"].ToString(), "")); // \Users\DD
@@ -427,7 +418,7 @@ namespace WinYourDesktopLibrary
                 GetFolderPath(SpecialFolder.UserProfile);
 
             if (pVerbose)
-                WriteLine($"HOME: ~ -> {home}");
+                WriteLine($"HOME [~]: {home}");
 
             value = value.Replace("~", home);
         }
