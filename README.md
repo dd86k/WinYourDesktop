@@ -1,13 +1,18 @@
-# WinYourDesktop
-## A Desktop Entry file interpreter
+# WinYourDesktop, Desktop file interpreter
 
 ![Screenshot](http://guitarxhero.github.io/imgs/wyd2.png)
 
-_WinYourDesktop_ is a small Desktop Entry file interpreter for Windows.
+**WinYourDesktop** is a small and fast Desktop file interpreter for Windows.
 
-# Features
+## What is a Desktop file?
 
-- Can start Terminal (cmd) sessions (Type=Terminal)
+A Desktop file is an menu entry file for a vast majority of desktop environments for Linux distros.
+
+This [article](http://www.linuxtopia.org/online_books/linux_desktop_guides/gnome_2.14_admin_guide/menustructure-desktopentry.html) explains it further.
+
+## Features
+
+- Can start Terminal Type sessions
 - Support for Windows and UNIX-like variables
   - Supports most Windows auto-generated variables
   - Supports most UNIX-like variables
@@ -16,7 +21,7 @@ _WinYourDesktop_ is a small Desktop Entry file interpreter for Windows.
 - Simple debugger
 - Available in French and English
 
-# Installing (executable)
+## Installing (executable)
 
 1. Place the executable file at a permanent spot where you will remember.
 2. Then make WinYourDesktop the default application to open Desktop Entry files.
@@ -25,7 +30,7 @@ _WinYourDesktop_ is a small Desktop Entry file interpreter for Windows.
 
 No installers are available for the moment.
 
-# Installing (source)
+## Installing (source)
 
 Everything has been written in C# 6.0 for the .NET 4.6.1 platform with Visual Studio 2015.
 
@@ -41,14 +46,3 @@ The solution consists of three projects (build order respectively):
 I am using these packages:
 - Costura.Fody v1.3.3
 - SharpShell (Future use)
-
-# FAQ
-## General
-
-- What is a Desktop Entry file?
-  - Please read this [article](http://www.linuxtopia.org/online_books/linux_desktop_guides/gnome_2.14_admin_guide/menustructure-desktopentry.html).
-  
-## Visual Studio / Source code
-
-- Why does MainFormHandler.cs shows up with a form icon?
-  - `MainFormHandler.cs` is a partial class of `FormMain`, which is a form, thus Visual Studio thinks that it's form code.
