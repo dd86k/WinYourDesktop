@@ -1,6 +1,6 @@
 # WinYourDesktop, Desktop file interpreter
 
-![Screenshot](http://guitarxhero.github.io/imgs/wyd2.png)
+![Screenshot](http://dd86k.github.io/imgs/wyd2.png)
 
 **WinYourDesktop** is a small and fast Desktop file interpreter for Windows.
 
