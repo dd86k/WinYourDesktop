@@ -14,7 +14,6 @@ namespace WinYourDesktop
     {
         #region Properties
         FileInfo CurrentFile;
-        NotificationHandler NotificationHandler;
         ResourceManager RM;
         #endregion
 
@@ -40,8 +39,6 @@ namespace WinYourDesktop
             ToggleMode(ViewingMode.Home);
 
             Console.SetOut(new ConReader(txtDebuggerOutput));
-
-            NotificationHandler = new NotificationHandler(tsmNotifications, ImageListNotification);
 
             ChangeCulture();
 
@@ -110,7 +107,7 @@ namespace WinYourDesktop
             // == ?
             tsmiHelp.Text = RM.GetString("tsmiHelp");
             tsmiAbout.Text = RM.GetString("tsmiAbout");
-            
+
             // ==== panelMain
             btnRun.Text = RM.GetString("btnRun");
             btnDebug.Text = RM.GetString("btnDebug");
@@ -144,11 +141,11 @@ namespace WinYourDesktop
             Home, Debugger, Settings
         }
 
-        void ToggleMode(ViewingMode pNewViewingMode)
+        void ToggleMode(ViewingMode viewmode)
         {
             SuspendLayout();
 
-            switch (pNewViewingMode)
+            switch (viewmode)
             {
                 case ViewingMode.Home:
                     tsmiHome.Checked =
@@ -157,8 +154,8 @@ namespace WinYourDesktop
                         tsmiSettings.Checked =
                         panelDebugger.Visible =
                         panelSettings.Visible = false;
-                    
-                        AdjustClientSize(panelMain);
+
+                    AdjustClientSize(panelMain);
                     break;
 
                 case ViewingMode.Debugger:
@@ -168,8 +165,8 @@ namespace WinYourDesktop
                         tsmiSettings.Checked =
                         panelMain.Visible =
                         panelSettings.Visible = false;
-                    
-                        AdjustClientSize(panelDebugger);
+
+                    AdjustClientSize(panelDebugger);
                     break;
 
                 case ViewingMode.Settings:
@@ -179,8 +176,8 @@ namespace WinYourDesktop
                         tsmiDebugger.Checked =
                         panelMain.Visible =
                         panelDebugger.Visible = false;
-                    
-                        AdjustClientSize(panelSettings);
+
+                    AdjustClientSize(panelSettings);
                     break;
             }
 

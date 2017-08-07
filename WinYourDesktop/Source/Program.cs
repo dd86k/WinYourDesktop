@@ -13,23 +13,11 @@ namespace WinYourDesktop
 {
     static class Program
     {
-        static string ProjectVersion
-        {
-            get
-            {
-                return
-                    GetExecutingAssembly().GetName().Version.ToString();
-            }
-        }
+        static string ProjectVersion =>
+            GetExecutingAssembly().GetName().Version.ToString();
 
-        static string ProjectName
-        {
-            get
-            {
-                return
-                    GetExecutingAssembly().GetName().Name;
-            }
-        }
+        static string ProjectName =>
+            GetExecutingAssembly().GetName().Name;
 
         /// <summary>
         /// The main entry point for the application.
@@ -74,14 +62,14 @@ namespace WinYourDesktop
             return err.ToInt();
         }
 
-        static void ShowForm(string pPath = null)
+        static void ShowForm(string path = null)
         {
             Application.EnableVisualStyles();
 
-            if (pPath == null)
+            if (path == null)
                 Application.Run(new FormMain());
             else
-                Application.Run(new FormMain(pPath));
+                Application.Run(new FormMain(path));
         }
     }
 }

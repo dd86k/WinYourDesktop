@@ -29,6 +29,10 @@ namespace WinYourDesktopLibrary
         enum DesktopFileType : byte
         {
             /// <summary>
+            /// Unknown header type. Default.
+            /// </summary>
+            Unknown,
+            /// <summary>
             /// Application type. (Exec)
             /// </summary>
             Application,
@@ -39,11 +43,7 @@ namespace WinYourDesktopLibrary
             /// <summary>
             /// Directory type. (Path)
             /// </summary>
-            Directory,
-            /// <summary>
-            /// Unknown header type. Default.
-            /// </summary>
-            Unknown
+            Directory
         }
         #endregion
 
@@ -55,26 +55,14 @@ namespace WinYourDesktopLibrary
         /// <summary>
         /// Get the current version of the library.
         /// </summary>
-        public static string ProjectVersion
-        {
-            get
-            {
-                return
-                    GetExecutingAssembly().GetName().Version.ToString();
-            }
-        }
+        public static string ProjectVersion =>
+            GetExecutingAssembly().GetName().Version.ToString();
 
         /// <summary>
         /// Get the name of the library (assembly name).
         /// </summary>
-        public static string ProjectName
-        {
-            get
-            {
-                return
-                    GetExecutingAssembly().GetName().Name;
-            }
-        }
+        public static string ProjectName =>
+            GetExecutingAssembly().GetName().Name;
         #endregion
 
         #region Public methods
@@ -108,7 +96,7 @@ namespace WinYourDesktopLibrary
                 WriteLine("File found.");
             
             // Defaults
-            DesktopFileType type = DesktopFileType.Unknown;
+            DesktopFileType type = default(DesktopFileType);
             string CurrentLine;
             ushort CurrentLineIndex = 0;
             string[] LineValues;
@@ -192,16 +180,15 @@ namespace WinYourDesktopLibrary
                                 break;
                                 
                             case "Terminal":
-                                if (LineValues[1].ToUpper() == "TRUE")
-                                    terminal = true;
+                                terminal = LineValues[1].ToUpper() == "TRUE";
 
-                                if (verbose)
-                                    WriteLine($"TERMINAL SET TRUE");
+                                if (terminal && verbose)
+                                    WriteLine("TERMINAL SET TRUE");
                                 break;
                         }
                     }
 
-                    CurrentLineIndex++;
+                    ++CurrentLineIndex;
                 } // End while
             } // End using
 
@@ -211,12 +198,9 @@ namespace WinYourDesktopLibrary
             if (string.IsNullOrWhiteSpace(value))
                 switch (type)
                 {
-                    case DesktopFileType.Application:
-                        return ErrorCode.FileMissingExecValue;
-                    case DesktopFileType.Link:
-                        return ErrorCode.FileMissingUrlValue;
-                    case DesktopFileType.Directory:
-                        return ErrorCode.FileMissingPathValue;
+                    case DesktopFileType.Application: return ErrorCode.FileMissingExecValue;
+                    case DesktopFileType.Link: return ErrorCode.FileMissingUrlValue;
+                    case DesktopFileType.Directory: return ErrorCode.FileMissingPathValue;
                 }
 
             if (value.Contains("%") || value.Contains("$"))
@@ -308,30 +292,14 @@ namespace WinYourDesktopLibrary
             if (verbose)
                 WriteLine("Started successfully.");
 
-            return 0; /// 0 is <see cref="ErrorCode.Success"/>
-        }
-
-        /// <summary>
-        /// Creates a dummy/example file in the current directory.
-        /// </summary>
-        static public void CreateExample()
-        {
-            using (TextWriter tw = new StreamWriter("Dummy.desktop", false))
-            {
-                tw.WriteLine("[Desktop Entry]");
-                tw.WriteLine("# This is a simple generated dummy desktop file.");
-                tw.WriteLine($"# Interpreter version: {ProjectVersion}");
-                tw.WriteLine("Type=Directory");
-                tw.WriteLine("Name=Open Windows Directory");
-                tw.WriteLine(@"Path=%WINDIR%");
-            }
+            return 0; // 0 is ErrorCode.Success
         }
         #endregion
 
         #region Private methods
-        static void ReplaceVars(ref string value, bool pVerbose)
+        static void ReplaceVars(ref string value, bool verbose)
         {
-            if (pVerbose)
+            if (verbose)
                 WriteLine("Variables detected! Running parser...");
 
             // Get the variables such as %USERNAME%, $HOME, etc.
@@ -339,7 +307,7 @@ namespace WinYourDesktopLibrary
                 Regex.Matches(value, @"(\$\w+)|(%\w+%)", RegexOptions.ECMAScript);
 
             // A dictionary of environment variables, please note that user variables
-            // are acted upon first. Proof: Type in "set" in a cmd session.
+            // are acted upon first. Proof: Execution "set" in a cmd session.
             IDictionary envs =
                 new Dictionary<string, string>(128, StringComparer.OrdinalIgnoreCase);
 
@@ -401,13 +369,13 @@ namespace WinYourDesktopLibrary
 
                 if (envs.Contains(t))
                 {
-                    if (pVerbose)
+                    if (verbose)
                         WriteLine($"Variable: {result.Value} -> {envs[t]}");
 
                     value =
                         value.Replace(result.Value, envs[t].ToString());
                 }
-                else if (pVerbose)
+                else if (verbose)
                     WriteLine($"ENV NOT FOUND: {t}");
             }
         }
